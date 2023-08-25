@@ -1,8 +1,8 @@
 #include <cstring>
 #include <iostream>
 using namespace std;
-const int N = 2e6 + 5;
-int n, m = 127, sa[N], rnk[N], tmp[N], cnt[N];
+const int N = 1e6 + 5;
+int n, m = 127, sa[N], rnk[N << 1], tmp[N << 1], cnt[N];
 string s;
 int main() {
     ios::sync_with_stdio(false);
