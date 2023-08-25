@@ -1,4 +1,3 @@
-#include <climits>
 #include <iostream>
 #include <random>
 #include <tuple>
@@ -80,8 +79,8 @@ int queryrank(int x) {
     return res;
 }
 int querykth(int x) {
-    if (x < 1) return INT_MIN;
-    if (x > tree[rt].siz) return INT_MAX;
+    if (x < 1) return numeric_limits<int>::min();
+    if (x > tree[rt].siz) return numeric_limits<int>::max();
     auto [l, m, r] = splitrank(rt, x);
     int res = tree[m].val;
     rt = merge(merge(l, m), r);

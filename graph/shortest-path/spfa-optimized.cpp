@@ -1,4 +1,3 @@
-#include <climits>
 #include <cstring>
 #include <iostream>
 #include <queue>
@@ -35,7 +34,7 @@ int main() {
     }
     spfa();
     for (int i = 1; i <= n; i++)
-        if (dis[i] == INF) cout << INT_MAX << ' ';
+        if (dis[i] == INF) cout << numeric_limits<int>::max() << ' ';
         else cout << dis[i] << ' ';
     return 0;
 }
