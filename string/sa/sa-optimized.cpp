@@ -1,9 +1,8 @@
-#include <climits>
 #include <cstring>
 #include <iostream>
 using namespace std;
 const int N = 2e6 + 5;
-int n, m = CHAR_MAX, sa[N], rnk[N], tmp[N], cnt[N];
+int n, m = 127, sa[N], rnk[N], tmp[N], cnt[N];
 string s;
 int main() {
     ios::sync_with_stdio(false);
