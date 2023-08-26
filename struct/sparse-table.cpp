@@ -10,8 +10,8 @@ void build() {
             f[i][j] = max(f[i][j - 1], f[i + (1 << (j - 1))][j - 1]);
 }
 int query(int l, int r) {
-    int x = log2(r - l + 1);
-    return max(f[l][x], f[r - (1 << x) + 1][x]);
+    int k = log2(r - l + 1);
+    return max(f[l][k], f[r - (1 << k) + 1][k]);
 }
 int main() {
     ios::sync_with_stdio(false);

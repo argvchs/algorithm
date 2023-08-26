@@ -18,50 +18,50 @@ void build() {
     for (int i = 1; i <= n; i++) belong[i] = (i - 1) / siz + 1;
     for (int i = 1; i <= tot; i++) mul[i] = 1, maintain(i);
 }
-void updatemul(int l, int r, int k) {
-    int x = belong[l], y = belong[r];
-    spread(x), spread(y);
-    if (x == y) {
-        for (int i = l; i <= r; i++) a[i] = (i64)a[i] * k % P;
-        maintain(x);
+void updatemul(int x, int y, int k) {
+    int l = belong[x], r = belong[y];
+    spread(l), spread(r);
+    if (l == r) {
+        for (int i = x; i <= y; i++) a[i] = (i64)a[i] * k % P;
+        maintain(l);
         return;
     }
-    for (int i = l; belong[i] == x; i++) a[i] = (i64)a[i] * k % P;
-    for (int i = r; belong[i] == y; i--) a[i] = (i64)a[i] * k % P;
-    maintain(x), maintain(y);
-    for (int i = x + 1; i <= y - 1; i++) {
+    for (int i = x; belong[i] == l; i++) a[i] = (i64)a[i] * k % P;
+    for (int i = y; belong[i] == r; i--) a[i] = (i64)a[i] * k % P;
+    maintain(l), maintain(r);
+    for (int i = l + 1; i <= r - 1; i++) {
         sum[i] = (i64)sum[i] * k % P;
         add[i] = (i64)add[i] * k % P;
         mul[i] = (i64)mul[i] * k % P;
     }
 }
-void updateadd(int l, int r, int k) {
-    int x = belong[l], y = belong[r];
-    spread(x), spread(y);
-    if (x == y) {
-        for (int i = l; i <= r; i++) a[i] = (a[i] + k) % P;
-        maintain(x);
+void updateadd(int x, int y, int k) {
+    int l = belong[x], r = belong[y];
+    spread(l), spread(r);
+    if (l == r) {
+        for (int i = x; i <= y; i++) a[i] = (a[i] + k) % P;
+        maintain(l);
         return;
     }
-    for (int i = l; belong[i] == x; i++) a[i] = (a[i] + k) % P;
-    for (int i = r; belong[i] == y; i--) a[i] = (a[i] + k) % P;
-    maintain(x), maintain(y);
-    for (int i = x + 1; i <= y - 1; i++) {
+    for (int i = x; belong[i] == l; i++) a[i] = (a[i] + k) % P;
+    for (int i = y; belong[i] == r; i--) a[i] = (a[i] + k) % P;
+    maintain(l), maintain(r);
+    for (int i = l + 1; i <= r - 1; i++) {
         sum[i] = (sum[i] + (i64)siz * k) % P;
         add[i] = (add[i] + k) % P;
     }
 }
-int query(int l, int r) {
-    int x = belong[l], y = belong[r], res = 0;
-    spread(x), spread(y);
-    if (x == y) {
-        for (int i = l; i <= r; i++) res = (res + a[i]) % P;
+int query(int x, int y) {
+    int l = belong[x], r = belong[y], res = 0;
+    spread(l), spread(r);
+    if (l == r) {
+        for (int i = x; i <= y; i++) res = (res + a[i]) % P;
         return res;
     }
-    for (int i = l; belong[i] == x; i++) res = (res + a[i]) % P;
-    for (int i = r; belong[i] == y; i--) res = (res + a[i]) % P;
-    maintain(x), maintain(y);
-    for (int i = x + 1; i <= y - 1; i++) res = (res + sum[i]) % P;
+    for (int i = x; belong[i] == l; i++) res = (res + a[i]) % P;
+    for (int i = y; belong[i] == r; i--) res = (res + a[i]) % P;
+    maintain(l), maintain(r);
+    for (int i = l + 1; i <= r - 1; i++) res = (res + sum[i]) % P;
     return res;
 }
 int main() {
