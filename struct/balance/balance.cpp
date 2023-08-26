@@ -1,4 +1,5 @@
 #include <iostream>
+#include <numeric>
 #include <random>
 #include <tuple>
 using namespace std;

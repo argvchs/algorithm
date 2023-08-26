@@ -1,5 +1,6 @@
 #include <cstring>
 #include <iostream>
+#include <numeric>
 #include <queue>
 using namespace std;
 const int N = 1e5 + 5, INF = 0x3f3f3f3f;
