@@ -5,7 +5,7 @@
 #include <tuple>
 using namespace std;
 const int N = 1e4 + 5;
-int n, m, a[N], b[N], dfn[N], low[N], belong[N], id[N], dis[N], cnt, tot, ans;
+int n, m, a[N], b[N], dfn[N], low[N], belong[N], deg[N], dis[N], cnt, tot, ans;
 bool vis[N];
 vector<int> G[N], H[N];
 vector<pair<int, int>> E;
@@ -32,7 +32,7 @@ void tarjan(int u) {
 }
 void toposort() {
     for (int i = 1; i <= tot; i++)
-        if (!id[i]) {
+        if (!deg[i]) {
             Q.push(i);
             dis[i] = b[i];
         }
@@ -41,7 +41,7 @@ void toposort() {
         Q.pop();
         for (int v : H[u]) {
             dis[v] = max(dis[v], dis[u] + b[v]);
-            if (!--id[v]) Q.push(v);
+            if (!--deg[v]) Q.push(v);
         }
     }
 }
@@ -60,7 +60,7 @@ int main() {
     for (auto [u, v] : E)
         if (belong[u] != belong[v]) {
             H[belong[u]].push_back(belong[v]);
-            ++id[belong[v]];
+            ++deg[belong[v]];
         }
     toposort();
     for (int i = 1; i <= tot; i++) ans = max(ans, dis[i]);

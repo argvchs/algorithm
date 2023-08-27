@@ -2,12 +2,12 @@
 #include <queue>
 using namespace std;
 const int N = 1e4 + 5;
-int n, id[N];
+int n, deg[N];
 vector<int> G[N], ans;
 queue<int> Q;
 void toposort() {
     for (int i = 1; i <= n; i++)
-        if (!id[i]) {
+        if (!deg[i]) {
             ans.push_back(i);
             Q.push(i);
         }
@@ -15,7 +15,7 @@ void toposort() {
         int u = Q.front();
         Q.pop();
         for (int v : G[u])
-            if (!--id[v]) {
+            if (!--deg[v]) {
                 ans.push_back(v);
                 Q.push(v);
             }
@@ -27,7 +27,7 @@ int main() {
     cin >> n;
     for (int i = 1, u; i <= n; i++)
         while (cin >> u && u) {
-            ++id[u];
+            ++deg[u];
             G[i].push_back(u);
         }
     toposort();

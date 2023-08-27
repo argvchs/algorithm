@@ -11,8 +11,9 @@ bool vis[N];
 vector<tuple<int, i64, int>> G[N];
 queue<int> Q;
 void addflow(int u, int v, i64 w) {
-    G[u].emplace_back(v, w, G[v].size());
-    G[v].emplace_back(u, 0, G[u].size() - 1);
+    int i = G[u].size(), j = G[v].size();
+    G[u].emplace_back(v, w, j);
+    G[v].emplace_back(u, 0, i);
 }
 bool bfs() {
     memset(dep, 0x3f, sizeof(dep));
@@ -22,7 +23,7 @@ bool bfs() {
     while (!Q.empty()) {
         int u = Q.front();
         Q.pop();
-        for (auto [v, w, rev] : G[u])
+        for (auto [v, w, i] : G[u])
             if (!vis[v] && w) {
                 dep[v] = dep[u] + 1, vis[v] = true;
                 Q.push(v);
@@ -34,10 +35,10 @@ int dfs(int u, i64 flow) {
     if (u == t) return flow;
     i64 used = 0;
     for (int &i = cur[u]; i < G[u].size(); i++) {
-        auto [v, w, rev] = G[u][i];
+        auto [v, w, j] = G[u][i];
         if (dep[v] == dep[u] + 1 && w) {
             i64 res = dfs(v, min(flow - used, w));
-            used += res, get<1>(G[u][i]) -= res, get<1>(G[v][rev]) += res;
+            used += res, get<1>(G[u][i]) -= res, get<1>(G[v][j]) += res;
             if (used == flow) break;
         }
     }

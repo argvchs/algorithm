@@ -10,8 +10,9 @@ vector<tuple<int, int, int, int>> G[N];
 queue<int> Q;
 priority_queue<pair<int, int>, vector<pair<int, int>>, greater<>> PQ;
 void addflow(int u, int v, int w, int c) {
-    G[u].emplace_back(v, w, +c, G[v].size());
-    G[v].emplace_back(u, 0, -c, G[u].size() - 1);
+    int i = G[u].size(), j = G[v].size();
+    G[u].emplace_back(v, w, +c, j);
+    G[v].emplace_back(u, 0, -c, i);
 }
 void spfa() {
     memset(h, 0x3f, sizeof(h));
@@ -21,7 +22,7 @@ void spfa() {
     while (!Q.empty()) {
         int u = Q.front();
         vis[u] = false, Q.pop();
-        for (auto [v, w, c, rev] : G[u])
+        for (auto [v, w, c, i] : G[u])
             if (h[v] > h[u] + c && w) {
                 h[v] = h[u] + c;
                 if (!vis[v]) vis[v] = true, Q.push(v);
@@ -37,7 +38,7 @@ bool dijkstra() {
         PQ.pop();
         if (vis[u]) continue;
         vis[u] = true;
-        for (auto [v, w, c, rev] : G[u])
+        for (auto [v, w, c, j] : G[u])
             if (dis[v] > dis[u] + c + h[u] - h[v] && w) {
                 dis[v] = dis[u] + c + h[u] - h[v];
                 PQ.emplace(dis[v], v);
@@ -50,10 +51,10 @@ int dfs(int u, int flow) {
     int used = 0;
     vis[u] = true;
     for (int &i = cur[u]; i < G[u].size(); i++) {
-        auto [v, w, c, rev] = G[u][i];
+        auto [v, w, c, j] = G[u][i];
         if (!vis[v] && dis[v] == dis[u] + c + h[u] - h[v] && w) {
             int res = dfs(v, min(flow - used, w));
-            used += res, get<1>(G[u][i]) -= res, get<1>(G[v][rev]) += res;
+            used += res, get<1>(G[u][i]) -= res, get<1>(G[v][j]) += res;
             if (used == flow) break;
         }
     }
