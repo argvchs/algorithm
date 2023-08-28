@@ -1,14 +1,18 @@
 #include <iostream>
-#include <vector>
 using namespace std;
-const int N = 1e6 + 5;
-int n, m, s, f[N][25], dep[N];
-vector<int> G[N];
+const int N = 5e5 + 5;
+int n, m, s, f[N][25], dep[N], head[N], cnt;
+struct edge {
+    int to, next;
+} e[N << 1];
+void add(int u, int v) { e[++cnt] = {v, head[u]}, head[u] = cnt; }
 void dfs(int u, int fa) {
     f[u][0] = fa, dep[u] = dep[fa] + 1;
     for (int i = 1; i <= 20; i++) f[u][i] = f[f[u][i - 1]][i - 1];
-    for (int v : G[u])
+    for (int i = head[u]; i; i = e[i].next) {
+        int v = e[i].to;
         if (v != fa) dfs(v, u);
+    }
 }
 int lca(int u, int v) {
     if (dep[u] < dep[v]) swap(u, v);
@@ -25,8 +29,7 @@ int main() {
     cin >> n >> m >> s;
     for (int i = 1, u, v; i <= n - 1; i++) {
         cin >> u >> v;
-        G[u].push_back(v);
-        G[v].push_back(u);
+        add(u, v), add(v, u);
     }
     dfs(s, 0);
     for (int i = 1, u, v; i <= m; i++) {

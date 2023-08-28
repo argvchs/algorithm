@@ -1,20 +1,17 @@
 #include <cstring>
 #include <iostream>
 #include <queue>
-#include <tuple>
 using namespace std;
 using i64 = long long;
-const int N = 205, INF = 0x3f3f3f3f;
-int n, m, s, t, dep[N], cur[N];
+const int N = 205, M = 5005, INF = 0x3f3f3f3f;
+int n, m, s, t, dep[N], cur[N], head[N], cnt = 1;
 i64 ans;
 bool vis[N];
-vector<tuple<int, i64, int>> G[N];
 queue<int> Q;
-void addflow(int u, int v, i64 w) {
-    int i = G[u].size(), j = G[v].size();
-    G[u].emplace_back(v, w, j);
-    G[v].emplace_back(u, 0, i);
-}
+struct edge {
+    int to, next, w;
+} e[M << 1];
+void add(int u, int v, int w) { e[++cnt] = {v, head[u], w}, head[u] = cnt; }
 bool bfs() {
     memset(dep, 0x3f, sizeof(dep));
     memset(vis, 0, sizeof(vis));
@@ -23,22 +20,24 @@ bool bfs() {
     while (!Q.empty()) {
         int u = Q.front();
         Q.pop();
-        for (auto [v, w, i] : G[u])
+        for (int i = head[u]; i; i = e[i].next) {
+            int v = e[i].to, w = e[i].w;
             if (!vis[v] && w) {
                 dep[v] = dep[u] + 1, vis[v] = true;
                 Q.push(v);
             }
+        }
     }
     return dep[t] != INF;
 }
-int dfs(int u, i64 flow) {
+int dfs(int u, int flow) {
     if (u == t) return flow;
-    i64 used = 0;
-    for (int &i = cur[u]; i < G[u].size(); i++) {
-        auto [v, w, j] = G[u][i];
+    int used = 0;
+    for (int &i = cur[u]; i; i = e[i].next) {
+        int v = e[i].to, w = e[i].w;
         if (dep[v] == dep[u] + 1 && w) {
-            i64 res = dfs(v, min(flow - used, w));
-            used += res, get<1>(G[u][i]) -= res, get<1>(G[v][j]) += res;
+            int res = dfs(v, min(flow - used, w));
+            used += res, e[i].w -= res, e[i ^ 1].w += res;
             if (used == flow) break;
         }
     }
@@ -47,7 +46,7 @@ int dfs(int u, i64 flow) {
 void dinic() {
     int res;
     while (bfs()) {
-        memset(cur, 0, sizeof(cur));
+        memcpy(cur, head, sizeof(cur));
         while ((res = dfs(s, INF))) ans += res;
     }
 }
@@ -57,7 +56,8 @@ int main() {
     cin >> n >> m >> s >> t;
     for (int i = 1, u, v, w; i <= m; i++) {
         cin >> u >> v >> w;
-        addflow(u, v, w);
+        add(u, v, w);
+        add(v, u, 0);
     }
     dinic();
     cout << ans;

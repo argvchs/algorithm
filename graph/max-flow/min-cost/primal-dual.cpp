@@ -1,19 +1,16 @@
 #include <cstring>
 #include <iostream>
 #include <queue>
-#include <tuple>
 using namespace std;
-const int N = 5e3 + 5, INF = 0x3f3f3f3f;
-int n, m, s, t, h[N], dis[N], cur[N], ansflow, anscost;
+const int N = 5e3 + 5, M = 5e4 + 5, INF = 0x3f3f3f3f;
+int n, m, s, t, h[N], dis[N], cur[N], head[N], cnt = 1, ansflow, anscost;
 bool vis[N];
-vector<tuple<int, int, int, int>> G[N];
 queue<int> Q;
 priority_queue<pair<int, int>, vector<pair<int, int>>, greater<>> PQ;
-void addflow(int u, int v, int w, int c) {
-    int i = G[u].size(), j = G[v].size();
-    G[u].emplace_back(v, w, +c, j);
-    G[v].emplace_back(u, 0, -c, i);
-}
+struct edge {
+    int to, next, w, c;
+} e[M << 1];
+void add(int u, int v, int w, int c) { e[++cnt] = {v, head[u], w, c}, head[u] = cnt; }
 void spfa() {
     memset(h, 0x3f, sizeof(h));
     memset(vis, 0, sizeof(vis));
@@ -22,11 +19,13 @@ void spfa() {
     while (!Q.empty()) {
         int u = Q.front();
         vis[u] = false, Q.pop();
-        for (auto [v, w, c, i] : G[u])
+        for (int i = head[u]; i; i = e[i].next) {
+            int v = e[i].to, w = e[i].w, c = e[i].c;
             if (h[v] > h[u] + c && w) {
                 h[v] = h[u] + c;
                 if (!vis[v]) vis[v] = true, Q.push(v);
             }
+        }
     }
 }
 bool dijkstra() {
@@ -38,11 +37,13 @@ bool dijkstra() {
         PQ.pop();
         if (vis[u]) continue;
         vis[u] = true;
-        for (auto [v, w, c, j] : G[u])
+        for (int i = head[u]; i; i = e[i].next) {
+            int v = e[i].to, w = e[i].w, c = e[i].c;
             if (dis[v] > dis[u] + c + h[u] - h[v] && w) {
                 dis[v] = dis[u] + c + h[u] - h[v];
                 PQ.emplace(dis[v], v);
             }
+        }
     }
     return dis[t] != INF;
 }
@@ -50,11 +51,11 @@ int dfs(int u, int flow) {
     if (u == t) return flow;
     int used = 0;
     vis[u] = true;
-    for (int &i = cur[u]; i < G[u].size(); i++) {
-        auto [v, w, c, j] = G[u][i];
+    for (int &i = cur[u]; i; i = e[i].next) {
+        int v = e[i].to, w = e[i].w, c = e[i].c;
         if (!vis[v] && dis[v] == dis[u] + c + h[u] - h[v] && w) {
             int res = dfs(v, min(flow - used, w));
-            used += res, get<1>(G[u][i]) -= res, get<1>(G[v][j]) += res;
+            used += res, e[i].w -= res, e[i ^ 1].w += res;
             if (used == flow) break;
         }
     }
@@ -66,7 +67,7 @@ void dinic() {
     spfa();
     while (dijkstra()) {
         memset(vis, 0, sizeof(vis));
-        memset(cur, 0, sizeof(cur));
+        memcpy(cur, head, sizeof(cur));
         while ((res = dfs(s, INF))) ansflow += res, anscost += res * (dis[t] + h[t]);
         for (int i = 1; i <= n; i++) h[i] += dis[i];
     }
@@ -77,7 +78,8 @@ int main() {
     cin >> n >> m >> s >> t;
     for (int i = 1, u, v, w, c; i <= m; i++) {
         cin >> u >> v >> w >> c;
-        addflow(u, v, w, c);
+        add(u, v, w, c);
+        add(v, u, 0, -c);
     }
     dinic();
     cout << ansflow << ' ' << anscost;

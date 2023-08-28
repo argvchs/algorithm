@@ -2,23 +2,26 @@
 #include <iostream>
 #include <queue>
 #include <stack>
-#include <tuple>
 using namespace std;
-const int N = 1e4 + 5;
-int n, m, a[N], b[N], dfn[N], low[N], belong[N], deg[N], dis[N], idx, tot, ans;
+const int N = 1e4 + 5, M = 1e5 + 5;
+int n, m, a[N], b[N], dfn[N], low[N], belong[N], deg[N], dis[N], head[N], idx, cnt, tot, ans;
 bool vis[N];
-vector<int> G[N], H[N];
-vector<pair<int, int>> E;
+struct edge {
+    int from, to, next;
+} e[M << 1];
+void add(int u, int v) { e[++cnt] = {u, v, head[u]}, head[u] = cnt; }
 stack<int> S;
 queue<int> Q;
 void tarjan(int u) {
     dfn[u] = low[u] = ++idx, vis[u] = true;
     S.push(u);
-    for (int v : G[u])
+    for (int i = head[u]; i; i = e[i].next) {
+        int v = e[i].to;
         if (!dfn[v]) {
             tarjan(v);
             low[u] = min(low[u], low[v]);
         } else if (vis[v]) low[u] = min(low[u], dfn[v]);
+    }
     if (dfn[u] == low[u]) {
         ++tot;
         while (S.top() != u) {
@@ -33,13 +36,14 @@ void tarjan(int u) {
 void toposort() {
     for (int i = 1; i <= tot; i++)
         if (!deg[i]) {
-            Q.push(i);
             dis[i] = b[i];
+            Q.push(i);
         }
     while (!Q.empty()) {
         int u = Q.front();
         Q.pop();
-        for (int v : H[u]) {
+        for (int i = head[u]; i; i = e[i].next) {
+            int v = e[i].to;
             dis[v] = max(dis[v], dis[u] + b[v]);
             if (!--deg[v]) Q.push(v);
         }
@@ -52,16 +56,19 @@ int main() {
     for (int i = 1; i <= n; i++) cin >> a[i];
     for (int i = 1, u, v; i <= m; i++) {
         cin >> u >> v;
-        G[u].push_back(v);
-        E.emplace_back(u, v);
+        add(u, v);
     }
     for (int i = 1; i <= n; i++)
         if (!dfn[i]) tarjan(i);
-    for (auto [u, v] : E)
+    memset(head, 0, sizeof(head));
+    cnt = 0;
+    for (int i = 1; i <= m; i++) {
+        int u = e[i].from, v = e[i].to;
         if (belong[u] != belong[v]) {
-            H[belong[u]].push_back(belong[v]);
+            add(belong[u], belong[v]);
             ++deg[belong[v]];
         }
+    }
     toposort();
     for (int i = 1; i <= tot; i++) ans = max(ans, dis[i]);
     cout << ans;

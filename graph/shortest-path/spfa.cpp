@@ -3,11 +3,14 @@
 #include <numeric>
 #include <queue>
 using namespace std;
-const int N = 1e5 + 5, INF = 0x3f3f3f3f;
-int n, m, s, dis[N];
+const int N = 1e5 + 5, M = 5e5 + 5, INF = 0x3f3f3f3f;
+int n, m, s, dis[N], head[N], cnt;
 bool vis[N];
-vector<pair<int, int>> G[N];
 queue<int> Q;
+struct edge {
+    int to, next, w;
+} e[M << 1];
+void add(int u, int v, int w) { e[++cnt] = {v, head[u], w}, head[u] = cnt; }
 void spfa() {
     memset(dis, 0x3f, sizeof(dis));
     dis[s] = 0, vis[s] = true;
@@ -15,11 +18,13 @@ void spfa() {
     while (!Q.empty()) {
         int u = Q.front();
         vis[u] = false, Q.pop();
-        for (auto [v, w] : G[u])
+        for (int i = head[u]; i; i = e[i].next) {
+            int v = e[i].to, w = e[i].w;
             if (dis[v] > dis[u] + w) {
                 dis[v] = dis[u] + w;
                 if (!vis[v]) vis[v] = true, Q.push(v);
             }
+        }
     }
 }
 int main() {
@@ -28,7 +33,7 @@ int main() {
     cin >> n >> m >> s;
     for (int i = 1, u, v, w; i <= m; i++) {
         cin >> u >> v >> w;
-        G[u].emplace_back(v, w);
+        add(u, v, w);
     }
     spfa();
     for (int i = 1; i <= n; i++)

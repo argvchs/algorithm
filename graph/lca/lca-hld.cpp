@@ -1,24 +1,30 @@
 #include <iostream>
-#include <vector>
 using namespace std;
 const int N = 5e5 + 5;
-int n, m, s, fa[N], dep[N], siz[N], ch[N], top[N];
-vector<int> G[N];
+int n, m, s, fa[N], dep[N], siz[N], ch[N], top[N], head[N], cnt;
+struct edge {
+    int to, next;
+} e[N << 1];
+void add(int u, int v) { e[++cnt] = {v, head[u]}, head[u] = cnt; }
 void dfs1(int u, int fa) {
     ::fa[u] = fa, dep[u] = dep[fa] + 1, siz[u] = 1;
-    for (int v : G[u])
+    for (int i = head[u]; i; i = e[i].next) {
+        int v = e[i].to;
         if (v != fa) {
             dfs1(v, u);
             siz[u] += siz[v];
             if (siz[v] > siz[ch[u]]) ch[u] = v;
         }
+    }
 }
 void dfs2(int u, int top) {
     ::top[u] = top;
     if (!ch[u]) return;
     dfs2(ch[u], top);
-    for (int v : G[u])
+    for (int i = head[u]; i; i = e[i].next) {
+        int v = e[i].to;
         if (v != fa[u] && v != ch[u]) dfs2(v, v);
+    }
 }
 int lca(int u, int v) {
     while (top[u] != top[v])
@@ -33,8 +39,7 @@ int main() {
     cin >> n >> m >> s;
     for (int i = 1, u, v; i <= n - 1; i++) {
         cin >> u >> v;
-        G[u].push_back(v);
-        G[v].push_back(u);
+        add(u, v), add(v, u);
     }
     dfs1(s, 0);
     dfs2(s, s);

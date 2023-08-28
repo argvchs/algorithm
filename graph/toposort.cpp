@@ -1,24 +1,29 @@
 #include <iostream>
 #include <queue>
 using namespace std;
-const int N = 1e4 + 5;
-int n, deg[N];
-vector<int> G[N], ans;
+const int N = 105;
+int n, deg[N], head[N], cnt;
+struct edge {
+    int to, next;
+} e[N << 1];
+void add(int u, int v) { e[++cnt] = {v, head[u]}, head[u] = cnt; }
 queue<int> Q;
 void toposort() {
     for (int i = 1; i <= n; i++)
         if (!deg[i]) {
-            ans.push_back(i);
+            cout << i << ' ';
             Q.push(i);
         }
     while (!Q.empty()) {
         int u = Q.front();
         Q.pop();
-        for (int v : G[u])
+        for (int i = head[u]; i; i = e[i].next) {
+            int v = e[i].to;
             if (!--deg[v]) {
-                ans.push_back(v);
+                cout << v << ' ';
                 Q.push(v);
             }
+        }
     }
 }
 int main() {
@@ -28,9 +33,8 @@ int main() {
     for (int i = 1, u; i <= n; i++)
         while (cin >> u && u) {
             ++deg[u];
-            G[i].push_back(u);
+            add(i, u);
         }
     toposort();
-    for (auto i : ans) cout << i << ' ';
     return 0;
 }
