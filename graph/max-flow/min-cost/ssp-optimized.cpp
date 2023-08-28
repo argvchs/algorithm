@@ -12,7 +12,7 @@ struct edge {
 void add(int u, int v, int w, int c) { e[++cnt] = {v, head[u], w, c}, head[u] = cnt; }
 bool spfa() {
     memset(dis, 0x3f, sizeof(dis));
-    memset(vis, 0, sizeof(vis));
+    memset(vis, false, sizeof(vis));
     dis[s] = 0, vis[s] = true;
     Q.push(s);
     while (!Q.empty()) {

@@ -13,7 +13,7 @@ struct edge {
 void add(int u, int v, int w, int c) { e[++cnt] = {v, head[u], w, c}, head[u] = cnt; }
 void spfa() {
     memset(h, 0x3f, sizeof(h));
-    memset(vis, 0, sizeof(vis));
+    memset(vis, false,sizeof(vis));
     h[s] = 0, vis[s] = true;
     Q.push(s);
     while (!Q.empty()) {
@@ -30,7 +30,7 @@ void spfa() {
 }
 bool dijkstra() {
     memset(dis, 0x3f, sizeof(dis));
-    memset(vis, 0, sizeof(vis));
+    memset(vis, false, sizeof(vis));
     PQ.emplace(dis[s] = 0, s);
     while (!PQ.empty()) {
         int u = PQ.top().second;
@@ -66,8 +66,8 @@ void dinic() {
     int res;
     spfa();
     while (dijkstra()) {
-        memset(vis, 0, sizeof(vis));
         memcpy(cur, head, sizeof(cur));
+        memset(vis, false, sizeof(vis));
         while ((res = dfs(s, INF))) ansflow += res, anscost += res * (dis[t] + h[t]);
         for (int i = 1; i <= n; i++) h[i] += dis[i];
     }

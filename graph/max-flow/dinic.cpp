@@ -14,7 +14,7 @@ struct edge {
 void add(int u, int v, int w) { e[++cnt] = {v, head[u], w}, head[u] = cnt; }
 bool bfs() {
     memset(dep, 0x3f, sizeof(dep));
-    memset(vis, 0, sizeof(vis));
+    memset(vis, false, sizeof(vis));
     dep[s] = 1, vis[s] = true;
     Q.push(s);
     while (!Q.empty()) {
