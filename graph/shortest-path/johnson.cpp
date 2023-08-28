@@ -4,7 +4,7 @@
 using namespace std;
 using i64 = long long;
 const int N = 1e5 + 5, INF = 0x3f3f3f3f;
-int n, m, s, h[N], dis[N], cnt[N];
+int n, m, s, h[N], dis[N], tot[N];
 i64 ans;
 bool vis[N];
 vector<pair<int, int>> G[N];
@@ -23,7 +23,7 @@ bool spfa() {
                 h[v] = h[u] + w;
                 if (!vis[v]) {
                     vis[v] = true, Q.push(v);
-                    if (++cnt[v] == n + 1) return false;
+                    if (++tot[v] == n + 1) return false;
                 }
             }
     }

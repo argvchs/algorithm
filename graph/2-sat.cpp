@@ -3,12 +3,12 @@
 #include <vector>
 using namespace std;
 const int N = 2e6 + 5;
-int n, m, dfn[N], low[N], belong[N], cnt, tot, ans;
+int n, m, dfn[N], low[N], belong[N], idx, tot, ans;
 bool vis[N];
 vector<int> G[N];
 stack<int> S;
 void tarjan(int u) {
-    dfn[u] = low[u] = ++cnt, vis[u] = true;
+    dfn[u] = low[u] = ++idx, vis[u] = true;
     S.push(u);
     for (int v : G[u])
         if (!dfn[v]) {

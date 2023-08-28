@@ -5,14 +5,14 @@
 #include <tuple>
 using namespace std;
 const int N = 1e4 + 5;
-int n, m, a[N], b[N], dfn[N], low[N], belong[N], deg[N], dis[N], cnt, tot, ans;
+int n, m, a[N], b[N], dfn[N], low[N], belong[N], deg[N], dis[N], idx, tot, ans;
 bool vis[N];
 vector<int> G[N], H[N];
 vector<pair<int, int>> E;
 stack<int> S;
 queue<int> Q;
 void tarjan(int u) {
-    dfn[u] = low[u] = ++cnt, vis[u] = true;
+    dfn[u] = low[u] = ++idx, vis[u] = true;
     S.push(u);
     for (int v : G[u])
         if (!dfn[v]) {

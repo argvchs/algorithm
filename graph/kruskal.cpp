@@ -4,7 +4,7 @@
 #include <vector>
 using namespace std;
 const int N = 5005;
-int n, m, fa[N], siz[N], cnt, ans;
+int n, m, fa[N], siz[N], tot, ans;
 vector<tuple<int, int, int>> E;
 int find(int u) { return u == fa[u] ? u : fa[u] = find(fa[u]); }
 int main() {
@@ -22,9 +22,9 @@ int main() {
         if (u == v) continue;
         if (siz[u] < siz[v]) swap(u, v);
         fa[v] = u, siz[u] += siz[v];
-        ++cnt, ans += w;
+        ++tot, ans += w;
     }
-    if (cnt == n - 1) cout << ans;
+    if (tot == n - 1) cout << ans;
     else cout << "orz";
     return 0;
 }
