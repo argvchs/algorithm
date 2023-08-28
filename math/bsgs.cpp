@@ -15,11 +15,11 @@ int quickpow(int a, int b, int p) {
 }
 bool bsgs(int a, int b, int p) {
     siz = sqrt(p) + 1;
-    int y = quickpow(a, siz, p);
-    for (int i = 0, x = b; i <= siz; i++, x = (i64)x * a % p) M[x] = i;
-    for (int i = 1, x = y; i <= siz; i++, x = (i64)x * y % p)
-        if (M.contains(x)) {
-            ans = (i64)i * siz - M[x];
+    int k = quickpow(a, siz, p);
+    for (int i = 0, j = b; i <= siz; i++, j = (i64)j * a % p) M[j] = i;
+    for (int i = 1, j = k; i <= siz; i++, j = (i64)j * k % p)
+        if (M.count(j)) {
+            ans = (i64)i * siz - M[j];
             return true;
         }
     return false;
