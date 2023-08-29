@@ -19,7 +19,7 @@ void toposort() {
         Q.pop();
         for (int i = head[u]; i; i = e[i].next) {
             int v = e[i].to;
-            if (!--deg[v]) {
+            if (--deg[v] == 0) {
                 cout << v << ' ';
                 Q.push(v);
             }
