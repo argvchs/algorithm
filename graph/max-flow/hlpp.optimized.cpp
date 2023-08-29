@@ -76,7 +76,7 @@ void hlpp() {
         int u = S[top].top();
         S[top].pop();
         if (push(u)) {
-            if (--gap[ht[u]] == 0)
+            if (!--gap[ht[u]])
                 for (int i = 1; i <= n; i++)
                     if (i != s && ht[i] > ht[u]) ht[i] = n + 1;
             relabel(u);

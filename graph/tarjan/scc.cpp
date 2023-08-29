@@ -45,7 +45,7 @@ void toposort() {
         for (int i = head[u]; i; i = e[i].next) {
             int v = e[i].to;
             dis[v] = max(dis[v], dis[u] + b[v]);
-            if (--deg[v] == 0) Q.push(v);
+            if (!--deg[v]) Q.push(v);
         }
     }
 }
