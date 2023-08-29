@@ -23,14 +23,11 @@ void tarjan(int u) {
         } else if (vis[v]) low[u] = min(low[u], dfn[v]);
     }
     if (dfn[u] == low[u]) {
-        ++tot;
-        while (S.top() != u) {
-            int v = S.top();
-            b[belong[v] = tot] += a[v], vis[v] = false;
-            S.pop();
-        }
-        b[belong[u] = tot] += a[u], vis[u] = false;
-        S.pop();
+        int pre = ++tot;
+        do {
+            pre = S.top(), S.pop();
+            b[belong[pre] = tot] += a[pre], vis[pre] = false;
+        } while (pre != u);
     }
 }
 void toposort() {
