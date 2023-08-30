@@ -12,6 +12,10 @@ struct edge {
     int to, next, w;
 } e[M << 1];
 void add(int u, int v, int w) { e[++cnt] = {v, head[u], w}, head[u] = cnt; }
+void addflow(int u, int v, int w) {
+    add(u, v, w);
+    add(v, u, 0);
+}
 bool bfs() {
     memset(ht, 0x3f, sizeof(ht));
     ht[t] = 0, vis[t] = true;
@@ -83,8 +87,7 @@ int main() {
     cin >> n >> m >> s >> t;
     for (int i = 1, u, v, w; i <= m; i++) {
         cin >> u >> v >> w;
-        add(u, v, w);
-        add(v, u, 0);
+        addflow(u, v, w);
     }
     hlpp();
     cout << ex[t];

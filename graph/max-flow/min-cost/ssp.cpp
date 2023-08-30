@@ -10,6 +10,10 @@ struct edge {
     int to, next, w, c;
 } e[M << 1];
 void add(int u, int v, int w, int c) { e[++cnt] = {v, head[u], w, c}, head[u] = cnt; }
+void addflow(int u, int v, int w, int c) {
+    add(u, v, w, c);
+    add(v, u, 0, -c);
+}
 bool spfa() {
     memset(dis, 0x3f, sizeof(dis));
     memset(vis, false, sizeof(vis));
@@ -56,8 +60,7 @@ int main() {
     cin >> n >> m >> s >> t;
     for (int i = 1, u, v, w, c; i <= m; i++) {
         cin >> u >> v >> w >> c;
-        add(u, v, w, c);
-        add(v, u, 0, -c);
+        addflow(u, v, w, c);
     }
     dinic();
     cout << ansflow << ' ' << anscost;

@@ -17,13 +17,13 @@ void dfs1(int u, int fa) {
         }
     }
 }
-void dfs2(int u, int top) {
+void dfs2(int u, int fa, int top) {
     ::top[u] = top;
     if (!ch[u]) return;
-    dfs2(ch[u], top);
+    dfs2(ch[u], u, top);
     for (int i = head[u]; i; i = e[i].next) {
         int v = e[i].to;
-        if (v != fa[u] && v != ch[u]) dfs2(v, v);
+        if (v != fa && v != ch[u]) dfs2(v, u, v);
     }
 }
 int lca(int u, int v) {
@@ -42,7 +42,7 @@ int main() {
         add(u, v), add(v, u);
     }
     dfs1(s, 0);
-    dfs2(s, s);
+    dfs2(s, 0, s);
     for (int i = 1, u, v; i <= m; i++) {
         cin >> u >> v;
         cout << lca(u, v) << '\n';

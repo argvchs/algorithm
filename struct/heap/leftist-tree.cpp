@@ -43,7 +43,7 @@ int main() {
             rt[u] = merge(rt[u], rt[v]);
         } else {
             if (vis[u]) {
-                cout << -1 << '\n';
+                cout << "-1\n";
                 continue;
             }
             auto [val, id] = tree[rt[u = find(u)]].val;
