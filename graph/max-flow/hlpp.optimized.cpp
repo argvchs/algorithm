@@ -81,7 +81,7 @@ void hlpp() {
                     if (i != s && ht[i] > ht[u]) ht[i] = n + 1;
             relabel(u);
         }
-        while (!S[top].size() && top) --top;
+        while (S[top].empty() && top) --top;
     }
 }
 int main() {

@@ -2,7 +2,7 @@
 #include <queue>
 using namespace std;
 const int N = 105;
-int n, deg[N], head[N], cnt;
+int n, in[N], head[N], cnt;
 struct edge {
     int to, next;
 } e[N << 1];
@@ -10,7 +10,7 @@ void add(int u, int v) { e[++cnt] = {v, head[u]}, head[u] = cnt; }
 queue<int> Q;
 void toposort() {
     for (int i = 1; i <= n; i++)
-        if (!deg[i]) {
+        if (!in[i]) {
             cout << i << ' ';
             Q.push(i);
         }
@@ -19,7 +19,7 @@ void toposort() {
         Q.pop();
         for (int i = head[u]; i; i = e[i].next) {
             int v = e[i].to;
-            if (!--deg[v]) {
+            if (!--in[v]) {
                 cout << v << ' ';
                 Q.push(v);
             }
@@ -32,7 +32,7 @@ int main() {
     cin >> n;
     for (int i = 1, u; i <= n; i++)
         while (cin >> u && u) {
-            ++deg[u];
+            ++in[u];
             add(i, u);
         }
     toposort();
