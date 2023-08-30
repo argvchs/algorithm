@@ -1,7 +1,7 @@
 #include <iostream>
 using namespace std;
 const int N = 5e5 + 5;
-int n, m, s, fa[N], dep[N], siz[N], ch[N], top[N], head[N], cnt;
+int n, m, s, fa[N], dep[N], siz[N], son[N], top[N], head[N], cnt;
 struct edge {
     int to, next;
 } e[N << 1];
@@ -13,17 +13,17 @@ void dfs1(int u, int fa) {
         if (v != fa) {
             dfs1(v, u);
             siz[u] += siz[v];
-            if (siz[v] > siz[ch[u]]) ch[u] = v;
+            if (siz[v] > siz[son[u]]) son[u] = v;
         }
     }
 }
 void dfs2(int u, int fa, int top) {
     ::top[u] = top;
-    if (!ch[u]) return;
-    dfs2(ch[u], u, top);
+    if (!son[u]) return;
+    dfs2(son[u], u, top);
     for (int i = head[u]; i; i = e[i].next) {
         int v = e[i].to;
-        if (v != fa && v != ch[u]) dfs2(v, u, v);
+        if (v != fa && v != son[u]) dfs2(v, u, v);
     }
 }
 int lca(int u, int v) {
