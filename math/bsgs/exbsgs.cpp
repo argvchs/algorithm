@@ -22,29 +22,23 @@ tuple<int, int, int> exgcd(int a, int b) {
 }
 int inverse(int a, int p) { return (get<0>(exgcd(a, p)) + p) % p; }
 int bsgs(int a, int b, int p) {
+    int n = sqrt(p) + 1, k = quickpow(a, n, p);
     M.clear();
-    int n = sqrt(p) + 1, cur = b;
-    for (int i = 0; i <= n; i++) {
-        M[cur] = i;
-        cur = (i64)cur * a % p;
-    }
-    int k = cur = quickpow(a, n, p);
-    for (int i = 1; i <= n; i++) {
-        if (M.count(cur)) return (i64)i * n - M[cur];
-        cur = (i64)cur * k % p;
-    }
+    for (int i = 0, j = b; i <= n; i++, j = (i64)j * a % p) M[j] = i;
+    for (int i = 1, j = k; i <= n; i++, j = (i64)j * k % p)
+        if (M.count(j)) return (i64)i * n - M[j];
     return -1;
 }
 int exbsgs(int a, int b, int p) {
     if (b == 1 || p == 1) return 0;
-    int cnt = 0, cur = 1, gcd;
+    int cnt = 0, sum = 1, gcd;
     while ((gcd = std::gcd(a, p)) != 1) {
         if (b % gcd) return -1;
         ++cnt, b /= gcd, p /= gcd;
-        cur = (i64)cur * (a / gcd) % p;
-        if (cur == b) return cnt;
+        sum = (i64)sum * (a / gcd) % p;
+        if (sum == b) return cnt;
     }
-    int res = bsgs(a, (i64)b * inverse(cur, p) % p, p);
+    int res = bsgs(a, (i64)b * inverse(sum, p) % p, p);
     if (res == -1) return -1;
     return res + cnt;
 }

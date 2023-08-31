@@ -14,16 +14,10 @@ int quickpow(int a, int b, int p) {
     return res;
 }
 int bsgs(int a, int b, int p) {
-    int n = sqrt(p) + 1, cur = b;
-    for (int i = 0; i <= n; i++) {
-        M[cur] = i;
-        cur = (i64)cur * a % p;
-    }
-    int k = cur = quickpow(a, n, p);
-    for (int i = 1; i <= n; i++) {
-        if (M.count(cur)) return (i64)i * n - M[cur];
-        cur = (i64)cur * k % p;
-    }
+    int n = sqrt(p) + 1, k = quickpow(a, n, p);
+    for (int i = 0, j = b; i <= n; i++, j = (i64)j * a % p) M[j] = i;
+    for (int i = 1, j = k; i <= n; i++, j = (i64)j * k % p)
+        if (M.count(j)) return (i64)i * n - M[j];
     return -1;
 }
 int main() {

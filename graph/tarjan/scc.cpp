@@ -4,18 +4,20 @@
 #include <stack>
 using namespace std;
 const int N = 1e4 + 5, M = 1e5 + 5;
-int n, m, a[N], b[N], dfn[N], low[N], belong[N], in[N], dis[N], head[N], idx, cnt, tot, ans;
+int n, m, a[N], b[N], dfn[N], low[N], belong[N], in[N], dis[N], head1[N], head2[N], idx, cnt, tot,
+    ans;
 bool vis[N];
 struct edge {
     int from, to, next;
 } e[M << 1];
-void add(int u, int v) { e[++cnt] = {u, v, head[u]}, head[u] = cnt; }
+void add1(int u, int v) { e[++cnt] = {u, v, head1[u]}, head1[u] = cnt; }
+void add2(int u, int v) { e[++cnt] = {u, v, head2[u]}, head2[u] = cnt; }
 stack<int> S;
 queue<int> Q;
 void tarjan(int u) {
     dfn[u] = low[u] = ++idx, vis[u] = true;
     S.push(u);
-    for (int i = head[u]; i; i = e[i].next) {
+    for (int i = head1[u]; i; i = e[i].next) {
         int v = e[i].to;
         if (!dfn[v]) {
             tarjan(v);
@@ -23,7 +25,8 @@ void tarjan(int u) {
         } else if (vis[v]) low[u] = min(low[u], dfn[v]);
     }
     if (dfn[u] == low[u]) {
-        int pre = ++tot;
+        int pre;
+        ++tot;
         do {
             pre = S.top(), S.pop();
             b[belong[pre] = tot] += a[pre], vis[pre] = false;
@@ -39,7 +42,7 @@ void toposort() {
     while (!Q.empty()) {
         int u = Q.front();
         Q.pop();
-        for (int i = head[u]; i; i = e[i].next) {
+        for (int i = head2[u]; i; i = e[i].next) {
             int v = e[i].to;
             dis[v] = max(dis[v], dis[u] + b[v]);
             if (!--in[v]) Q.push(v);
@@ -53,17 +56,15 @@ int main() {
     for (int i = 1; i <= n; i++) cin >> a[i];
     for (int i = 1, u, v; i <= m; i++) {
         cin >> u >> v;
-        add(u, v);
+        add1(u, v);
     }
     for (int i = 1; i <= n; i++)
         if (!dfn[i]) tarjan(i);
-    memset(head, 0, sizeof(head));
-    cnt = 0;
     for (int i = 1; i <= m; i++) {
         int u = e[i].from, v = e[i].to;
         if (belong[u] != belong[v]) {
-            add(belong[u], belong[v]);
             ++in[belong[v]];
+            add2(belong[u], belong[v]);
         }
     }
     toposort();
