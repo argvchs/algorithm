@@ -20,14 +20,11 @@ void tarjan(int u) {
         } else if (vis[v]) low[u] = min(low[u], dfn[v]);
     }
     if (dfn[u] == low[u]) {
-        ++tot;
-        while (S.top() != u) {
-            int v = S.top();
-            belong[v] = tot, vis[v] = false;
-            S.pop();
-        }
-        belong[u] = tot, vis[u] = false;
-        S.pop();
+        int pre = ++tot;
+        do {
+            pre = S.top(), S.pop();
+            belong[pre] = tot, vis[pre] = false;
+        } while (pre != u);
     }
 }
 int main() {

@@ -1,10 +1,11 @@
+#include <algorithm>
 #include <iostream>
 #include <stack>
 #include <vector>
 using namespace std;
-const int N = 5e5 + 5, M = 2e6 + 5;
-int n, m, dfn[N], low[N], head[N], idx, cnt;
-vector<vector<int>> ans;
+const int N = 2e4 + 5, M = 1e5 + 5;
+int n, m, dfn[N], low[N], head[N], idx, cnt, tot;
+bool vis[N];
 struct edge {
     int to, next;
 } e[M << 1];
@@ -14,22 +15,16 @@ stack<int> S;
 void tarjan(int u, int fa) {
     dfn[u] = low[u] = ++idx;
     S.push(u);
+    int son = fa != 0;
     for (int i = head[u]; i; i = e[i].next) {
         int v = e[i].to;
         if (!dfn[v]) {
             tarjan(v, u);
             low[u] = min(low[u], low[v]);
-            if (low[v] >= dfn[u]) {
-                int pre;
-                ans.emplace_back().push_back(u);
-                do {
-                    pre = S.top(), S.pop();
-                    ans.back().push_back(pre);
-                } while (pre != v);
-            }
+            if (low[v] >= dfn[u]) ++son;
         } else low[u] = min(low[u], dfn[v]);
     }
-    if (!fa && !head[u]) ans.emplace_back().push_back(u);
+    if (son >= 2) vis[u] = true, ++tot;
 }
 int main() {
     ios::sync_with_stdio(false);
@@ -37,15 +32,12 @@ int main() {
     cin >> n >> m;
     for (int i = 1, u, v; i <= m; i++) {
         cin >> u >> v;
-        if (u != v) addedge(u, v);
+        addedge(u, v);
     }
     for (int i = 1; i <= n; i++)
         if (!dfn[i]) tarjan(i, 0);
-    cout << ans.size() << '\n';
-    for (vector<int> &i : ans) {
-        cout << i.size() << ' ';
-        for (int j : i) cout << j << ' ';
-        cout << '\n';
-    }
+    cout << tot << '\n';
+    for (int i = 1; i <= n; i++)
+        if (vis[i]) cout << i << ' ';
     return 0;
 }
