@@ -19,9 +19,9 @@ void build() {
 void insert(int x) { ++val[x], ++sum[belong[x]]; }
 void remove(int x) { --val[x], --sum[belong[x]]; }
 int query(int x) {
-    int i = 1, j = 1, cur = 0;
-    while (cur + sum[i] < x) cur += sum[i++], j += siz;
-    while (cur + val[j] < x) cur += val[j++];
+    int i = 1, j = 1, k = 0;
+    while (k + sum[i] < x) k += sum[i++], j += siz;
+    while (k + val[j] < x) k += val[j++];
     return j;
 }
 int main() {

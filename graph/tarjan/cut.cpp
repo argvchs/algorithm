@@ -6,12 +6,12 @@ using namespace std;
 const int N = 2e4 + 5, M = 1e5 + 5;
 int n, m, dfn[N], low[N], head[N], idx, cnt, tot;
 bool vis[N];
+stack<int> S;
 struct edge {
     int to, next;
 } e[M << 1];
 void add(int u, int v) { e[++cnt] = {v, head[u]}, head[u] = cnt; }
 void addedge(int u, int v) { add(u, v), add(v, u); }
-stack<int> S;
 void tarjan(int u, int fa) {
     dfn[u] = low[u] = ++idx;
     S.push(u);

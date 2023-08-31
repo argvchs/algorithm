@@ -13,10 +13,10 @@ int main() {
     for (int i = 1; i <= n; i++)
         for (int j = 1; j <= n + 1; j++) cin >> a[i][j];
     for (int i = 1; i <= n; i++) {
-        int cur = i;
+        int pos = i;
         for (int j = i + 1; j <= n; j++)
-            if (abs(a[cur][i]) < abs(a[j][i])) cur = j;
-        swap(a[cur], a[i]);
+            if (abs(a[pos][i]) < abs(a[j][i])) pos = j;
+        swap(a[pos], a[i]);
         if (abs(a[i][i]) < EPS) {
             cout << "No Solution";
             return 0;

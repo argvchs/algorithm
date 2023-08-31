@@ -31,8 +31,7 @@ int lca(int u, int v) {
     while (top[u] != top[v])
         if (dep[top[u]] > dep[top[v]]) u = fa[top[u]];
         else v = fa[top[v]];
-    if (dep[u] < dep[v]) return u;
-    return v;
+    return dep[u] < dep[v] ? u : v;
 }
 int main() {
     ios::sync_with_stdio(false);

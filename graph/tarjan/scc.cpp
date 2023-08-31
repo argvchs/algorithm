@@ -7,13 +7,13 @@ const int N = 1e4 + 5, M = 1e5 + 5;
 int n, m, a[N], b[N], dfn[N], low[N], belong[N], in[N], dis[N], head1[N], head2[N], idx, cnt, tot,
     ans;
 bool vis[N];
+stack<int> S;
+queue<int> Q;
 struct edge {
     int from, to, next;
 } e[M << 1];
 void add1(int u, int v) { e[++cnt] = {u, v, head1[u]}, head1[u] = cnt; }
 void add2(int u, int v) { e[++cnt] = {u, v, head2[u]}, head2[u] = cnt; }
-stack<int> S;
-queue<int> Q;
 void tarjan(int u) {
     dfn[u] = low[u] = ++idx, vis[u] = true;
     S.push(u);

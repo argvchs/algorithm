@@ -5,6 +5,7 @@ using namespace std;
 const int N = 1e4 + 5, M = 2e4 + 5;
 int n, m, k, dfn[N], low[N], f[N << 1][25], val[N], sum[N << 1], dis1[N], dis2[N << 1], dep[N << 1],
     head1[N], head2[N << 1], idx, cnt, tot, ans1, ans2;
+stack<int> S;
 struct edge {
     int to, next, w;
 } e[M << 2];
@@ -12,7 +13,6 @@ void add1(int u, int v, int w) { e[++cnt] = {v, head1[u], w}, head1[u] = cnt; }
 void add2(int u, int v, int w) { e[++cnt] = {v, head2[u], w}, head2[u] = cnt; }
 void addedge1(int u, int v, int w) { add1(u, v, w), add1(v, u, w); }
 void addedge2(int u, int v, int w) { add2(u, v, w), add2(v, u, w); }
-stack<int> S;
 void tarjan(int u, int fa) {
     dfn[u] = low[u] = ++idx;
     S.push(u);
@@ -33,7 +33,7 @@ void tarjan(int u, int fa) {
                 } while (pre != v);
             }
         } else low[u] = min(low[u], dfn[v]);
-        if (v != fa && dfn[v] < dfn[u]) val[u] = w;
+        if (dfn[v] < dfn[fa]) val[u] = w;
     }
 }
 void dfs(int u, int fa) {
@@ -47,7 +47,7 @@ void dfs(int u, int fa) {
         }
     }
 }
-int query(int u, int v) {
+int solve(int u, int v) {
     int res = dis2[u] + dis2[v];
     if (dep[u] < dep[v]) swap(u, v);
     for (int i = 20; i >= 0; i--)
@@ -72,7 +72,7 @@ int main() {
     dfs(1, 0);
     for (int i = 1, u, v; i <= k; i++) {
         cin >> u >> v;
-        cout << query(u, v) << '\n';
+        cout << solve(u, v) << '\n';
     }
     return 0;
 }
