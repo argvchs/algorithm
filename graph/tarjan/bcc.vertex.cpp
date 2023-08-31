@@ -4,12 +4,13 @@
 #include <vector>
 using namespace std;
 const int N = 5e5 + 5, M = 2e6 + 5;
-int n, m, dfn[N], low[N], head[N], idx, cnt = 1;
+int n, m, dfn[N], low[N], head[N], idx, cnt;
 vector<vector<int>> ans;
 struct edge {
     int to, next;
 } e[M << 1];
 void add(int u, int v) { e[++cnt] = {v, head[u]}, head[u] = cnt; }
+void addedge(int u, int v) { add(u, v), add(v, u); }
 stack<int> S;
 void tarjan(int u, int fa) {
     dfn[u] = low[u] = ++idx;
@@ -28,7 +29,7 @@ void tarjan(int u, int fa) {
                     ans.back().push_back(pre);
                 } while (pre != v);
             }
-        } else if (v != fa) low[u] = min(low[u], dfn[v]);
+        } else low[u] = min(low[u], dfn[v]);
     }
     if (!fa && !head[u]) {
         ans.emplace_back();
@@ -42,8 +43,7 @@ int main() {
     for (int i = 1, u, v; i <= m; i++) {
         cin >> u >> v;
         if (u == v) continue;
-        add(u, v);
-        add(v, u);
+        addedge(u, v);
     }
     for (int i = 1; i <= n; i++)
         if (!dfn[i]) tarjan(i, 0);

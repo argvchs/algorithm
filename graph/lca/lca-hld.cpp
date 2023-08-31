@@ -6,6 +6,7 @@ struct edge {
     int to, next;
 } e[N << 1];
 void add(int u, int v) { e[++cnt] = {v, head[u]}, head[u] = cnt; }
+void addedge(int u, int v) { add(u, v), add(v, u); }
 void dfs1(int u, int fa) {
     ::fa[u] = fa, dep[u] = dep[fa] + 1, siz[u] = 1;
     for (int i = head[u]; i; i = e[i].next) {
@@ -39,7 +40,7 @@ int main() {
     cin >> n >> m >> s;
     for (int i = 1, u, v; i <= n - 1; i++) {
         cin >> u >> v;
-        add(u, v), add(v, u);
+        addedge(u, v);
     }
     dfs1(s, 0);
     dfs2(s, 0, s);

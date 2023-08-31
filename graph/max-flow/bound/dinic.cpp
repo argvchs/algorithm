@@ -10,10 +10,7 @@ struct edge {
     int to, next, w;
 } e[M << 1];
 void add(int u, int v, int w) { e[++cnt] = {v, head[u], w}, head[u] = cnt; }
-void addflow(int u, int v, int w) {
-    add(u, v, w);
-    add(v, u, 0);
-}
+void addflow(int u, int v, int w) { add(u, v, w), add(v, u, 0); }
 bool bfs() {
     memset(dep, 0x3f, sizeof(dep));
     memset(vis, false, sizeof(vis));

@@ -10,6 +10,7 @@ struct edge {
     int to, next;
 } e[M << 1];
 void add(int u, int v) { e[++cnt] = {v, head[u]}, head[u] = cnt; }
+void addedge(int u, int v) { add(u, v), add(v, u); }
 stack<int> S;
 void tarjan(int u, int fa) {
     dfn[u] = low[u] = ++idx;
@@ -36,8 +37,7 @@ int main() {
     cin >> n >> m;
     for (int i = 1, u, v; i <= m; i++) {
         cin >> u >> v;
-        add(u, v);
-        add(v, u);
+        addedge(u, v);
     }
     for (int i = 1; i <= n; i++)
         if (!dfn[i]) tarjan(i, 0);
