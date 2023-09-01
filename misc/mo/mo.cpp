@@ -11,11 +11,11 @@ struct node {
     int l, r, id;
     i64 ans1, ans2;
 } q[N];
-bool comp1(node a, node b) {
+bool cmp1(node a, node b) {
     if (belong[a.l] != belong[b.l]) return a.l < b.l;
     return a.r < b.r;
 }
-bool comp2(node a, node b) { return a.id < b.id; }
+bool cmp2(node a, node b) { return a.id < b.id; }
 void build() {
     siz = n / sqrt(m);
     for (int i = 1; i <= n; i++) belong[i] = (i - 1) / siz + 1;
@@ -32,7 +32,7 @@ int main() {
         q[i].id = i;
     }
     build();
-    sort(q + 1, q + m + 1, comp1);
+    sort(q + 1, q + m + 1, cmp1);
     for (int i = 1; i <= m; i++) {
         while (l > q[i].l) insert(a[--l]);
         while (r < q[i].r) insert(a[++r]);
@@ -45,7 +45,7 @@ int main() {
             q[i].ans1 /= x, q[i].ans2 /= x;
         } else q[i].ans2 = 1;
     }
-    sort(q + 1, q + m + 1, comp2);
+    sort(q + 1, q + m + 1, cmp2);
     for (int i = 1; i <= m; i++) cout << q[i].ans1 << '/' << q[i].ans2 << '\n';
     return 0;
 }

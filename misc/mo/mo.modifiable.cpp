@@ -7,12 +7,12 @@ int n, m, m1, m2, l = 1, r, t, a[N], belong[N], cnt[N], siz, ans;
 struct node {
     int l, r, x, k, t, id, ans;
 } q[N], u[N];
-bool comp1(node a, node b) {
+bool cmp1(node a, node b) {
     if (belong[a.l] != belong[b.l]) return a.l < b.l;
     if (belong[a.r] != belong[b.r]) return a.r < b.r;
     return a.t < b.t;
 }
-bool comp2(node a, node b) { return a.id < b.id; }
+bool cmp2(node a, node b) { return a.id < b.id; }
 void build() {
     siz = pow(n, 2.0 / 3.0);
     for (int i = 1; i <= n; i++) belong[i] = (i - 1) / siz + 1;
@@ -40,7 +40,7 @@ int main() {
         }
     }
     build();
-    sort(q + 1, q + m1 + 1, comp1);
+    sort(q + 1, q + m1 + 1, cmp1);
     for (int i = 1; i <= m1; i++) {
         while (l > q[i].l) insert(a[--l]);
         while (r < q[i].r) insert(a[++r]);
@@ -50,7 +50,7 @@ int main() {
         while (t > q[i].t) update(u[t].x, u[t].k), --t;
         q[i].ans = ans;
     }
-    sort(q + 1, q + m1 + 1, comp2);
+    sort(q + 1, q + m1 + 1, cmp2);
     for (int i = 1; i <= m1; i++) cout << q[i].ans << '\n';
     return 0;
 }
