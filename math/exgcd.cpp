@@ -16,7 +16,7 @@ int main() {
         cin >> a >> b >> c;
         auto [x, y, gcd] = exgcd(a, b);
         if (c % gcd) {
-            cout << -1 << '\n';
+            cout << "-1\n";
             continue;
         }
         a /= gcd, b /= gcd, c /= gcd, x *= c, y *= c;
