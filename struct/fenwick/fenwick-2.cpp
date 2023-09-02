@@ -2,9 +2,8 @@
 using namespace std;
 const int N = 1e6 + 5;
 int n, m, bit[N];
-int lowbit(int x) { return x & -x; }
 void update(int x, int k) {
-    for (int i = x; i <= n; i += lowbit(i)) bit[i] += k;
+    for (int i = x; i <= n; i += i & -i) bit[i] += k;
 }
 void update(int l, int r, int k) {
     update(l, k);
@@ -12,7 +11,7 @@ void update(int l, int r, int k) {
 }
 int query(int x) {
     int res = 0;
-    for (int i = x; i >= 1; i -= lowbit(i)) res += bit[i];
+    for (int i = x; i >= 1; i -= i & -i) res += bit[i];
     return res;
 }
 int main() {

@@ -22,8 +22,13 @@ void build2() {
     siz = sqrt(cnt);
     for (int i = 1; i <= cnt; i++) belong[i] = (i - 1) / siz + 1;
 }
-void insert(int x) { ++val[x], ++sum[belong[x]]; }
-void remove(int x) { --val[x], --sum[belong[x]]; }
+void insert(int x) { ++val[a[x]], ++sum[belong[a[x]]]; }
+void remove(int x) { --val[a[x]], --sum[belong[a[x]]]; }
+void update(int x) {
+    if (l <= u[x].x && u[x].x <= r) remove(u[x].x);
+    swap(a[u[x].x], u[x].k);
+    if (l <= u[x].x && u[x].x <= r) insert(u[x].x);
+}
 int queryrank(int x) {
     int res = 0;
     for (int i = 1; i <= belong[x] - 1; i++) res += sum[i];
@@ -40,10 +45,6 @@ int querykth(int x) {
 }
 int querypre(int x) { return querykth(queryrank(x) - 1); }
 int querynext(int x) { return querykth(queryrank(x + 1)); }
-void update(int x, int &k) {
-    if (l <= x && x <= r) remove(a[x]), insert(k);
-    swap(a[x], k);
-}
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
@@ -73,12 +74,12 @@ int main() {
     sort(q + 1, q + m1 + 1, cmp1);
     build2();
     for (int i = 1; i <= m1; i++) {
-        while (l > q[i].l) insert(a[--l]);
-        while (r < q[i].r) insert(a[++r]);
-        while (l < q[i].l) remove(a[l++]);
-        while (r > q[i].r) remove(a[r--]);
-        while (t < q[i].t) ++t, update(u[t].x, u[t].k);
-        while (t > q[i].t) update(u[t].x, u[t].k), --t;
+        while (l > q[i].l) insert(--l);
+        while (r < q[i].r) insert(++r);
+        while (l < q[i].l) remove(l++);
+        while (r > q[i].r) remove(r--);
+        while (t < q[i].t) update(++t);
+        while (t > q[i].t) update(t--);
         if (q[i].op == 1) q[i].ans = queryrank(q[i].k);
         else if (q[i].op == 2) q[i].ans = b[querykth(q[i].k)];
         else if (q[i].op == 4) q[i].ans = b[querypre(q[i].k)];

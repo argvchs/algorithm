@@ -2,15 +2,14 @@
 using namespace std;
 const int N = 3e3 + 5;
 int n, m, q, bit[N][N];
-int lowbit(int x) { return x & -x; }
 void update(int x, int y, int k) {
-    for (int i = x; i <= n; i += lowbit(i))
-        for (int j = y; j <= m; j += lowbit(j)) bit[i][j] += k;
+    for (int i = x; i <= n; i += i & -i)
+        for (int j = y; j <= m; j += j & -j) bit[i][j] += k;
 }
 int query(int x, int y) {
     int res = 0;
-    for (int i = x; i >= 1; i -= lowbit(i))
-        for (int j = y; j >= 1; j -= lowbit(j)) res += bit[i][j];
+    for (int i = x; i >= 1; i -= i & -i)
+        for (int j = y; j >= 1; j -= j & -j) res += bit[i][j];
     return res;
 }
 int query(int x, int y, int z, int t) {

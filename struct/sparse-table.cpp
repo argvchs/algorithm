@@ -2,16 +2,16 @@
 #include <iostream>
 using namespace std;
 const int N = 1e5 + 5;
-int n, m, a[N], f[N][25];
+int n, m, a[N], st[N][25];
 void build() {
-    for (int i = 1; i <= n; i++) f[i][0] = a[i];
+    for (int i = 1; i <= n; i++) st[i][0] = a[i];
     for (int j = 1; (1 << j) <= n; j++)
         for (int i = 1; i + (1 << j) - 1 <= n; i++)
-            f[i][j] = max(f[i][j - 1], f[i + (1 << (j - 1))][j - 1]);
+            st[i][j] = max(st[i][j - 1], st[i + (1 << (j - 1))][j - 1]);
 }
 int query(int l, int r) {
     int k = log2(r - l + 1);
-    return max(f[l][k], f[r - (1 << k) + 1][k]);
+    return max(st[l][k], st[r - (1 << k) + 1][k]);
 }
 int main() {
     ios::sync_with_stdio(false);

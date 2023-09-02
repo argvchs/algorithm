@@ -20,8 +20,8 @@ void build() {
     siz = n / sqrt(m);
     for (int i = 1; i <= n; i++) belong[i] = (i - 1) / siz + 1;
 }
-void insert(int x) { ans += cnt[x]++; }
-void remove(int x) { ans -= --cnt[x]; }
+void insert(int x) { ans += cnt[a[x]]++; }
+void remove(int x) { ans -= --cnt[a[x]]; }
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
@@ -34,10 +34,10 @@ int main() {
     build();
     sort(q + 1, q + m + 1, cmp1);
     for (int i = 1; i <= m; i++) {
-        while (l > q[i].l) insert(a[--l]);
-        while (r < q[i].r) insert(a[++r]);
-        while (l < q[i].l) remove(a[l++]);
-        while (r > q[i].r) remove(a[r--]);
+        while (l > q[i].l) insert(--l);
+        while (r < q[i].r) insert(++r);
+        while (l < q[i].l) remove(l++);
+        while (r > q[i].r) remove(r--);
         q[i].ans1 = ans;
         q[i].ans2 = (i64)(r - l + 1) * (r - l) >> 1;
         if (q[i].ans1) {

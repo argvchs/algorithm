@@ -15,7 +15,7 @@ void addedge(int u, int v) { add(u, v), add(v, u); }
 void tarjan(int u, int fa) {
     dfn[u] = low[u] = ++idx;
     S.push(u);
-    int son = fa != 0;
+    int son = !!fa;
     for (int i = head[u]; i; i = e[i].next) {
         int v = e[i].to;
         if (!dfn[v]) {

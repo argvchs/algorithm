@@ -16,8 +16,8 @@ void build() {
     siz = sqrt(n);
     for (int i = 1; i <= n; i++) belong[i] = (i - 1) / siz + 1;
 }
-void insert(int x) { ++val[x], ++sum[belong[x]]; }
-void remove(int x) { --val[x], --sum[belong[x]]; }
+void insert(int x) { ++val[a[x]], ++sum[belong[a[x]]]; }
+void remove(int x) { --val[a[x]], --sum[belong[a[x]]]; }
 int query(int x) {
     int i = 1, j = 1, k = 0;
     while (k + sum[i] < x) k += sum[i++], j += siz;
@@ -36,10 +36,10 @@ int main() {
     build();
     sort(q + 1, q + m + 1, cmp1);
     for (int i = 1; i <= m; i++) {
-        while (l > q[i].l) insert(a[--l]);
-        while (r < q[i].r) insert(a[++r]);
-        while (l < q[i].l) remove(a[l++]);
-        while (r > q[i].r) remove(a[r--]);
+        while (l > q[i].l) insert(--l);
+        while (r < q[i].r) insert(++r);
+        while (l < q[i].l) remove(l++);
+        while (r > q[i].r) remove(r--);
         q[i].ans = query(q[i].k);
     }
     sort(q + 1, q + m + 1, cmp2);
