@@ -33,11 +33,11 @@ bool bfs() {
 bool push(int u) {
     for (int &i = cur[u]; i; i = e[i].next) {
         int v = e[i].to, w = e[i].w;
-        if (ht[u] == ht[v] + 1 && w) {
-            int flow = min(ex[u], w);
-            if (v != s && v != t && !ex[v]) PQ.emplace(ht[v], v);
-            ex[u] -= flow, ex[v] += flow, e[i].w -= flow, e[i ^ 1].w += flow;
-            if (!ex[u]) return false;
+        if ((u == s || ht[u] == ht[v] + 1) && ht[v] < n && w) {
+            if (u != s) w = min(ex[u], e[i].w);
+            if (v != t && !ex[v]) PQ.emplace(ht[v], v);
+            ex[u] -= w, ex[v] += w, e[i].w -= w, e[i ^ 1].w += w;
+            if (u != s && !ex[u]) return false;
         }
     }
     cur[u] = head[u];
@@ -58,15 +58,9 @@ void hlpp() {
     if (!bfs()) return;
     ht[s] = n;
     for (int i = 1; i <= n; i++)
-        if (ht[i] != INF) ++gap[ht[i]];
-    for (int i = head[s]; i; i = e[i].next) {
-        int v = e[i].to, w = e[i].w;
-        if (ht[v] != INF && w) {
-            if (v != s && v != t && !ex[v]) PQ.emplace(ht[v], v);
-            ex[v] += w, e[i].w -= w, e[i ^ 1].w += w;
-        }
-    }
+        if (ht[i] < n) ++gap[ht[i]];
     memcpy(cur, head, sizeof(cur));
+    push(s);
     while (!PQ.empty()) {
         int u = PQ.top().second;
         PQ.pop();
