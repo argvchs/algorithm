@@ -8,7 +8,7 @@ i64 m;
 struct matrix {
     i64 a[N][N];
 } a;
-matrix multiply(matrix a, matrix b) {
+matrix quickmul(matrix a, matrix b) {
     matrix res;
     memset(res.a, 0, sizeof(res.a));
     for (int i = 1; i <= n; i++)
@@ -22,8 +22,8 @@ matrix quickpow(matrix a, i64 b) {
     memset(res.a, 0, sizeof(res.a));
     for (int i = 1; i <= n; i++) res.a[i][i] = 1;
     while (b) {
-        if (b & 1) res = multiply(res, a);
-        a = multiply(a, a), b >>= 1;
+        if (b & 1) res = quickmul(res, a);
+        a = quickmul(a, a), b >>= 1;
     }
     return res;
 }
