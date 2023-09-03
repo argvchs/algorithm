@@ -38,11 +38,11 @@ int main() {
         cnt = 0;
         cin >> n >> m;
         for (int i = 1; i <= n; i++) {
-            cin >> (s + 1);
+            cin.ignore().get(s + 1, N);
             insert(s);
         }
         for (int i = 1; i <= m; i++) {
-            cin >> (s + 1);
+            cin.ignore().get(s + 1, N);
             cout << query(s) << '\n';
         }
     }
