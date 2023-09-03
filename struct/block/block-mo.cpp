@@ -49,7 +49,8 @@ int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
     cin >> n >> m;
-    for (int i = 1; i <= n; i++) cin >> a[i], b[++cnt] = a[i];
+    cnt = n;
+    for (int i = 1; i <= n; i++) cin >> a[i], b[i] = a[i];
     for (int i = 1, op, l, r, x, k; i <= m; i++) {
         cin >> op;
         if (op == 3) {
