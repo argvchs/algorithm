@@ -12,7 +12,7 @@ int id(char c) {
     if (isupper(c)) return c - 'A' + 10;
     return c - 'a' + 36;
 }
-void insert(char (&s)[N]) {
+void insert(char *s) {
     int rt = 0, len = strlen(s + 1);
     for (int i = 1; i <= len; i++) {
         int x = id(s[i]);
@@ -20,7 +20,7 @@ void insert(char (&s)[N]) {
         rt = tree[rt].son[x], ++tree[rt].val;
     }
 }
-int query(char (&s)[N]) {
+int query(char *s) {
     int rt = 0, len = strlen(s + 1);
     for (int i = 1; i <= len; i++) {
         int x = id(s[i]);

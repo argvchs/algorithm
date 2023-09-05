@@ -5,9 +5,9 @@ int n, m, bit[N];
 void update(int x, int k) {
     for (int i = x; i <= n; i += i & -i) bit[i] += k;
 }
-void update(int l, int r, int k) {
-    update(l, k);
-    update(r + 1, -k);
+void update(int x, int y, int k) {
+    update(x, k);
+    update(y + 1, -k);
 }
 int query(int x) {
     int res = 0;

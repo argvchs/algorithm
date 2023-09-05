@@ -40,9 +40,9 @@ int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
     cin >> n >> m;
-    for (int i = 1; i <= n; i++) cin >> a[i].a >> a[i].b >> a[i].c, b[i] = a[i];
+    for (int i = 1; i <= n; i++) cin >> a[i].a >> a[i].b >> a[i].c;
     sort(a + 1, a + n + 1, cmp1);
-    sort(b + 1, b + n + 1, cmp1);
+    for (int i = 1; i <= n; i++) b[i] = a[i];
     cnt = unique(a + 1, a + n + 1, cmp3) - a - 1;
     for (int i = 1, j = 1; i <= cnt; i++)
         while (j <= n && cmp3(a[i], b[j])) ++j, ++a[i].cnt;
