@@ -13,7 +13,7 @@ struct node {
 };
 bool cmp(node a, node b) { return a.l < b.l; }
 set<node, decltype(&cmp)> S(cmp);
-vector<pair<i64, int>> A;
+vector<pair<i64, int>> tmp;
 auto split(int x) {
     auto it = --S.upper_bound({x});
     if (it->l == x) return it;
@@ -49,10 +49,10 @@ int querysum(int l, int r, int x, int y) {
 }
 i64 querykth(int l, int r, int x) {
     auto ed = split(r + 1), st = split(l);
-    A.clear();
-    for (auto it = st; it != ed; ++it) A.emplace_back(it->val, it->r - it->l + 1);
-    sort(A.begin(), A.end());
-    for (auto [val, cnt] : A)
+    tmp.clear();
+    for (auto it = st; it != ed; ++it) tmp.emplace_back(it->val, it->r - it->l + 1);
+    sort(tmp.begin(), tmp.end());
+    for (auto [val, cnt] : tmp)
         if ((x -= cnt) <= 0) return val;
     return numeric_limits<i64>::max();
 }

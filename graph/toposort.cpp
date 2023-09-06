@@ -6,8 +6,8 @@ int n, in[N], head[N], cnt;
 struct edge {
     int to, next;
 } e[N << 1];
-void add(int u, int v) { e[++cnt] = {v, head[u]}, head[u] = cnt; }
 queue<int> Q;
+void add(int u, int v) { e[++cnt] = {v, head[u]}, head[u] = cnt; }
 void toposort() {
     for (int i = 1; i <= n; i++)
         if (!in[i]) {

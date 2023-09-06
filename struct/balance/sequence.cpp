@@ -4,13 +4,13 @@
 using namespace std;
 const int N = 1e5 + 5;
 int n, m, rt, cnt;
-stack<int> S;
-mt19937 rng(random_device{}());
 struct node {
     int l, r, val, siz;
     mt19937::result_type key;
     bool tag;
 } tree[N];
+mt19937 rng(random_device{}());
+stack<int> S;
 void maintain(int rt) {
     int l = tree[rt].l, r = tree[rt].r;
     tree[rt].siz = tree[l].siz + tree[r].siz + 1;

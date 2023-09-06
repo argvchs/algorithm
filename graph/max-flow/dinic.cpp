@@ -7,10 +7,10 @@ const int N = 205, M = 5005, INF = 0x3f3f3f3f;
 int n, m, s, t, dep[N], cur[N], head[N], cnt = 1;
 i64 ans;
 bool vis[N];
-queue<int> Q;
 struct edge {
     int to, next, w;
 } e[M << 1];
+queue<int> Q;
 void add(int u, int v, int w) { e[++cnt] = {v, head[u], w}, head[u] = cnt; }
 void addflow(int u, int v, int w) { add(u, v, w), add(v, u, 0); }
 bool bfs() {

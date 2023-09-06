@@ -4,15 +4,15 @@ using namespace std;
 const int N = 1e5 + 5;
 int n, m, a[N], rt[N], fa[N], siz[N], cnt;
 bool vis[N];
-mt19937 rnd(random_device{}());
 struct node {
     int l, r;
     pair<int, int> val;
 } tree[N];
+mt19937 rng(random_device{}());
 int merge(int lt, int rt) {
     if (!lt || !rt) return lt ^ rt;
     if (tree[lt].val > tree[rt].val) swap(lt, rt);
-    if (rnd() & 1) swap(tree[lt].l, tree[lt].r);
+    if (rng() & 1) swap(tree[lt].l, tree[lt].r);
     tree[lt].l = merge(tree[lt].l, rt);
     return lt;
 }

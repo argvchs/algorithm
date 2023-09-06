@@ -7,11 +7,11 @@ const int N = 3e3 + 5, M = 6e3 + 5, INF = 0x3f3f3f3f;
 int n, m, s, h[N], dis[N], tot[N], head[N], cnt;
 i64 ans;
 bool vis[N];
-queue<int> Q;
-priority_queue<pair<int, int>, vector<pair<int, int>>, greater<>> PQ;
 struct edge {
     int to, next, w;
 } e[M << 1];
+queue<int> Q;
+priority_queue<pair<int, int>, vector<pair<int, int>>, greater<>> PQ;
 void add(int u, int v, int w) { e[++cnt] = {v, head[u], w}, head[u] = cnt; }
 bool spfa() {
     memset(h, 0x3f, sizeof(h));

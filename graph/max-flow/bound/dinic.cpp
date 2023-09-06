@@ -3,12 +3,12 @@
 #include <queue>
 using namespace std;
 const int N = 2005, M = 1e6 + 5, INF = 0x3f3f3f3f;
-int n, m, s, t, s1, t1, s2, t2, in[N], out[N], dep[N], cur[N], head[N], cnt = 1, sum, pre, ans;
+int n, m, s, t, s1, t1, s2, t2, in[N], out[N], dep[N], cur[N], head[N], cnt = 1, sum, ans;
 bool vis[N];
-queue<int> Q;
 struct edge {
     int to, next, w;
 } e[M << 1];
+queue<int> Q;
 void add(int u, int v, int w) { e[++cnt] = {v, head[u], w}, head[u] = cnt; }
 void addflow(int u, int v, int w) { add(u, v, w), add(v, u, 0); }
 bool bfs() {
@@ -85,11 +85,11 @@ int main() {
             cout << "-1\n\n";
             continue;
         }
-        pre = e[cnt].w;
+        sum = e[cnt].w;
         ans = e[cnt].w = e[cnt ^ 1].w = 0;
         s = s1, t = t1;
         dinic();
-        cout << pre + ans << "\n\n";
+        cout << sum + ans << "\n\n";
     }
     return 0;
 }

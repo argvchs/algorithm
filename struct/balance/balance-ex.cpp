@@ -5,11 +5,11 @@
 using namespace std;
 const int N = 2e6 + 5;
 int n, m, rt, cnt, pre, ans;
-mt19937 rng(random_device{}());
 struct node {
     int l, r, val, cnt, siz;
     mt19937::result_type key;
 } tree[N];
+mt19937 rng(random_device{}());
 void maintain(int rt) {
     int l = tree[rt].l, r = tree[rt].r;
     tree[rt].siz = tree[l].siz + tree[r].siz + tree[rt].cnt;

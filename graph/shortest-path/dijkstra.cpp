@@ -6,10 +6,10 @@ using namespace std;
 const int N = 1e5 + 5, M = 5e5 + 5, INF = 0x3f3f3f3f;
 int n, m, s, dis[N], head[N], cnt;
 bool vis[N];
-priority_queue<pair<int, int>, vector<pair<int, int>>, greater<>> Q;
 struct edge {
     int to, next, w;
 } e[M << 1];
+priority_queue<pair<int, int>, vector<pair<int, int>>, greater<>> Q;
 void add(int u, int v, int w) { e[++cnt] = {v, head[u], w}, head[u] = cnt; }
 void dijkstra() {
     memset(dis, 0x3f, sizeof(dis));

@@ -6,11 +6,11 @@ using namespace std;
 const int N = 1205, M = 12e4 + 5, INF = 0x3f3f3f3f;
 int n, m, s, t, ht[N], ex[N], gap[N], cur[N], head[N], cnt = 1, top;
 bool vis[N];
-queue<int> Q;
-stack<int> S[N];
 struct edge {
     int to, next, w;
 } e[M << 1];
+queue<int> Q;
+stack<int> S[N];
 void add(int u, int v, int w) { e[++cnt] = {v, head[u], w}, head[u] = cnt; }
 void addflow(int u, int v, int w) { add(u, v, w), add(v, u, 0); }
 bool bfs() {

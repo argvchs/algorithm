@@ -4,10 +4,10 @@ using namespace std;
 const int N = 1e6 + 5;
 int n, m, dfn[N << 1], low[N << 1], belong[N << 1], head[N << 1], idx, cnt, tot, ans;
 bool vis[N << 1];
-stack<int> S;
 struct edge {
     int to, next;
 } e[N << 1];
+stack<int> S;
 void add(int u, int v) { e[++cnt] = {v, head[u]}, head[u] = cnt; }
 void tarjan(int u) {
     dfn[u] = low[u] = ++idx, vis[u] = true;
