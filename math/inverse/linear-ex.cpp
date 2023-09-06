@@ -6,8 +6,8 @@ const int N = 5e6 + 5;
 int n, p, k, a[N], s[N], t[N], inv[N], sum, ans;
 tuple<int, int, int> exgcd(int a, int b) {
     if (!b) return {1, 0, a};
-    auto [x, y, res] = exgcd(b, a % b);
-    return {y, x - a / b * y, res};
+    auto [x, y, gcd] = exgcd(b, a % b);
+    return {y, x - a / b * y, gcd};
 }
 int inverse(int a, int p) { return (get<0>(exgcd(a, p)) + p) % p; }
 int main() {

@@ -11,10 +11,9 @@ struct node {
     int l, r;
     mutable i64 val;
 };
-bool cmp1(node a, node b) { return a.l < b.l; }
-bool cmp2(node a, node b) { return a.val < b.val; }
-set<node, decltype(&cmp1)> S(cmp1);
-vector<node> A;
+bool cmp(node a, node b) { return a.l < b.l; }
+set<node, decltype(&cmp)> S(cmp);
+vector<pair<i64, int>> A;
 auto split(int x) {
     auto it = --S.upper_bound({x});
     if (it->l == x) return it;
@@ -50,10 +49,11 @@ int querysum(int l, int r, int x, int y) {
 }
 i64 querykth(int l, int r, int x) {
     auto ed = split(r + 1), st = split(l);
-    A.assign(st, ed);
-    sort(A.begin(), A.end(), cmp2);
-    for (auto [l, r, val] : A)
-        if ((x -= r - l + 1) <= 0) return val;
+    A.clear();
+    for (auto it = st; it != ed; ++it) A.emplace_back(it->val, it->r - it->l + 1);
+    sort(A.begin(), A.end());
+    for (auto [val, cnt] : A)
+        if ((x -= cnt) <= 0) return val;
     return numeric_limits<i64>::max();
 }
 int rnd() {
