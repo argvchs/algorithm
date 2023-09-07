@@ -12,7 +12,7 @@ struct node {
     mutable i64 val;
 };
 auto cmp = [](node a, node b) { return a.l < b.l; };
-set<node, decltype(cmp)> S;
+set<node, decltype(cmp)> S(cmp);
 vector<pair<i64, int>> tmp;
 auto split(int x) {
     auto it = --S.upper_bound({x, 0, 0});
