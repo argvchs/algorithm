@@ -3,7 +3,7 @@ using namespace std;
 const int N = 1e4 + 5;
 int n, m, fa[N], siz[N];
 int find(int u) { return u == fa[u] ? u : fa[u] = find(fa[u]); }
-void merge(int u, int v) {
+void unite(int u, int v) {
     u = find(u), v = find(v);
     if (u == v) return;
     if (siz[u] < siz[v]) swap(u, v);
@@ -17,7 +17,7 @@ int main() {
     for (int i = 1; i <= n; i++) fa[i] = i;
     for (int i = 1, op, u, v; i <= m; i++) {
         cin >> op >> u >> v;
-        if (op == 1) merge(u, v);
+        if (op == 1) unite(u, v);
         else cout << (check(u, v) ? 'Y' : 'N') << '\n';
     }
     return 0;

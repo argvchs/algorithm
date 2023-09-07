@@ -23,19 +23,19 @@ void spread(int rt) {
     tree[r].tag ^= true;
     tree[rt].tag = false;
 }
-pair<int, int> split(int rt, int x) {
-    if (!rt) return {};
+auto split(int rt, int x) {
+    if (!rt) return make_pair(0, 0);
     spread(rt);
     if (tree[tree[rt].l].siz >= x) {
         auto [l, r] = split(tree[rt].l, x);
         tree[rt].l = r;
         maintain(rt);
-        return {l, rt};
+        return make_pair(l, rt);
     } else {
         auto [l, r] = split(tree[rt].r, x - tree[tree[rt].l].siz - 1);
         tree[rt].r = l;
         maintain(rt);
-        return {rt, r};
+        return make_pair(rt, r);
     }
 }
 int merge(int lt, int rt) {
