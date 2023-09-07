@@ -9,23 +9,23 @@ struct matrix {
     i64 a[N][N];
 } a;
 matrix quickmul(matrix a, matrix b) {
-    matrix res;
-    memset(res.a, 0, sizeof(res.a));
+    matrix ret;
+    memset(ret.a, 0, sizeof(ret.a));
     for (int i = 1; i <= n; i++)
         for (int j = 1; j <= n; j++)
             for (int k = 1; k <= n; k++)
-                res.a[i][j] = (res.a[i][j] + (i64)a.a[i][k] * b.a[k][j]) % P;
-    return res;
+                ret.a[i][j] = (ret.a[i][j] + (i64)a.a[i][k] * b.a[k][j]) % P;
+    return ret;
 }
 matrix quickpow(matrix a, i64 b) {
-    matrix res;
-    memset(res.a, 0, sizeof(res.a));
-    for (int i = 1; i <= n; i++) res.a[i][i] = 1;
+    matrix ret;
+    memset(ret.a, 0, sizeof(ret.a));
+    for (int i = 1; i <= n; i++) ret.a[i][i] = 1;
     while (b) {
-        if (b & 1) res = quickmul(res, a);
+        if (b & 1) ret = quickmul(ret, a);
         a = quickmul(a, a), b >>= 1;
     }
-    return res;
+    return ret;
 }
 int main() {
     ios::sync_with_stdio(false);

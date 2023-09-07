@@ -52,17 +52,17 @@ void updateadd(int x, int y, int k) {
     }
 }
 int query(int x, int y) {
-    int l = belong[x], r = belong[y], res = 0;
+    int l = belong[x], r = belong[y], ret = 0;
     spread(l), spread(r);
     if (l == r) {
-        for (int i = x; i <= y; i++) res = (res + a[i]) % P;
-        return res;
+        for (int i = x; i <= y; i++) ret = (ret + a[i]) % P;
+        return ret;
     }
-    for (int i = x; belong[i] == l; i++) res = (res + a[i]) % P;
-    for (int i = y; belong[i] == r; i--) res = (res + a[i]) % P;
+    for (int i = x; belong[i] == l; i++) ret = (ret + a[i]) % P;
+    for (int i = y; belong[i] == r; i--) ret = (ret + a[i]) % P;
     maintain(l), maintain(r);
-    for (int i = l + 1; i <= r - 1; i++) res = (res + sum[i]) % P;
-    return res;
+    for (int i = l + 1; i <= r - 1; i++) ret = (ret + sum[i]) % P;
+    return ret;
 }
 int main() {
     ios::sync_with_stdio(false);

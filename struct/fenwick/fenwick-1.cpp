@@ -6,9 +6,9 @@ void update(int x, int k) {
     for (int i = x; i <= n; i += i & -i) bit[i] += k;
 }
 int query(int x) {
-    int res = 0;
-    for (int i = x; i >= 1; i -= i & -i) res += bit[i];
-    return res;
+    int ret = 0;
+    for (int i = x; i >= 1; i -= i & -i) ret += bit[i];
+    return ret;
 }
 int query(int x, int y) { return query(y) - query(x - 1); }
 int main() {

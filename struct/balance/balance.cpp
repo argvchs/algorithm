@@ -75,17 +75,17 @@ void remove(int x) {
 }
 int queryrank(int x) {
     auto [l, r] = split(rt, x);
-    int res = tree[l].siz + 1;
+    int ret = tree[l].siz + 1;
     rt = merge(l, r);
-    return res;
+    return ret;
 }
 int querykth(int x) {
     if (x < 1) return numeric_limits<int>::min();
     if (x > tree[rt].siz) return numeric_limits<int>::max();
     auto [l, m, r] = splitrank(rt, x);
-    int res = tree[m].val;
+    int ret = tree[m].val;
     rt = merge(merge(l, m), r);
-    return res;
+    return ret;
 }
 int querypre(int x) { return querykth(queryrank(x) - 1); }
 int querysuc(int x) { return querykth(queryrank(x + 1)); }

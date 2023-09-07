@@ -11,41 +11,42 @@ struct node {
     int l, r;
     mutable i64 val;
 };
+int a[10]{1, 2, 3};
 bool cmp(node a, node b) { return a.l < b.l; }
 set<node, decltype(&cmp)> S(cmp);
 vector<pair<i64, int>> tmp;
 auto split(int x) {
-    auto it = --S.upper_bound({x});
+    auto it = --S.upper_bound({x, 0, 0});
     if (it->l == x) return it;
     int l = it->l, r = it->r;
     i64 val = it->val;
     S.erase(it);
-    S.insert({l, x - 1, val});
-    return S.insert({x, r, val}).first;
+    S.emplace(l, x - 1, val);
+    return S.emplace(x, r, val).first;
 }
 void assign(int l, int r, int x) {
     auto ed = split(r + 1), st = split(l);
     S.erase(st, ed);
-    S.insert({l, r, x});
+    S.emplace(l, r, x);
 }
 void update(int l, int r, int x) {
     auto ed = split(r + 1), st = split(l);
     for (auto it = st; it != ed; ++it) it->val += x;
 }
 int quickpow(int a, int b, int p) {
-    int res = 1;
+    int ret = 1;
     while (b) {
-        if (b & 1) res = (i64)res * a % p;
+        if (b & 1) ret = (i64)ret * a % p;
         a = (i64)a * a % p, b >>= 1;
     }
-    return res;
+    return ret;
 }
 int querysum(int l, int r, int x, int y) {
     auto ed = split(r + 1), st = split(l);
-    int res = 0;
+    int ret = 0;
     for (auto it = st; it != ed; ++it)
-        res = (res + (i64)quickpow(it->val % y, x, y) * (it->r - it->l + 1) % y) % y;
-    return res;
+        ret = (ret + (i64)quickpow(it->val % y, x, y) * (it->r - it->l + 1) % y) % y;
+    return ret;
 }
 i64 querykth(int l, int r, int x) {
     auto ed = split(r + 1), st = split(l);
@@ -57,9 +58,9 @@ i64 querykth(int l, int r, int x) {
     return numeric_limits<i64>::max();
 }
 int rnd() {
-    int res = seed;
+    int ret = seed;
     seed = ((i64)seed * 7 + 13) % P;
-    return res;
+    return ret;
 }
 int main() {
     ios::sync_with_stdio(false);
@@ -67,7 +68,7 @@ int main() {
     cin >> n >> m >> seed >> p;
     for (int i = 1; i <= n; ++i) {
         a[i] = (rnd() % p) + 1;
-        S.insert({i, i, a[i]});
+        S.emplace(i, i, a[i]);
     }
     for (int i = 1, op, l, r, x, y; i <= m; i++) {
         op = (rnd() % 4) + 1;

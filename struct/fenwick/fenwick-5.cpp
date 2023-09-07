@@ -13,10 +13,10 @@ void update(int x, int y, int z, int t, int k) {
     update(z + 1, t + 1, k);
 }
 int query(int x, int y) {
-    int res = 0;
+    int ret = 0;
     for (int i = x; i >= 1; i -= i & -i)
-        for (int j = y; j >= 1; j -= j & -j) res += bit[i][j];
-    return res;
+        for (int j = y; j >= 1; j -= j & -j) ret += bit[i][j];
+    return ret;
 }
 int main() {
     ios::sync_with_stdio(false);

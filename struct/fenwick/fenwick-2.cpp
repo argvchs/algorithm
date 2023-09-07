@@ -10,9 +10,9 @@ void update(int x, int y, int k) {
     update(y + 1, -k);
 }
 int query(int x) {
-    int res = 0;
-    for (int i = x; i >= 1; i -= i & -i) res += bit[i];
-    return res;
+    int ret = 0;
+    for (int i = x; i >= 1; i -= i & -i) ret += bit[i];
+    return ret;
 }
 int main() {
     ios::sync_with_stdio(false);

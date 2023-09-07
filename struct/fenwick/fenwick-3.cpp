@@ -10,9 +10,9 @@ void update(int x, int y, int k) {
     update(y + 1, -k);
 }
 int query(int x) {
-    int res = 0;
-    for (int i = x; i >= 1; i -= i & -i) res += (x + 1) * bit1[i] - bit2[i];
-    return res;
+    int ret = 0;
+    for (int i = x; i >= 1; i -= i & -i) ret += (x + 1) * bit1[i] - bit2[i];
+    return ret;
 }
 int query(int x, int y) { return query(y) - query(x - 1); }
 int main() {

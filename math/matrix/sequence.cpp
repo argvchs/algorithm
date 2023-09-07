@@ -8,23 +8,23 @@ struct matrix {
     int a[5][5];
 } a, b;
 matrix quickmul(matrix a, matrix b) {
-    matrix res;
-    memset(res.a, 0, sizeof(res.a));
+    matrix ret;
+    memset(ret.a, 0, sizeof(ret.a));
     for (int i = 1; i <= 3; i++)
         for (int j = 1; j <= 3; j++)
             for (int k = 1; k <= 3; k++)
-                res.a[i][j] = (res.a[i][j] + (i64)a.a[i][k] * b.a[k][j]) % P;
-    return res;
+                ret.a[i][j] = (ret.a[i][j] + (i64)a.a[i][k] * b.a[k][j]) % P;
+    return ret;
 }
 matrix quickpow(matrix a, int b) {
-    matrix res;
-    memset(res.a, 0, sizeof(res.a));
-    for (int i = 1; i <= 3; i++) res.a[i][i] = 1;
+    matrix ret;
+    memset(ret.a, 0, sizeof(ret.a));
+    for (int i = 1; i <= 3; i++) ret.a[i][i] = 1;
     while (b) {
-        if (b & 1) res = quickmul(res, a);
+        if (b & 1) ret = quickmul(ret, a);
         a = quickmul(a, a), b >>= 1;
     }
-    return res;
+    return ret;
 }
 int main() {
     ios::sync_with_stdio(false);

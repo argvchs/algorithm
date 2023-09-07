@@ -7,10 +7,10 @@ void update(int x, int y, int k) {
         for (int j = y; j <= m; j += j & -j) bit[i][j] += k;
 }
 int query(int x, int y) {
-    int res = 0;
+    int ret = 0;
     for (int i = x; i >= 1; i -= i & -i)
-        for (int j = y; j >= 1; j -= j & -j) res += bit[i][j];
-    return res;
+        for (int j = y; j >= 1; j -= j & -j) ret += bit[i][j];
+    return ret;
 }
 int query(int x, int y, int z, int t) {
     return query(z, t) - query(x - 1, t) - query(z, y - 1) + query(x - 1, y - 1);

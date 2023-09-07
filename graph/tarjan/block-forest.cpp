@@ -48,16 +48,16 @@ void dfs(int u, int fa) {
     }
 }
 int solve(int u, int v) {
-    int res = dis2[u] + dis2[v];
+    int ret = dis2[u] + dis2[v];
     if (dep[u] < dep[v]) swap(u, v);
     for (int i = 20; i >= 0; i--)
         if (dep[f[u][i]] >= dep[v]) u = f[u][i];
-    if (u == v) return res - (dis2[u] << 1);
+    if (u == v) return ret - (dis2[u] << 1);
     for (int i = 20; i >= 0; i--)
         if (f[u][i] != f[v][i]) u = f[u][i], v = f[v][i];
-    if (f[u][0] <= n) return res - (dis2[f[u][0]] << 1);
+    if (f[u][0] <= n) return ret - (dis2[f[u][0]] << 1);
     int k = abs(dis1[u] - dis1[v]);
-    return res - dis2[u] - dis2[v] + min(k, sum[f[u][0]] - k);
+    return ret - dis2[u] - dis2[v] + min(k, sum[f[u][0]] - k);
 }
 int main() {
     ios::sync_with_stdio(false);

@@ -21,9 +21,9 @@ void update(int x, int k) {
     for (int i = x; i <= m; i += i & -i) bit[i] += k;
 }
 int query(int x) {
-    int res = 0;
-    for (int i = x; i >= 1; i -= i & -i) res += bit[i];
-    return res;
+    int ret = 0;
+    for (int i = x; i >= 1; i -= i & -i) ret += bit[i];
+    return ret;
 }
 void solve(int l, int r) {
     if (l == r) return;

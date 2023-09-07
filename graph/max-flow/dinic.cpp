@@ -37,18 +37,18 @@ int dfs(int u, int flow) {
     for (int &i = cur[u]; i; i = e[i].next) {
         int v = e[i].to, w = e[i].w;
         if (dep[v] == dep[u] + 1 && w) {
-            int res = dfs(v, min(flow - used, w));
-            used += res, e[i].w -= res, e[i ^ 1].w += res;
+            int ret = dfs(v, min(flow - used, w));
+            used += ret, e[i].w -= ret, e[i ^ 1].w += ret;
             if (used == flow) break;
         }
     }
     return used;
 }
 void dinic() {
-    int res;
+    int ret;
     while (bfs()) {
         memcpy(cur, head, sizeof(cur));
-        while ((res = dfs(s, INF))) ans += res;
+        while ((ret = dfs(s, INF))) ans += ret;
     }
 }
 int main() {

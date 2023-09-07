@@ -6,12 +6,12 @@ using i64 = long long;
 int a, b, p, ans;
 unordered_map<int, int> M;
 int quickpow(int a, int b, int p) {
-    int res = 1;
+    int ret = 1;
     while (b) {
-        if (b & 1) res = (i64)res * a % p;
+        if (b & 1) ret = (i64)ret * a % p;
         a = (i64)a * a % p, b >>= 1;
     }
-    return res;
+    return ret;
 }
 int bsgs(int a, int b, int p) {
     int n = sqrt(p) + 1, k = quickpow(a, n, p);

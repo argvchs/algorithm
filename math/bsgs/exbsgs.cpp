@@ -8,12 +8,12 @@ using i64 = long long;
 int a, b, p;
 unordered_map<int, int> M;
 int quickpow(int a, int b, int p) {
-    int res = 1;
+    int ret = 1;
     while (b) {
-        if (b & 1) res = (i64)res * a % p;
+        if (b & 1) ret = (i64)ret * a % p;
         a = (i64)a * a % p, b >>= 1;
     }
-    return res;
+    return ret;
 }
 tuple<int, int, int> exgcd(int a, int b) {
     if (!b) return {1, 0, a};
@@ -38,17 +38,17 @@ int exbsgs(int a, int b, int p) {
         sum = (i64)sum * (a / gcd) % p;
         if (sum == b) return cnt;
     }
-    int res = bsgs(a, (i64)b * inverse(sum, p) % p, p);
-    if (res == -1) return -1;
-    return res + cnt;
+    int ret = bsgs(a, (i64)b * inverse(sum, p) % p, p);
+    if (ret == -1) return -1;
+    return ret + cnt;
 }
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
     while (cin >> a >> p >> b && a && b && p) {
-        int res = exbsgs(a % p, b % p, p);
-        if (res == -1) cout << "No Solution\n";
-        else cout << res << '\n';
+        int ret = exbsgs(a % p, b % p, p);
+        if (ret == -1) cout << "No Solution\n";
+        else cout << ret << '\n';
     }
     return 0;
 }

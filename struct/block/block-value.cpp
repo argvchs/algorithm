@@ -11,10 +11,10 @@ void build() {
 void insert(int x) { ++val[x], ++sum[belong[x]]; }
 void remove(int x) { --val[x], --sum[belong[x]]; }
 int queryrank(int x) {
-    int res = 0;
-    for (int i = 1; i <= belong[x] - 1; i++) res += sum[i];
-    for (int i = x - 1; belong[i] == belong[x]; i--) res += val[i];
-    return res + 1;
+    int ret = 0;
+    for (int i = 1; i <= belong[x] - 1; i++) ret += sum[i];
+    for (int i = x - 1; belong[i] == belong[x]; i--) ret += val[i];
+    return ret + 1;
 }
 int querykth(int x) {
     int i = 1, j = 1, k = 0;

@@ -36,8 +36,8 @@ int dfs(int u, int flow) {
     for (int &i = cur[u]; i; i = e[i].next) {
         int v = e[i].to, w = e[i].w, c = e[i].c;
         if (!vis[v] && dis[v] == dis[u] + c && w) {
-            int res = dfs(v, min(flow - used, w));
-            used += res, e[i].w -= res, e[i ^ 1].w += res;
+            int ret = dfs(v, min(flow - used, w));
+            used += ret, e[i].w -= ret, e[i ^ 1].w += ret;
             if (used == flow) break;
         }
     }
@@ -45,10 +45,10 @@ int dfs(int u, int flow) {
     return used;
 }
 void dinic() {
-    int res;
+    int ret;
     while (spfa()) {
         memcpy(cur, head, sizeof(cur));
-        while ((res = dfs(s, INF))) ansflow += res, anscost += res * dis[t];
+        while ((ret = dfs(s, INF))) ansflow += ret, anscost += ret * dis[t];
     }
 }
 int main() {

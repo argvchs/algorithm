@@ -14,12 +14,12 @@ void update(int x, int y, int z, int t, int k) {
     update(z + 1, t + 1, k);
 }
 int query(int x, int y) {
-    int res = 0;
+    int ret = 0;
     for (int i = x; i >= 1; i -= i & -i)
         for (int j = y; j >= 1; j -= j & -j)
-            res += (x + 1) * (y + 1) * bit1[i][j] - (y + 1) * bit2[i][j] - (x + 1) * bit3[i][j] +
+            ret += (x + 1) * (y + 1) * bit1[i][j] - (y + 1) * bit2[i][j] - (x + 1) * bit3[i][j] +
                    bit4[i][j];
-    return res;
+    return ret;
 }
 int query(int x, int y, int z, int t) {
     return query(z, t) - query(x - 1, t) - query(z, y - 1) + query(x - 1, y - 1);
