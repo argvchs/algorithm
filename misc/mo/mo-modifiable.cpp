@@ -7,12 +7,12 @@ int n, m, m1, m2, l = 1, r, t, a[N], belong[N], cnt[N], siz, ans;
 struct node {
     int l, r, x, k, t, id, ans;
 } q[N], u[N];
-bool cmp1(node a, node b) {
+auto cmp1 = [](node a, node b) {
     if (belong[a.l] != belong[b.l]) return a.l < b.l;
     if (belong[a.r] != belong[b.r]) return a.r < b.r;
     return a.t < b.t;
-}
-bool cmp2(node a, node b) { return a.id < b.id; }
+};
+auto cmp2 = [](node a, node b) { return a.id < b.id; };
 void build() {
     siz = pow(n, 2.0 / 3.0);
     for (int i = 1; i <= n; i++) belong[i] = (i - 1) / siz + 1;

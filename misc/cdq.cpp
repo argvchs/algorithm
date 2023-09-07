@@ -6,17 +6,17 @@ int n, m, bit[N], ans[N], cnt;
 struct node {
     int a, b, c, cnt, ans;
 } a[N], b[N];
-bool cmp1(node a, node b) {
+auto cmp1 = [](node a, node b) {
     if (a.a != b.a) return a.a < b.a;
     if (a.b != b.b) return a.b < b.b;
     return a.c < b.c;
-}
-bool cmp2(node a, node b) {
+};
+auto cmp2 = [](node a, node b) {
     if (a.b != b.b) return a.b < b.b;
     if (a.c != b.c) return a.c < b.c;
     return a.a < b.a;
-}
-bool cmp3(node a, node b) { return a.a == b.a && a.b == b.b && a.c == b.c; }
+};
+auto cmp3 = [](node a, node b) { return a.a == b.a && a.b == b.b && a.c == b.c; };
 void update(int x, int k) {
     for (int i = x; i <= m; i += i & -i) bit[i] += k;
 }

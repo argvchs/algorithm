@@ -11,9 +11,8 @@ struct node {
     int l, r;
     mutable i64 val;
 };
-int a[10]{1, 2, 3};
-bool cmp(node a, node b) { return a.l < b.l; }
-set<node, decltype(&cmp)> S(cmp);
+auto cmp = [](node a, node b) { return a.l < b.l; };
+set<node, decltype(cmp)> S;
 vector<pair<i64, int>> tmp;
 auto split(int x) {
     auto it = --S.upper_bound({x, 0, 0});
