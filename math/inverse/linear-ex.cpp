@@ -4,10 +4,10 @@ using namespace std;
 using i64 = long long;
 const int N = 5e6 + 5;
 int n, p, k, a[N], s[N], t[N], inv[N], sum, ans;
-auto exgcd(int a, int b) {
-    if (!b) return make_tuple(1, 0, a);
+tuple<int, int, int> exgcd(int a, int b) {
+    if (!b) return {1, 0, a};
     auto [x, y, gcd] = exgcd(b, a % b);
-    return make_tuple(y, x - a / b * y, gcd);
+    return {y, x - a / b * y, gcd};
 }
 int inverse(int a, int p) { return (get<0>(exgcd(a, p)) + p) % p; }
 int main() {

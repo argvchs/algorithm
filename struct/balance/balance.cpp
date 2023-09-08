@@ -14,37 +14,37 @@ void maintain(int rt) {
     int l = tree[rt].l, r = tree[rt].r;
     tree[rt].siz = tree[l].siz + tree[r].siz + tree[rt].cnt;
 }
-auto split(int rt, int x) {
-    if (!rt) return make_pair(0, 0);
+pair<int, int> split(int rt, int x) {
+    if (!rt) return {};
     if (tree[rt].val >= x) {
         auto [l, r] = split(tree[rt].l, x);
         tree[rt].l = r;
         maintain(rt);
-        return make_pair(l, rt);
+        return {l, rt};
     } else {
         auto [l, r] = split(tree[rt].r, x);
         tree[rt].r = l;
         maintain(rt);
-        return make_pair(rt, r);
+        return {rt, r};
     }
 }
-auto splitrank(int rt, int x) {
-    if (!rt) return make_tuple(0, 0, 0);
+tuple<int, int, int> splitrank(int rt, int x) {
+    if (!rt) return {};
     if (tree[tree[rt].l].siz >= x) {
         auto [l, m, r] = splitrank(tree[rt].l, x);
         tree[rt].l = r;
         maintain(rt);
-        return make_tuple(l, m, rt);
+        return {l, m, rt};
     } else if (tree[tree[rt].l].siz + tree[rt].cnt >= x) {
         int l = tree[rt].l, r = tree[rt].r;
         tree[rt].l = tree[rt].r = 0;
         maintain(rt);
-        return make_tuple(l, rt, r);
+        return {l, rt, r};
     } else {
         auto [l, m, r] = splitrank(tree[rt].r, x - tree[tree[rt].l].siz - tree[rt].cnt);
         tree[rt].r = l;
         maintain(rt);
-        return make_tuple(rt, m, r);
+        return {rt, m, r};
     }
 }
 int merge(int lt, int rt) {

@@ -3,10 +3,10 @@
 using namespace std;
 using i64 = long long;
 int a, b, c, t;
-auto exgcd(int a, int b) {
-    if (!b) return make_tuple(1ll, 0ll, a);
+tuple<i64, i64, int> exgcd(int a, int b) {
+    if (!b) return {1, 0, a};
     auto [x, y, gcd] = exgcd(b, a % b);
-    return make_tuple(y, x - a / b * y, gcd);
+    return {y, x - a / b * y, gcd};
 }
 int main() {
     ios::sync_with_stdio(false);

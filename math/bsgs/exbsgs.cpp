@@ -15,10 +15,10 @@ int quickpow(int a, int b, int p) {
     }
     return ret;
 }
-auto exgcd(int a, int b) {
-    if (!b) return make_tuple(1, 0, a);
+tuple<int, int, int> exgcd(int a, int b) {
+    if (!b) return {1, 0, a};
     auto [x, y, gcd] = exgcd(b, a % b);
-    return make_tuple(y, x - a / b * y, gcd);
+    return {y, x - a / b * y, gcd};
 }
 int inverse(int a, int p) { return (get<0>(exgcd(a, p)) + p) % p; }
 int bsgs(int a, int b, int p) {
@@ -26,7 +26,7 @@ int bsgs(int a, int b, int p) {
     M.clear();
     for (int i = 0, j = b; i <= n; i++, j = (i64)j * a % p) M[j] = i;
     for (int i = 1, j = k; i <= n; i++, j = (i64)j * k % p)
-        if (M.count(j)) return (i64)i * n - M[j];
+        if (M.count(j)) return i * n - M[j];
     return -1;
 }
 int exbsgs(int a, int b, int p) {

@@ -12,10 +12,10 @@ struct node {
     mutable i64 val;
 };
 auto cmp = [](node a, node b) { return a.l < b.l; };
-set<node, decltype(cmp)> S(cmp);
+set<node, decltype(cmp)> S;
 vector<pair<i64, int>> tmp;
 auto split(int x) {
-    auto it = --S.upper_bound({x, 0, 0});
+    auto it = --S.upper_bound({x});
     if (it->l == x) return it;
     int l = it->l, r = it->r;
     i64 val = it->val;
