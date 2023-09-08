@@ -11,7 +11,7 @@ auto cmp = [](node a, node b) {
     return a.id < b.id;
 };
 int merge(int lt, int rt) {
-    if (!lt || !rt) return lt ^ rt;
+    if (!lt || !rt) return lt + rt;
     if (cmp(tree[rt], tree[lt])) swap(lt, rt);
     tree[rt].r = tree[lt].l, tree[lt].l = rt;
     return lt;

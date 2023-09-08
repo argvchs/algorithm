@@ -15,16 +15,16 @@ void addedge(int u, int v) { add(u, v), add(v, u); }
 void tarjan(int u, int fa) {
     dfn[u] = low[u] = ++idx;
     S.push(u);
-    int son = !!fa;
+    int ch = !!fa;
     for (int i = head[u]; i; i = e[i].next) {
         int v = e[i].to;
         if (!dfn[v]) {
             tarjan(v, u);
             low[u] = min(low[u], low[v]);
-            if (low[v] >= dfn[u]) ++son;
+            if (low[v] >= dfn[u]) ++ch;
         } else low[u] = min(low[u], dfn[v]);
     }
-    if (son >= 2) vis[u] = true, ++tot;
+    if (ch >= 2) vis[u] = true, ++tot;
 }
 int main() {
     ios::sync_with_stdio(false);

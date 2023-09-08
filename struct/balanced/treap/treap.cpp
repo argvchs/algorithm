@@ -48,7 +48,7 @@ tuple<int, int, int> splitrank(int rt, int x) {
     }
 }
 int merge(int lt, int rt) {
-    if (!lt || !rt) return lt ^ rt;
+    if (!lt || !rt) return lt + rt;
     if (tree[lt].key < tree[rt].key) {
         tree[lt].r = merge(tree[lt].r, rt);
         maintain(lt);

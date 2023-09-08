@@ -39,7 +39,7 @@ pair<int, int> split(int rt, int x) {
     }
 }
 int merge(int lt, int rt) {
-    if (!lt || !rt) return lt ^ rt;
+    if (!lt || !rt) return lt + rt;
     spread(lt);
     spread(rt);
     if (tree[lt].key < tree[rt].key) {

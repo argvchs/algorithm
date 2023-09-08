@@ -5,7 +5,7 @@ const int N = 3e6 + 5;
 int n, m, t, cnt;
 char s[N];
 struct node {
-    int val, son[62];
+    int val, ch[62];
 } tree[N];
 int id(char c) {
     if (isdigit(c)) return c - '0';
@@ -16,16 +16,16 @@ void insert(char *s) {
     int rt = 0, len = strlen(s + 1);
     for (int i = 1; i <= len; i++) {
         int x = id(s[i]);
-        if (!tree[rt].son[x]) tree[rt].son[x] = ++cnt;
-        rt = tree[rt].son[x], ++tree[rt].val;
+        if (!tree[rt].ch[x]) tree[rt].ch[x] = ++cnt;
+        rt = tree[rt].ch[x], ++tree[rt].val;
     }
 }
 int query(char *s) {
     int rt = 0, len = strlen(s + 1);
     for (int i = 1; i <= len; i++) {
         int x = id(s[i]);
-        if (!tree[rt].son[x]) return 0;
-        rt = tree[rt].son[x];
+        if (!tree[rt].ch[x]) return 0;
+        rt = tree[rt].ch[x];
     }
     return tree[rt].val;
 }
