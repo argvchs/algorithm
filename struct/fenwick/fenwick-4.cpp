@@ -22,10 +22,7 @@ int main() {
     for (int i = 1, op, x, y, z, t; i <= q; i++) {
         cin >> op >> x >> y >> z;
         if (op == 1) update(x, y, z);
-        else {
-            cin >> t;
-            cout << query(x, y, z, t) << '\n';
-        }
+        else cin >> t, cout << query(x, y, z, t) << '\n';
     }
     return 0;
 }

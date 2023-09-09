@@ -15,17 +15,13 @@ void add(int u, int v, int w) { e[++cnt] = {v, head[u], w}, head[u] = cnt; }
 void addflow(int u, int v, int w) { add(u, v, w), add(v, u, 0); }
 bool bfs() {
     memset(ht, 0x3f, sizeof(ht));
-    ht[t] = 0, vis[t] = true;
-    Q.push(t);
+    ht[t] = 0, vis[t] = true, Q.push(t);
     while (!Q.empty()) {
         int u = Q.front();
         Q.pop();
         for (int i = head[u]; i; i = e[i].next) {
             int v = e[i].to, w = e[i ^ 1].w;
-            if (!vis[v] && w) {
-                ht[v] = ht[u] + 1, vis[v] = true;
-                Q.push(v);
-            }
+            if (!vis[v] && w) ht[v] = ht[u] + 1, vis[v] = true, Q.push(v);
         }
     }
     return ht[s] != INF;
@@ -49,10 +45,7 @@ void relabel(int u) {
         int v = e[i].to;
         if (e[i].w) ht[u] = min(ht[u], ht[v] + 1);
     }
-    if (ht[u] < n) {
-        ++gap[ht[u]];
-        PQ.emplace(ht[u], u);
-    }
+    if (ht[u] < n) ++gap[ht[u]], PQ.emplace(ht[u], u);
 }
 void hlpp() {
     if (!bfs()) return;

@@ -15,8 +15,7 @@ queue<int> Q;
 void add1(int u, int v) { e[++cnt] = {u, v, head1[u]}, head1[u] = cnt; }
 void add2(int u, int v) { e[++cnt] = {u, v, head2[u]}, head2[u] = cnt; }
 void tarjan(int u) {
-    dfn[u] = low[u] = ++idx, vis[u] = true;
-    S.push(u);
+    dfn[u] = low[u] = ++idx, vis[u] = true, S.push(u);
     for (int i = head1[u]; i; i = e[i].next) {
         int v = e[i].to;
         if (!dfn[v]) {
@@ -35,10 +34,7 @@ void tarjan(int u) {
 }
 void toposort() {
     for (int i = 1; i <= tot; i++)
-        if (!in[i]) {
-            dis[i] = b[i];
-            Q.push(i);
-        }
+        if (!in[i]) dis[i] = b[i], Q.push(i);
     while (!Q.empty()) {
         int u = Q.front();
         Q.pop();

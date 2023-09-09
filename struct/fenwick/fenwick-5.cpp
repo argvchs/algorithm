@@ -24,10 +24,8 @@ int main() {
     cin >> n >> m >> q;
     for (int i = 1, op, x, y, z, t, k; i <= q; i++) {
         cin >> op >> x >> y;
-        if (op == 1) {
-            cin >> z >> t >> k;
-            update(x, y, z, t, k);
-        } else cout << query(x, y) << '\n';
+        if (op == 1) cin >> z >> t >> k, update(x, y, z, t, k);
+        else cout << query(x, y) << '\n';
     }
     return 0;
 }

@@ -10,19 +10,13 @@ queue<int> Q;
 void add(int u, int v) { e[++cnt] = {v, head[u]}, head[u] = cnt; }
 void toposort() {
     for (int i = 1; i <= n; i++)
-        if (!in[i]) {
-            cout << i << ' ';
-            Q.push(i);
-        }
+        if (!in[i]) cout << i << ' ', Q.push(i);
     while (!Q.empty()) {
         int u = Q.front();
         Q.pop();
         for (int i = head[u]; i; i = e[i].next) {
             int v = e[i].to;
-            if (!--in[v]) {
-                cout << v << ' ';
-                Q.push(v);
-            }
+            if (!--in[v]) cout << v << ' ', Q.push(v);
         }
     }
 }

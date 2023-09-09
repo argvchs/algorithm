@@ -15,34 +15,30 @@ void maintain(int rt) { t[rt].siz = t[t[rt].l].siz + t[t[rt].r].siz + 1; }
 void spread(int rt) {
     if (!t[rt].tag) return;
     swap(t[rt].l, t[rt].r);
-    t[t[rt].l].tag ^= true, t[t[rt].r].tag ^= true, t[rt].tag = false;
+    t[t[rt].l].tag ^= true, t[t[rt].r].tag ^= true;
+    t[rt].tag = false;
 }
 pair<int, int> split(int rt, int x) {
     if (!rt) return {};
     spread(rt);
     if (t[t[rt].l].siz >= x) {
         auto [l, r] = split(t[rt].l, x);
-        t[rt].l = r;
-        maintain(rt);
+        t[rt].l = r, maintain(rt);
         return {l, rt};
     } else {
         auto [l, r] = split(t[rt].r, x - t[t[rt].l].siz - 1);
-        t[rt].r = l;
-        maintain(rt);
+        t[rt].r = l, maintain(rt);
         return {rt, r};
     }
 }
 int merge(int lt, int rt) {
     if (!lt || !rt) return lt + rt;
-    spread(lt);
-    spread(rt);
+    spread(lt), spread(rt);
     if (t[lt].key < t[rt].key) {
-        t[lt].r = merge(t[lt].r, rt);
-        maintain(lt);
+        t[lt].r = merge(t[lt].r, rt), maintain(lt);
         return lt;
     } else {
-        t[rt].l = merge(lt, t[rt].l);
-        maintain(rt);
+        t[rt].l = merge(lt, t[rt].l), maintain(rt);
         return rt;
     }
 }
@@ -55,8 +51,7 @@ int build() {
             maintain(pre = S.top()), S.pop();
         }
         if (!S.empty()) t[S.top()].r = cnt;
-        t[cnt].l = pre, pre = 0;
-        S.push(cnt);
+        t[cnt].l = pre, pre = 0, S.push(cnt);
     }
     while (!S.empty()) maintain(pre = S.top()), S.pop();
     return pre;

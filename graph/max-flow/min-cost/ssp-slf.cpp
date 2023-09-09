@@ -14,8 +14,7 @@ void addflow(int u, int v, int w, int c) { add(u, v, w, c), add(v, u, 0, -c); }
 bool spfa() {
     memset(dis, 0x3f, sizeof(dis));
     memset(vis, false, sizeof(vis));
-    dis[s] = 0, vis[s] = true;
-    Q.push(s);
+    dis[s] = 0, vis[s] = true, Q.push(s);
     while (!Q.empty()) {
         int u = Q.front();
         vis[u] = false, Q.pop();

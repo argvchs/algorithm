@@ -9,7 +9,8 @@ void maintain(int rt) { t[rt].sum = t[t[rt].ch[0]].sum ^ t[t[rt].ch[1]].sum ^ t[
 void spread(int rt) {
     if (!t[rt].tag) return;
     swap(t[rt].ch[0], t[rt].ch[1]);
-    t[t[rt].ch[0]].tag ^= true, t[t[rt].ch[1]].tag ^= true, t[rt].tag = false;
+    t[t[rt].ch[0]].tag ^= true, t[t[rt].ch[1]].tag ^= true;
+    t[rt].tag = false;
 }
 bool check(int rt) { return rt == t[t[rt].fa].ch[1]; }
 bool isroot(int rt) { return rt != t[t[rt].fa].ch[0] && rt != t[t[rt].fa].ch[1]; }
@@ -49,7 +50,6 @@ void cut(int lt, int rt) {
     if (findroot(rt) == lt && t[rt].fa == lt && !t[rt].ch[0])
         t[rt].fa = t[lt].ch[1] = 0, maintain(lt);
 }
-void update(int rt, int x) { splay(rt), t[rt].val = x; }
 int query(int lt, int rt) {
     makeroot(lt), access(rt), splay(rt);
     return t[rt].sum;
@@ -64,7 +64,7 @@ int main() {
         if (!op) cout << query(x, y) << '\n';
         else if (op == 1) link(x, y);
         else if (op == 2) cut(x, y);
-        else update(x, y);
+        else splay(x), t[x].val = y;
     }
     return 0;
 }

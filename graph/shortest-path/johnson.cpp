@@ -15,8 +15,7 @@ priority_queue<pair<int, int>, vector<pair<int, int>>, greater<>> PQ;
 void add(int u, int v, int w) { e[++cnt] = {v, head[u], w}, head[u] = cnt; }
 bool spfa() {
     memset(h, 0x3f, sizeof(h));
-    h[n + 1] = 0, vis[n + 1] = true;
-    Q.push(n + 1);
+    h[n + 1] = 0, vis[n + 1] = true, Q.push(n + 1);
     for (int i = 1; i <= n; i++) add(n + 1, i, 0);
     while (!Q.empty()) {
         int u = Q.front();

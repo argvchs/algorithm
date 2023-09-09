@@ -30,10 +30,8 @@ int main() {
     cin >> n >> m >> q;
     for (int i = 1, op, x, y, z, t, k; i <= q; i++) {
         cin >> op >> x >> y >> z >> t;
-        if (op == 1) {
-            cin >> k;
-            update(x, y, z, t, k);
-        } else cout << query(x, y, z, t) << '\n';
+        if (op == 1) cin >> k, update(x, y, z, t, k);
+        else cout << query(x, y, z, t) << '\n';
     }
     return 0;
 }

@@ -14,8 +14,7 @@ void build() {
             pre = S.top(), S.pop();
         }
         if (!S.empty()) r[S.top()] = i;
-        l[i] = pre, pre = 0;
-        S.push(i);
+        l[i] = pre, pre = 0, S.push(i);
     }
 }
 int main() {

@@ -14,8 +14,7 @@ void add2(int u, int v, int w) { e[++cnt] = {v, head2[u], w}, head2[u] = cnt; }
 void addedge1(int u, int v, int w) { add1(u, v, w), add1(v, u, w); }
 void addedge2(int u, int v, int w) { add2(u, v, w), add2(v, u, w); }
 void tarjan(int u, int fa) {
-    dfn[u] = low[u] = ++idx;
-    S.push(u);
+    dfn[u] = low[u] = ++idx, S.push(u);
     for (int i = head1[u]; i; i = e[i].next) {
         int v = e[i].to, w = e[i].w;
         if (!dfn[v]) {
@@ -68,8 +67,7 @@ int main() {
         cin >> u >> v >> w;
         addedge1(u, v, w);
     }
-    tarjan(1, 0);
-    dfs(1, 0);
+    tarjan(1, 0), dfs(1, 0);
     for (int i = 1, u, v; i <= k; i++) {
         cin >> u >> v;
         cout << solve(u, v) << '\n';

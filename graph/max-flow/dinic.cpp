@@ -16,17 +16,13 @@ void addflow(int u, int v, int w) { add(u, v, w), add(v, u, 0); }
 bool bfs() {
     memset(dep, 0x3f, sizeof(dep));
     memset(vis, false, sizeof(vis));
-    dep[s] = 1, vis[s] = true;
-    Q.push(s);
+    dep[s] = 1, vis[s] = true, Q.push(s);
     while (!Q.empty()) {
         int u = Q.front();
         Q.pop();
         for (int i = head[u]; i; i = e[i].next) {
             int v = e[i].to, w = e[i].w;
-            if (!vis[v] && w) {
-                dep[v] = dep[u] + 1, vis[v] = true;
-                Q.push(v);
-            }
+            if (!vis[v] && w) dep[v] = dep[u] + 1, vis[v] = true, Q.push(v);
         }
     }
     return dep[t] != INF;

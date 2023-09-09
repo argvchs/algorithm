@@ -48,18 +48,12 @@ int querynext(int x) { return querykth(queryrank(x + 1)); }
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
-    cin >> n >> m;
-    cnt = n;
+    cin >> n >> m, cnt = n;
     for (int i = 1; i <= n; i++) cin >> a[i], b[i] = a[i];
     for (int i = 1, op, l, r, x, k; i <= m; i++) {
         cin >> op;
-        if (op == 3) {
-            cin >> x >> k;
-            u[++m2] = {op, 0, 0, x, k, m2, m1};
-        } else {
-            cin >> l >> r >> k;
-            q[++m1] = {op, l, r, 0, k, m2, m1};
-        }
+        if (op == 3) cin >> x >> k, u[++m2] = {op, 0, 0, x, k, m2, m1};
+        else cin >> l >> r >> k, q[++m1] = {op, l, r, 0, k, m2, m1};
         if (op != 2) b[++cnt] = k;
     }
     sort(b + 1, b + cnt + 1);

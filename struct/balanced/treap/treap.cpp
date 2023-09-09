@@ -15,13 +15,11 @@ pair<int, int> split(int rt, int x) {
     if (!rt) return {};
     if (t[rt].val >= x) {
         auto [l, r] = split(t[rt].l, x);
-        t[rt].l = r;
-        maintain(rt);
+        t[rt].l = r, maintain(rt);
         return {l, rt};
     } else {
         auto [l, r] = split(t[rt].r, x);
-        t[rt].r = l;
-        maintain(rt);
+        t[rt].r = l, maintain(rt);
         return {rt, r};
     }
 }
@@ -29,30 +27,25 @@ tuple<int, int, int> splitrank(int rt, int x) {
     if (!rt) return {};
     if (t[t[rt].l].siz >= x) {
         auto [l, m, r] = splitrank(t[rt].l, x);
-        t[rt].l = r;
-        maintain(rt);
+        t[rt].l = r, maintain(rt);
         return {l, m, rt};
     } else if (t[t[rt].l].siz + t[rt].cnt >= x) {
         int l = t[rt].l, r = t[rt].r;
-        t[rt].l = t[rt].r = 0;
-        maintain(rt);
+        t[rt].l = t[rt].r = 0, maintain(rt);
         return {l, rt, r};
     } else {
         auto [l, m, r] = splitrank(t[rt].r, x - t[t[rt].l].siz - t[rt].cnt);
-        t[rt].r = l;
-        maintain(rt);
+        t[rt].r = l, maintain(rt);
         return {rt, m, r};
     }
 }
 int merge(int lt, int rt) {
     if (!lt || !rt) return lt + rt;
     if (t[lt].key < t[rt].key) {
-        t[lt].r = merge(t[lt].r, rt);
-        maintain(lt);
+        t[lt].r = merge(t[lt].r, rt), maintain(lt);
         return lt;
     } else {
-        t[rt].l = merge(lt, t[rt].l);
-        maintain(rt);
+        t[rt].l = merge(lt, t[rt].l), maintain(rt);
         return rt;
     }
 }

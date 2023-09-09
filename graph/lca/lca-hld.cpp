@@ -41,8 +41,7 @@ int main() {
         cin >> u >> v;
         addedge(u, v);
     }
-    dfs1(s, 0);
-    dfs2(s, 0, s);
+    dfs1(s, 0), dfs2(s, 0, s);
     for (int i = 1, u, v; i <= m; i++) {
         cin >> u >> v;
         cout << lca(u, v) << '\n';

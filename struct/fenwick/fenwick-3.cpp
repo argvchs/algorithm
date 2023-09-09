@@ -5,10 +5,7 @@ int n, m, bit1[N], bit2[N];
 void update(int x, int k) {
     for (int i = x; i <= n; i += i & -i) bit1[i] += k, bit2[i] += k * x;
 }
-void update(int x, int y, int k) {
-    update(x, k);
-    update(y + 1, -k);
-}
+void update(int x, int y, int k) { update(x, k), update(y + 1, -k); }
 int query(int x) {
     int ret = 0;
     for (int i = x; i >= 1; i -= i & -i) ret += (x + 1) * bit1[i] - bit2[i];
@@ -22,10 +19,8 @@ int main() {
     for (int i = 1, x; i <= n; i++) cin >> x, update(i, i, x);
     for (int i = 1, op, x, y, k; i <= m; i++) {
         cin >> op >> x >> y;
-        if (op == 1) {
-            cin >> k;
-            update(x, y, k);
-        } else cout << query(x, y) << '\n';
+        if (op == 1) cin >> k, update(x, y, k);
+        else cout << query(x, y) << '\n';
     }
     return 0;
 }
