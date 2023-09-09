@@ -10,7 +10,7 @@ int main() {
     while (t--) {
         cin >> n;
         for (i64 i = 2; i * i <= n; i++)
-            while (n % i == 0) {
+            while (!(n % i)) {
                 cout << i << ' ';
                 n /= i;
             }

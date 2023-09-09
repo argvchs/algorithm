@@ -8,32 +8,26 @@ struct node {
     int l, r, val, siz;
     mt19937::result_type key;
     bool tag;
-} tree[N];
+} t[N];
 mt19937 rng(random_device{}());
 stack<int> S;
-void maintain(int rt) {
-    int l = tree[rt].l, r = tree[rt].r;
-    tree[rt].siz = tree[l].siz + tree[r].siz + 1;
-}
+void maintain(int rt) { t[rt].siz = t[t[rt].l].siz + t[t[rt].r].siz + 1; }
 void spread(int rt) {
-    if (!tree[rt].tag) return;
-    int l = tree[rt].l, r = tree[rt].r;
-    swap(tree[rt].l, tree[rt].r);
-    tree[l].tag ^= true;
-    tree[r].tag ^= true;
-    tree[rt].tag = false;
+    if (!t[rt].tag) return;
+    swap(t[rt].l, t[rt].r);
+    t[t[rt].l].tag ^= true, t[t[rt].r].tag ^= true, t[rt].tag = false;
 }
 pair<int, int> split(int rt, int x) {
     if (!rt) return {};
     spread(rt);
-    if (tree[tree[rt].l].siz >= x) {
-        auto [l, r] = split(tree[rt].l, x);
-        tree[rt].l = r;
+    if (t[t[rt].l].siz >= x) {
+        auto [l, r] = split(t[rt].l, x);
+        t[rt].l = r;
         maintain(rt);
         return {l, rt};
     } else {
-        auto [l, r] = split(tree[rt].r, x - tree[tree[rt].l].siz - 1);
-        tree[rt].r = l;
+        auto [l, r] = split(t[rt].r, x - t[t[rt].l].siz - 1);
+        t[rt].r = l;
         maintain(rt);
         return {rt, r};
     }
@@ -42,12 +36,12 @@ int merge(int lt, int rt) {
     if (!lt || !rt) return lt + rt;
     spread(lt);
     spread(rt);
-    if (tree[lt].key < tree[rt].key) {
-        tree[lt].r = merge(tree[lt].r, rt);
+    if (t[lt].key < t[rt].key) {
+        t[lt].r = merge(t[lt].r, rt);
         maintain(lt);
         return lt;
     } else {
-        tree[rt].l = merge(lt, tree[rt].l);
+        t[rt].l = merge(lt, t[rt].l);
         maintain(rt);
         return rt;
     }
@@ -55,13 +49,13 @@ int merge(int lt, int rt) {
 int build() {
     int pre = 0;
     for (int i = 1; i <= n; i++) {
-        tree[++cnt] = {0, 0, i, 1, rng()};
+        t[++cnt] = {0, 0, i, 1, rng()};
         while (!S.empty()) {
-            if (tree[S.top()].key < tree[cnt].key) break;
+            if (t[S.top()].key < t[cnt].key) break;
             maintain(pre = S.top()), S.pop();
         }
-        if (!S.empty()) tree[S.top()].r = cnt;
-        tree[cnt].l = pre, pre = 0;
+        if (!S.empty()) t[S.top()].r = cnt;
+        t[cnt].l = pre, pre = 0;
         S.push(cnt);
     }
     while (!S.empty()) maintain(pre = S.top()), S.pop();
@@ -70,15 +64,15 @@ int build() {
 void reverse(int x, int y) {
     auto [l, p] = split(rt, x - 1);
     auto [m, r] = split(p, y - x + 1);
-    tree[m].tag ^= true;
+    t[m].tag ^= true;
     rt = merge(merge(l, m), r);
 }
 void output(int rt) {
     if (!rt) return;
     spread(rt);
-    output(tree[rt].l);
-    cout << tree[rt].val << ' ';
-    output(tree[rt].r);
+    output(t[rt].l);
+    cout << t[rt].val << ' ';
+    output(t[rt].r);
 }
 int main() {
     ios::sync_with_stdio(false);

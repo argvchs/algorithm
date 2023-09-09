@@ -2,11 +2,11 @@
 #include <iostream>
 using namespace std;
 const int N = 3e6 + 5;
-int n, m, t, cnt;
+int n, m, k, cnt;
 char s[N];
 struct node {
     int val, ch[62];
-} tree[N];
+} t[N];
 int id(char c) {
     if (isdigit(c)) return c - '0';
     if (isupper(c)) return c - 'A' + 10;
@@ -16,25 +16,25 @@ void insert(char *s) {
     int rt = 0, len = strlen(s + 1);
     for (int i = 1; i <= len; i++) {
         int x = id(s[i]);
-        if (!tree[rt].ch[x]) tree[rt].ch[x] = ++cnt;
-        rt = tree[rt].ch[x], ++tree[rt].val;
+        if (!t[rt].ch[x]) t[rt].ch[x] = ++cnt;
+        rt = t[rt].ch[x], ++t[rt].val;
     }
 }
 int query(char *s) {
     int rt = 0, len = strlen(s + 1);
     for (int i = 1; i <= len; i++) {
         int x = id(s[i]);
-        if (!tree[rt].ch[x]) return 0;
-        rt = tree[rt].ch[x];
+        if (!t[rt].ch[x]) return 0;
+        rt = t[rt].ch[x];
     }
-    return tree[rt].val;
+    return t[rt].val;
 }
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
-    cin >> t;
-    while (t--) {
-        memset(&tree, 0, sizeof(node) * (cnt + 1));
+    cin >> k;
+    while (k--) {
+        memset(&t, 0, sizeof(node) * (cnt + 1));
         cnt = 0;
         cin >> n >> m;
         for (int i = 1; i <= n; i++) {

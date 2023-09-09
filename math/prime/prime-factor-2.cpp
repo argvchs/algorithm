@@ -11,7 +11,7 @@ int main() {
         for (int j = 1; j <= cnt && i * p[j] <= 1e8; j++) {
             vis[i * p[j]] = true;
             pre[i * p[j]] = p[j];
-            if (i % p[j] == 0) break;
+            if (!(i % p[j])) break;
         }
     }
     cin >> t;

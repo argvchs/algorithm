@@ -6,7 +6,7 @@ int n, m, a[N], rt[N], fa[N], siz[N], cnt;
 bool vis[N];
 struct node {
     int l, r, val, id;
-} tree[N];
+} t[N];
 mt19937 rng(random_device{}());
 auto cmp = [](node a, node b) {
     if (a.val != b.val) return a.val < b.val;
@@ -14,16 +14,16 @@ auto cmp = [](node a, node b) {
 };
 int merge(int lt, int rt) {
     if (!lt || !rt) return lt + rt;
-    if (cmp(tree[rt], tree[lt])) swap(lt, rt);
-    if (rng() & 1) swap(tree[lt].l, tree[lt].r);
-    tree[lt].l = merge(tree[lt].l, rt);
+    if (cmp(t[rt], t[lt])) swap(lt, rt);
+    if (rng() & 1) swap(t[lt].l, t[lt].r);
+    t[lt].l = merge(t[lt].l, rt);
     return lt;
 }
 int insert(int rt, int x, int y) {
-    tree[++cnt] = {0, 0, x, y};
+    t[++cnt] = {0, 0, x, y};
     return merge(rt, cnt);
 }
-int remove(int rt) { return merge(tree[rt].l, tree[rt].r); }
+int remove(int rt) { return merge(t[rt].l, t[rt].r); }
 int find(int u) { return u == fa[u] ? u : fa[u] = find(fa[u]); }
 int main() {
     ios::sync_with_stdio(false);
@@ -50,8 +50,8 @@ int main() {
                 continue;
             }
             u = find(u);
-            vis[tree[rt[u]].id] = true;
-            cout << tree[rt[u]].val << '\n';
+            vis[t[rt[u]].id] = true;
+            cout << t[rt[u]].val << '\n';
             rt[u] = remove(rt[u]);
         }
     }

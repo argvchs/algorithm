@@ -11,7 +11,7 @@ int main() {
         if (!vis[i]) p[++cnt] = i;
         for (int j = 1; j <= cnt && i * p[j] <= n; j++) {
             vis[i * p[j]] = true;
-            if (i % p[j] == 0) break;
+            if (!(i % p[j])) break;
         }
     }
     for (int i = 1, x; i <= m; i++) {

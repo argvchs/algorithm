@@ -8,53 +8,50 @@ int n, m, rt, cnt, pre, ans;
 struct node {
     int l, r, val, cnt, siz;
     mt19937::result_type key;
-} tree[N];
+} t[N];
 mt19937 rng(random_device{}());
-void maintain(int rt) {
-    int l = tree[rt].l, r = tree[rt].r;
-    tree[rt].siz = tree[l].siz + tree[r].siz + tree[rt].cnt;
-}
+void maintain(int rt) { t[rt].siz = t[t[rt].l].siz + t[t[rt].r].siz + t[rt].cnt; }
 pair<int, int> split(int rt, int x) {
     if (!rt) return {};
-    if (tree[rt].val >= x) {
-        auto [l, r] = split(tree[rt].l, x);
-        tree[rt].l = r;
+    if (t[rt].val >= x) {
+        auto [l, r] = split(t[rt].l, x);
+        t[rt].l = r;
         maintain(rt);
         return {l, rt};
     } else {
-        auto [l, r] = split(tree[rt].r, x);
-        tree[rt].r = l;
+        auto [l, r] = split(t[rt].r, x);
+        t[rt].r = l;
         maintain(rt);
         return {rt, r};
     }
 }
 tuple<int, int, int> splitrank(int rt, int x) {
     if (!rt) return {};
-    if (tree[tree[rt].l].siz >= x) {
-        auto [l, m, r] = splitrank(tree[rt].l, x);
-        tree[rt].l = r;
+    if (t[t[rt].l].siz >= x) {
+        auto [l, m, r] = splitrank(t[rt].l, x);
+        t[rt].l = r;
         maintain(rt);
         return {l, m, rt};
-    } else if (tree[tree[rt].l].siz + tree[rt].cnt >= x) {
-        int l = tree[rt].l, r = tree[rt].r;
-        tree[rt].l = tree[rt].r = 0;
+    } else if (t[t[rt].l].siz + t[rt].cnt >= x) {
+        int l = t[rt].l, r = t[rt].r;
+        t[rt].l = t[rt].r = 0;
         maintain(rt);
         return {l, rt, r};
     } else {
-        auto [l, m, r] = splitrank(tree[rt].r, x - tree[tree[rt].l].siz - tree[rt].cnt);
-        tree[rt].r = l;
+        auto [l, m, r] = splitrank(t[rt].r, x - t[t[rt].l].siz - t[rt].cnt);
+        t[rt].r = l;
         maintain(rt);
         return {rt, m, r};
     }
 }
 int merge(int lt, int rt) {
     if (!lt || !rt) return lt + rt;
-    if (tree[lt].key < tree[rt].key) {
-        tree[lt].r = merge(tree[lt].r, rt);
+    if (t[lt].key < t[rt].key) {
+        t[lt].r = merge(t[lt].r, rt);
         maintain(lt);
         return lt;
     } else {
-        tree[rt].l = merge(lt, tree[rt].l);
+        t[rt].l = merge(lt, t[rt].l);
         maintain(rt);
         return rt;
     }
@@ -62,28 +59,28 @@ int merge(int lt, int rt) {
 void insert(int x) {
     auto [l, p] = split(rt, x);
     auto [m, r] = split(p, x + 1);
-    if (m) ++tree[m].cnt, ++tree[m].siz;
-    else tree[m = ++cnt] = {0, 0, x, 1, 1, rng()};
+    if (m) ++t[m].cnt, ++t[m].siz;
+    else t[m = ++cnt] = {0, 0, x, 1, 1, rng()};
     rt = merge(merge(l, m), r);
 }
 void remove(int x) {
     auto [l, p] = split(rt, x);
     auto [m, r] = split(p, x + 1);
-    if (tree[m].cnt > 1) --tree[m].cnt, --tree[m].siz;
+    if (t[m].cnt > 1) --t[m].cnt, --t[m].siz;
     else m = 0;
     rt = merge(merge(l, m), r);
 }
 int queryrank(int x) {
     auto [l, r] = split(rt, x);
-    int ret = tree[l].siz + 1;
+    int ret = t[l].siz + 1;
     rt = merge(l, r);
     return ret;
 }
 int querykth(int x) {
     if (x < 1) return numeric_limits<int>::min();
-    if (x > tree[rt].siz) return numeric_limits<int>::max();
+    if (x > t[rt].siz) return numeric_limits<int>::max();
     auto [l, m, r] = splitrank(rt, x);
-    int ret = tree[m].val;
+    int ret = t[m].val;
     rt = merge(merge(l, m), r);
     return ret;
 }

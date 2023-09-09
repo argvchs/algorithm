@@ -5,28 +5,28 @@ int n, m, a[N], rt[N], fa[N], siz[N], cnt;
 bool vis[N];
 struct node {
     int l, r, val, id;
-} tree[N];
+} t[N];
 auto cmp = [](node a, node b) {
     if (a.val != b.val) return a.val < b.val;
     return a.id < b.id;
 };
 int merge(int lt, int rt) {
     if (!lt || !rt) return lt + rt;
-    if (cmp(tree[rt], tree[lt])) swap(lt, rt);
-    tree[rt].r = tree[lt].l, tree[lt].l = rt;
+    if (cmp(t[rt], t[lt])) swap(lt, rt);
+    t[rt].r = t[lt].l, t[lt].l = rt;
     return lt;
 }
 int pairing(int rt) {
-    if (!rt || !tree[rt].r) return rt;
-    int r1 = tree[rt].r, r2 = tree[r1].r;
-    tree[rt].r = tree[r1].r = 0;
+    if (!rt || !t[rt].r) return rt;
+    int r1 = t[rt].r, r2 = t[r1].r;
+    t[rt].r = t[r1].r = 0;
     return merge(merge(rt, r1), pairing(r2));
 }
 int insert(int rt, int x, int y) {
-    tree[++cnt] = {0, 0, x, y};
+    t[++cnt] = {0, 0, x, y};
     return merge(rt, cnt);
 }
-int remove(int rt) { return pairing(tree[rt].l); }
+int remove(int rt) { return pairing(t[rt].l); }
 int find(int u) { return u == fa[u] ? u : fa[u] = find(fa[u]); }
 int main() {
     ios::sync_with_stdio(false);
@@ -53,8 +53,8 @@ int main() {
                 continue;
             }
             u = find(u);
-            vis[tree[rt[u]].id] = true;
-            cout << tree[rt[u]].val << '\n';
+            vis[t[rt[u]].id] = true;
+            cout << t[rt[u]].val << '\n';
             rt[u] = remove(rt[u]);
         }
     }
