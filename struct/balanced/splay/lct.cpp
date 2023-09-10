@@ -3,7 +3,8 @@ using namespace std;
 const int N = 3e5 + 5;
 int n, m;
 struct node {
-    int fa, ch[2], val, sum, tag;
+    int fa, ch[2], val, sum;
+    bool tag;
 } t[N];
 void maintain(int rt) { t[rt].sum = t[t[rt].ch[0]].sum ^ t[t[rt].ch[1]].sum ^ t[rt].val; }
 void spread(int rt) {
@@ -12,7 +13,7 @@ void spread(int rt) {
     t[t[rt].ch[0]].tag ^= true, t[t[rt].ch[1]].tag ^= true;
     t[rt].tag = false;
 }
-bool get(int rt) { return rt == t[t[rt].fa].ch[1]; }
+int get(int rt) { return rt == t[t[rt].fa].ch[1]; }
 bool isroot(int rt) { return rt != t[t[rt].fa].ch[0] && rt != t[t[rt].fa].ch[1]; }
 void rotate(int rt) {
     int fa = t[rt].fa, i = get(rt);
@@ -37,7 +38,7 @@ void access(int rt) {
 void makeroot(int rt) { access(rt), splay(rt), t[rt].tag ^= true; }
 int findroot(int rt) {
     access(rt), splay(rt);
-    while (t[rt].ch[0]) rt = t[rt].ch[0];
+    while (t[rt].ch[0]) spread(rt = t[rt].ch[0]);
     splay(rt);
     return rt;
 }
