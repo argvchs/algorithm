@@ -22,13 +22,13 @@ void tarjan(int u, int fa) {
             tarjan(v, u);
             low[u] = min(low[u], low[v]);
             if (low[v] >= dfn[u]) {
-                int pre;
+                int pre, dis;
                 sum[++tot] = dis1[S.top()] - dis1[u] + val[S.top()];
                 addedge2(u, tot, 0);
                 do {
                     pre = S.top(), S.pop();
-                    int k = dis1[pre] - dis1[u];
-                    addedge2(pre, tot, min(k, sum[tot] - k));
+                    dis = dis1[pre] - dis1[u];
+                    addedge2(pre, tot, min(dis, sum[tot] - dis));
                 } while (pre != v);
             }
         } else low[u] = min(low[u], dfn[v]);
@@ -40,10 +40,7 @@ void dfs(int u, int fa) {
     for (int i = 1; i <= 20; i++) f[u][i] = f[f[u][i - 1]][i - 1];
     for (int i = head2[u]; i; i = e[i].next) {
         int v = e[i].to, w = e[i].w;
-        if (v != fa) {
-            dis2[v] = dis2[u] + w;
-            dfs(v, u);
-        }
+        if (v != fa) dis2[v] = dis2[u] + w, dfs(v, u);
     }
 }
 int solve(int u, int v) {
@@ -61,8 +58,7 @@ int solve(int u, int v) {
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
-    cin >> n >> m >> k;
-    tot = n;
+    cin >> n >> m >> k, tot = n;
     for (int i = 1, u, v, w; i <= m; i++) {
         cin >> u >> v >> w;
         addedge1(u, v, w);

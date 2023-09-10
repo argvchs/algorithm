@@ -20,10 +20,8 @@ matrix quickpow(matrix a, int b) {
     matrix ret;
     memset(ret.a, 0, sizeof(ret.a));
     for (int i = 1; i <= 3; i++) ret.a[i][i] = 1;
-    while (b) {
-        if (b & 1) ret = quickmul(ret, a);
-        a = quickmul(a, a), b >>= 1;
-    }
+    for (int i = b; i; i >>= 1, a = quickmul(a, a))
+        if (i & 1) ret = quickmul(ret, a);
     return ret;
 }
 int main() {

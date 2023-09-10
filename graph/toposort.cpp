@@ -25,10 +25,7 @@ int main() {
     cin.tie(nullptr);
     cin >> n;
     for (int i = 1, u; i <= n; i++)
-        while (cin >> u && u) {
-            ++in[u];
-            add(i, u);
-        }
+        while (cin >> u && u) ++in[u], add(i, u);
     toposort();
     return 0;
 }

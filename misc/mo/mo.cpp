@@ -27,10 +27,7 @@ int main() {
     cin.tie(nullptr);
     cin >> n >> m;
     for (int i = 1; i <= n; i++) cin >> a[i];
-    for (int i = 1; i <= m; i++) {
-        cin >> q[i].l >> q[i].r;
-        q[i].id = i;
-    }
+    for (int i = 1; i <= m; i++) cin >> q[i].l >> q[i].r, q[i].id = i;
     build();
     sort(q + 1, q + m + 1, cmp1);
     for (int i = 1; i <= m; i++) {

@@ -21,10 +21,8 @@ void tarjan(int u, int fa) {
             if (low[v] >= dfn[u]) {
                 int pre;
                 ans.emplace_back().push_back(u);
-                do {
-                    pre = S.top(), S.pop();
-                    ans.back().push_back(pre);
-                } while (pre != v);
+                do ans.back().push_back(pre = S.top()), S.pop();
+                while (pre != v);
             }
         } else low[u] = min(low[u], dfn[v]);
     }

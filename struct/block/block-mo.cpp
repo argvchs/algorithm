@@ -6,11 +6,11 @@ using namespace std;
 const int N = 1e5 + 5;
 int n, m, m1, m2, l = 1, r, t, a[N], b[N], belong[N], val[N], sum[N], siz, cnt;
 struct node {
-    int op, l, r, x, k, t, id, ans;
+    int op, x, y, k, t, id, ans;
 } q[N], u[N];
 auto cmp1 = [](node a, node b) {
-    if (belong[a.l] != belong[b.l]) return a.l < b.l;
-    if (belong[a.r] != belong[b.r]) return a.r < b.r;
+    if (belong[a.x] != belong[b.x]) return a.x < b.x;
+    if (belong[a.y] != belong[b.y]) return a.y < b.y;
     return a.t < b.t;
 };
 auto cmp2 = [](node a, node b) { return a.id < b.id; };
@@ -50,10 +50,10 @@ int main() {
     cin.tie(nullptr);
     cin >> n >> m, cnt = n;
     for (int i = 1; i <= n; i++) cin >> a[i], b[i] = a[i];
-    for (int i = 1, op, l, r, x, k; i <= m; i++) {
-        cin >> op;
-        if (op == 3) cin >> x >> k, u[++m2] = {op, 0, 0, x, k, m2, m1};
-        else cin >> l >> r >> k, q[++m1] = {op, l, r, 0, k, m2, m1};
+    for (int i = 1, op, x, y, k; i <= m; i++) {
+        cin >> op >> x;
+        if (op == 3) cin >> k, u[++m2] = {op, x, 0, k, m2, m1};
+        else cin >> y >> k, q[++m1] = {op, x, y, k, m2, m1};
         if (op != 2) b[++cnt] = k;
     }
     sort(b + 1, b + cnt + 1);
@@ -69,10 +69,10 @@ int main() {
     sort(q + 1, q + m1 + 1, cmp1);
     build2();
     for (int i = 1; i <= m1; i++) {
-        while (l > q[i].l) insert(--l);
-        while (r < q[i].r) insert(++r);
-        while (l < q[i].l) remove(l++);
-        while (r > q[i].r) remove(r--);
+        while (l > q[i].x) insert(--l);
+        while (r < q[i].y) insert(++r);
+        while (l < q[i].x) remove(l++);
+        while (r > q[i].y) remove(r--);
         while (t < q[i].t) update(++t);
         while (t > q[i].t) update(t--);
         if (q[i].op == 1) q[i].ans = queryrank(q[i].k);

@@ -9,8 +9,7 @@ void maintain(int rt) { t[rt].sum = t[t[rt].ch[0]].sum ^ t[t[rt].ch[1]].sum ^ t[
 void spread(int rt) {
     if (!t[rt].tag) return;
     swap(t[rt].ch[0], t[rt].ch[1]);
-    t[t[rt].ch[0]].tag ^= true, t[t[rt].ch[1]].tag ^= true;
-    t[rt].tag = false;
+    t[t[rt].ch[0]].tag ^= true, t[t[rt].ch[1]].tag ^= true, t[rt].tag = false;
 }
 bool check(int rt) { return rt == t[t[rt].fa].ch[1]; }
 bool isroot(int rt) { return rt != t[t[rt].fa].ch[0] && rt != t[t[rt].fa].ch[1]; }
@@ -18,8 +17,7 @@ void rotate(int rt) {
     int f1 = t[rt].fa, f2 = t[f1].fa;
     bool i = check(rt), j = check(f1);
     if (!isroot(f1)) t[f2].ch[j] = rt;
-    t[rt].ch[!i] = t[t[f1].ch[i] = t[rt].ch[!i]].fa = f1;
-    t[f1].fa = rt, t[rt].fa = f2;
+    t[rt].ch[!i] = t[t[f1].ch[i] = t[rt].ch[!i]].fa = f1, t[f1].fa = rt, t[rt].fa = f2;
     maintain(f1), maintain(rt);
 }
 void spreadall(int rt) {
@@ -32,7 +30,7 @@ void splay(int rt) {
         if (!isroot(fa)) rotate(check(rt) == check(fa) ? fa : rt);
 }
 void access(int rt) {
-    for (int pre = 0; rt; pre = rt, rt = t[rt].fa) splay(rt), t[rt].ch[1] = pre, maintain(rt);
+    for (int ch = 0; rt; ch = rt, rt = t[rt].fa) splay(rt), t[rt].ch[1] = ch, maintain(rt);
 }
 void makeroot(int rt) { access(rt), splay(rt), t[rt].tag ^= true; }
 int findroot(int rt) {

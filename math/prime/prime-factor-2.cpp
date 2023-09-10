@@ -9,15 +9,13 @@ int main() {
     for (int i = 2; i <= 1e8; i++) {
         if (!vis[i]) p[++cnt] = pre[i] = i;
         for (int j = 1; j <= cnt && i * p[j] <= 1e8; j++) {
-            vis[i * p[j]] = true;
-            pre[i * p[j]] = p[j];
+            vis[i * p[j]] = true, pre[i * p[j]] = p[j];
             if (!(i % p[j])) break;
         }
     }
     cin >> t;
     while (t--) {
-        cin >> n;
-        ans = 0;
+        cin >> n, ans = 0;
         while (n != 1) ans ^= pre[n], n /= pre[n];
         cout << ans << '\n';
     }

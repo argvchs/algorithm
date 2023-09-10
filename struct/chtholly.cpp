@@ -34,10 +34,8 @@ void update(int l, int r, int x) {
 }
 int quickpow(int a, int b, int p) {
     int ret = 1;
-    while (b) {
-        if (b & 1) ret = (i64)ret * a % p;
-        a = (i64)a * a % p, b >>= 1;
-    }
+    for (int i = b; i; i >>= 1, a = (i64)a * a % p)
+        if (i & 1) ret = (i64)ret * a % p;
     return ret;
 }
 int querysum(int l, int r, int x, int y) {
@@ -65,7 +63,7 @@ int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
     cin >> n >> m >> seed >> p;
-    for (int i = 1; i <= n; ++i) {
+    for (int i = 1; i <= n; i++) {
         a[i] = (rnd() % p) + 1;
         S.emplace(i, i, a[i]);
     }

@@ -24,8 +24,7 @@ void tarjan(int u) {
         } else if (vis[v]) low[u] = min(low[u], dfn[v]);
     }
     if (dfn[u] == low[u]) {
-        int pre;
-        ++tot;
+        int pre = ++tot;
         do {
             pre = S.top(), S.pop();
             b[belong[pre] = tot] += a[pre], vis[pre] = false;

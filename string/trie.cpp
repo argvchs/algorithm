@@ -35,8 +35,7 @@ int main() {
     cin >> k;
     while (k--) {
         memset(&t, 0, sizeof(node) * (cnt + 1));
-        cnt = 0;
-        cin >> n >> m;
+        cin >> n >> m, cnt = 0;
         for (int i = 1; i <= n; i++) {
             cin.ignore().get(s + 1, N);
             insert(s);

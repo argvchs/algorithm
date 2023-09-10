@@ -67,8 +67,7 @@ int main() {
         return 0;
     }
     for (int i = 1; i <= n; i++) {
-        s = i, ans = 0;
-        dijkstra();
+        s = i, ans = 0, dijkstra();
         for (int j = 1; j <= n; j++) ans += (i64)j * dis[j];
         cout << ans << '\n';
     }

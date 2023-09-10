@@ -9,10 +9,8 @@ int a, b, p;
 unordered_map<int, int> M;
 int quickpow(int a, int b, int p) {
     int ret = 1;
-    while (b) {
-        if (b & 1) ret = (i64)ret * a % p;
-        a = (i64)a * a % p, b >>= 1;
-    }
+    for (int i = b; i; i >>= 1, a = (i64)a * a % p)
+        if (i & 1) ret = (i64)ret * a % p;
     return ret;
 }
 tuple<int, int, int> exgcd(int a, int b) {

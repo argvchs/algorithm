@@ -23,10 +23,8 @@ void tarjan(int u, int fa) {
     if (dfn[u] == low[u]) {
         int pre;
         ans.emplace_back();
-        do {
-            pre = S.top(), S.pop();
-            ans.back().push_back(pre);
-        } while (pre != u);
+        do ans.back().push_back(pre = S.top()), S.pop();
+        while (pre != u);
     }
 }
 int main() {

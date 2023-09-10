@@ -72,13 +72,9 @@ int main() {
     build();
     for (int i = 1, op, l, r, k; i <= m; i++) {
         cin >> op >> l >> r;
-        if (op == 1) {
-            cin >> k;
-            updatemul(l, r, k);
-        } else if (op == 2) {
-            cin >> k;
-            updateadd(l, r, k);
-        } else cout << query(l, r) << '\n';
+        if (op == 1) cin >> k, updatemul(l, r, k);
+        else if (op == 2) cin >> k, updateadd(l, r, k);
+        else cout << query(l, r) << '\n';
     }
     return 0;
 }
