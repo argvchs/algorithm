@@ -38,10 +38,10 @@ int queryrank(int x) {
 int querykth(int x) {
     if (x < 1) return cnt + 1;
     if (x > r - l + 1) return cnt + 2;
-    int i = 1, j = 1, k = 0;
-    while (k + sum[i] < x) k += sum[i++], j += siz;
-    while (k + val[j] < x) k += val[j++];
-    return j;
+    int ret1 = 1, ret2 = 1, cur = 0;
+    while (cur + sum[ret1] < x) cur += sum[ret1++], ret2 += siz;
+    while (cur + val[ret2] < x) cur += val[ret2++];
+    return ret2;
 }
 int querypre(int x) { return querykth(queryrank(x) - 1); }
 int querynext(int x) { return querykth(queryrank(x + 1)); }

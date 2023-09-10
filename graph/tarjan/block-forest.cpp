@@ -3,7 +3,7 @@
 #include <vector>
 using namespace std;
 const int N = 1e4 + 5, M = 2e4 + 5;
-int n, m, k, dfn[N], low[N], f[N << 1][25], val[N], sum[N << 1], dis1[N], dis2[N << 1],
+int n, m, dis, dfn[N], low[N], f[N << 1][25], val[N], sum[N << 1], dis1[N], dis2[N << 1],
     dep[N << 1], head1[N], head2[N << 1], idx, cnt, tot, ans1, ans2;
 struct edge {
     int to, next, w;
@@ -52,19 +52,19 @@ int solve(int u, int v) {
     for (int i = 20; i >= 0; i--)
         if (f[u][i] != f[v][i]) u = f[u][i], v = f[v][i];
     if (f[u][0] <= n) return ret - (dis2[f[u][0]] << 1);
-    int k = abs(dis1[u] - dis1[v]);
-    return ret - dis2[u] - dis2[v] + min(k, sum[f[u][0]] - k);
+    int dis = abs(dis1[u] - dis1[v]);
+    return ret - dis2[u] - dis2[v] + min(dis, sum[f[u][0]] - dis);
 }
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
-    cin >> n >> m >> k, tot = n;
+    cin >> n >> m >> dis, tot = n;
     for (int i = 1, u, v, w; i <= m; i++) {
         cin >> u >> v >> w;
         addedge1(u, v, w);
     }
     tarjan(1, 0), dfs(1, 0);
-    for (int i = 1, u, v; i <= k; i++) {
+    for (int i = 1, u, v; i <= dis; i++) {
         cin >> u >> v;
         cout << solve(u, v) << '\n';
     }

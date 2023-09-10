@@ -17,10 +17,10 @@ int queryrank(int x) {
     return ret + 1;
 }
 int querykth(int x) {
-    int i = 1, j = 1, k = 0;
-    while (k + sum[i] < x) k += sum[i++], j += siz;
-    while (k + val[j] < x) k += val[j++];
-    return j;
+    int ret1 = 1, ret2 = 1, cur = 0;
+    while (cur + sum[ret1] < x) cur += sum[ret1++], ret2 += siz;
+    while (cur + val[ret2] < x) cur += val[ret2++];
+    return ret2;
 }
 int querypre(int x) { return querykth(queryrank(x) - 1); }
 int querysuc(int x) { return querykth(queryrank(x + 1)); }

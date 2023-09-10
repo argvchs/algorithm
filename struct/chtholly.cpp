@@ -23,14 +23,14 @@ auto split(int x) {
     S.emplace(l, x - 1, val);
     return S.emplace(x, r, val).first;
 }
-void assign(int l, int r, int x) {
+void assign(int l, int r, int k) {
     auto ed = split(r + 1), st = split(l);
     S.erase(st, ed);
-    S.emplace(l, r, x);
+    S.emplace(l, r, k);
 }
-void update(int l, int r, int x) {
+void update(int l, int r, int k) {
     auto ed = split(r + 1), st = split(l);
-    for (auto it = st; it != ed; ++it) it->val += x;
+    for (auto it = st; it != ed; ++it) it->val += k;
 }
 int quickpow(int a, int b, int p) {
     int ret = 1;
@@ -38,11 +38,11 @@ int quickpow(int a, int b, int p) {
         if (i & 1) ret = (i64)ret * a % p;
     return ret;
 }
-int querysum(int l, int r, int x, int y) {
+int querysum(int l, int r, int k, int p) {
     auto ed = split(r + 1), st = split(l);
     int ret = 0;
     for (auto it = st; it != ed; ++it)
-        ret = (ret + (i64)quickpow(it->val % y, x, y) * (it->r - it->l + 1) % y) % y;
+        ret = (ret + (i64)quickpow(it->val % p, k, p) * (it->r - it->l + 1) % p) % p;
     return ret;
 }
 i64 querykth(int l, int r, int x) {

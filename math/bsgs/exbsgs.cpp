@@ -20,10 +20,10 @@ tuple<int, int, int> exgcd(int a, int b) {
 }
 int inverse(int a, int p) { return (get<0>(exgcd(a, p)) + p) % p; }
 int bsgs(int a, int b, int p) {
-    int n = sqrt(p) + 1, k = quickpow(a, n, p);
+    int n = sqrt(p) + 1, x = quickpow(a, n, p);
     M.clear();
     for (int i = 0, j = b; i <= n; i++, j = (i64)j * a % p) M[j] = i;
-    for (int i = 1, j = k; i <= n; i++, j = (i64)j * k % p)
+    for (int i = 1, j = x; i <= n; i++, j = (i64)j * x % p)
         if (M.contains(j)) return i * n - M[j];
     return -1;
 }

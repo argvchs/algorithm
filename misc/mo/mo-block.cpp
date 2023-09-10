@@ -19,10 +19,10 @@ void build() {
 void insert(int x) { ++val[a[x]], ++sum[belong[a[x]]]; }
 void remove(int x) { --val[a[x]], --sum[belong[a[x]]]; }
 int query(int x) {
-    int i = 1, j = 1, k = 0;
-    while (k + sum[i] < x) k += sum[i++], j += siz;
-    while (k + val[j] < x) k += val[j++];
-    return j;
+    int ret1 = 1, ret2 = 1, cur = 0;
+    while (cur + sum[ret1] < x) cur += sum[ret1++], ret2 += siz;
+    while (cur + val[ret2] < x) cur += val[ret2++];
+    return ret2;
 }
 int main() {
     ios::sync_with_stdio(false);
