@@ -15,7 +15,8 @@ void maintain(int rt) { t[rt].siz = t[t[rt].l].siz + t[t[rt].r].siz + 1; }
 void spread(int rt) {
     if (!t[rt].tag) return;
     swap(t[rt].l, t[rt].r);
-    t[t[rt].l].tag ^= true, t[t[rt].r].tag ^= true, t[rt].tag = false;
+    t[t[rt].l].tag ^= true, t[t[rt].r].tag ^= true;
+    t[rt].tag = false;
 }
 pair<int, int> split(int rt, int x) {
     if (!rt) return {};
