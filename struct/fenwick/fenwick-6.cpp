@@ -4,8 +4,12 @@ const int N = 3e3 + 5;
 int n, m, q, bit1[N][N], bit2[N][N], bit3[N][N], bit4[N][N];
 void update(int x, int y, int k) {
     for (int i = x; i <= n; i += i & -i)
-        for (int j = y; j <= n; j += j & -j)
-            bit1[i][j] += k, bit2[i][j] += k * x, bit3[i][j] += k * y, bit4[i][j] += k * x * y;
+        for (int j = y; j <= n; j += j & -j) {
+            bit1[i][j] += k;
+            bit2[i][j] += k * x;
+            bit3[i][j] += k * y;
+            bit4[i][j] += k * x * y;
+        }
 }
 void update(int x, int y, int z, int t, int k) {
     update(x, y, k);
@@ -16,9 +20,12 @@ void update(int x, int y, int z, int t, int k) {
 int query(int x, int y) {
     int ret = 0;
     for (int i = x; i >= 1; i -= i & -i)
-        for (int j = y; j >= 1; j -= j & -j)
-            ret += (x + 1) * (y + 1) * bit1[i][j] - (y + 1) * bit2[i][j] - (x + 1) * bit3[i][j] +
-                   bit4[i][j];
+        for (int j = y; j >= 1; j -= j & -j) {
+            ret += (x + 1) * (y + 1) * bit1[i][j];
+            ret -= (y + 1) * bit2[i][j];
+            ret -= (x + 1) * bit3[i][j];
+            ret += bit4[i][j];
+        }
     return ret;
 }
 int query(int x, int y, int z, int t) {

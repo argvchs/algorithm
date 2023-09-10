@@ -11,7 +11,8 @@ void spread(int x) {
 }
 void maintain(int x) {
     sum[x] = 0;
-    for (int i = (x - 1) * siz + 1; i <= min(x * siz, n); i++) sum[x] = (sum[x] + a[i]) % P;
+    for (int i = (x - 1) * siz + 1; i <= min(x * siz, n); i++)
+        sum[x] = (sum[x] + a[i]) % P;
 }
 void build() {
     siz = sqrt(n), tot = (n - 1) / siz + 1;

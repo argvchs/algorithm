@@ -4,8 +4,8 @@
 #include <stack>
 using namespace std;
 const int N = 1e4 + 5, M = 1e5 + 5;
-int n, m, a[N], b[N], dfn[N], low[N], belong[N], in[N], dis[N], head1[N], head2[N], idx, cnt, tot,
-    ans;
+int n, m, a[N], b[N], dfn[N], low[N], belong[N], in[N], dis[N], head1[N], head2[N], idx,
+    cnt, tot, ans;
 bool vis[N];
 struct edge {
     int from, to, next;

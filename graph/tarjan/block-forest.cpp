@@ -3,8 +3,8 @@
 #include <vector>
 using namespace std;
 const int N = 1e4 + 5, M = 2e4 + 5;
-int n, m, k, dfn[N], low[N], f[N << 1][25], val[N], sum[N << 1], dis1[N], dis2[N << 1], dep[N << 1],
-    head1[N], head2[N << 1], idx, cnt, tot, ans1, ans2;
+int n, m, k, dfn[N], low[N], f[N << 1][25], val[N], sum[N << 1], dis1[N], dis2[N << 1],
+    dep[N << 1], head1[N], head2[N << 1], idx, cnt, tot, ans1, ans2;
 struct edge {
     int to, next, w;
 } e[M << 2];
