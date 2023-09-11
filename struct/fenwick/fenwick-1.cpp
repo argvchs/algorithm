@@ -10,7 +10,7 @@ int query(int x) {
     for (int i = x; i >= 1; i -= i & -i) ret += bit[i];
     return ret;
 }
-int query(int x, int y) { return query(y) - query(x - 1); }
+int query(int l, int r) { return query(r) - query(l - 1); }
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
