@@ -3,7 +3,7 @@
 using namespace std;
 using i64 = long long;
 const int N = 1e5 + 5;
-int n, m, p, rt, a[N], b1[N], b2[N], in[N], out[N], fa[N], ch[N], dep[N], siz[N], top[N],
+int n, m, p, rt, a[N], b1[N], b2[N], ifn[N], ofn[N], fa[N], ch[N], dep[N], siz[N], top[N],
     idx, cnt, head[N];
 struct edge {
     int to, next;
@@ -22,7 +22,7 @@ void dfs1(int u, int fa) {
     }
 }
 void dfs2(int u, int fa, int top) {
-    ::top[u] = top, in[u] = ++idx;
+    ::top[u] = top, ifn[u] = ++idx;
     if (ch[u]) {
         dfs2(ch[u], u, top);
         for (int i = head[u]; i; i = e[i].next) {
@@ -30,7 +30,7 @@ void dfs2(int u, int fa, int top) {
             if (v != fa && v != ch[u]) dfs2(v, u, v);
         }
     }
-    out[u] = idx;
+    ofn[u] = idx;
 }
 void split(int u, int v) {
     tmp.clear();
@@ -46,14 +46,14 @@ void update(int x, int k) {
     for (int i = x; i <= n; i += i & -i)
         b1[i] = (b1[i] + k) % p, b2[i] = (b2[i] + (i64)k * x) % p;
 }
-void update(int in, int out, int k) { update(in, k), update(out + 1, p - k % p); }
+void update(int l, int r, int k) { update(l, k), update(r + 1, p - k % p); }
 int query(int x) {
     int ret = 0;
     for (int i = x; i >= 1; i -= i & -i)
         ret = (ret + (i64)(x + 1) * b1[i] - b2[i] + p) % p;
     return ret;
 }
-int query(int in, int out) { return (query(out) - query(in - 1) + p) % p; }
+int query(int l, int r) { return (query(r) - query(l - 1) + p) % p; }
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
@@ -66,23 +66,23 @@ int main() {
     }
     dfs1(rt, 0);
     dfs2(rt, 0, rt);
-    for (int i = 1; i <= n; i++) update(in[i], in[i], a[i]);
+    for (int i = 1; i <= n; i++) update(ifn[i], ifn[i], a[i]);
     for (int i = 1, op, x, y, z; i <= m; i++) {
         cin >> op >> x;
         if (op == 1) {
             cin >> y >> z;
             split(x, y);
-            for (auto [u, v] : tmp) update(in[u], in[v], z);
+            for (auto [u, v] : tmp) update(ifn[u], ifn[v], z);
         } else if (op == 2) {
             cin >> y;
             split(x, y);
             int ans = 0;
-            for (auto [u, v] : tmp) ans = (ans + query(in[u], in[v])) % p;
+            for (auto [u, v] : tmp) ans = (ans + query(ifn[u], ifn[v])) % p;
             cout << ans << '\n';
         } else if (op == 3) {
             cin >> y;
-            update(in[x], out[x], y);
-        } else cout << query(in[x], out[x]) << '\n';
+            update(ifn[x], ofn[x], y);
+        } else cout << query(ifn[x], ofn[x]) << '\n';
     }
     return 0;
 }

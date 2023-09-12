@@ -38,7 +38,7 @@ void access(int rt) {
 void makeroot(int rt) { access(rt), splay(rt), t[rt].tag ^= true; }
 int findroot(int rt) {
     access(rt), splay(rt);
-    while (t[rt].ch[0]) spread(rt = t[rt].ch[0]);
+    while (t[rt].ch[0]) rt = t[rt].ch[0];
     splay(rt);
     return rt;
 }
