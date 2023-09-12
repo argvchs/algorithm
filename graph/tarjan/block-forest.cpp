@@ -63,7 +63,8 @@ int main() {
         cin >> u >> v >> w;
         addedge1(u, v, w);
     }
-    tarjan(1, 0), dfs(1, 0);
+    tarjan(1, 0);
+    dfs(1, 0);
     for (int i = 1, u, v; i <= dis; i++) {
         cin >> u >> v;
         cout << solve(u, v) << '\n';

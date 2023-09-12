@@ -3,7 +3,7 @@
 using namespace std;
 using i64 = long long;
 const int N = 1e5 + 5;
-int n, m, p, rt, a[N], b1[N], b2[N], ifn[N], ofn[N], fa[N], ch[N], dep[N], siz[N], top[N],
+int n, m, p, s, a[N], b1[N], b2[N], ifn[N], ofn[N], fa[N], ch[N], dep[N], siz[N], top[N],
     idx, cnt, head[N];
 struct edge {
     int to, next;
@@ -32,7 +32,7 @@ void dfs2(int u, int fa, int top) {
     }
     ofn[u] = idx;
 }
-void split(int u, int v) {
+void solve(int u, int v) {
     tmp.clear();
     while (top[u] != top[v]) {
         if (dep[top[u]] < dep[top[v]]) swap(u, v);
@@ -58,24 +58,24 @@ int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
     cout.tie(nullptr);
-    cin >> n >> m >> rt >> p;
+    cin >> n >> m >> s >> p;
     for (int i = 1; i <= n; i++) cin >> a[i];
     for (int i = 1, u, v; i < n; i++) {
         cin >> u >> v;
         addedge(u, v);
     }
-    dfs1(rt, 0);
-    dfs2(rt, 0, rt);
+    dfs1(s, 0);
+    dfs2(s, 0, s);
     for (int i = 1; i <= n; i++) update(ifn[i], ifn[i], a[i]);
     for (int i = 1, op, x, y, z; i <= m; i++) {
         cin >> op >> x;
         if (op == 1) {
             cin >> y >> z;
-            split(x, y);
+            solve(x, y);
             for (auto [u, v] : tmp) update(ifn[u], ifn[v], z);
         } else if (op == 2) {
             cin >> y;
-            split(x, y);
+            solve(x, y);
             int ans = 0;
             for (auto [u, v] : tmp) ans = (ans + query(ifn[u], ifn[v])) % p;
             cout << ans << '\n';
