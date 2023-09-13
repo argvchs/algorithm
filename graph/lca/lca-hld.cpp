@@ -1,7 +1,7 @@
 #include <iostream>
 using namespace std;
 const int N = 5e5 + 5;
-int n, m, s, fa[N], ch[N], dep[N], siz[N], top[N], head[N], cnt;
+int n, m, rt, fa[N], ch[N], dep[N], siz[N], top[N], head[N], cnt;
 struct edge {
     int to, next;
 } e[N << 1];
@@ -35,13 +35,13 @@ int lca(int u, int v) {
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
-    cin >> n >> m >> s;
+    cin >> n >> m >> rt;
     for (int i = 1, u, v; i <= n - 1; i++) {
         cin >> u >> v;
         addedge(u, v);
     }
-    dfs1(s, 0);
-    dfs2(s, 0, s);
+    dfs1(rt, 0);
+    dfs2(rt, 0, rt);
     for (int i = 1, u, v; i <= m; i++) {
         cin >> u >> v;
         cout << lca(u, v) << '\n';

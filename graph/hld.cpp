@@ -3,7 +3,7 @@
 using namespace std;
 using i64 = long long;
 const int N = 1e5 + 5;
-int n, m, p, s, a[N], b1[N], b2[N], ifn[N], ofn[N], fa[N], ch[N], dep[N], siz[N], top[N],
+int n, m, p, rt, a[N], b1[N], b2[N], ifn[N], ofn[N], fa[N], ch[N], dep[N], siz[N], top[N],
     idx, cnt, head[N];
 struct edge {
     int to, next;
@@ -58,14 +58,14 @@ int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
     cout.tie(nullptr);
-    cin >> n >> m >> s >> p;
+    cin >> n >> m >> rt >> p;
     for (int i = 1; i <= n; i++) cin >> a[i];
     for (int i = 1, u, v; i < n; i++) {
         cin >> u >> v;
         addedge(u, v);
     }
-    dfs1(s, 0);
-    dfs2(s, 0, s);
+    dfs1(rt, 0);
+    dfs2(rt, 0, rt);
     for (int i = 1; i <= n; i++) update(ifn[i], ifn[i], a[i]);
     for (int i = 1, op, x, y, z; i <= m; i++) {
         cin >> op >> x;
