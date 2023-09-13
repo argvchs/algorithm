@@ -23,10 +23,10 @@ pair<int, int> split(int rt, int x) {
         return {rt, r};
     }
 }
-tuple<int, int, int> splitrank(int rt, int x) {
+tuple<int, int, int> splitrnk(int rt, int x) {
     if (!rt) return {};
     if (t[t[rt].l].siz >= x) {
-        auto [l, m, r] = splitrank(t[rt].l, x);
+        auto [l, m, r] = splitrnk(t[rt].l, x);
         t[rt].l = r, maintain(rt);
         return {l, m, rt};
     } else if (t[t[rt].l].siz + t[rt].cnt >= x) {
@@ -34,7 +34,7 @@ tuple<int, int, int> splitrank(int rt, int x) {
         t[rt].l = t[rt].r = 0, maintain(rt);
         return {l, rt, r};
     } else {
-        auto [l, m, r] = splitrank(t[rt].r, x - t[t[rt].l].siz - t[rt].cnt);
+        auto [l, m, r] = splitrnk(t[rt].r, x - t[t[rt].l].siz - t[rt].cnt);
         t[rt].r = l, maintain(rt);
         return {rt, m, r};
     }
@@ -63,7 +63,7 @@ void remove(int x) {
     else m = 0;
     rt = merge(merge(l, m), r);
 }
-int queryrank(int x) {
+int queryrnk(int x) {
     auto [l, r] = split(rt, x);
     int ret = t[l].siz + 1;
     rt = merge(l, r);
@@ -72,13 +72,13 @@ int queryrank(int x) {
 int querykth(int x) {
     if (x < 1) return numeric_limits<int>::min();
     if (x > t[rt].siz) return numeric_limits<int>::max();
-    auto [l, m, r] = splitrank(rt, x);
+    auto [l, m, r] = splitrnk(rt, x);
     int ret = t[m].val;
     rt = merge(merge(l, m), r);
     return ret;
 }
-int querypre(int x) { return querykth(queryrank(x) - 1); }
-int querysuc(int x) { return querykth(queryrank(x + 1)); }
+int querypre(int x) { return querykth(queryrnk(x) - 1); }
+int querysuc(int x) { return querykth(queryrnk(x + 1)); }
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
@@ -87,7 +87,7 @@ int main() {
         cin >> op >> x;
         if (op == 1) insert(x);
         else if (op == 2) remove(x);
-        else if (op == 3) cout << queryrank(x) << '\n';
+        else if (op == 3) cout << queryrnk(x) << '\n';
         else if (op == 4) cout << querykth(x) << '\n';
         else if (op == 5) cout << querypre(x) << '\n';
         else cout << querysuc(x) << '\n';

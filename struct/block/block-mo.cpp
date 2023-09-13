@@ -29,7 +29,7 @@ void update(int x) {
     swap(a[u[x].x], u[x].k);
     if (l <= u[x].x && u[x].x <= r) insert(u[x].x);
 }
-int queryrank(int x) {
+int queryrnk(int x) {
     int ret = 0;
     for (int i = 1; i <= belong[x] - 1; i++) ret += sum[i];
     for (int i = x - 1; belong[i] == belong[x]; i--) ret += val[i];
@@ -43,8 +43,8 @@ int querykth(int x) {
     while (cur + val[ret2] < x) cur += val[ret2++];
     return ret2;
 }
-int querypre(int x) { return querykth(queryrank(x) - 1); }
-int querynext(int x) { return querykth(queryrank(x + 1)); }
+int querypre(int x) { return querykth(queryrnk(x) - 1); }
+int querynext(int x) { return querykth(queryrnk(x + 1)); }
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
@@ -75,7 +75,7 @@ int main() {
         while (r > q[i].y) remove(r--);
         while (t < q[i].t) update(++t);
         while (t > q[i].t) update(t--);
-        if (q[i].op == 1) q[i].ans = queryrank(q[i].k);
+        if (q[i].op == 1) q[i].ans = queryrnk(q[i].k);
         else if (q[i].op == 2) q[i].ans = b[querykth(q[i].k)];
         else if (q[i].op == 4) q[i].ans = b[querypre(q[i].k)];
         else q[i].ans = b[querynext(q[i].k)];
