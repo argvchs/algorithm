@@ -7,14 +7,13 @@ int n, a[N], l[N], r[N];
 i64 ans1, ans2;
 stack<int> S;
 void build() {
-    int pre = 0;
     for (int i = 1; i <= n; i++) {
         while (!S.empty()) {
             if (a[S.top()] < a[i]) break;
-            pre = S.top(), S.pop();
+            l[i] = S.top(), S.pop();
         }
         if (!S.empty()) r[S.top()] = i;
-        l[i] = pre, pre = 0, S.push(i);
+        S.push(i);
     }
 }
 int main() {

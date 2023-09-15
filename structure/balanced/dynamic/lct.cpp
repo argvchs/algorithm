@@ -16,9 +16,9 @@ void spread(int rt) {
 int get(int rt) { return rt == t[t[rt].fa].ch[1]; }
 bool isroot(int rt) { return rt != t[t[rt].fa].ch[0] && rt != t[t[rt].fa].ch[1]; }
 void rotate(int rt) {
-    int fa = t[rt].fa, i = get(rt);
+    int fa = t[rt].fa, x = get(rt);
     if (!isroot(fa)) t[t[fa].fa].ch[get(fa)] = rt;
-    t[rt].ch[!i] = t[t[fa].ch[i] = t[rt].ch[!i]].fa = fa;
+    t[rt].ch[!x] = t[t[fa].ch[x] = t[rt].ch[!x]].fa = fa;
     t[rt].fa = t[fa].fa, t[fa].fa = rt;
     maintain(fa), maintain(rt);
 }

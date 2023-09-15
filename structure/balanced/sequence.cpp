@@ -43,18 +43,18 @@ int merge(int lt, int rt) {
     }
 }
 int build() {
-    int pre = 0;
+    int ret = 0;
     for (int i = 1; i <= n; i++) {
         t[++cnt] = {0, 0, i, 1, rng()};
         while (!S.empty()) {
             if (t[S.top()].key < t[cnt].key) break;
-            maintain(pre = S.top()), S.pop();
+            maintain(t[cnt].l = S.top()), S.pop();
         }
         if (!S.empty()) t[S.top()].r = cnt;
-        t[cnt].l = pre, pre = 0, S.push(cnt);
+        S.push(cnt);
     }
-    while (!S.empty()) maintain(pre = S.top()), S.pop();
-    return pre;
+    while (!S.empty()) maintain(ret = S.top()), S.pop();
+    return ret;
 }
 void reverse(int x, int y) {
     auto [l, p] = split(rt, x - 1);

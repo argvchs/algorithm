@@ -8,9 +8,9 @@ struct node {
     int val, ch[62];
 } t[N];
 int id(char c) {
-    if (isdigit(c)) return c - '0';
     if (isupper(c)) return c - 'A' + 10;
-    return c - 'a' + 36;
+    if (islower(c)) return c - 'a' + 36;
+    return c - '0';
 }
 void insert(char *s) {
     int rt = 0, len = strlen(s + 1);
