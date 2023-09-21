@@ -4,7 +4,7 @@
 #include <stack>
 using namespace std;
 const int N = 1e4 + 5, M = 1e5 + 5;
-int n, m, a[N], b[N], dfn[N], low[N], belong[N], in[N], dis[N], head1[N], head2[N], idx,
+int n, m, a[N], b[N], dfn[N], low[N], belong[N], deg[N], dis[N], head1[N], head2[N], idx,
     cnt, tot, ans;
 bool vis[N];
 struct edge {
@@ -33,14 +33,14 @@ void tarjan(int u) {
 }
 void toposort() {
     for (int i = 1; i <= tot; i++)
-        if (!in[i]) dis[i] = b[i], Q.push(i);
+        if (!deg[i]) dis[i] = b[i], Q.push(i);
     while (!Q.empty()) {
         int u = Q.front();
         Q.pop();
         for (int i = head2[u]; i; i = e[i].next) {
             int v = e[i].to;
             dis[v] = max(dis[v], dis[u] + b[v]);
-            if (!--in[v]) Q.push(v);
+            if (!--deg[v]) Q.push(v);
         }
     }
 }
@@ -58,7 +58,7 @@ int main() {
     for (int i = 1; i <= m; i++) {
         int u = e[i].from, v = e[i].to;
         if (belong[u] != belong[v]) {
-            ++in[belong[v]];
+            ++deg[belong[v]];
             add2(belong[u], belong[v]);
         }
     }

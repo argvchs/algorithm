@@ -3,7 +3,7 @@
 #include <queue>
 using namespace std;
 const int N = 2005, M = 1e6 + 5, INF = 0x3f3f3f3f;
-int n, m, s, t, s1, t1, s2, t2, in[N], out[N], dep[N], cur[N], head[N], cnt = 1, sum, ans;
+int n, m, s, t, s1, t1, s2, t2, inf[N], ouf[N], dep[N], cur[N], head[N], cnt, sum, ans;
 bool vis[N];
 struct edge {
     int to, next, w;
@@ -50,14 +50,14 @@ int main() {
     cin.tie(nullptr);
     while (cin >> n >> m) {
         memset(head, 0, sizeof(head));
-        memset(in, 0, sizeof(in));
-        memset(out, 0, sizeof(out));
+        memset(inf, 0, sizeof(inf));
+        memset(ouf, 0, sizeof(ouf));
         cnt = 1, sum = ans = 0;
         s1 = n + m + 1, t1 = n + m + 2;
         s2 = n + m + 3, t2 = n + m + 4;
         for (int i = 1, w; i <= m; i++) {
             cin >> w;
-            in[t1] += w, out[i + n] += w;
+            inf[t1] += w, ouf[i + n] += w;
             addflow(i + n, t1, INF - w);
         }
         for (int i = 1, k, w; i <= n; i++) {
@@ -65,15 +65,15 @@ int main() {
             addflow(s1, i, w);
             for (int j = 1, u, l, r; j <= k; j++) {
                 cin >> u >> l >> r;
-                in[u + n + 1] += l, out[i] += l;
+                inf[u + n + 1] += l, ouf[i] += l;
                 addflow(i, u + n + 1, r - l);
             }
         }
         for (int i = 1; i <= n + m + 2; i++)
-            if (in[i] > out[i]) {
-                sum += in[i] - out[i];
-                addflow(s2, i, in[i] - out[i]);
-            } else addflow(i, t2, out[i] - in[i]);
+            if (inf[i] > ouf[i]) {
+                sum += inf[i] - ouf[i];
+                addflow(s2, i, inf[i] - ouf[i]);
+            } else addflow(i, t2, ouf[i] - inf[i]);
         addflow(t1, s1, INF);
         s = s2, t = t2, dinic();
         if (ans != sum) {
