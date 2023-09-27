@@ -20,7 +20,7 @@ int querykth(int x) {
     return ret + 1;
 }
 int querypre(int x) { return querykth(queryrnk(x) - 1); }
-int querysuc(int x) { return querykth(queryrnk(x + 1)); }
+int querynex(int x) { return querykth(queryrnk(x + 1)); }
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
@@ -39,6 +39,6 @@ int main() {
         else if (op[i] == 3) cout << queryrnk(a[i]) << '\n';
         else if (op[i] == 4) cout << b[querykth(a[i])] << '\n';
         else if (op[i] == 5) cout << b[querypre(a[i])] << '\n';
-        else cout << b[querysuc(a[i])] << '\n';
+        else cout << b[querynex(a[i])] << '\n';
     return 0;
 }

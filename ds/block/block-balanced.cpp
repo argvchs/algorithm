@@ -44,7 +44,7 @@ int querykth(int x) {
     return ret2;
 }
 int querypre(int x) { return querykth(queryrnk(x) - 1); }
-int querynext(int x) { return querykth(queryrnk(x + 1)); }
+int querynex(int x) { return querykth(queryrnk(x + 1)); }
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
@@ -78,7 +78,7 @@ int main() {
         if (q[i].op == 1) q[i].ans = queryrnk(q[i].k);
         else if (q[i].op == 2) q[i].ans = b[querykth(q[i].k)];
         else if (q[i].op == 4) q[i].ans = b[querypre(q[i].k)];
-        else q[i].ans = b[querynext(q[i].k)];
+        else q[i].ans = b[querynex(q[i].k)];
     }
     sort(q + 1, q + m1 + 1, cmp2);
     for (int i = 1; i <= m1; i++) cout << q[i].ans << '\n';
