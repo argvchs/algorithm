@@ -34,7 +34,7 @@ int main() {
     cin >> n >> m;
     for (int i = 1; i <= n; i++) cin >> a[i];
     rt[0] = build(1, n);
-    for (int i = 1, op, ver, x, k; i <= m; i++) {
+    for (int i = 1, ver, op, x, k; i <= m; i++) {
         cin >> ver >> op >> x;
         if (op == 1) cin >> k, rt[i] = update(rt[ver], 1, n, x, k);
         else cout << query(rt[i] = rt[ver], 1, n, x) << '\n';
