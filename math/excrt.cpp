@@ -4,7 +4,7 @@ using namespace std;
 using i64 = long long;
 using i128 = __int128;
 int n;
-i64 a, p = 1, ai, pi;
+i64 a, p = 1, aa, pp;
 tuple<i64, i64, i64> exgcd(i64 a, i64 b) {
     if (!b) return {1, 0, a};
     auto [x, y, gcd] = exgcd(b, a % b);
@@ -21,8 +21,8 @@ int main() {
     cin.tie(nullptr);
     cin >> n;
     for (int i = 1; i <= n; i++) {
-        cin >> pi >> ai;
-        tie(a, p) = excrt(a, p, ai, pi);
+        cin >> pp >> aa;
+        tie(a, p) = excrt(a, p, aa, pp);
     }
     cout << a;
     return 0;
