@@ -12,7 +12,7 @@ int id(char c) {
     if (islower(c)) return c - 'a' + 36;
     return c - '0';
 }
-void insert(char (&s)[N]) {
+void insert(char *s) {
     int rt = 0, len = strlen(s + 1);
     for (int i = 1; i <= len; i++) {
         int x = id(s[i]);
@@ -20,7 +20,7 @@ void insert(char (&s)[N]) {
         rt = t[rt].ch[x], ++t[rt].val;
     }
 }
-int query(char (&s)[N]) {
+int query(char *s) {
     int rt = 0, len = strlen(s + 1);
     for (int i = 1; i <= len; i++) {
         int x = id(s[i]);
