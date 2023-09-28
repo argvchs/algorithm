@@ -15,7 +15,8 @@ int main() {
     }
     cin >> t;
     while (t--) {
-        cin >> n, ans = 0;
+        ans = 0;
+        cin >> n;
         while (n != 1) ans ^= pre[n], n /= pre[n];
         cout << ans << '\n';
     }
