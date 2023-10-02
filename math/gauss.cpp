@@ -1,3 +1,4 @@
+#include <iomanip>
 #include <iostream>
 using namespace std;
 using f64 = double;
@@ -28,8 +29,7 @@ int main() {
         }
         for (int j = 1; j <= n + 1; j++) a[i][j] /= y;
     }
-    cout.setf(ios::fixed);
-    cout.precision(2);
+    cout << fixed << setprecision(2);
     for (int i = 1; i <= n; i++) cout << a[i][n + 1] << '\n';
     return 0;
 }
