@@ -1,6 +1,5 @@
 #include <iostream>
 #include <stack>
-#include <vector>
 using namespace std;
 const int N = 1e4 + 5, M = 2e4 + 5;
 int n, m, dis, dfn[N], low[N], f[N << 1][25], val[N], sum[N << 1], dis1[N], dis2[N << 1],

@@ -1,7 +1,6 @@
 #include <cstring>
 #include <iostream>
 #include <queue>
-#include <stack>
 using namespace std;
 const int N = 1205, M = 12e4 + 5, INF = 0x3f3f3f3f;
 int n, m, s, t, ht[N], ex[N], gap[N], cur[N], head[N], cnt = 1;
