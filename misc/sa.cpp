@@ -1,3 +1,4 @@
+#include <iomanip>
 #include <iostream>
 #include <random>
 using namespace std;
@@ -32,8 +33,6 @@ int main() {
     cin >> n;
     for (int i = 1; i <= n; i++) cin >> a[i] >> b[i] >> c[i];
     for (int i = 1; i <= 3; i++) solve();
-    cout.setf(ios::fixed);
-    cout.precision(3);
-    cout << ansx << ' ' << ansy;
+    cout << fixed << setprecision(3) << ansx << ' ' << ansy;
     return 0;
 }
