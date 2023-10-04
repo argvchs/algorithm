@@ -20,17 +20,15 @@ void tarjan(int u, int fa) {
             dis1[v] = dis1[u] + w, val[v] = w;
             tarjan(v, u);
             low[u] = min(low[u], low[v]);
-            if (low[v] >= dfn[u]) {
-                int pre, k;
-                sum[++tot] = dis1[S.top()] - dis1[u] + val[S.top()];
-                addedge2(u, tot, 0);
-                do {
-                    k = dis1[pre = S.top()] - dis1[u], S.pop();
-                    addedge2(pre, tot, min(k, sum[tot] - k));
-                } while (pre != v);
-            }
-        } else low[u] = min(low[u], dfn[v]);
-        if (dfn[v] < dfn[fa]) val[u] = w;
+            if (low[v] < dfn[u]) continue;
+            int pre, k;
+            sum[++tot] = dis1[S.top()] - dis1[u] + val[S.top()];
+            addedge2(u, tot, 0);
+            do {
+                k = dis1[pre = S.top()] - dis1[u], S.pop();
+                addedge2(pre, tot, min(k, sum[tot] - k));
+            } while (pre != v);
+        } else if (dfn[v] < dfn[fa]) low[u] = min(low[u], dfn[v]), val[u] = w;
     }
 }
 void dfs(int u, int fa) {

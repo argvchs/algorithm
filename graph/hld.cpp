@@ -15,10 +15,9 @@ void dfs1(int u, int fa) {
     ::fa[u] = fa, dep[u] = dep[fa] + 1, siz[u] = 1;
     for (int i = head[u]; i; i = e[i].next) {
         int v = e[i].to;
-        if (v != fa) {
-            dfs1(v, u), siz[u] += siz[v];
-            if (siz[v] > siz[ch[u]]) ch[u] = v;
-        }
+        if (v == fa) continue;
+        dfs1(v, u), siz[u] += siz[v];
+        if (siz[v] > siz[ch[u]]) ch[u] = v;
     }
 }
 void dfs2(int u, int fa, int top) {

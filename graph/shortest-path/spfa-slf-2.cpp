@@ -1,7 +1,7 @@
 #include <cstring>
+#include <deque>
 #include <iostream>
 #include <limits>
-#include <deque>
 using namespace std;
 const int N = 1e5 + 5, M = 5e5 + 5, INF = 0x3f3f3f3f;
 int n, m, s, dis[N], head[N], cnt;
@@ -21,12 +21,11 @@ void spfa() {
             int v = e[i].to, w = e[i].w;
             if (dis[v] > dis[u] + w) {
                 dis[v] = dis[u] + w;
-                if (!vis[v]) {
-                    vis[v] = true;
-                    if (!Q.empty() && dis[v] - dis[Q.front()] > 1000) Q.push_back(v);
-                    else Q.push_front(v);
-                    if (dis[Q.front()] > dis[Q.back()]) swap(Q.front(), Q.back());
-                }
+                if (vis[v]) continue;
+                vis[v] = true;
+                if (!Q.empty() && dis[v] - dis[Q.front()] > 1000) Q.push_back(v);
+                else Q.push_front(v);
+                if (dis[Q.front()] > dis[Q.back()]) swap(Q.front(), Q.back());
             }
         }
     }

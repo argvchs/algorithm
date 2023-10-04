@@ -24,10 +24,9 @@ bool spfa() {
             int v = e[i].to, w = e[i].w;
             if (h[v] > h[u] + w) {
                 h[v] = h[u] + w;
-                if (!vis[v]) {
-                    vis[v] = true, Q.push(v);
-                    if (++tot[v] == n + 1) return false;
-                }
+                if (vis[v]) continue;
+                vis[v] = true, Q.push(v);
+                if (++tot[v] == n + 1) return false;
             }
         }
     }
