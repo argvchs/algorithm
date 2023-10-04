@@ -2,7 +2,7 @@
 #include <stack>
 using namespace std;
 const int N = 1e4 + 5, M = 2e4 + 5;
-int n, m, dis, dfn[N], low[N], f[N << 1][25], val[N], sum[N << 1], dis1[N], dis2[N << 1],
+int n, m, k, dfn[N], low[N], f[N << 1][25], val[N], sum[N << 1], dis1[N], dis2[N << 1],
     dep[N << 1], head1[N], head2[N << 1], idx, cnt, tot, ans1, ans2;
 struct edge {
     int to, next, w;
@@ -21,13 +21,12 @@ void tarjan(int u, int fa) {
             tarjan(v, u);
             low[u] = min(low[u], low[v]);
             if (low[v] >= dfn[u]) {
-                int pre, dis;
+                int pre, k;
                 sum[++tot] = dis1[S.top()] - dis1[u] + val[S.top()];
                 addedge2(u, tot, 0);
                 do {
-                    pre = S.top(), S.pop();
-                    dis = dis1[pre] - dis1[u];
-                    addedge2(pre, tot, min(dis, sum[tot] - dis));
+                    k = dis1[pre = S.top()] - dis1[u], S.pop();
+                    addedge2(pre, tot, min(k, sum[tot] - k));
                 } while (pre != v);
             }
         } else low[u] = min(low[u], dfn[v]);
@@ -51,20 +50,20 @@ int solve(int u, int v) {
     for (int i = 20; i >= 0; i--)
         if (f[u][i] != f[v][i]) u = f[u][i], v = f[v][i];
     if (f[u][0] <= n) return ret - (dis2[f[u][0]] << 1);
-    int dis = abs(dis1[u] - dis1[v]);
-    return ret - dis2[u] - dis2[v] + min(dis, sum[f[u][0]] - dis);
+    int k = abs(dis1[u] - dis1[v]);
+    return ret - dis2[u] - dis2[v] + min(k, sum[f[u][0]] - k);
 }
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
-    cin >> n >> m >> dis, tot = n;
+    cin >> n >> m >> k, tot = n;
     for (int i = 1, u, v, w; i <= m; i++) {
         cin >> u >> v >> w;
         addedge1(u, v, w);
     }
     tarjan(1, 0);
     dfs(1, 0);
-    for (int i = 1, u, v; i <= dis; i++) {
+    for (int i = 1, u, v; i <= k; i++) {
         cin >> u >> v;
         cout << solve(u, v) << '\n';
     }
