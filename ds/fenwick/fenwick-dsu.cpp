@@ -27,7 +27,7 @@ int main() {
         if (l > r) swap(l, r);
         if (op) cout << query(l, r) << '\n';
         else
-            for (int j = l; j <= r; j = find(j + 1)) {
+            for (int j = find(l); j <= r; j = find(j + 1)) {
                 update(j, -a[j]);
                 update(j, (a[j] = sqrt(a[j])));
                 if (a[j] <= 1) fa[j] = j + 1;
