@@ -3,6 +3,7 @@
 #include <queue>
 using namespace std;
 using i64 = long long;
+using m64 = pair<int, int>;
 const int N = 3e3 + 5, M = 6e3 + 5, INF = 0x3f3f3f3f;
 int n, m, s, h[N], dis[N], tot[N], head[N], cnt;
 i64 ans;
@@ -11,7 +12,7 @@ struct edge {
     int to, next, w;
 } e[M << 1];
 queue<int> Q;
-priority_queue<pair<int, int>, vector<pair<int, int>>, greater<>> PQ;
+priority_queue<m64, vector<m64>, greater<>> PQ;
 void add(int u, int v, int w) { e[++cnt] = {v, head[u], w}, head[u] = cnt; }
 bool spfa() {
     memset(h, 0x3f, sizeof(h));

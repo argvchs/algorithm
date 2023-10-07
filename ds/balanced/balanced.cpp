@@ -3,6 +3,8 @@
 #include <random>
 #include <tuple>
 using namespace std;
+using m64 = pair<int, int>;
+using m96 = tuple<int, int, int>;
 const int N = 1e5 + 5;
 int n, rt, cnt;
 struct node {
@@ -11,7 +13,7 @@ struct node {
 } t[N];
 mt19937 rng(random_device{}());
 void maintain(int rt) { t[rt].siz = t[t[rt].l].siz + t[t[rt].r].siz + t[rt].cnt; }
-pair<int, int> split(int rt, int x) {
+m64 split(int rt, int x) {
     if (!rt) return {};
     if (t[rt].val >= x) {
         auto [l, r] = split(t[rt].l, x);
@@ -23,7 +25,7 @@ pair<int, int> split(int rt, int x) {
         return {rt, r};
     }
 }
-tuple<int, int, int> splitrnk(int rt, int x) {
+m96 splitrnk(int rt, int x) {
     if (!rt) return {};
     if (t[t[rt].l].siz >= x) {
         auto [l, m, r] = splitrnk(t[rt].l, x);

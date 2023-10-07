@@ -5,6 +5,7 @@
 #include <vector>
 using namespace std;
 using i64 = long long;
+using m96 = pair<i64, int>;
 const int N = 1e5 + 5, P = 1e9 + 7;
 int n, m, seed, p, a[N];
 struct node {
@@ -13,7 +14,7 @@ struct node {
 };
 auto cmp = [](node a, node b) { return a.l < b.l; };
 set<node, decltype(cmp)> S(cmp);
-vector<pair<i64, int>> tmp;
+vector<m96> tmp;
 auto split(int x) {
     auto it = prev(S.upper_bound({x}));
     if (it->l == x) return it;

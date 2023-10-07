@@ -2,6 +2,7 @@
 #include <random>
 #include <stack>
 using namespace std;
+using m64 = pair<int, int>;
 const int N = 1e5 + 5;
 int n, m, rt, cnt;
 struct node {
@@ -18,7 +19,7 @@ void spread(int rt) {
     t[t[rt].l].tag ^= true, t[t[rt].r].tag ^= true;
     t[rt].tag = false;
 }
-pair<int, int> split(int rt, int x) {
+m64 split(int rt, int x) {
     if (!rt) return {};
     spread(rt);
     if (t[t[rt].l].siz >= x) {

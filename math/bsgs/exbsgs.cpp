@@ -5,6 +5,7 @@
 #include <unordered_map>
 using namespace std;
 using i64 = long long;
+using m96 = tuple<int, int, int>;
 int a, b, p;
 unordered_map<int, int> M;
 int quickpow(int a, int b, int p) {
@@ -13,7 +14,7 @@ int quickpow(int a, int b, int p) {
         if (i & 1) ret = (i64)ret * a % p;
     return ret;
 }
-tuple<int, int, int> exgcd(int a, int b) {
+m96 exgcd(int a, int b) {
     if (!b) return {1, 0, a};
     auto [x, y, gcd] = exgcd(b, a % b);
     return {y, x - a / b * y, gcd};

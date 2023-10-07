@@ -1,8 +1,9 @@
 #include <iostream>
 #include <tuple>
 using namespace std;
+using m96 = tuple<int, int, int>;
 int n, p;
-tuple<int, int, int> exgcd(int a, int b) {
+m96 exgcd(int a, int b) {
     if (!b) return {1, 0, a};
     auto [x, y, gcd] = exgcd(b, a % b);
     return {y, x - a / b * y, gcd};
