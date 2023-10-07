@@ -7,7 +7,7 @@ bool vis[N];
 struct node {
     int l, r, val, id;
 } t[N];
-mt19937 rng(random_device{}());
+mt19937 gen(random_device{}());
 auto cmp = [](node a, node b) {
     if (a.val != b.val) return a.val < b.val;
     return a.id < b.id;
@@ -15,7 +15,7 @@ auto cmp = [](node a, node b) {
 int merge(int lt, int rt) {
     if (!lt || !rt) return lt + rt;
     if (cmp(t[rt], t[lt])) swap(lt, rt);
-    if (rng() & 1) swap(t[lt].l, t[lt].r);
+    if (gen() & 1) swap(t[lt].l, t[lt].r);
     t[lt].l = merge(t[lt].l, rt);
     return lt;
 }

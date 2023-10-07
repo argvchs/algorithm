@@ -7,7 +7,7 @@ const int N = 1005;
 const f80 A = 0.99, EPS = 1e-7;
 int n, a[N], b[N], c[N];
 f80 ansx, ansy, ansz = __builtin_infl();
-mt19937 rng(random_device{}());
+mt19937 gen(random_device{}());
 uniform_real_distribution<f80> dist;
 f80 calc(f80 x, f80 y) {
     f80 ret = 0;
@@ -21,10 +21,10 @@ f80 calc(f80 x, f80 y) {
 void solve() {
     f80 x = ansx, y = ansy;
     for (f80 t = 1000; t > EPS; t *= A) {
-        f80 xx = ansx + (dist(rng) * 2 - 1) * t;
-        f80 yy = ansy + (dist(rng) * 2 - 1) * t;
+        f80 xx = ansx + (dist(gen) * 2 - 1) * t;
+        f80 yy = ansy + (dist(gen) * 2 - 1) * t;
         f80 delta = calc(xx, yy) - calc(x, y);
-        if (exp(-delta / t) > dist(rng)) x = xx, y = yy;
+        if (exp(-delta / t) > dist(gen)) x = xx, y = yy;
     }
 }
 int main() {

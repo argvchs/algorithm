@@ -11,7 +11,7 @@ struct node {
     int l, r, val, cnt, siz;
     mt19937::result_type key;
 } t[N];
-mt19937 rng(random_device{}());
+mt19937 gen(random_device{}());
 void maintain(int rt) { t[rt].siz = t[t[rt].l].siz + t[t[rt].r].siz + t[rt].cnt; }
 m64 split(int rt, int x) {
     if (!rt) return {};
@@ -55,7 +55,7 @@ void insert(int x) {
     auto [l, p] = split(rt, x);
     auto [m, r] = split(p, x + 1);
     if (m) ++t[m].cnt, ++t[m].siz;
-    else t[m = ++cnt] = {0, 0, x, 1, 1, rng()};
+    else t[m = ++cnt] = {0, 0, x, 1, 1, gen()};
     rt = merge(merge(l, m), r);
 }
 void remove(int x) {

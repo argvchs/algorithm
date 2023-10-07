@@ -7,7 +7,7 @@ using namespace std;
 using i64 = long long;
 using m96 = pair<i64, int>;
 const int N = 1e5 + 5, P = 1e9 + 7;
-int n, m, seed, p, a[N];
+int n, m, s, p;
 struct node {
     int l, r;
     mutable i64 val;
@@ -55,38 +55,23 @@ i64 querykth(int l, int r, int x) {
         if ((x -= cnt) <= 0) return val;
     return numeric_limits<i64>::max();
 }
-int rnd() {
-    int ret = seed;
-    seed = ((i64)seed * 7 + 13) % P;
-    return ret;
+int gen(int x=p) {
+    int ret = s;
+    s = ((i64)s * 7 + 13) % P;
+    return (ret % x) + 1;
 }
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
-    cin >> n >> m >> seed >> p;
-    for (int i = 1; i <= n; i++) {
-        a[i] = (rnd() % p) + 1;
-        S.emplace(i, i, a[i]);
-    }
-    for (int i = 1, op, l, r, x, y; i <= m; i++) {
-        op = (rnd() % 4) + 1;
-        l = (rnd() % n) + 1;
-        r = (rnd() % n) + 1;
+    cin >> n >> m >> s >> p;
+    for (int i = 1; i <= n; i++) S.emplace(i, i, gen(p));
+    for (int i = 1, op, l, r, x; i <= m; i++) {
+        op = gen(4), l = gen(n), r = gen(n);
         if (l > r) swap(l, r);
-        if (op == 1) {
-            x = (rnd() % p) + 1;
-            update(l, r, x);
-        } else if (op == 2) {
-            x = (rnd() % p) + 1;
-            assign(l, r, x);
-        } else if (op == 3) {
-            x = (rnd() % (r - l + 1)) + 1;
-            cout << querykth(l, r, x) << '\n';
-        } else {
-            x = (rnd() % p) + 1;
-            y = (rnd() % p) + 1;
-            cout << querysum(l, r, x, y) << '\n';
-        }
+        if (op == 1) update(l, r, gen(p));
+        else if (op == 2) assign(l, r, gen(p));
+        else if (op == 3) cout << querykth(l, r, gen(r - l + 1)) << '\n';
+        else x = gen(p), cout << querysum(l, r, x, gen(p)) << '\n';
     }
     return 0;
 }
