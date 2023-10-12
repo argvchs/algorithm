@@ -18,10 +18,7 @@ void spread(int rt) {
 }
 void bulid(int rt, int l, int r) {
     t[rt].l = l, t[rt].r = r;
-    if (l == r) {
-        t[rt].sum = a[l];
-        return;
-    }
+    if (l == r) return void(t[rt].sum = a[l]);
     int mid = (l + r) >> 1;
     bulid(rt << 1, l, mid);
     bulid(rt << 1 | 1, mid + 1, r);

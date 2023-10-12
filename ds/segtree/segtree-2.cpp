@@ -19,10 +19,7 @@ void spread(int rt) {
 }
 void build(int rt, int l, int r) {
     t[rt].l = l, t[rt].r = r, t[rt].mul = 1;
-    if (l == r) {
-        t[rt].val = a[l] % p;
-        return;
-    }
+    if (l == r) return void(t[rt].val = a[l] % p);
     int mid = (l + r) >> 1;
     build(rt << 1, l, mid);
     build(rt << 1 | 1, mid + 1, r);

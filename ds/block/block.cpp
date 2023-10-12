@@ -24,8 +24,7 @@ void updatemul(int x, int y, int k) {
     spread(l), spread(r);
     if (l == r) {
         for (int i = x; i <= y; i++) a[i] = (i64)a[i] * k % P;
-        maintain(l);
-        return;
+        return maintain(l);
     }
     for (int i = x; belong[i] == l; i++) a[i] = (i64)a[i] * k % P;
     for (int i = y; belong[i] == r; i--) a[i] = (i64)a[i] * k % P;
@@ -41,8 +40,7 @@ void updateadd(int x, int y, int k) {
     spread(l), spread(r);
     if (l == r) {
         for (int i = x; i <= y; i++) a[i] = (a[i] + k) % P;
-        maintain(l);
-        return;
+        return maintain(l);
     }
     for (int i = x; belong[i] == l; i++) a[i] = (a[i] + k) % P;
     for (int i = y; belong[i] == r; i--) a[i] = (a[i] + k) % P;

@@ -30,7 +30,7 @@ void spfa() {
 }
 bool dijkstra() {
     memset(dis, 0x3f, sizeof(dis));
-    memset(vis, false, sizeof(vis));
+    memset(vis, 0, sizeof(vis));
     PQ.emplace(dis[s] = 0, s);
     while (!PQ.empty()) {
         int u = PQ.top().second;
@@ -67,7 +67,7 @@ void dinic() {
     spfa();
     while (dijkstra()) {
         memcpy(cur, head, sizeof(cur));
-        memset(vis, false, sizeof(vis));
+        memset(vis, 0, sizeof(vis));
         while ((ret = dfs(s, INF))) ansflow += ret, anscost += ret * (dis[t] + h[t]);
         for (int i = 1; i <= n; i++) h[i] += dis[i];
     }

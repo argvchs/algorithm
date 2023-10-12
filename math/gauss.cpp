@@ -17,10 +17,7 @@ int main() {
         for (int j = i + 1; j <= n; j++)
             if (abs(a[cur][i]) < abs(a[j][i])) cur = j;
         swap(a[cur], a[i]);
-        if (abs(a[i][i]) < EPS) {
-            cout << "No Solution";
-            return 0;
-        }
+        if (abs(a[i][i]) < EPS) return cout << "No Solution", 0;
         f64 y = a[i][i];
         for (int j = 1; j <= n; j++) {
             if (i == j) continue;

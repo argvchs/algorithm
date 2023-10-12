@@ -16,7 +16,7 @@ void maintain(int rt) { t[rt].siz = t[t[rt].l].siz + t[t[rt].r].siz + 1; }
 void spread(int rt) {
     if (!t[rt].tag) return;
     swap(t[rt].l, t[rt].r);
-    t[t[rt].l].tag ^= true, t[t[rt].r].tag ^= true;
+    t[t[rt].l].tag ^= 1, t[t[rt].r].tag ^= 1;
     t[rt].tag = false;
 }
 m64 split(int rt, int x) {
@@ -60,7 +60,7 @@ int build() {
 void reverse(int x, int y) {
     auto [l, p] = split(rt, x - 1);
     auto [m, r] = split(p, y - x + 1);
-    t[m].tag ^= true;
+    t[m].tag ^= 1;
     rt = merge(merge(l, m), r);
 }
 void output(int rt) {
