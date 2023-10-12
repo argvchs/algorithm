@@ -1,7 +1,7 @@
 #include <cstring>
 #include <iostream>
 using namespace std;
-const int N = 3e6 + 5;
+constexpr int N = 3e6 + 5;
 int n, m, t, cnt;
 string s;
 struct node {
@@ -14,18 +14,16 @@ int id(char c) {
 }
 void insert(string s) {
     int rt = 0;
-    for (int i = 1; i <= (int)s.size(); i++) {
-        int c = id(s[i - 1]);
-        if (!tt[rt].ch[c]) tt[rt].ch[c] = ++cnt;
-        rt = tt[rt].ch[c], ++tt[rt].val;
+    for (char c : s) {
+        if (!tt[rt].ch[id(c)]) tt[rt].ch[id(c)] = ++cnt;
+        rt = tt[rt].ch[id(c)], ++tt[rt].val;
     }
 }
 int query(string s) {
     int rt = 0;
-    for (int i = 1; i <= (int)s.size(); i++) {
-        int c = id(s[i - 1]);
-        if (!tt[rt].ch[c]) return 0;
-        rt = tt[rt].ch[c];
+    for (char c : s) {
+        if (!tt[rt].ch[id(c)]) return 0;
+        rt = tt[rt].ch[id(c)];
     }
     return tt[rt].val;
 }

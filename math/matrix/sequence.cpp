@@ -4,10 +4,10 @@
 using namespace std;
 using i64 = long long;
 using mat = array<array<int, 5>, 5>;
-const int P = 1e9 + 7;
+constexpr int P = 1e9 + 7;
 int n, t;
-mat a, b;
-mat quickmul(mat a, mat b) {
+mat a, b, ans;
+mat operator*(mat a, mat b) {
     mat ret;
     mat().swap(ret);
     for (int i = 1; i <= 3; i++)
@@ -20,8 +20,8 @@ mat quickpow(mat a, int b) {
     mat ret;
     mat().swap(ret);
     for (int i = 1; i <= 3; i++) ret[i][i] = 1;
-    for (int i = b; i; i >>= 1, a = quickmul(a, a))
-        if (i & 1) ret = quickmul(ret, a);
+    for (int i = b; i; i >>= 1, a = a * a)
+        if (i & 1) ret = ret * a;
     return ret;
 }
 int main() {
@@ -34,8 +34,8 @@ int main() {
         cin >> n;
         a[1][2] = a[2][3] = a[3][1] = a[3][3] = 1;
         b[1][1] = b[2][1] = b[3][1] = 1;
-        b = quickmul(quickpow(a, n - 1), b);
-        cout << b[1][1] << '\n';
+        ans = quickpow(a, n - 1) * b;
+        cout << ans[1][1] << '\n';
     }
     return 0;
 }

@@ -1,6 +1,6 @@
 #include <iostream>
 using namespace std;
-const int N = 1e5 + 5;
+constexpr int N = 1e5 + 5;
 int n, m, a[N], st[N][25];
 void build() {
     for (int i = 1; i <= n; i++) st[i][0] = a[i];

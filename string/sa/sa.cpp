@@ -1,14 +1,15 @@
 #include <cstring>
 #include <iostream>
 using namespace std;
-const int N = 1e6 + 5;
+constexpr int N = 1e6 + 5;
 int n, m = 127, sa[N], rnk[N << 1], tmp[N << 1], cnt[N];
 string s;
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
-    cin >> s, n = s.size();
-    for (int i = 1; i <= n; i++) ++cnt[rnk[i] = s[i - 1]];
+    cin >> s;
+    for (char c : s) rnk[++n] = c;
+    for (int i = 1; i <= n; i++) ++cnt[rnk[i]];
     for (int i = 1; i <= m; i++) cnt[i] += cnt[i - 1];
     for (int i = n; i >= 1; i--) sa[cnt[rnk[i]]--] = i;
     memcpy(tmp, rnk, sizeof(rnk));

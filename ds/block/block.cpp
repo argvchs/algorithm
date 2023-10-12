@@ -2,7 +2,7 @@
 #include <iostream>
 using namespace std;
 using i64 = long long;
-const int N = 1e5 + 5, P = 571373;
+constexpr int N = 1e5 + 5, P = 571373;
 int n, m, k, a[N], belong[N], sum[N], add[N], mul[N], siz, tot;
 void spread(int x) {
     for (int i = (x - 1) * siz + 1; i <= min(x * siz, n); i++)

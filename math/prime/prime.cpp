@@ -1,6 +1,6 @@
 #include <iostream>
 using namespace std;
-const int N = 1e8 + 5;
+constexpr int N = 1e8 + 5;
 int n, m, p[N], cnt;
 bool vis[N];
 int main() {

@@ -2,7 +2,7 @@
 #include <queue>
 #include <stack>
 using namespace std;
-const int N = 1e4 + 5, M = 1e5 + 5;
+constexpr int N = 1e4 + 5, M = 1e5 + 5;
 int n, m, a[N], b[N], dfn[N], low[N], belong[N], deg[N], dis[N], head1[N], head2[N], idx,
     cnt, tot, ans;
 bool vis[N];

@@ -3,8 +3,8 @@
 #include <random>
 using namespace std;
 using f80 = long double;
-const int N = 1005;
-const f80 A = 0.99, EPS = 1e-7;
+constexpr int N = 1005;
+constexpr f80 A = 0.99, EPS = 1e-7;
 int n, a[N], b[N], c[N];
 f80 ansx, ansy, ansz = __builtin_infl();
 mt19937 gen(random_device{}());

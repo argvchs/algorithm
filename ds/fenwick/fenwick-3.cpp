@@ -1,6 +1,6 @@
 #include <iostream>
 using namespace std;
-const int N = 1e5 + 5;
+constexpr int N = 1e5 + 5;
 int n, m, bit1[N], bit2[N];
 void update(int x, int k) {
     for (int i = x; i <= n; i += i & -i) bit1[i] += k, bit2[i] += k * x;

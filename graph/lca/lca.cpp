@@ -1,6 +1,6 @@
 #include <iostream>
 using namespace std;
-const int N = 5e5 + 5;
+constexpr int N = 5e5 + 5;
 int n, m, rt, f[N][25], dep[N], head[N], cnt;
 struct edge {
     int to, next;

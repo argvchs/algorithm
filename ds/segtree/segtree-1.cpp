@@ -1,7 +1,7 @@
 #include <iostream>
 using namespace std;
 using i64 = long long;
-const int N = 1e5 + 5;
+constexpr int N = 1e5 + 5;
 int n, m, a[N];
 struct node {
     int l, r;

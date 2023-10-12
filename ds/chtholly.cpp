@@ -6,7 +6,7 @@
 using namespace std;
 using i64 = long long;
 using m96 = pair<i64, int>;
-const int N = 1e5 + 5, P = 1e9 + 7;
+constexpr int N = 1e5 + 5, P = 1e9 + 7;
 int n, m, s, p;
 struct node {
     int l, r;
@@ -25,13 +25,13 @@ auto split(int x) {
     return S.emplace(x, r, val).first;
 }
 void assign(int l, int r, int k) {
-    auto ed = split(r + 1), st = split(l);
-    S.erase(st, ed);
+    auto end = split(r + 1), beg = split(l);
+    S.erase(beg, end);
     S.emplace(l, r, k);
 }
 void update(int l, int r, int k) {
-    auto ed = split(r + 1), st = split(l);
-    for (auto it = st; it != ed; ++it) it->val += k;
+    auto end = split(r + 1), beg = split(l);
+    for (auto it = beg; it != end; ++it) it->val += k;
 }
 int quickpow(int a, int b, int p) {
     int ret = 1;
@@ -40,16 +40,16 @@ int quickpow(int a, int b, int p) {
     return ret;
 }
 int querysum(int l, int r, int k, int p) {
-    auto ed = split(r + 1), st = split(l);
+    auto end = split(r + 1), beg = split(l);
     int ret = 0;
-    for (auto it = st; it != ed; ++it)
+    for (auto it = beg; it != end; ++it)
         ret = (ret + (i64)quickpow(it->val % p, k, p) * (it->r - it->l + 1) % p) % p;
     return ret;
 }
 i64 querykth(int l, int r, int x) {
-    auto ed = split(r + 1), st = split(l);
+    auto end = split(r + 1), beg = split(l);
     tmp.clear();
-    for (auto it = st; it != ed; ++it) tmp.emplace_back(it->val, it->r - it->l + 1);
+    for (auto it = beg; it != end; ++it) tmp.emplace_back(it->val, it->r - it->l + 1);
     sort(tmp.begin(), tmp.end());
     for (auto [val, cnt] : tmp)
         if ((x -= cnt) <= 0) return val;

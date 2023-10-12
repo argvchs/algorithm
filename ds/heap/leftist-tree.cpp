@@ -1,7 +1,7 @@
 #include <iostream>
 #include <random>
 using namespace std;
-const int N = 1e5 + 5;
+constexpr int N = 1e5 + 5;
 int n, m, a[N], rt[N], fa[N], siz[N], cnt;
 bool vis[N];
 struct node {
@@ -23,7 +23,7 @@ int insert(int rt, int x, int y) {
     t[++cnt] = {0, 0, x, y};
     return merge(rt, cnt);
 }
-int remove(int rt) { return merge(t[rt].l, t[rt].r); }
+int removemin(int rt) { return merge(t[rt].l, t[rt].r); }
 int find(int u) { return u == fa[u] ? u : fa[u] = find(fa[u]); }
 int main() {
     ios::sync_with_stdio(false);
@@ -52,7 +52,7 @@ int main() {
             u = find(u);
             vis[t[rt[u]].id] = true;
             cout << t[rt[u]].val << '\n';
-            rt[u] = remove(rt[u]);
+            rt[u] = removemin(rt[u]);
         }
     }
     return 0;

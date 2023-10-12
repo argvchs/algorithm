@@ -3,7 +3,7 @@
 using namespace std;
 using i64 = long long;
 using m96 = tuple<int, int, int>;
-const int N = 2e3 + 5, P = 998244353;
+constexpr int N = 2e3 + 5, P = 998244353;
 int n, m, a[N], b[N], sum1, sum2, ans;
 m96 exgcd(int a, int b) {
     if (!b) return {1, 0, a};

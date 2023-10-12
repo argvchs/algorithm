@@ -4,7 +4,7 @@
 using namespace std;
 using i64 = long long;
 using m64 = pair<int, int>;
-const int N = 3e3 + 5, M = 6e3 + 5, INF = 0x3f3f3f3f;
+constexpr int N = 3e3 + 5, M = 6e3 + 5, INF = 0x3f3f3f3f;
 int n, m, s, h[N], dis[N], tot[N], head[N], cnt;
 i64 ans;
 bool vis[N];
@@ -50,9 +50,6 @@ void dijkstra() {
             }
         }
     }
-    for (int i = 1; i <= n; i++)
-        if (dis[i] == INF) dis[i] = 1e9;
-        else dis[i] += h[i] - h[s];
 }
 int main() {
     ios::sync_with_stdio(false);
@@ -62,13 +59,12 @@ int main() {
         cin >> u >> v >> w;
         add(u, v, w);
     }
-    if (!spfa()) {
-        cout << "-1";
-        return 0;
-    }
+    if (!spfa()) return cout << "-1", 0;
     for (int i = 1; i <= n; i++) {
         s = i, ans = 0, dijkstra();
-        for (int j = 1; j <= n; j++) ans += (i64)j * dis[j];
+        for (int j = 1; j <= n; j++)
+            if (dis[j] == INF) ans += (i64)j * (int)1e9;
+            else ans += (i64)j * (dis[j] + h[j] - h[s]);
         cout << ans << '\n';
     }
     return 0;

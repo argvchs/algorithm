@@ -3,7 +3,7 @@
 using namespace std;
 using i64 = long long;
 using m64 = pair<int, int>;
-const int N = 1e5 + 5;
+constexpr int N = 1e5 + 5;
 int n, m, p, rt, a[N], b1[N], b2[N], ifn[N], ofn[N], fa[N], ch[N], dep[N], siz[N], top[N],
     idx, cnt, head[N];
 struct edge {

@@ -4,7 +4,7 @@
 #include <numeric>
 using namespace std;
 using i64 = long long;
-const int N = 5e4 + 5;
+constexpr int N = 5e4 + 5;
 int n, m, l = 1, r, a[N], belong[N], cnt[N], siz;
 i64 ans;
 struct node {

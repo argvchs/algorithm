@@ -1,6 +1,6 @@
 #include <iostream>
 using namespace std;
-const int N = 3e5 + 5;
+constexpr int N = 3e5 + 5;
 int n, m;
 struct node {
     int fa, ch[2], val, sum;

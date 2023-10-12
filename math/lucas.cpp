@@ -1,7 +1,7 @@
 #include <iostream>
 using namespace std;
 using i64 = long long;
-const int N = 1e5 + 5;
+constexpr int N = 1e5 + 5;
 int n, m, p, t, fac[N], inv[N];
 int lucas(int n, int m, int p) {
     if (!m) return 1;
