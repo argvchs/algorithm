@@ -4,8 +4,7 @@ constexpr int N = 1e4 + 5;
 int n, m, fa[N], siz[N];
 int find(int u) { return u == fa[u] ? u : fa[u] = find(fa[u]); }
 void unite(int u, int v) {
-    u = find(u), v = find(v);
-    if (u == v) return;
+    if ((u = find(u)) == (v = find(v))) return;
     if (siz[u] < siz[v]) swap(u, v);
     fa[v] = u, siz[u] += siz[v];
 }

@@ -34,29 +34,20 @@ int main() {
     cin >> n >> m;
     for (int i = 1; i <= n; i++) {
         cin >> a[i];
-        fa[i] = i, siz[i] = 1;
-        rt[i] = insert(rt[i], a[i], i);
+        fa[i] = i, siz[i] = 1, rt[i] = insert(rt[i], a[i], i);
     }
     for (int i = 1, op, u, v; i <= m; i++) {
         cin >> op >> u;
         if (op == 1) {
             cin >> v;
             if (vis[u] || vis[v]) continue;
-            u = find(u), v = find(v);
-            if (u == v) continue;
+            if ((u = find(u)) == (v = find(v))) continue;
             if (siz[u] < siz[v]) swap(u, v);
-            fa[v] = u, siz[u] += siz[v];
-            rt[u] = merge(rt[u], rt[v]);
-        } else {
-            if (vis[u]) {
-                cout << "-1\n";
-                continue;
-            }
-            u = find(u);
-            vis[t[rt[u]].id] = true;
-            cout << t[rt[u]].val << '\n';
-            rt[u] = removemin(rt[u]);
-        }
+            fa[v] = u, siz[u] += siz[v], rt[u] = merge(rt[u], rt[v]);
+        } else if (!vis[u]) {
+            vis[t[rt[u = find(u)]].id] = true;
+            cout << t[rt[u]].val << '\n', rt[u] = removemin(rt[u]);
+        } else cout << "-1\n";
     }
     return 0;
 }

@@ -46,15 +46,15 @@ void update(int u, int w) {
     ++siz[t], pos[u] = buc[t].size(), buc[t].push_back(u);
 }
 void removemin() {
-    int cur = 0, pre = top;
-    pos[top] = -1, top = 0;
+    pos[top] = -1;
     if (--siz[0]) {
-        while (pos[buc[0][beg]] == -1) ++beg;
-        return void(top = buc[0][beg]);
+        while (pos[top = buc[0][beg]] != beg) ++beg;
+        return;
     }
+    int cur = 0, pre = top;
     for (int i = 30; i >= 1; i--)
         if (siz[i]) cur = i;
-    siz[cur] = beg = 0, tmp.swap(buc[cur]);
+    siz[cur] = beg = top = 0, tmp.swap(buc[cur]);
     for (int i = 0; i <= cur; i++) buc[i].clear();
     for (int i = 0; i < (int)tmp.size(); i++) {
         int k = bit_width<u32>(dis[tmp[i]] ^ dis[pre]);
