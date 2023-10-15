@@ -55,7 +55,7 @@ i64 querykth(int l, int r, int x) {
         if ((x -= cnt) <= 0) return val;
     return numeric_limits<i64>::max();
 }
-int gen(int x=p) {
+int gen(int x) {
     int ret = s;
     s = ((i64)s * 7 + 13) % P;
     return (ret % x) + 1;

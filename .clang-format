@@ -11,5 +11,7 @@ AllowShortLoopsOnASingleLine: true
 ColumnLimit: 90
 FixNamespaceComments: false
 IndentWidth: 4
+PenaltyExcessCharacter: 10
+PenaltyIndentedWhitespace: 10
 TabWidth: 4
 UseTab: Never
