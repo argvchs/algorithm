@@ -22,8 +22,7 @@ bool spfa() {
             int v = e[i].to, w = e[i].w, c = e[i].c;
             if (dis[v] > dis[u] + c && w) {
                 dis[v] = dis[u] + c;
-                if (vis[v]) continue;
-                vis[v] = true, Q.push(v);
+                if (!vis[v]) vis[v] = true, Q.push(v);
                 if (dis[Q.front()] > dis[Q.back()]) swap(Q.front(), Q.back());
             }
         }
