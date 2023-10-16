@@ -26,7 +26,7 @@ void update(int u, int w) {
 void removemin() {
     pos[top] = -1;
     if (--siz[0]) {
-        while (pos[top = buc[0][beg]] != beg) ++beg;
+        while (pos[top = buc[0][beg]] == -1) ++beg;
         return;
     }
     int cur = 0, pre = top;
