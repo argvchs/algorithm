@@ -4,7 +4,7 @@
 using namespace std;
 using i64 = long long;
 using m64 = pair<int, int>;
-constexpr int N = 3e3 + 5, M = 6e3 + 5, INF = 0x3f3f3f3f;
+constexpr int N = 3005, M = 6005, INF = 0x3f3f3f3f;
 int n, m, s, h[N], dis[N], tot[N], head[N], cnt;
 i64 ans;
 bool vis[N];
