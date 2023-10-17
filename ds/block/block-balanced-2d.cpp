@@ -1,7 +1,6 @@
 #include <algorithm>
 #include <cmath>
 #include <iostream>
-#include <numeric>
 using namespace std;
 constexpr int N = 1e5 + 5;
 int n, m, l = 1, r, t, a[N], b[N], belong[N], val[N], sum[N], siz, cnt1, cnt2, cnt3;

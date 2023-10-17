@@ -1,6 +1,6 @@
+#include <bit>
 #include <cstring>
 #include <iostream>
-#include <numeric>
 #include <queue>
 using namespace std;
 using u32 = unsigned;

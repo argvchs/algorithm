@@ -1,6 +1,7 @@
+#include <bit>
 #include <cstring>
 #include <iostream>
-#include <numeric>
+#include <limits>
 #include <vector>
 using namespace std;
 using u32 = unsigned;
