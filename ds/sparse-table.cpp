@@ -1,16 +1,18 @@
+#include <bit>
 #include <iostream>
 using namespace std;
+using u32 = unsigned;
 constexpr int N = 1e5 + 5;
-int n, m, a[N], st[N][25];
+int n, m, a[N], st[25][N];
 void build() {
-    for (int i = 1; i <= n; i++) st[i][0] = a[i];
-    for (int j = 1; j <= 20; j++)
-        for (int i = 1; i + (1 << j) - 1 <= n; i++)
-            st[i][j] = max(st[i][j - 1], st[i + (1 << (j - 1))][j - 1]);
+    for (int i = 1; i <= n; i++) st[0][i] = a[i];
+    for (int i = 1; i <= 20; i++)
+        for (int j = 1; j + (1 << i) - 1 <= n; j++)
+            st[i][j] = max(st[i - 1][j], st[i - 1][j + (1 << (i - 1))]);
 }
 int query(int l, int r) {
-    int k = __lg(r - l + 1);
-    return max(st[l][k], st[r - (1 << k) + 1][k]);
+    int k = bit_width<u32>(r - l + 1) - 1;
+    return max(st[k][l], st[k][r - (1 << k) + 1]);
 }
 int main() {
     ios::sync_with_stdio(false);
