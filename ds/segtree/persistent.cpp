@@ -1,6 +1,6 @@
 #include <iostream>
 using namespace std;
-constexpr int N = 1e6 + 5;
+const int N = 1e6 + 5;
 int n, m, a[N], rt[N], cnt;
 struct node {
     int l, r, val;

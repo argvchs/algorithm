@@ -1,6 +1,6 @@
 #include <iostream>
 using namespace std;
-constexpr int N = 1e4 + 5;
+const int N = 1e4 + 5;
 int n, m, fa[N], siz[N];
 int find(int u) { return u == fa[u] ? u : fa[u] = find(fa[u]); }
 void unite(int u, int v) {

@@ -4,7 +4,7 @@
 using namespace std;
 using i64 = long long;
 using mat = array<array<int, 5>, 5>;
-constexpr int P = 1e9 + 7;
+const int P = 1e9 + 7;
 int n, t;
 mat a, b, ans;
 mat operator*(mat a, mat b) {

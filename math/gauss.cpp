@@ -2,8 +2,8 @@
 #include <iostream>
 using namespace std;
 using f64 = double;
-constexpr int N = 105;
-constexpr f64 EPS = 1e-7;
+const int N = 105;
+const f64 EPS = 1e-7;
 int n;
 f64 a[N][N];
 int main() {

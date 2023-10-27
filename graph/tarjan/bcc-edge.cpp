@@ -2,7 +2,7 @@
 #include <stack>
 #include <vector>
 using namespace std;
-constexpr int N = 5e5 + 5, M = 2e6 + 5;
+const int N = 5e5 + 5, M = 2e6 + 5;
 int n, m, dfn[N], low[N], head[N], idx, cnt = 1;
 struct edge {
     int to, next;

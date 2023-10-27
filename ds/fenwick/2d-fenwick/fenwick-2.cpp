@@ -1,6 +1,6 @@
 #include <iostream>
 using namespace std;
-constexpr int N = 3005;
+const int N = 3005;
 int n, m, q, bit[N][N];
 void update(int x, int y, int k) {
     for (int i = x; i <= n; i += i & -i)

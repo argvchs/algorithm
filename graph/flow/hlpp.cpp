@@ -3,7 +3,7 @@
 #include <queue>
 using namespace std;
 using m64 = pair<int, int>;
-constexpr int N = 1205, M = 12e4 + 5, INF = 0x3f3f3f3f;
+const int N = 1205, M = 12e4 + 5, INF = 0x3f3f3f3f;
 int n, m, s, t, ht[N], ex[N], gap[N], cur[N], head[N], cnt = 1;
 bool vis[N];
 struct edge {

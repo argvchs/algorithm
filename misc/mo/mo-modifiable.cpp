@@ -2,7 +2,7 @@
 #include <cmath>
 #include <iostream>
 using namespace std;
-constexpr int N = 1e6 + 5;
+const int N = 1e6 + 5;
 int n, m, l = 1, r, t, a[N], belong[N], cnt[N], siz, cnt1, cnt2, ans;
 struct node {
     int x, y, t, id, ans;

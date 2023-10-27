@@ -4,7 +4,7 @@
 using namespace std;
 using m64 = pair<int, int>;
 using m96 = tuple<int, int, int>;
-constexpr int N = 2e6 + 5;
+const int N = 2e6 + 5;
 int n, m, rt, cnt, pre, ans;
 struct node {
     int l, r, val, cnt, siz;

@@ -1,7 +1,7 @@
 #include <iostream>
 using namespace std;
 using i64 = long long;
-constexpr int N = 3e6 + 5;
+const int N = 3e6 + 5;
 int n, p, inv[N];
 int main() {
     ios::sync_with_stdio(false);

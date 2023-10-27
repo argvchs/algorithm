@@ -3,7 +3,7 @@
 #include <stack>
 using namespace std;
 using m64 = pair<int, int>;
-constexpr int N = 1e5 + 5;
+const int N = 1e5 + 5;
 int n, m, rt, cnt;
 struct node {
     int l, r, val, siz;

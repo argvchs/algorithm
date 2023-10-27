@@ -2,7 +2,7 @@
 #include <cmath>
 #include <iostream>
 using namespace std;
-constexpr int N = 1e5 + 5;
+const int N = 1e5 + 5;
 int n, a[N], b[N], op[N], belong[N], val[N], sum[N], siz, cnt, tot;
 void build() {
     siz = sqrt(cnt), tot = (cnt - 1) / siz + 1;

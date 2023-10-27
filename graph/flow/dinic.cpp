@@ -3,7 +3,7 @@
 #include <queue>
 using namespace std;
 using i64 = long long;
-constexpr int N = 205, M = 5005, INF = 0x3f3f3f3f;
+const int N = 205, M = 5005, INF = 0x3f3f3f3f;
 int n, m, s, t, dep[N], cur[N], head[N], cnt = 1;
 i64 ans;
 bool vis[N];

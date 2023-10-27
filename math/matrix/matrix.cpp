@@ -3,7 +3,7 @@
 #include <iostream>
 using namespace std;
 using i64 = long long;
-constexpr int N = 105, P = 1e9 + 7;
+const int N = 105, P = 1e9 + 7;
 using mat = array<array<i64, N>, N>;
 i64 n, m;
 mat a, ans;

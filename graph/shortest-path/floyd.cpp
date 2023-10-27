@@ -1,7 +1,7 @@
 #include <cstring>
 #include <iostream>
 using namespace std;
-constexpr int N = 105;
+const int N = 105;
 int n, m, dis[N][N];
 int main() {
     ios::sync_with_stdio(false);

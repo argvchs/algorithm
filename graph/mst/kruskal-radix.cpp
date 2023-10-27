@@ -1,7 +1,7 @@
 #include <cstring>
 #include <iostream>
 using namespace std;
-constexpr int N = 5005, M = 2e5 + 5;
+const int N = 5005, M = 2e5 + 5;
 int n, m, fa[N], siz[N], cnt[0x10000], tot, ans;
 struct edge {
     int from, to, w;

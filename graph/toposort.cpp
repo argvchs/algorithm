@@ -1,7 +1,7 @@
 #include <iostream>
 #include <queue>
 using namespace std;
-constexpr int N = 105;
+const int N = 105;
 int n, deg[N], head[N], cnt;
 struct edge {
     int to, next;

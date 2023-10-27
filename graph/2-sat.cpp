@@ -1,7 +1,7 @@
 #include <iostream>
 #include <stack>
 using namespace std;
-constexpr int N = 1e6 + 5;
+const int N = 1e6 + 5;
 int n, m, dfn[N << 1], low[N << 1], belong[N << 1], head[N << 1], idx, cnt, tot, ans;
 bool vis[N << 1];
 struct edge {

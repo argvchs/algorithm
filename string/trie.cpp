@@ -1,7 +1,7 @@
 #include <cstring>
 #include <iostream>
 using namespace std;
-constexpr int N = 3e6 + 5;
+const int N = 3e6 + 5;
 int n, m, t, cnt;
 string s;
 struct node {

@@ -1,7 +1,7 @@
 #include <algorithm>
 #include <iostream>
 using namespace std;
-constexpr int N = 1e5 + 5;
+const int N = 1e5 + 5;
 int n, a[N], b[N], op[N], bit[N], cnt;
 void update(int x, int k) {
     for (int i = x; i <= cnt; i += i & -i) bit[i] += k;

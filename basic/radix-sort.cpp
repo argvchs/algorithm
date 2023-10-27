@@ -1,7 +1,7 @@
 #include <cstring>
 #include <iostream>
 using namespace std;
-constexpr int N = 1e5 + 5;
+const int N = 1e5 + 5;
 int n, a[N], tmp[N], cnt[0x10000];
 int main() {
     ios::sync_with_stdio(false);

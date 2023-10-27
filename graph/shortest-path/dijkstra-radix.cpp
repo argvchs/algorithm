@@ -5,7 +5,7 @@
 #include <vector>
 using namespace std;
 using u32 = unsigned;
-constexpr int N = 1e5 + 5, M = 5e5 + 5, INF = 0x3f3f3f3f;
+const int N = 1e5 + 5, M = 5e5 + 5, INF = 0x3f3f3f3f;
 int n, m, s, dis[N], pos[N], siz[32], head[N], cnt, beg, top;
 bool vis[N];
 struct edge {

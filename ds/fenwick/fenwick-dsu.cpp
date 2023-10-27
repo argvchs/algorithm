@@ -2,7 +2,7 @@
 #include <iostream>
 using namespace std;
 using i64 = long long;
-constexpr int N = 1e5 + 5;
+const int N = 1e5 + 5;
 int n, m, fa[N];
 i64 a[N], bit[N];
 int find(int u) { return u == fa[u] ? u : fa[u] = find(fa[u]); }

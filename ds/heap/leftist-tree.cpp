@@ -1,7 +1,7 @@
 #include <iostream>
 #include <random>
 using namespace std;
-constexpr int N = 1e5 + 5;
+const int N = 1e5 + 5;
 int n, m, a[N], rt[N], fa[N], siz[N], cnt;
 bool vis[N];
 struct node {

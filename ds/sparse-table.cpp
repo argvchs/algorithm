@@ -2,7 +2,7 @@
 #include <iostream>
 using namespace std;
 using u32 = unsigned;
-constexpr int N = 1e5 + 5;
+const int N = 1e5 + 5;
 int n, m, a[N], st[25][N];
 void build() {
     for (int i = 1; i <= n; i++) st[0][i] = a[i];

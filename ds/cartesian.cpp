@@ -2,7 +2,7 @@
 #include <stack>
 using namespace std;
 using i64 = long long;
-constexpr int N = 1e7 + 5;
+const int N = 1e7 + 5;
 int n, a[N], l[N], r[N];
 i64 ans1, ans2;
 stack<int> S;
