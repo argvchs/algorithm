@@ -20,18 +20,16 @@ auto split(int x) {
     if (it->l == x) return it;
     int l = it->l, r = it->r;
     i64 val = it->val;
-    S.erase(it);
-    S.emplace(l, x - 1, val);
+    S.erase(it), S.emplace(l, x - 1, val);
     return S.emplace(x, r, val).first;
 }
 void assign(int l, int r, int k) {
-    auto end = split(r + 1), beg = split(l);
-    S.erase(beg, end);
-    S.emplace(l, r, k);
+    auto ed = split(r + 1), st = split(l);
+    S.erase(st, ed), S.emplace(l, r, k);
 }
 void update(int l, int r, int k) {
-    auto end = split(r + 1), beg = split(l);
-    for (auto it = beg; it != end; ++it) it->val += k;
+    auto ed = split(r + 1), st = split(l);
+    for (auto it = st; it != ed; ++it) it->val += k;
 }
 int quickpow(int a, int b, int p) {
     int ret = 1;
@@ -40,16 +38,16 @@ int quickpow(int a, int b, int p) {
     return ret;
 }
 int querysum(int l, int r, int k, int p) {
-    auto end = split(r + 1), beg = split(l);
+    auto ed = split(r + 1), st = split(l);
     int ret = 0;
-    for (auto it = beg; it != end; ++it)
+    for (auto it = st; it != ed; ++it)
         ret = (ret + (i64)quickpow(it->val % p, k, p) * (it->r - it->l + 1) % p) % p;
     return ret;
 }
 i64 querykth(int l, int r, int x) {
-    auto end = split(r + 1), beg = split(l);
+    auto ed = split(r + 1), st = split(l);
     tmp.clear();
-    for (auto it = beg; it != end; ++it) tmp.emplace_back(it->val, it->r - it->l + 1);
+    for (auto it = st; it != ed; ++it) tmp.emplace_back(it->val, it->r - it->l + 1);
     sort(tmp.begin(), tmp.end());
     for (auto [val, cnt] : tmp)
         if ((x -= cnt) <= 0) return val;

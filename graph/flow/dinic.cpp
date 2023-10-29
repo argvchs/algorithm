@@ -8,7 +8,7 @@ int n, m, s, t, dep[N], cur[N], head[N], cnt = 1;
 i64 ans;
 bool vis[N];
 struct edge {
-    int to, next, w;
+    int to, nex, w;
 } e[M << 1];
 queue<int> Q;
 void add(int u, int v, int w) { e[++cnt] = {v, head[u], w}, head[u] = cnt; }
@@ -20,7 +20,7 @@ bool bfs() {
     while (!Q.empty()) {
         int u = Q.front();
         Q.pop();
-        for (int i = head[u]; i; i = e[i].next) {
+        for (int i = head[u]; i; i = e[i].nex) {
             int v = e[i].to, w = e[i].w;
             if (!vis[v] && w) dep[v] = dep[u] + 1, vis[v] = true, Q.push(v);
         }
@@ -30,7 +30,7 @@ bool bfs() {
 int dfs(int u, int flow) {
     if (u == t) return flow;
     int used = 0;
-    for (int &i = cur[u]; i; i = e[i].next) {
+    for (int &i = cur[u]; i; i = e[i].nex) {
         int v = e[i].to, w = e[i].w;
         if (dep[v] == dep[u] + 1 && w) {
             int ret = dfs(v, min(flow - used, w));

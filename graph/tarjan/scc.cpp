@@ -7,7 +7,7 @@ int n, m, a[N], b[N], dfn[N], low[N], belong[N], deg[N], dis[N], head1[N], head2
     cnt, tot, ans;
 bool vis[N];
 struct edge {
-    int from, to, next;
+    int from, to, nex;
 } e[M << 1];
 stack<int> S;
 queue<int> Q;
@@ -15,7 +15,7 @@ void add1(int u, int v) { e[++cnt] = {u, v, head1[u]}, head1[u] = cnt; }
 void add2(int u, int v) { e[++cnt] = {u, v, head2[u]}, head2[u] = cnt; }
 void tarjan(int u) {
     dfn[u] = low[u] = ++idx, vis[u] = true, S.push(u);
-    for (int i = head1[u]; i; i = e[i].next) {
+    for (int i = head1[u]; i; i = e[i].nex) {
         int v = e[i].to;
         if (!dfn[v]) {
             tarjan(v);
@@ -23,11 +23,11 @@ void tarjan(int u) {
         } else if (vis[v]) low[u] = min(low[u], dfn[v]);
     }
     if (dfn[u] == low[u]) {
-        int pre = ++tot;
+        int top = ++tot;
         do {
-            pre = S.top(), S.pop();
-            b[belong[pre] = tot] += a[pre], vis[pre] = false;
-        } while (pre != u);
+            top = S.top(), S.pop();
+            b[belong[top] = tot] += a[top], vis[top] = false;
+        } while (top != u);
     }
 }
 void toposort() {
@@ -36,7 +36,7 @@ void toposort() {
     while (!Q.empty()) {
         int u = Q.front();
         Q.pop();
-        for (int i = head2[u]; i; i = e[i].next) {
+        for (int i = head2[u]; i; i = e[i].nex) {
             int v = e[i].to;
             dis[v] = max(dis[v], dis[u] + b[v]);
             if (!--deg[v]) Q.push(v);

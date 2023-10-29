@@ -9,7 +9,7 @@ const int N = 1e5 + 5, M = 5e5 + 5, INF = 0x3f3f3f3f;
 int n, m, s, dis[N], pos[N], siz[32], head[N], cnt, beg, top;
 bool vis[N];
 struct edge {
-    int to, next, w;
+    int to, nex, w;
 } e[M << 1];
 vector<int> buc[32], tmp;
 void add(int u, int v, int w) { e[++cnt] = {v, head[u], w}, head[u] = cnt; }
@@ -29,18 +29,19 @@ void removemin() {
         while (pos[top = buc[0][beg]] == -1) ++beg;
         return;
     }
-    int cur = 0, pre = top;
+    int cur = 0, las = top;
     for (int i = 30; i >= 1; i--)
         if (siz[i]) cur = i;
     siz[cur] = beg = top = 0, tmp.swap(buc[cur]);
     for (int i = 0; i <= cur; i++) buc[i].clear();
-    for (int i = 0; i < (int)tmp.size(); i++) {
-        int k = bit_width<u32>(dis[tmp[i]] ^ dis[pre]);
-        if (k == cur && pos[tmp[i]] == i && dis[tmp[i]] <= dis[top]) top = tmp[i];
+    auto st = tmp.begin(), ed = tmp.end();
+    for (auto it = st; it != ed; ++it) {
+        int k = bit_width<u32>(dis[*it] ^ dis[las]);
+        if (k == cur && pos[*it] == it - st && dis[*it] <= dis[top]) top = *it;
     }
-    for (int i = 0; i < (int)tmp.size(); i++) {
-        int k = bit_width<u32>(dis[tmp[i]] ^ dis[pre]);
-        if (k == cur && pos[tmp[i]] == i) insert(tmp[i]);
+    for (auto it = st; it != ed; ++it) {
+        int k = bit_width<u32>(dis[*it] ^ dis[las]);
+        if (k == cur && pos[*it] == it - st) insert(*it);
     }
 }
 void dijkstra() {
@@ -48,7 +49,7 @@ void dijkstra() {
     dis[top = s] = 0;
     for (int i = 1; i <= n; i++) insert(i);
     for (int i = 1; i <= n; i++, removemin())
-        for (int j = head[top]; j; j = e[j].next) {
+        for (int j = head[top]; j; j = e[j].nex) {
             int v = e[j].to, w = e[j].w;
             if (dis[v] > dis[top] + w) update(v, dis[top] + w);
         }

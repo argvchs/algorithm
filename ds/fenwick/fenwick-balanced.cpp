@@ -2,21 +2,21 @@
 #include <iostream>
 using namespace std;
 const int N = 1e5 + 5;
-int n, a[N], b[N], op[N], bit[N], cnt;
+int n, a[N], b[N], t[N], op[N], cnt;
 void update(int x, int k) {
-    for (int i = x; i <= cnt; i += i & -i) bit[i] += k;
+    for (int i = x; i <= cnt; i += i & -i) t[i] += k;
 }
 int query(int x) {
     int ret = 0;
-    for (int i = x; i >= 1; i -= i & -i) ret += bit[i];
+    for (int i = x; i >= 1; i -= i & -i) ret += t[i];
     return ret;
 }
 int queryrnk(int x) { return query(x - 1) + 1; }
 int querykth(int x) {
     int ret = 0;
-    for (int i = 20; i >= 1; i--)
-        if ((ret += (1 << (i - 1))) <= cnt && x > bit[ret]) x -= bit[ret];
-        else ret -= (1 << (i - 1));
+    for (int i = 20; i >= 0; i--)
+        if ((ret += 1 << i) <= cnt && x > t[ret]) x -= t[ret];
+        else ret -= 1 << i;
     return ret + 1;
 }
 int querypre(int x) { return querykth(queryrnk(x) - 1); }

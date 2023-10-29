@@ -6,7 +6,7 @@ const int N = 5005, M = 5e4 + 5, INF = 0x3f3f3f3f;
 int n, m, s, t, dis[N], cur[N], head[N], cnt = 1, ansflow, anscost;
 bool vis[N];
 struct edge {
-    int to, next, w, c;
+    int to, nex, w, c;
 } e[M << 1];
 queue<int> Q;
 void add(int u, int v, int w, int c) { e[++cnt] = {v, head[u], w, c}, head[u] = cnt; }
@@ -18,7 +18,7 @@ bool spfa() {
     while (!Q.empty()) {
         int u = Q.front();
         vis[u] = false, Q.pop();
-        for (int i = head[u]; i; i = e[i].next) {
+        for (int i = head[u]; i; i = e[i].nex) {
             int v = e[i].to, w = e[i].w, c = e[i].c;
             if (dis[v] > dis[u] + c && w) {
                 dis[v] = dis[u] + c;
@@ -33,7 +33,7 @@ int dfs(int u, int flow) {
     if (u == t) return flow;
     int used = 0;
     vis[u] = true;
-    for (int &i = cur[u]; i; i = e[i].next) {
+    for (int &i = cur[u]; i; i = e[i].nex) {
         int v = e[i].to, w = e[i].w, c = e[i].c;
         if (!vis[v] && dis[v] == dis[u] + c && w) {
             int ret = dfs(v, min(flow - used, w));

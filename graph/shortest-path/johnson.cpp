@@ -9,7 +9,7 @@ int n, m, s, h[N], dis[N], tot[N], head[N], cnt;
 i64 ans;
 bool vis[N];
 struct edge {
-    int to, next, w;
+    int to, nex, w;
 } e[M << 1];
 queue<int> Q;
 priority_queue<m64, vector<m64>, greater<>> PQ;
@@ -21,7 +21,7 @@ bool spfa() {
     while (!Q.empty()) {
         int u = Q.front();
         vis[u] = false, Q.pop();
-        for (int i = head[u]; i; i = e[i].next) {
+        for (int i = head[u]; i; i = e[i].nex) {
             int v = e[i].to, w = e[i].w;
             if (h[v] > h[u] + w) {
                 h[v] = h[u] + w;
@@ -42,7 +42,7 @@ void dijkstra() {
         PQ.pop();
         if (vis[u]) continue;
         vis[u] = true;
-        for (int i = head[u]; i; i = e[i].next) {
+        for (int i = head[u]; i; i = e[i].nex) {
             int v = e[i].to, w = e[i].w;
             if (dis[v] > dis[u] + w + h[u] - h[v]) {
                 dis[v] = dis[u] + w + h[u] - h[v];
@@ -63,7 +63,7 @@ int main() {
     for (int i = 1; i <= n; i++) {
         s = i, ans = 0, dijkstra();
         for (int j = 1; j <= n; j++)
-            if (dis[j] == INF) ans += (i64)j * (int)1e9;
+            if (dis[j] == INF) ans += j * (i64)1e9;
             else ans += (i64)j * (dis[j] + h[j] - h[s]);
         cout << ans << '\n';
     }

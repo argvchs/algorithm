@@ -4,14 +4,14 @@ using namespace std;
 using i64 = long long;
 const int N = 1e5 + 5;
 int n, m, fa[N];
-i64 a[N], bit[N];
+i64 a[N], t[N];
 int find(int u) { return u == fa[u] ? u : fa[u] = find(fa[u]); }
 void update(int x, i64 k) {
-    for (int i = x; i <= n; i += i & -i) bit[i] += k;
+    for (int i = x; i <= n; i += i & -i) t[i] += k;
 }
 i64 query(int x) {
     i64 ret = 0;
-    for (int i = x; i >= 1; i -= i & -i) ret += bit[i];
+    for (int i = x; i >= 1; i -= i & -i) ret += t[i];
     return ret;
 }
 i64 query(int l, int r) { return query(r) - query(l - 1); }

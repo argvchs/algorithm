@@ -11,7 +11,7 @@ int n, m, s, h[N], dis[N], tot[N], pos[N], siz[32], head[N], cnt, beg, top;
 i64 ans;
 bool vis[N];
 struct edge {
-    int to, next, w;
+    int to, nex, w;
 } e[M << 1];
 queue<int> Q;
 vector<int> buc[32], tmp;
@@ -23,7 +23,7 @@ bool spfa() {
     while (!Q.empty()) {
         int u = Q.front();
         vis[u] = false, Q.pop();
-        for (int i = head[u]; i; i = e[i].next) {
+        for (int i = head[u]; i; i = e[i].nex) {
             int v = e[i].to, w = e[i].w;
             if (h[v] > h[u] + w) {
                 h[v] = h[u] + w;
@@ -51,18 +51,19 @@ void removemin() {
         while (pos[top = buc[0][beg]] == -1) ++beg;
         return;
     }
-    int cur = 0, pre = top;
+    int cur = 0, las = top;
     for (int i = 30; i >= 1; i--)
         if (siz[i]) cur = i;
     siz[cur] = beg = top = 0, tmp.swap(buc[cur]);
     for (int i = 0; i <= cur; i++) buc[i].clear();
-    for (int i = 0; i < (int)tmp.size(); i++) {
-        int k = bit_width<u32>(dis[tmp[i]] ^ dis[pre]);
-        if (k == cur && pos[tmp[i]] == i && dis[tmp[i]] <= dis[top]) top = tmp[i];
+    auto st = tmp.begin(), ed = tmp.end();
+    for (auto it = st; it != ed; ++it) {
+        int k = bit_width<u32>(dis[*it] ^ dis[las]);
+        if (k == cur && pos[*it] == it - st && dis[*it] <= dis[top]) top = *it;
     }
-    for (int i = 0; i < (int)tmp.size(); i++) {
-        int k = bit_width<u32>(dis[tmp[i]] ^ dis[pre]);
-        if (k == cur && pos[tmp[i]] == i) insert(tmp[i]);
+    for (auto it = st; it != ed; ++it) {
+        int k = bit_width<u32>(dis[*it] ^ dis[las]);
+        if (k == cur && pos[*it] == it - st) insert(*it);
     }
 }
 void dijkstra() {
@@ -71,7 +72,7 @@ void dijkstra() {
     for (int i = 0; i <= 30; i++) buc[i].clear();
     for (int i = 1; i <= n; i++) insert(i);
     for (int i = 1; i <= n; i++, removemin())
-        for (int j = head[top]; j; j = e[j].next) {
+        for (int j = head[top]; j; j = e[j].nex) {
             int v = e[j].to, w = e[j].w;
             if (dis[v] > dis[top] + w + h[top] - h[v])
                 update(v, dis[top] + w + h[top] - h[v]);
@@ -89,7 +90,7 @@ int main() {
     for (int i = 1; i <= n; i++) {
         s = i, ans = 0, dijkstra();
         for (int j = 1; j <= n; j++)
-            if (dis[j] == INF) ans += (i64)j * (int)1e9;
+            if (dis[j] == INF) ans += j * (i64)1e9;
             else ans += (i64)j * (dis[j] + h[j] - h[s]);
         cout << ans << '\n';
     }

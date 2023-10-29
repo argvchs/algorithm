@@ -1,10 +1,10 @@
 #include <iostream>
 using namespace std;
 const int N = 3005;
-int n, m, q, bit[N][N];
+int n, m, q, t[N][N];
 void update(int x, int y, int k) {
     for (int i = x; i <= n; i += i & -i)
-        for (int j = y; j <= n; j += j & -j) bit[i][j] += k;
+        for (int j = y; j <= n; j += j & -j) t[i][j] += k;
 }
 void update(int x, int y, int z, int t, int k) {
     update(x, y, k);
@@ -15,7 +15,7 @@ void update(int x, int y, int z, int t, int k) {
 int query(int x, int y) {
     int ret = 0;
     for (int i = x; i >= 1; i -= i & -i)
-        for (int j = y; j >= 1; j -= j & -j) ret += bit[i][j];
+        for (int j = y; j >= 1; j -= j & -j) ret += t[i][j];
     return ret;
 }
 int main() {

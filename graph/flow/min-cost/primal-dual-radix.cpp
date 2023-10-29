@@ -10,7 +10,7 @@ int n, m, s, t, h[N], dis[N], pos[N], siz[32], cur[N], head[N],
     cnt = 1, beg, top, ansflow, anscost;
 bool vis[N];
 struct edge {
-    int to, next, w, c;
+    int to, nex, w, c;
 } e[M << 1];
 queue<int> Q;
 vector<int> buc[32], tmp;
@@ -22,7 +22,7 @@ void spfa() {
     while (!Q.empty()) {
         int u = Q.front();
         vis[u] = false, Q.pop();
-        for (int i = head[u]; i; i = e[i].next) {
+        for (int i = head[u]; i; i = e[i].nex) {
             int v = e[i].to, w = e[i].w, c = e[i].c;
             if (h[v] > h[u] + c && w) {
                 h[v] = h[u] + c;
@@ -47,18 +47,19 @@ void removemin() {
         while (pos[top = buc[0][beg]] == -1) ++beg;
         return;
     }
-    int cur = 0, pre = top;
+    int cur = 0, las = top;
     for (int i = 30; i >= 1; i--)
         if (siz[i]) cur = i;
     siz[cur] = beg = top = 0, tmp.swap(buc[cur]);
     for (int i = 0; i <= cur; i++) buc[i].clear();
-    for (int i = 0; i < (int)tmp.size(); i++) {
-        int k = bit_width<u32>(dis[tmp[i]] ^ dis[pre]);
-        if (k == cur && pos[tmp[i]] == i && dis[tmp[i]] <= dis[top]) top = tmp[i];
+    auto st = tmp.begin(), ed = tmp.end();
+    for (auto it = st; it != ed; ++it) {
+        int k = bit_width<u32>(dis[*it] ^ dis[las]);
+        if (k == cur && pos[*it] == it - st && dis[*it] <= dis[top]) top = *it;
     }
-    for (int i = 0; i < (int)tmp.size(); i++) {
-        int k = bit_width<u32>(dis[tmp[i]] ^ dis[pre]);
-        if (k == cur && pos[tmp[i]] == i) insert(tmp[i]);
+    for (auto it = st; it != ed; ++it) {
+        int k = bit_width<u32>(dis[*it] ^ dis[las]);
+        if (k == cur && pos[*it] == it - st) insert(*it);
     }
 }
 bool dijkstra() {
@@ -67,7 +68,7 @@ bool dijkstra() {
     for (int i = 0; i <= 30; i++) buc[i].clear();
     for (int i = 1; i <= n; i++) insert(i);
     for (int i = 1; i <= n; i++, removemin())
-        for (int j = head[top]; j; j = e[j].next) {
+        for (int j = head[top]; j; j = e[j].nex) {
             int v = e[j].to, w = e[j].w, c = e[j].c;
             if (dis[v] > dis[top] + c + h[top] - h[v] && w)
                 update(v, dis[top] + c + h[top] - h[v]);
@@ -78,7 +79,7 @@ int dfs(int u, int flow) {
     if (u == t) return flow;
     int used = 0;
     vis[u] = true;
-    for (int &i = cur[u]; i; i = e[i].next) {
+    for (int &i = cur[u]; i; i = e[i].nex) {
         int v = e[i].to, w = e[i].w, c = e[i].c;
         if (!vis[v] && dis[v] == dis[u] + c + h[u] - h[v] && w) {
             int ret = dfs(v, min(flow - used, w));

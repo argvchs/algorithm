@@ -7,14 +7,14 @@ const int N = 1e5 + 5;
 int n, m, p, rt, a[N], b1[N], b2[N], ifn[N], ofn[N], fa[N], ch[N], dep[N], siz[N], top[N],
     idx, cnt, head[N];
 struct edge {
-    int to, next;
+    int to, nex;
 } e[N << 1];
 vector<m64> tmp;
 void add(int u, int v) { e[++cnt] = {v, head[u]}, head[u] = cnt; }
 void addedge(int u, int v) { add(u, v), add(v, u); }
 void dfs1(int u, int fa) {
     ::fa[u] = fa, dep[u] = dep[fa] + 1, siz[u] = 1;
-    for (int i = head[u]; i; i = e[i].next) {
+    for (int i = head[u]; i; i = e[i].nex) {
         int v = e[i].to;
         if (v == fa) continue;
         dfs1(v, u), siz[u] += siz[v];
@@ -25,7 +25,7 @@ void dfs2(int u, int fa, int top) {
     ::top[u] = top, ifn[u] = ++idx;
     if (ch[u]) {
         dfs2(ch[u], u, top);
-        for (int i = head[u]; i; i = e[i].next) {
+        for (int i = head[u]; i; i = e[i].nex) {
             int v = e[i].to;
             if (v != fa && v != ch[u]) dfs2(v, u, v);
         }

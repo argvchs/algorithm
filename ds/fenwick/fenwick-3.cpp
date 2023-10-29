@@ -1,14 +1,14 @@
 #include <iostream>
 using namespace std;
 const int N = 1e5 + 5;
-int n, m, bit1[N], bit2[N];
+int n, m, t1[N], t2[N];
 void update(int x, int k) {
-    for (int i = x; i <= n; i += i & -i) bit1[i] += k, bit2[i] += k * x;
+    for (int i = x; i <= n; i += i & -i) t1[i] += k, t2[i] += k * x;
 }
 void update(int l, int r, int k) { update(l, k), update(r + 1, -k); }
 int query(int x) {
     int ret = 0;
-    for (int i = x; i >= 1; i -= i & -i) ret += (x + 1) * bit1[i] - bit2[i];
+    for (int i = x; i >= 1; i -= i & -i) ret += (x + 1) * t1[i] - t2[i];
     return ret;
 }
 int query(int l, int r) { return query(r) - query(l - 1); }

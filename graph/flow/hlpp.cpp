@@ -7,7 +7,7 @@ const int N = 1205, M = 12e4 + 5, INF = 0x3f3f3f3f;
 int n, m, s, t, ht[N], ex[N], gap[N], cur[N], head[N], cnt = 1;
 bool vis[N];
 struct edge {
-    int to, next, w;
+    int to, nex, w;
 } e[M << 1];
 queue<int> Q;
 priority_queue<m64> PQ;
@@ -19,7 +19,7 @@ bool bfs() {
     while (!Q.empty()) {
         int u = Q.front();
         Q.pop();
-        for (int i = head[u]; i; i = e[i].next) {
+        for (int i = head[u]; i; i = e[i].nex) {
             int v = e[i].to, w = e[i ^ 1].w;
             if (!vis[v] && w) ht[v] = ht[u] + 1, vis[v] = true, Q.push(v);
         }
@@ -27,7 +27,7 @@ bool bfs() {
     return ht[s] != INF;
 }
 bool push(int u) {
-    for (int &i = cur[u]; i; i = e[i].next) {
+    for (int &i = cur[u]; i; i = e[i].nex) {
         int v = e[i].to, w = e[i].w;
         if ((u == s || ht[u] == ht[v] + 1) && ht[v] < n && w) {
             if (u != s) w = min(ex[u], e[i].w);
@@ -41,7 +41,7 @@ bool push(int u) {
 }
 void relabel(int u) {
     ht[u] = INF;
-    for (int i = head[u]; i; i = e[i].next) {
+    for (int i = head[u]; i; i = e[i].nex) {
         int v = e[i].to;
         if (e[i].w) ht[u] = min(ht[u], ht[v] + 1);
     }

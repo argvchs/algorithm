@@ -5,7 +5,7 @@ const int N = 1e4 + 5, M = 2e4 + 5;
 int n, m, k, dfn[N], low[N], f[N << 1][25], val[N], sum[N << 1], dis1[N], dis2[N << 1],
     dep[N << 1], head1[N], head2[N << 1], idx, cnt, tot, ans1, ans2;
 struct edge {
-    int to, next, w;
+    int to, nex, w;
 } e[M << 2];
 stack<int> S;
 void add1(int u, int v, int w) { e[++cnt] = {v, head1[u], w}, head1[u] = cnt; }
@@ -14,27 +14,27 @@ void addedge1(int u, int v, int w) { add1(u, v, w), add1(v, u, w); }
 void addedge2(int u, int v, int w) { add2(u, v, w), add2(v, u, w); }
 void tarjan(int u, int fa) {
     dfn[u] = low[u] = ++idx, S.push(u);
-    for (int i = head1[u]; i; i = e[i].next) {
+    for (int i = head1[u]; i; i = e[i].nex) {
         int v = e[i].to, w = e[i].w;
         if (!dfn[v]) {
             dis1[v] = dis1[u] + w, val[v] = w;
             tarjan(v, u);
             low[u] = min(low[u], low[v]);
             if (low[v] < dfn[u]) continue;
-            int pre, k;
+            int top, k;
             sum[++tot] = dis1[S.top()] - dis1[u] + val[S.top()];
             addedge2(u, tot, 0);
             do {
-                k = dis1[pre = S.top()] - dis1[u], S.pop();
-                addedge2(pre, tot, min(k, sum[tot] - k));
-            } while (pre != v);
+                k = dis1[top = S.top()] - dis1[u], S.pop();
+                addedge2(top, tot, min(k, sum[tot] - k));
+            } while (top != v);
         } else if (dfn[v] < dfn[fa]) low[u] = min(low[u], dfn[v]), val[u] = w;
     }
 }
 void dfs(int u, int fa) {
     f[u][0] = fa, dep[u] = dep[fa] + 1;
     for (int i = 1; i <= 20; i++) f[u][i] = f[f[u][i - 1]][i - 1];
-    for (int i = head2[u]; i; i = e[i].next) {
+    for (int i = head2[u]; i; i = e[i].nex) {
         int v = e[i].to, w = e[i].w;
         if (v != fa) dis2[v] = dis2[u] + w, dfs(v, u);
     }

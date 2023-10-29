@@ -5,7 +5,7 @@ using namespace std;
 using m64 = pair<int, int>;
 using m96 = tuple<int, int, int>;
 const int N = 2e6 + 5;
-int n, m, rt, cnt, pre, ans;
+int n, m, rt, cnt, las, ans;
 struct node {
     int l, r, val, cnt, siz;
     mt19937::result_type key;
@@ -89,14 +89,13 @@ int main() {
         insert(x);
     }
     for (int i = 1, op, x; i <= m; i++) {
-        cin >> op >> x;
-        x ^= pre;
+        cin >> op >> x, x ^= las;
         if (op == 1) insert(x);
         else if (op == 2) remove(x);
-        else if (op == 3) ans ^= pre = queryrnk(x);
-        else if (op == 4) ans ^= pre = querykth(x);
-        else if (op == 5) ans ^= pre = querypre(x);
-        else ans ^= pre = querynex(x);
+        else if (op == 3) ans ^= las = queryrnk(x);
+        else if (op == 4) ans ^= las = querykth(x);
+        else if (op == 5) ans ^= las = querypre(x);
+        else ans ^= las = querynex(x);
     }
     cout << ans;
     return 0;

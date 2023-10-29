@@ -6,7 +6,7 @@ const int N = 2e4 + 5, M = 1e5 + 5;
 int n, m, dfn[N], low[N], head[N], idx, cnt, tot;
 bool vis[N];
 struct edge {
-    int to, next;
+    int to, nex;
 } e[M << 1];
 stack<int> S;
 void add(int u, int v) { e[++cnt] = {v, head[u]}, head[u] = cnt; }
@@ -14,7 +14,7 @@ void addedge(int u, int v) { add(u, v), add(v, u); }
 void tarjan(int u, int fa) {
     dfn[u] = low[u] = ++idx, S.push(u);
     int ch = !!fa;
-    for (int i = head[u]; i; i = e[i].next) {
+    for (int i = head[u]; i; i = e[i].nex) {
         int v = e[i].to;
         if (!dfn[v]) {
             tarjan(v, u);
