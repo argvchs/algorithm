@@ -48,10 +48,7 @@ int main() {
     cin.tie(nullptr);
     cin >> n >> m;
     for (int i = 1; i <= n; i++) cin >> a[i];
-    for (int i = 1, u, v; i <= m; i++) {
-        cin >> u >> v;
-        add1(u, v);
-    }
+    for (int i = 1, u, v; i <= m; i++) cin >> u >> v, add1(u, v);
     for (int i = 1; i <= n; i++)
         if (!dfn[i]) tarjan(i);
     for (int i = 1; i <= m; i++) {

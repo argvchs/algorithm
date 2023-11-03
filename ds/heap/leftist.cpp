@@ -1,19 +1,18 @@
 #include <iostream>
-#include <random>
 using namespace std;
 const int N = 1e5 + 5;
 int n, m, rt[N], fa[N];
 bool vis[N];
 struct node {
-    int l, r, val;
+    int l, r, val, dis;
 } t[N];
-mt19937 gen(random_device{}());
 int merge(int lt, int rt) {
     if (!lt || !rt) return lt + rt;
     if (lt > rt) swap(lt, rt);
     if (t[lt].val > t[rt].val) swap(lt, rt);
-    if (gen() & 1) swap(t[lt].l, t[lt].r);
     t[lt].l = merge(t[lt].l, rt);
+    if (t[t[lt].l].dis > t[t[lt].r].dis) swap(t[lt].l, t[lt].r);
+    t[lt].dis = t[t[lt].l].dis + 1;
     return lt;
 }
 int removemin(int rt) { return merge(t[rt].l, t[rt].r); }

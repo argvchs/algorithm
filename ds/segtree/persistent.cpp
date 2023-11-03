@@ -6,21 +6,21 @@ struct node {
     int l, r, val;
 } t[N * 25];
 int build(int l, int r) {
-    int cur = ++cnt;
-    if (l == r) return t[cur].val = a[l], cur;
+    int rt = ++cnt;
+    if (l == r) return t[rt].val = a[l], rt;
     int mid = (l + r) >> 1;
-    t[cur].l = build(l, mid);
-    t[cur].r = build(mid + 1, r);
-    return cur;
+    t[rt].l = build(l, mid);
+    t[rt].r = build(mid + 1, r);
+    return rt;
 }
 int update(int rt, int l, int r, int x, int k) {
     if (x < l || r < x) return rt;
-    int cur = ++cnt;
-    if (l == r) return t[cur].val = k, cur;
+    t[++cnt] = t[rt], rt = cnt;
+    if (l == r) return t[rt].val = k, rt;
     int mid = (l + r) >> 1;
-    t[cur].l = update(t[rt].l, l, mid, x, k);
-    t[cur].r = update(t[rt].r, mid + 1, r, x, k);
-    return cur;
+    t[rt].l = update(t[rt].l, l, mid, x, k);
+    t[rt].r = update(t[rt].r, mid + 1, r, x, k);
+    return rt;
 }
 int query(int rt, int l, int r, int x) {
     if (x < l || r < x) return 0;

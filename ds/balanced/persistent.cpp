@@ -14,77 +14,64 @@ mt19937 gen(random_device{}());
 void maintain(int rt) { t[rt].siz = t[t[rt].l].siz + t[t[rt].r].siz + t[rt].cnt; }
 m64 split(int rt, int x) {
     if (!rt) return {};
-    int cur = ++cnt;
+    t[++cnt] = t[rt], rt = cnt;
     if (t[rt].val >= x) {
         auto [l, r] = split(t[rt].l, x);
-        t[cur] = t[rt], t[cur].l = r, maintain(cur);
-        return {l, cur};
+        t[rt].l = r, maintain(rt);
+        return {l, rt};
     } else {
         auto [l, r] = split(t[rt].r, x);
-        t[cur] = t[rt], t[cur].r = l, maintain(cur);
-        return {cur, r};
+        t[rt].r = l, maintain(rt);
+        return {rt, r};
     }
 }
 m96 splitrnk(int rt, int x) {
     if (!rt) return {};
-    int cur = ++cnt;
+    t[++cnt] = t[rt], rt = cnt;
     if (t[t[rt].l].siz >= x) {
         auto [l, m, r] = splitrnk(t[rt].l, x);
-        t[cur] = t[rt], t[cur].l = r, maintain(cur);
-        return {l, m, cur};
+        t[rt].l = r, maintain(rt);
+        return {l, m, rt};
     } else if (t[t[rt].l].siz + t[rt].cnt >= x) {
         int l = t[rt].l, r = t[rt].r;
-        t[cur] = t[rt], t[cur].l = t[cur].r = 0, maintain(cur);
-        return {l, cur, r};
+        t[rt].l = t[rt].r = 0, maintain(rt);
+        return {l, rt, r};
     } else {
         auto [l, m, r] = splitrnk(t[rt].r, x - t[t[rt].l].siz - t[rt].cnt);
-        t[cur] = t[rt], t[cur].r = l, maintain(cur);
-        return {cur, m, r};
+        t[rt].r = l, maintain(rt);
+        return {rt, m, r};
     }
 }
 int merge(int lt, int rt) {
     if (!lt || !rt) return lt + rt;
-    int cur = ++cnt;
     if (t[lt].key < t[rt].key) {
-        t[cur] = t[lt], t[cur].r = merge(t[lt].r, rt), maintain(cur);
-        return cur;
+        t[++cnt] = t[lt], lt = cnt, t[lt].r = merge(t[lt].r, rt);
+        return maintain(lt), lt;
     } else {
-        t[cur] = t[rt], t[cur].l = merge(lt, t[rt].l), maintain(cur);
-        return cur;
+        t[++cnt] = t[rt], rt = cnt, t[rt].l = merge(lt, t[rt].l);
+        return maintain(rt), rt;
     }
 }
 int insert(int rt, int x) {
     auto [l, p] = split(rt, x);
     auto [m, r] = split(p, x + 1);
-    int cur = ++cnt;
-    if (m) t[cur] = t[m], ++t[cur].cnt, ++t[cur].siz;
-    else t[cur] = {0, 0, x, 1, 1, gen()};
-    return merge(merge(l, cur), r);
+    t[++cnt] = t[m];
+    if (m) m = cnt, ++t[m].cnt, ++t[m].siz;
+    else t[m = cnt] = {0, 0, x, 1, 1, gen()};
+    return merge(merge(l, m), r);
 }
 int remove(int rt, int x) {
     auto [l, p] = split(rt, x);
     auto [m, r] = split(p, x + 1);
-    int cur = ++cnt;
-    if (t[m].cnt > 1) t[cur] = t[m], --t[cur].cnt, --t[cur].siz;
-    else cur = 0, --cnt;
-    return merge(merge(l, cur), r);
+    t[++cnt] = t[m], m = cnt;
+    if (t[m].cnt > 1) --t[m].cnt, --t[m].siz;
+    else m = 0, --cnt;
+    return merge(merge(l, m), r);
 }
-int queryrnk(int &rt, int x) {
-    auto [l, r] = split(rt, x);
-    int ret = t[l].siz + 1;
-    rt = merge(l, r);
-    return ret;
-}
-int querykth(int &rt, int x) {
-    if (x < 1) return numeric_limits<int>::min();
-    if (x > t[rt].siz) return numeric_limits<int>::max();
-    auto [l, m, r] = splitrnk(rt, x);
-    int ret = t[m].val;
-    rt = merge(merge(l, m), r);
-    return ret;
-}
-int querypre(int &rt, int x) { return querykth(rt, queryrnk(rt, x) - 1); }
-int querynex(int &rt, int x) { return querykth(rt, queryrnk(rt, x + 1)); }
+int queryrnk(int rt, int x) { return t[get<0>(split(rt, x))].siz + 1; }
+int querykth(int rt, int x) { return t[get<1>(splitrnk(rt, x))].val; }
+int querypre(int rt, int x) { return querykth(rt, queryrnk(rt, x) - 1); }
+int querynex(int rt, int x) { return querykth(rt, queryrnk(rt, x + 1)); }
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);

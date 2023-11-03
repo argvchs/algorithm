@@ -43,11 +43,11 @@ m96 splitrnk(int rt, int x) {
 int merge(int lt, int rt) {
     if (!lt || !rt) return lt + rt;
     if (t[lt].key < t[rt].key) {
-        t[lt].r = merge(t[lt].r, rt), maintain(lt);
-        return lt;
+        t[lt].r = merge(t[lt].r, rt);
+        return maintain(lt), lt;
     } else {
-        t[rt].l = merge(lt, t[rt].l), maintain(rt);
-        return rt;
+        t[rt].l = merge(lt, t[rt].l);
+        return maintain(rt), rt;
     }
 }
 void insert(int x) {
@@ -71,8 +71,6 @@ int queryrnk(int x) {
     return ret;
 }
 int querykth(int x) {
-    if (x < 1) return numeric_limits<int>::min();
-    if (x > t[rt].siz) return numeric_limits<int>::max();
     auto [l, m, r] = splitrnk(rt, x);
     int ret = t[m].val;
     rt = merge(merge(l, m), r);
@@ -84,10 +82,7 @@ int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
     cin >> n >> m;
-    for (int i = 1, x; i <= n; i++) {
-        cin >> x;
-        insert(x);
-    }
+    for (int i = 1, x; i <= n; i++) cin >> x, insert(x);
     for (int i = 1, op, x; i <= m; i++) {
         cin >> op >> x, x ^= las;
         if (op == 1) insert(x);

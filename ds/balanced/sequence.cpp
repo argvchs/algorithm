@@ -36,11 +36,11 @@ int merge(int lt, int rt) {
     if (!lt || !rt) return lt + rt;
     spread(lt), spread(rt);
     if (t[lt].key < t[rt].key) {
-        t[lt].r = merge(t[lt].r, rt), maintain(lt);
-        return lt;
+        t[lt].r = merge(t[lt].r, rt);
+        return maintain(lt), lt;
     } else {
-        t[rt].l = merge(lt, t[rt].l), maintain(rt);
-        return rt;
+        t[rt].l = merge(lt, t[rt].l);
+        return maintain(rt), rt;
     }
 }
 int build() {
