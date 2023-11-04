@@ -58,8 +58,8 @@ int build() {
     return ret;
 }
 void reverse(int x, int y) {
-    auto [l, p] = split(rt, x - 1);
-    auto [m, r] = split(p, y - x + 1);
+    auto [l, _] = split(rt, x - 1);
+    auto [m, r] = split(_, y - x + 1);
     t[m].tag ^= 1;
     rt = merge(merge(l, m), r);
 }

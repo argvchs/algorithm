@@ -53,16 +53,16 @@ int merge(int lt, int rt) {
     }
 }
 int insert(int rt, int x) {
-    auto [l, p] = split(rt, x);
-    auto [m, r] = split(p, x + 1);
+    auto [l, _] = split(rt, x);
+    auto [m, r] = split(_, x + 1);
     t[++cnt] = t[m];
     if (m) m = cnt, ++t[m].cnt, ++t[m].siz;
     else t[m = cnt] = {0, 0, x, 1, 1, gen()};
     return merge(merge(l, m), r);
 }
 int remove(int rt, int x) {
-    auto [l, p] = split(rt, x);
-    auto [m, r] = split(p, x + 1);
+    auto [l, _] = split(rt, x);
+    auto [m, r] = split(_, x + 1);
     t[++cnt] = t[m], m = cnt;
     if (t[m].cnt > 1) --t[m].cnt, --t[m].siz;
     else m = 0, --cnt;

@@ -51,15 +51,15 @@ int merge(int lt, int rt) {
     }
 }
 void insert(int x) {
-    auto [l, p] = split(rt, x);
-    auto [m, r] = split(p, x + 1);
+    auto [l, _] = split(rt, x);
+    auto [m, r] = split(_, x + 1);
     if (m) ++t[m].cnt, ++t[m].siz;
     else t[m = ++cnt] = {0, 0, x, 1, 1, gen()};
     rt = merge(merge(l, m), r);
 }
 void remove(int x) {
-    auto [l, p] = split(rt, x);
-    auto [m, r] = split(p, x + 1);
+    auto [l, _] = split(rt, x);
+    auto [m, r] = split(_, x + 1);
     if (t[m].cnt > 1) --t[m].cnt, --t[m].siz;
     else m = 0;
     rt = merge(merge(l, m), r);
