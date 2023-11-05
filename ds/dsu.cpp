@@ -17,7 +17,7 @@ int main() {
     for (int i = 1, op, u, v; i <= m; i++) {
         cin >> op >> u >> v;
         if (op == 1) unite(u, v);
-        else cout << (check(u, v) ? 'Y' : 'N') << '\n';
+        else cout << (check(u, v) ? "Y\n" : "N\n");
     }
     return 0;
 }

@@ -1,43 +1,37 @@
 #include <iostream>
 #include <random>
-#include <tuple>
 using namespace std;
 using m64 = pair<int, int>;
-using m96 = tuple<int, int, int>;
 const int N = 1e5 + 5;
 int n, rt, cnt;
 struct node {
-    int l, r, val, cnt, siz;
+    int l, r, val, siz;
     mt19937::result_type key;
 } t[N];
 mt19937 gen(random_device{}());
-void maintain(int rt) { t[rt].siz = t[t[rt].l].siz + t[t[rt].r].siz + t[rt].cnt; }
-m64 split(int rt, int x) {
+void maintain(int rt) { t[rt].siz = t[t[rt].l].siz + t[t[rt].r].siz + 1; }
+m64 splitval(int rt, int x) {
     if (!rt) return {};
     if (t[rt].val >= x) {
-        auto [l, r] = split(t[rt].l, x);
+        auto [l, r] = splitval(t[rt].l, x);
         t[rt].l = r, maintain(rt);
         return {l, rt};
     } else {
-        auto [l, r] = split(t[rt].r, x);
+        auto [l, r] = splitval(t[rt].r, x);
         t[rt].r = l, maintain(rt);
         return {rt, r};
     }
 }
-m96 splitrnk(int rt, int x) {
+m64 splitrnk(int rt, int x) {
     if (!rt) return {};
     if (t[t[rt].l].siz >= x) {
-        auto [l, m, r] = splitrnk(t[rt].l, x);
+        auto [l, r] = splitrnk(t[rt].l, x);
         t[rt].l = r, maintain(rt);
-        return {l, m, rt};
-    } else if (t[t[rt].l].siz + t[rt].cnt >= x) {
-        int l = t[rt].l, r = t[rt].r;
-        t[rt].l = t[rt].r = 0, maintain(rt);
-        return {l, rt, r};
+        return {l, rt};
     } else {
-        auto [l, m, r] = splitrnk(t[rt].r, x - t[t[rt].l].siz - t[rt].cnt);
+        auto [l, r] = splitrnk(t[rt].r, x - t[t[rt].l].siz - 1);
         t[rt].r = l, maintain(rt);
-        return {rt, m, r};
+        return {rt, r};
     }
 }
 int merge(int lt, int rt) {
@@ -51,27 +45,24 @@ int merge(int lt, int rt) {
     }
 }
 void insert(int x) {
-    auto [l, _] = split(rt, x);
-    auto [m, r] = split(_, x + 1);
-    if (m) ++t[m].cnt, ++t[m].siz;
-    else t[m = ++cnt] = {0, 0, x, 1, 1, gen()};
-    rt = merge(merge(l, m), r);
+    auto [l, r] = splitval(rt, x);
+    t[++cnt] = {0, 0, x, 1, gen()};
+    rt = merge(merge(l, cnt), r);
 }
 void remove(int x) {
-    auto [l, _] = split(rt, x);
-    auto [m, r] = split(_, x + 1);
-    if (t[m].cnt > 1) --t[m].cnt, --t[m].siz;
-    else m = 0;
-    rt = merge(merge(l, m), r);
+    auto [l, _] = splitval(rt, x);
+    auto [m, r] = splitval(_, x + 1);
+    rt = merge(merge(l, splitrnk(m, 1).second), r);
 }
 int queryrnk(int x) {
-    auto [l, r] = split(rt, x);
+    auto [l, r] = splitval(rt, x);
     int ret = t[l].siz + 1;
     rt = merge(l, r);
     return ret;
 }
 int querykth(int x) {
-    auto [l, m, r] = splitrnk(rt, x);
+    auto [l, _] = splitrnk(rt, x - 1);
+    auto [m, r] = splitrnk(_, 1);
     int ret = t[m].val;
     rt = merge(merge(l, m), r);
     return ret;
