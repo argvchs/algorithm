@@ -5,20 +5,20 @@
 using namespace std;
 using i64 = long long;
 const int N = 5e4 + 5;
-int n, m, l = 1, r, a[N], belong[N], cnt[N], siz;
+int n, m, l = 1, r, a[N], bel[N], cnt[N], siz;
 i64 ans;
 struct node {
     int l, r, id;
     i64 ans1, ans2;
 } q[N];
 auto cmp1 = [](node a, node b) {
-    if (belong[a.l] != belong[b.l]) return a.l < b.l;
+    if (bel[a.l] != bel[b.l]) return a.l < b.l;
     return a.r < b.r;
 };
 auto cmp2 = [](node a, node b) { return a.id < b.id; };
 void build() {
     siz = n / sqrt(m);
-    for (int i = 1; i <= n; i++) belong[i] = (i - 1) / siz + 1;
+    for (int i = 1; i <= n; i++) bel[i] = (i - 1) / siz + 1;
 }
 void insert(int x) { ans += cnt[a[x]]++; }
 void remove(int x) { ans -= --cnt[a[x]]; }

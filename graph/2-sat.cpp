@@ -2,7 +2,7 @@
 #include <stack>
 using namespace std;
 const int N = 1e6 + 5;
-int n, m, dfn[N << 1], low[N << 1], belong[N << 1], head[N << 1], idx, cnt, tot, ans;
+int n, m, dfn[N << 1], low[N << 1], bel[N << 1], head[N << 1], idx, cnt, tot, ans;
 bool vis[N << 1];
 struct edge {
     int to, nex;
@@ -22,7 +22,7 @@ void tarjan(int u) {
         int top = ++tot;
         do {
             top = S.top(), S.pop();
-            belong[top] = tot, vis[top] = false;
+            bel[top] = tot, vis[top] = false;
         } while (top != u);
     }
 }
@@ -38,8 +38,8 @@ int main() {
     for (int i = 1; i <= (n << 1); i++)
         if (!dfn[i]) tarjan(i);
     for (int i = 1; i <= n; i++)
-        if (belong[i] == belong[i + n]) return cout << "IMPOSSIBLE", 0;
+        if (bel[i] == bel[i + n]) return cout << "IMPOSSIBLE", 0;
     cout << "POSSIBLE\n";
-    for (int i = 1; i <= n; i++) cout << (belong[i] < belong[i + n]) << ' ';
+    for (int i = 1; i <= n; i++) cout << (bel[i] < bel[i + n]) << ' ';
     return 0;
 }

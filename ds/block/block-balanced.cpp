@@ -3,17 +3,17 @@
 #include <iostream>
 using namespace std;
 const int N = 1e5 + 5;
-int n, a[N], b[N], op[N], belong[N], val[N], sum[N], siz, cnt, tot;
+int n, a[N], b[N], op[N], bel[N], val[N], sum[N], siz, tot;
 void build() {
-    siz = sqrt(cnt), tot = (cnt - 1) / siz + 1;
-    for (int i = 1; i <= cnt; i++) belong[i] = (i - 1) / siz + 1;
+    siz = sqrt(tot);
+    for (int i = 1; i <= tot; i++) bel[i] = (i - 1) / siz + 1;
 }
-void insert(int x) { ++val[x], ++sum[belong[x]]; }
-void remove(int x) { --val[x], --sum[belong[x]]; }
+void insert(int x) { ++val[x], ++sum[bel[x]]; }
+void remove(int x) { --val[x], --sum[bel[x]]; }
 int queryrnk(int x) {
     int ret = 0;
-    for (int i = 1; i <= belong[x] - 1; i++) ret += sum[i];
-    for (int i = x - 1; belong[i] == belong[x]; i--) ret += val[i];
+    for (int i = 1; i <= bel[x] - 1; i++) ret += sum[i];
+    for (int i = x - 1; bel[i] == bel[x]; i--) ret += val[i];
     return ret + 1;
 }
 int querykth(int x) {
@@ -30,12 +30,12 @@ int main() {
     cin >> n;
     for (int i = 1; i <= n; i++) {
         cin >> op[i] >> a[i];
-        if (op[i] != 4) b[++cnt] = a[i];
+        if (op[i] != 4) b[++tot] = a[i];
     }
-    sort(b + 1, b + cnt + 1);
-    cnt = unique(b + 1, b + cnt + 1) - b - 1;
+    sort(b + 1, b + tot + 1);
+    tot = unique(b + 1, b + tot + 1) - b - 1;
     for (int i = 1; i <= n; i++)
-        if (op[i] != 4) a[i] = lower_bound(b + 1, b + cnt + 1, a[i]) - b;
+        if (op[i] != 4) a[i] = lower_bound(b + 1, b + tot + 1, a[i]) - b;
     build();
     for (int i = 1; i <= n; i++)
         if (op[i] == 1) insert(a[i]);

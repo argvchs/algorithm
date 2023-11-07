@@ -3,7 +3,7 @@
 #include <stack>
 using namespace std;
 const int N = 1e4 + 5, M = 1e5 + 5;
-int n, m, a[N], b[N], dfn[N], low[N], belong[N], deg[N], dis[N], head1[N], head2[N], idx,
+int n, m, a[N], b[N], dfn[N], low[N], bel[N], deg[N], dis[N], head1[N], head2[N], idx,
     cnt, tot, ans;
 bool vis[N];
 struct edge {
@@ -26,7 +26,7 @@ void tarjan(int u) {
         int top = ++tot;
         do {
             top = S.top(), S.pop();
-            b[belong[top] = tot] += a[top], vis[top] = false;
+            b[bel[top] = tot] += a[top], vis[top] = false;
         } while (top != u);
     }
 }
@@ -53,9 +53,9 @@ int main() {
         if (!dfn[i]) tarjan(i);
     for (int i = 1; i <= m; i++) {
         int u = e[i].from, v = e[i].to;
-        if (belong[u] != belong[v]) {
-            ++deg[belong[v]];
-            add2(belong[u], belong[v]);
+        if (bel[u] != bel[v]) {
+            ++deg[bel[v]];
+            add2(bel[u], bel[v]);
         }
     }
     toposort();

@@ -3,26 +3,26 @@
 #include <iostream>
 using namespace std;
 const int N = 1e5 + 5;
-int n, m, l = 1, r, t, a[N], b[N], belong[N], val[N], sum[N], siz, cnt1, cnt2, cnt3;
+int n, m, l = 1, r, t, a[N], b[N], bel[N], cnt[N], sum[N], siz, cnt1, cnt2, cnt3;
 struct node {
     int op, x, y, k, t, id, ans;
 } q[N], p[N];
 auto cmp1 = [](node a, node b) {
-    if (belong[a.x] != belong[b.x]) return a.x < b.x;
-    if (belong[a.y] != belong[b.y]) return a.y < b.y;
+    if (bel[a.x] != bel[b.x]) return a.x < b.x;
+    if (bel[a.y] != bel[b.y]) return a.y < b.y;
     return a.t < b.t;
 };
 auto cmp2 = [](node a, node b) { return a.id < b.id; };
 void build1() {
     siz = pow(n, 2.0 / 3.0);
-    for (int i = 1; i <= n; i++) belong[i] = (i - 1) / siz + 1;
+    for (int i = 1; i <= n; i++) bel[i] = (i - 1) / siz + 1;
 }
 void build2() {
     siz = sqrt(cnt3);
-    for (int i = 1; i <= cnt3; i++) belong[i] = (i - 1) / siz + 1;
+    for (int i = 1; i <= cnt3; i++) bel[i] = (i - 1) / siz + 1;
 }
-void insert(int x) { ++val[a[x]], ++sum[belong[a[x]]]; }
-void remove(int x) { --val[a[x]], --sum[belong[a[x]]]; }
+void insert(int x) { ++cnt[a[x]], ++sum[bel[a[x]]]; }
+void remove(int x) { --cnt[a[x]], --sum[bel[a[x]]]; }
 void update(int x) {
     if (l <= p[x].x && p[x].x <= r) remove(p[x].x);
     swap(a[p[x].x], p[x].k);
@@ -30,8 +30,8 @@ void update(int x) {
 }
 int queryrnk(int x) {
     int ret = 0;
-    for (int i = 1; i <= belong[x] - 1; i++) ret += sum[i];
-    for (int i = x - 1; belong[i] == belong[x]; i--) ret += val[i];
+    for (int i = 1; i <= bel[x] - 1; i++) ret += sum[i];
+    for (int i = x - 1; bel[i] == bel[x]; i--) ret += cnt[i];
     return ret + 1;
 }
 int querykth(int x) {
@@ -39,7 +39,7 @@ int querykth(int x) {
     if (x > r - l + 1) return cnt3 + 2;
     int ret1 = 1, ret2 = 1, cur = 0;
     while (cur + sum[ret1] < x) cur += sum[ret1++], ret2 += siz;
-    while (cur + val[ret2] < x) cur += val[ret2++];
+    while (cur + cnt[ret2] < x) cur += cnt[ret2++];
     return ret2;
 }
 int querypre(int x) { return querykth(queryrnk(x) - 1); }
