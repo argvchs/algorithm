@@ -12,7 +12,7 @@ int merge(int lt, int rt) {
     if (t[lt].val > t[rt].val) swap(lt, rt);
     t[lt].l = merge(t[lt].l, rt);
     if (t[t[lt].l].dis > t[t[lt].r].dis) swap(t[lt].l, t[lt].r);
-    t[lt].dis = t[t[lt].l].dis + 1;
+    t[lt].dis = t[t[lt].r].dis + 1;
     return lt;
 }
 int removemin(int rt) { return merge(t[rt].l, t[rt].r); }
