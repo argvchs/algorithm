@@ -6,7 +6,7 @@
 using namespace std;
 using i64 = long long;
 using m96 = pair<i64, int>;
-const int N = 1e5 + 5, P = 1e9 + 7;
+const int P = 1e9 + 7;
 int n, m, s, p;
 struct node {
     int l, r;
