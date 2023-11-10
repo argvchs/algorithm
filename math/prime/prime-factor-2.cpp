@@ -10,7 +10,7 @@ int main() {
         if (!vis[i]) p[++cnt] = q[i] = i;
         for (int j = 1; j <= cnt && i * p[j] <= 1e8; j++) {
             vis[i * p[j]] = true, q[i * p[j]] = p[j];
-            if (!(i % p[j])) break;
+            if (i % p[j] == 0) break;
         }
     }
     cin >> t;
