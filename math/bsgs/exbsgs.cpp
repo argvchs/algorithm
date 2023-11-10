@@ -25,7 +25,7 @@ int bsgs(int a, int b, int p) {
     M.clear();
     for (int i = 0, j = b; i <= n; i++, j = (i64)j * a % p) M[j] = i;
     for (int i = 1, j = x; i <= n; i++, j = (i64)j * x % p)
-        if (M.contains(j)) return i * n - M[j];
+        if (M.count(j)) return i * n - M[j];
     return -1;
 }
 int exbsgs(int a, int b, int p) {

@@ -1,9 +1,9 @@
-#include <bit>
 #include <iostream>
 using namespace std;
 using u32 = unsigned;
 const int N = 1e5 + 5;
 int n, m, a[N], st[25][N];
+int bitlen(int x) { return x ? 32 - __builtin_clz(x) : 0; }
 void build() {
     for (int i = 1; i <= n; i++) st[0][i] = a[i];
     for (int i = 1; i <= 20; i++)
@@ -11,7 +11,7 @@ void build() {
             st[i][j] = max(st[i - 1][j], st[i - 1][j + (1 << (i - 1))]);
 }
 int query(int l, int r) {
-    int k = bit_width<u32>(r - l + 1) - 1;
+    int k = bitlen(r - l + 1) - 1;
     return max(st[k][l], st[k][r - (1 << k) + 1]);
 }
 int main() {

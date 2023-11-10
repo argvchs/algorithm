@@ -1,4 +1,3 @@
-#include <bit>
 #include <cstring>
 #include <iostream>
 #include <queue>
@@ -15,6 +14,7 @@ struct edge {
 } e[M << 1];
 queue<int> Q;
 vector<int> buc[32], tmp;
+int bitlen(int x) { return x ? 32 - __builtin_clz(x) : 0; }
 void add(int u, int v, int w) { e[++cnt] = {v, head[u], w}, head[u] = cnt; }
 bool spfa() {
     memset(h, 0x3f, sizeof(h));
@@ -36,13 +36,13 @@ bool spfa() {
     return true;
 }
 void insert(int u) {
-    int k = bit_width<u32>(dis[u] ^ dis[top]);
+    int k = bitlen(dis[u] ^ dis[top]);
     ++siz[k], pos[u] = buc[k].size(), buc[k].push_back(u);
 }
 void update(int u, int w) {
-    int k = bit_width<u32>(dis[u] ^ dis[top]);
+    int k = bitlen(dis[u] ^ dis[top]);
     --siz[k], dis[u] = w;
-    int t = bit_width<u32>(dis[u] ^ dis[top]);
+    int t = bitlen(dis[u] ^ dis[top]);
     ++siz[t], pos[u] = buc[t].size(), buc[t].push_back(u);
 }
 void removemin() {
@@ -58,11 +58,11 @@ void removemin() {
     for (int i = 0; i <= cur; i++) buc[i].clear();
     auto st = tmp.begin(), ed = tmp.end();
     for (auto it = st; it != ed; ++it) {
-        int k = bit_width<u32>(dis[*it] ^ dis[las]);
+        int k = bitlen(dis[*it] ^ dis[las]);
         if (k == cur && pos[*it] == it - st && dis[*it] <= dis[top]) top = *it;
     }
     for (auto it = st; it != ed; ++it) {
-        int k = bit_width<u32>(dis[*it] ^ dis[las]);
+        int k = bitlen(dis[*it] ^ dis[las]);
         if (k == cur && pos[*it] == it - st) insert(*it);
     }
 }
