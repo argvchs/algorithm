@@ -12,7 +12,7 @@ int main() {
     for (int i = 1; i <= n; i++) ++cnt[rnk[i]];
     for (int i = 1; i <= m; i++) cnt[i] += cnt[i - 1];
     for (int i = n; i >= 1; i--) sa[cnt[rnk[i]]--] = i;
-    memcpy(tmp, rnk, sizeof(rnk));
+    memcpy(tmp, rnk, sizeof(tmp));
     m = 0;
     for (int i = 1; i <= n; i++)
         if (tmp[sa[i]] == tmp[sa[i - 1]]) rnk[sa[i]] = m;
@@ -25,7 +25,7 @@ int main() {
         for (int i = 1; i <= n; i++) ++cnt[rnk[tmp[i]]];
         for (int i = 1; i <= m; i++) cnt[i] += cnt[i - 1];
         for (int i = n; i >= 1; i--) sa[cnt[rnk[tmp[i]]]--] = tmp[i];
-        memcpy(tmp, rnk, sizeof(rnk));
+        memcpy(tmp, rnk, sizeof(tmp));
         m = 0;
         for (int i = 1; i <= n; i++)
             if (tmp[sa[i]] == tmp[sa[i - 1]] && tmp[sa[i] + s] == tmp[sa[i - 1] + s])

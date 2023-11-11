@@ -8,12 +8,12 @@ int main() {
     cin.tie(nullptr);
     cin >> n;
     for (int i = 1; i <= n; i++) cin >> a[i];
-    memcpy(tmp, a, sizeof(a));
+    memcpy(tmp, a, sizeof(tmp));
     for (int i = 1; i <= n; i++) ++cnt[tmp[i] & 0xffff];
     for (int i = 1; i <= 0xffff; i++) cnt[i] += cnt[i - 1];
     for (int i = n; i >= 1; i--) a[cnt[tmp[i] & 0xffff]--] = tmp[i];
     memset(cnt, 0, sizeof(cnt));
-    memcpy(tmp, a, sizeof(a));
+    memcpy(tmp, a, sizeof(tmp));
     for (int i = 1; i <= n; i++) ++cnt[tmp[i] >> 16 & 0xffff];
     for (int i = 1; i <= 0xffff; i++) cnt[i] += cnt[i - 1];
     for (int i = n; i >= 1; i--) a[cnt[tmp[i] >> 16 & 0xffff]--] = tmp[i];
