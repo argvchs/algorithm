@@ -4,7 +4,7 @@
 using namespace std;
 using f80 = long double;
 const int N = 1005;
-const f80 A = 0.99, EPS = 1e-7;
+const f80 EPS = 1e-7;
 int n, a[N], b[N], c[N];
 f80 ansx, ansy, ansz = 1e14;
 mt19937 gen(random_device{}());
@@ -20,7 +20,7 @@ f80 calc(f80 x, f80 y) {
 }
 void solve() {
     f80 x = ansx, y = ansy;
-    for (f80 t = 1000; t > EPS; t *= A) {
+    for (f80 t = 1000; t > EPS; t *= 0.99) {
         f80 xx = ansx + (dist(gen) * 2 - 1) * t;
         f80 yy = ansy + (dist(gen) * 2 - 1) * t;
         f80 delta = calc(xx, yy) - calc(x, y);
