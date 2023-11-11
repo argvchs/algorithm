@@ -22,10 +22,7 @@ void dijkstra() {
         vis[u] = true;
         for (int i = head[u]; i; i = e[i].nex) {
             int v = e[i].to, w = e[i].w;
-            if (dis[v] > dis[u] + w) {
-                dis[v] = dis[u] + w;
-                Q.emplace(dis[v], v);
-            }
+            if (dis[v] > dis[u] + w) dis[v] = dis[u] + w, Q.emplace(dis[v], v);
         }
     }
 }

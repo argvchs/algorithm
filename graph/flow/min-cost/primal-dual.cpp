@@ -39,10 +39,8 @@ bool dijkstra() {
         vis[u] = true;
         for (int i = head[u]; i; i = e[i].nex) {
             int v = e[i].to, w = e[i].w, c = e[i].c;
-            if (dis[v] > dis[u] + c + h[u] - h[v] && w) {
-                dis[v] = dis[u] + c + h[u] - h[v];
-                PQ.emplace(dis[v], v);
-            }
+            if (dis[v] > dis[u] + c + h[u] - h[v] && w)
+                dis[v] = dis[u] + c + h[u] - h[v], PQ.emplace(dis[v], v);
         }
     }
     return dis[t] != INF;
