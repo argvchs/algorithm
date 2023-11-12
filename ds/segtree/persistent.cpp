@@ -5,12 +5,11 @@ int n, m, a[N], rt[N], cnt;
 struct node {
     int l, r, val;
 } t[N * 25];
-int build(int l, int r) {
-    int rt = ++cnt;
+int build(int rt, int l, int r) {
     if (l == r) return t[rt].val = a[l], rt;
     int mid = (l + r) >> 1;
-    t[rt].l = build(l, mid);
-    t[rt].r = build(mid + 1, r);
+    t[rt].l = build(++cnt, l, mid);
+    t[rt].r = build(++cnt, mid + 1, r);
     return rt;
 }
 int update(int rt, int l, int r, int x, int k) {
@@ -33,7 +32,7 @@ int main() {
     cin.tie(nullptr);
     cin >> n >> m;
     for (int i = 1; i <= n; i++) cin >> a[i];
-    rt[0] = build(1, n);
+    rt[0] = build(++cnt, 1, n);
     for (int i = 1, ver, op, x, k; i <= m; i++) {
         cin >> ver >> op >> x;
         if (op == 1) cin >> k, rt[i] = update(rt[ver], 1, n, x, k);

@@ -18,15 +18,13 @@ int main() {
             if (abs(a[cur][i]) < abs(a[j][i])) cur = j;
         swap(a[cur], a[i]);
         if (abs(a[i][i]) < EPS) return cout << "No Solution", 0;
-        f64 y = a[i][i];
         for (int j = 1; j <= n; j++) {
             if (i == j) continue;
-            f64 x = a[j][i] / y;
-            for (int k = i; k <= n + 1; k++) a[j][k] -= x * a[i][k];
+            f64 x = a[j][i] / a[i][i];
+            for (int k = i; k <= n + 1; k++) a[j][k] -= a[i][k] * x;
         }
-        for (int j = 1; j <= n + 1; j++) a[i][j] /= y;
     }
     cout << fixed << setprecision(2);
-    for (int i = 1; i <= n; i++) cout << a[i][n + 1] << '\n';
+    for (int i = 1; i <= n; i++) cout << a[i][n + 1] / a[i][i] << '\n';
     return 0;
 }

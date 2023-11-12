@@ -1,5 +1,4 @@
 #include <array>
-#include <cstring>
 #include <iostream>
 using namespace std;
 using i64 = long long;

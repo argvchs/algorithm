@@ -25,13 +25,13 @@ int main() {
     for (int i = 1, op, l, r; i <= m; i++) {
         cin >> op >> l >> r;
         if (l > r) swap(l, r);
-        if (op) cout << query(l, r) << '\n';
-        else
+        if (!op)
             for (int j = find(l); j <= r; j = find(j + 1)) {
                 update(j, -a[j]);
                 update(j, (a[j] = sqrt(a[j])));
                 if (a[j] <= 1) fa[j] = j + 1;
             }
+        else cout << query(l, r) << '\n';
     }
     return 0;
 }

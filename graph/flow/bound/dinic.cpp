@@ -53,8 +53,7 @@ int main() {
         memset(inf, 0, sizeof(inf));
         memset(ouf, 0, sizeof(ouf));
         cnt = 1, sum = ans = 0;
-        s1 = n + m + 1, t1 = n + m + 2;
-        s2 = n + m + 3, t2 = n + m + 4;
+        s1 = n + m + 1, t1 = n + m + 2, s2 = n + m + 3, t2 = n + m + 4;
         for (int i = 1, w; i <= m; i++) {
             cin >> w;
             inf[t1] += w, ouf[i + n] += w;
@@ -80,8 +79,7 @@ int main() {
             cout << "-1\n\n";
             continue;
         }
-        sum = e[cnt].w;
-        ans = e[cnt].w = e[cnt ^ 1].w = 0;
+        sum = e[cnt].w, ans = e[cnt].w = e[cnt ^ 1].w = 0;
         s = s1, t = t1, dinic();
         cout << sum + ans << "\n\n";
     }

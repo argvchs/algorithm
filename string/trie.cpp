@@ -2,41 +2,31 @@
 #include <iostream>
 using namespace std;
 const int N = 3e6 + 5;
-int n, m, t, cnt;
+int n, m, t, cnt[N], nex[N][128], tot;
 string s;
-struct node {
-    int val, ch[62];
-} tt[N];
-int id(char c) {
-    if (isupper(c)) return c - 'A' + 10;
-    if (islower(c)) return c - 'a' + 36;
-    return c - '0';
-}
-void insert(string s) {
-    int rt = 0;
+void insert(int rt, string s) {
     for (char c : s) {
-        if (!tt[rt].ch[id(c)]) tt[rt].ch[id(c)] = ++cnt;
-        rt = tt[rt].ch[id(c)], ++tt[rt].val;
+        if (!nex[rt][(int)c]) nex[rt][(int)c] = ++tot;
+        rt = nex[rt][(int)c], ++cnt[rt];
     }
 }
-int query(string s) {
-    int rt = 0;
+int query(int rt, string s) {
     for (char c : s) {
-        if (!tt[rt].ch[id(c)]) return 0;
-        rt = tt[rt].ch[id(c)];
+        if (!nex[rt][(int)c]) return 0;
+        rt = nex[rt][(int)c];
     }
-    return tt[rt].val;
+    return cnt[rt];
 }
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
     cin >> t;
     while (t--) {
-        memset(tt, 0, sizeof(node) * cnt);
-        cnt = 0;
-        cin >> n >> m;
-        for (int i = 1; i <= n; i++) cin >> s, insert(s);
-        for (int i = 1; i <= m; i++) cin >> s, cout << query(s) << '\n';
+        memset(cnt, 0, tot * sizeof(int));
+        memset(nex, 0, tot * sizeof(int[128]));
+        cin >> n >> m, tot = 0;
+        for (int i = 1; i <= n; i++) cin >> s, insert(0, s);
+        for (int i = 1; i <= m; i++) cin >> s, cout << query(0, s) << '\n';
     }
     return 0;
 }

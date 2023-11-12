@@ -32,14 +32,14 @@ void spfa() {
     }
 }
 void insert(int u) {
-    int k = bitlen(dis[u] ^ dis[top]);
-    ++siz[k], pos[u] = buc[k].size(), buc[k].push_back(u);
+    int x = bitlen(dis[u] ^ dis[top]);
+    ++siz[x], pos[u] = buc[x].size(), buc[x].push_back(u);
 }
 void update(int u, int w) {
-    int k = bitlen(dis[u] ^ dis[top]);
-    --siz[k], dis[u] = w;
-    int t = bitlen(dis[u] ^ dis[top]);
-    ++siz[t], pos[u] = buc[t].size(), buc[t].push_back(u);
+    int x = bitlen(dis[u] ^ dis[top]);
+    --siz[x], dis[u] = w;
+    int y = bitlen(dis[u] ^ dis[top]);
+    ++siz[y], pos[u] = buc[y].size(), buc[y].push_back(u);
 }
 void removemin() {
     pos[top] = -1;
@@ -54,12 +54,12 @@ void removemin() {
     for (int i = 0; i <= cur; i++) buc[i].clear();
     auto st = tmp.begin(), ed = tmp.end();
     for (auto it = st; it != ed; ++it) {
-        int k = bitlen(dis[*it] ^ dis[las]);
-        if (k == cur && pos[*it] == it - st && dis[*it] <= dis[top]) top = *it;
+        int x = bitlen(dis[*it] ^ dis[las]);
+        if (x == cur && pos[*it] == it - st && dis[*it] <= dis[top]) top = *it;
     }
     for (auto it = st; it != ed; ++it) {
-        int k = bitlen(dis[*it] ^ dis[las]);
-        if (k == cur && pos[*it] == it - st) insert(*it);
+        int x = bitlen(dis[*it] ^ dis[las]);
+        if (x == cur && pos[*it] == it - st) insert(*it);
     }
 }
 bool dijkstra() {
