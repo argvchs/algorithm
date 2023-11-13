@@ -1,3 +1,4 @@
+#include <chrono>
 #include <iostream>
 #include <random>
 using namespace std;
@@ -8,7 +9,7 @@ struct node {
     int l, r, val, siz;
     mt19937::result_type key;
 } t[N];
-mt19937 gen(random_device{}());
+mt19937 rng(chrono::steady_clock::now().time_since_epoch().count());
 void maintain(int rt) { t[rt].siz = t[t[rt].l].siz + t[t[rt].r].siz + 1; }
 m64 splitval(int rt, int x) {
     if (!rt) return {};
@@ -46,7 +47,7 @@ int merge(int lt, int rt) {
 }
 void insert(int x) {
     auto [l, r] = splitval(rt, x);
-    t[++cnt] = {0, 0, x, 1, gen()};
+    t[++cnt] = {0, 0, x, 1, rng()};
     rt = merge(merge(l, cnt), r);
 }
 void remove(int x) {

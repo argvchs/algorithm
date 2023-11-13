@@ -1,3 +1,4 @@
+#include <chrono>
 #include <iostream>
 #include <random>
 #include <stack>
@@ -10,7 +11,7 @@ struct node {
     mt19937::result_type key;
     bool tag;
 } t[N];
-mt19937 gen(random_device{}());
+mt19937 rng(chrono::steady_clock::now().time_since_epoch().count());
 stack<int> S;
 void maintain(int rt) { t[rt].siz = t[t[rt].l].siz + t[t[rt].r].siz + 1; }
 void spread(int rt) {
@@ -46,7 +47,7 @@ int merge(int lt, int rt) {
 int build() {
     int ret = 0;
     for (int i = 1; i <= n; i++) {
-        t[++cnt] = {0, 0, i, 1, gen()};
+        t[++cnt] = {0, 0, i, 1, rng()};
         while (!S.empty()) {
             if (t[S.top()].key < t[cnt].key) break;
             maintain(t[cnt].l = S.top()), S.pop();

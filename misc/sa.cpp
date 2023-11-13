@@ -1,3 +1,4 @@
+#include <chrono>
 #include <iomanip>
 #include <iostream>
 #include <random>
@@ -7,7 +8,7 @@ const int N = 1005;
 const f80 EPS = 1e-4;
 int n, a[N], b[N], c[N];
 f80 x, y, ans;
-mt19937 gen(random_device{}());
+mt19937 rng(chrono::steady_clock::now().time_since_epoch().count());
 uniform_real_distribution<f80> dist;
 f80 calc(f80 x, f80 y) {
     f80 ret = 0;
@@ -22,15 +23,15 @@ f80 calc(f80 x, f80 y) {
 void solve() {
     f80 x = ::x, y = ::y, t = 1e3;
     while (t > EPS) {
-        f80 xx = x + (dist(gen) * 2 - 1) * t;
-        f80 yy = y + (dist(gen) * 2 - 1) * t;
+        f80 xx = x + (dist(rng) * 2 - 1) * t;
+        f80 yy = y + (dist(rng) * 2 - 1) * t;
         f80 de = calc(xx, yy) - calc(x, y);
-        if (exp(-de / t) > dist(gen)) x = xx, y = yy;
+        if (exp(-de / t) > dist(rng)) x = xx, y = yy;
         t *= 0.99;
     }
     for (int i = 1; i <= 1e3; i++) {
-        f80 xx = ::x + (dist(gen) * 2 - 1) * t;
-        f80 yy = ::y + (dist(gen) * 2 - 1) * t;
+        f80 xx = ::x + (dist(rng) * 2 - 1) * t;
+        f80 yy = ::y + (dist(rng) * 2 - 1) * t;
         calc(xx, yy);
     }
 }
