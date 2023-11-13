@@ -1,18 +1,19 @@
 #include <iostream>
 #include <tuple>
 using namespace std;
+using i64 = long long;
 using t32 = tuple<int, int, int>;
 int n, p;
-t32 exgcd(int a, int b) {
-    if (!b) return {1, 0, a};
-    auto [x, y, gcd] = exgcd(b, a % b);
-    return {y, x - a / b * y, gcd};
+int quickpow(int a, int b, int p) {
+    int ret = 1;
+    for (int i = b; i; i >>= 1, a = (i64)a * a % p)
+        if (i & 1) ret = (i64)ret * a % p;
+    return ret;
 }
-int inverse(int a, int p) { return (get<0>(exgcd(a, p)) + p) % p; }
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
     cin >> n >> p;
-    for (int i = 1; i <= n; i++) cout << inverse(i, p) << '\n';
+    for (int i = 1; i <= n; i++) cout << quickpow(i, p - 2, p) << '\n';
     return 0;
 }
