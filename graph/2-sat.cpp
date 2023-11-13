@@ -35,7 +35,7 @@ int main() {
         add(u + a * n, v + (b ^ 1) * n);
         add(v + b * n, u + (a ^ 1) * n);
     }
-    for (int i = 1; i <= (n << 1); i++)
+    for (int i = 1; i <= n << 1; i++)
         if (!dfn[i]) tarjan(i);
     for (int i = 1; i <= n; i++)
         if (bel[i] == bel[i + n]) return cout << "IMPOSSIBLE", 0;

@@ -4,7 +4,7 @@
 #include <random>
 using namespace std;
 using f80 = long double;
-const int N = 1005;
+const int N = 1e3 + 5;
 const f80 EPS = 1e-4;
 int n, a[N], b[N], c[N];
 f80 x, y, ans;

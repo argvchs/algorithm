@@ -4,8 +4,8 @@
 using namespace std;
 using u32 = unsigned;
 using i64 = long long;
-using m64 = pair<int, int>;
-const int N = 3005, M = 6005, INF = 0x3f3f3f3f;
+using p32 = pair<int, int>;
+const int N = 3e3 + 5, M = 6e3 + 5, INF = 0x3f3f3f3f;
 int n, m, s, h[N], dis[N], tot[N], pos[N], siz[32], head[N], cnt, beg, top;
 i64 ans;
 bool vis[N];

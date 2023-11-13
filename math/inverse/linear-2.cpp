@@ -2,10 +2,10 @@
 #include <tuple>
 using namespace std;
 using i64 = long long;
-using m96 = tuple<int, int, int>;
+using t32 = tuple<int, int, int>;
 const int N = 5e6 + 5;
 int n, m, p, a[N], s[N], t[N], inv[N], sum, ans;
-m96 exgcd(int a, int b) {
+t32 exgcd(int a, int b) {
     if (!b) return {1, 0, a};
     auto [x, y, gcd] = exgcd(b, a % b);
     return {y, x - a / b * y, gcd};

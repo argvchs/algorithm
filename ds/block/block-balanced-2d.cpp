@@ -14,7 +14,7 @@ auto cmp1 = [](node a, node b) {
 };
 auto cmp2 = [](node a, node b) { return a.id < b.id; };
 void build1() {
-    siz = pow(n, 2.0 / 3.0);
+    siz = pow(n, 2. / 3.);
     for (int i = 1; i <= n; i++) bel[i] = (i - 1) / siz + 1;
 }
 void build2() {

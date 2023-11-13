@@ -1,7 +1,7 @@
 #include <algorithm>
 #include <iostream>
 using namespace std;
-const int N = 5005, M = 2e5 + 5;
+const int N = 5e3 + 5, M = 2e5 + 5;
 int n, m, fa[N], siz[N], tot, ans;
 struct edge {
     int from, to, w;

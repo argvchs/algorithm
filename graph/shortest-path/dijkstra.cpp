@@ -3,14 +3,14 @@
 #include <limits>
 #include <queue>
 using namespace std;
-using m64 = pair<int, int>;
+using p32 = pair<int, int>;
 const int N = 1e5 + 5, M = 5e5 + 5, INF = 0x3f3f3f3f;
 int n, m, s, dis[N], head[N], cnt;
 bool vis[N];
 struct edge {
     int to, nex, w;
 } e[M << 1];
-priority_queue<m64, vector<m64>, greater<>> Q;
+priority_queue<p32, vector<p32>, greater<>> Q;
 void add(int u, int v, int w) { e[++cnt] = {v, head[u], w}, head[u] = cnt; }
 void dijkstra() {
     memset(dis, 0x3f, sizeof(dis));

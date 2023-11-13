@@ -2,15 +2,15 @@
 #include <iostream>
 #include <queue>
 using namespace std;
-using m64 = pair<int, int>;
-const int N = 5005, M = 5e4 + 5, INF = 0x3f3f3f3f;
+using p32 = pair<int, int>;
+const int N = 5e3 + 5, M = 5e4 + 5, INF = 0x3f3f3f3f;
 int n, m, s, t, h[N], dis[N], cur[N], head[N], cnt = 1, ansflow, anscost;
 bool vis[N];
 struct edge {
     int to, nex, w, c;
 } e[M << 1];
 queue<int> Q;
-priority_queue<m64, vector<m64>, greater<>> PQ;
+priority_queue<p32, vector<p32>, greater<>> PQ;
 void add(int u, int v, int w, int c) { e[++cnt] = {v, head[u], w, c}, head[u] = cnt; }
 void addflow(int u, int v, int w, int c) { add(u, v, w, c), add(v, u, 0, -c); }
 void spfa() {

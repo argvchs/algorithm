@@ -3,7 +3,7 @@
 #include <random>
 #include <stack>
 using namespace std;
-using m64 = pair<int, int>;
+using p32 = pair<int, int>;
 const int N = 1e5 + 5;
 int n, m, rt, cnt;
 struct node {
@@ -20,7 +20,7 @@ void spread(int rt) {
     t[t[rt].l].tag ^= 1, t[t[rt].r].tag ^= 1;
     t[rt].tag = false;
 }
-m64 split(int rt, int x) {
+p32 split(int rt, int x) {
     if (!rt) return {};
     spread(rt);
     if (t[t[rt].l].siz >= x) {

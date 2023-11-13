@@ -2,7 +2,7 @@
 #include <iostream>
 #include <random>
 using namespace std;
-using m64 = pair<int, int>;
+using p32 = pair<int, int>;
 const int N = 1e5 + 5;
 int n, rt, cnt;
 struct node {
@@ -11,7 +11,7 @@ struct node {
 } t[N];
 mt19937 rng(chrono::steady_clock::now().time_since_epoch().count());
 void maintain(int rt) { t[rt].siz = t[t[rt].l].siz + t[t[rt].r].siz + 1; }
-m64 splitval(int rt, int x) {
+p32 splitval(int rt, int x) {
     if (!rt) return {};
     if (t[rt].val >= x) {
         auto [l, r] = splitval(t[rt].l, x);
@@ -23,7 +23,7 @@ m64 splitval(int rt, int x) {
         return {rt, r};
     }
 }
-m64 splitrnk(int rt, int x) {
+p32 splitrnk(int rt, int x) {
     if (!rt) return {};
     if (t[t[rt].l].siz >= x) {
         auto [l, r] = splitrnk(t[rt].l, x);

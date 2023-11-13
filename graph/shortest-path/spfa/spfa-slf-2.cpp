@@ -23,7 +23,7 @@ void spfa() {
                 dis[v] = dis[u] + w;
                 if (vis[v]) continue;
                 vis[v] = true;
-                if (!Q.empty() && dis[v] - dis[Q.front()] > 1000) Q.push_back(v);
+                if (!Q.empty() && dis[v] - dis[Q.front()] > 1e3) Q.push_back(v);
                 else Q.push_front(v);
                 if (dis[Q.front()] > dis[Q.back()]) swap(Q.front(), Q.back());
             }
