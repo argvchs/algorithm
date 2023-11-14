@@ -10,17 +10,17 @@ struct node {
     mt19937::result_type key;
 } t[N * 75];
 mt19937 rng(chrono::steady_clock::now().time_since_epoch().count());
-void maintain(int rt) { t[rt].siz = t[t[rt].l].siz + t[t[rt].r].siz + 1; }
+void pushup(int rt) { t[rt].siz = t[t[rt].l].siz + t[t[rt].r].siz + 1; }
 p32 splitval(int rt, int x) {
     if (!rt) return {};
     t[++cnt] = t[rt], rt = cnt;
     if (t[rt].val >= x) {
         auto [l, r] = splitval(t[rt].l, x);
-        t[rt].l = r, maintain(rt);
+        t[rt].l = r, pushup(rt);
         return {l, rt};
     } else {
         auto [l, r] = splitval(t[rt].r, x);
-        t[rt].r = l, maintain(rt);
+        t[rt].r = l, pushup(rt);
         return {rt, r};
     }
 }
@@ -29,11 +29,11 @@ p32 splitrnk(int rt, int x) {
     t[++cnt] = t[rt], rt = cnt;
     if (t[t[rt].l].siz >= x) {
         auto [l, r] = splitrnk(t[rt].l, x);
-        t[rt].l = r, maintain(rt);
+        t[rt].l = r, pushup(rt);
         return {l, rt};
     } else {
         auto [l, r] = splitrnk(t[rt].r, x - t[t[rt].l].siz - 1);
-        t[rt].r = l, maintain(rt);
+        t[rt].r = l, pushup(rt);
         return {rt, r};
     }
 }
@@ -41,10 +41,10 @@ int merge(int lt, int rt) {
     if (!lt || !rt) return lt + rt;
     if (t[lt].key < t[rt].key) {
         t[++cnt] = t[lt], lt = cnt, t[lt].r = merge(t[lt].r, rt);
-        return maintain(lt), lt;
+        return pushup(lt), lt;
     } else {
         t[++cnt] = t[rt], rt = cnt, t[rt].l = merge(lt, t[rt].l);
-        return maintain(rt), rt;
+        return pushup(rt), rt;
     }
 }
 int insert(int rt, int x) {

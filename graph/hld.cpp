@@ -60,7 +60,7 @@ int main() {
     cout.tie(nullptr);
     cin >> n >> m >> rt >> p;
     for (int i = 1; i <= n; i++) cin >> a[i];
-    for (int i = 1, u, v; i < n; i++) {
+    for (int i = 1, u, v; i <= n - 1; i++) {
         cin >> u >> v;
         addedge(u, v);
     }

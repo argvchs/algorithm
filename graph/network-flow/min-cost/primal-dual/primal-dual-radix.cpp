@@ -1,3 +1,4 @@
+#include <bit>
 #include <cstring>
 #include <iostream>
 #include <queue>
@@ -5,15 +6,14 @@ using namespace std;
 using u32 = unsigned;
 using p32 = pair<int, int>;
 const int N = 5e3 + 5, M = 5e4 + 5, INF = 0x3f3f3f3f;
-int n, m, s, t, h[N], dis[N], pos[N], siz[32], cur[N], head[N],
+int n, m, s, t, h[N], dis[N], pos[N], siz[35], cur[N], head[N],
     cnt = 1, beg, top, ansflow, anscost;
 bool vis[N];
 struct edge {
     int to, nex, w, c;
 } e[M << 1];
 queue<int> Q;
-vector<int> buc[32], tmp;
-int bitlen(int x) { return x ? 32 - __builtin_clz(x) : 0; }
+vector<int> buc[35], tmp;
 void add(int u, int v, int w, int c) { e[++cnt] = {v, head[u], w, c}, head[u] = cnt; }
 void addflow(int u, int v, int w, int c) { add(u, v, w, c), add(v, u, 0, -c); }
 void spfa() {
@@ -32,34 +32,31 @@ void spfa() {
     }
 }
 void insert(int u) {
-    int x = bitlen(dis[u] ^ dis[top]);
-    ++siz[x], pos[u] = buc[x].size(), buc[x].push_back(u);
+    int k = bit_width<u32>(dis[u] ^ dis[top]);
+    ++siz[k], pos[u] = buc[k].size(), buc[k].push_back(u);
 }
 void update(int u, int w) {
-    int x = bitlen(dis[u] ^ dis[top]);
-    --siz[x], dis[u] = w;
-    int y = bitlen(dis[u] ^ dis[top]);
-    ++siz[y], pos[u] = buc[y].size(), buc[y].push_back(u);
+    int k = bit_width<u32>(dis[u] ^ dis[top]);
+    --siz[k], dis[u] = w, insert(u);
 }
 void removemin() {
-    pos[top] = -1;
-    if (--siz[0]) {
+    pos[top] = -1, --siz[0];
+    if (siz[0]) {
         while (pos[top = buc[0][beg]] == -1) ++beg;
         return;
     }
-    int cur = 0, las = top;
+    int now = 0, las = top;
     for (int i = 30; i >= 1; i--)
-        if (siz[i]) cur = i;
-    siz[cur] = beg = top = 0, tmp.swap(buc[cur]);
-    for (int i = 0; i <= cur; i++) buc[i].clear();
-    auto st = tmp.begin(), ed = tmp.end();
-    for (auto it = st; it != ed; ++it) {
-        int x = bitlen(dis[*it] ^ dis[las]);
-        if (x == cur && pos[*it] == it - st && dis[*it] <= dis[top]) top = *it;
+        if (siz[i]) now = i;
+    siz[now] = beg = top = 0, tmp = move(buc[now]);
+    for (int i = 0; i <= now; i++) buc[i].clear();
+    for (int i = 0; i < (int)tmp.size(); i++) {
+        int k = bit_width<u32>(dis[tmp[i]] ^ dis[las]);
+        if (k == now && pos[tmp[i]] == i && dis[tmp[i]] <= dis[top]) top = tmp[i];
     }
-    for (auto it = st; it != ed; ++it) {
-        int x = bitlen(dis[*it] ^ dis[las]);
-        if (x == cur && pos[*it] == it - st) insert(*it);
+    for (int i = 0; i < (int)tmp.size(); i++) {
+        int k = bit_width<u32>(dis[tmp[i]] ^ dis[las]);
+        if (k == now && pos[tmp[i]] == i) insert(tmp[i]);
     }
 }
 bool dijkstra() {

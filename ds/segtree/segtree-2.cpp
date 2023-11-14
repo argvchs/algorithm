@@ -6,8 +6,8 @@ int n, m, p, a[N];
 struct node {
     int l, r, val, add, mul;
 } t[N << 2];
-void maintain(int rt) { t[rt].val = (t[rt << 1].val + t[rt << 1 | 1].val) % p; }
-void spread(int rt) {
+void pushup(int rt) { t[rt].val = (t[rt << 1].val + t[rt << 1 | 1].val) % p; }
+void pushdown(int rt) {
     int l = rt << 1, r = rt << 1 | 1;
     t[l].val = ((i64)t[l].val * t[rt].mul + (i64)(t[l].r - t[l].l + 1) * t[rt].add) % p;
     t[l].add = ((i64)t[l].add * t[rt].mul % p + t[rt].add) % p;
@@ -23,7 +23,7 @@ void build(int rt, int l, int r) {
     int mid = (l + r) >> 1;
     build(rt << 1, l, mid);
     build(rt << 1 | 1, mid + 1, r);
-    maintain(rt);
+    pushup(rt);
 }
 void updateadd(int rt, int l, int r, int k) {
     if (r < t[rt].l || t[rt].r < l) return;
@@ -32,10 +32,10 @@ void updateadd(int rt, int l, int r, int k) {
         t[rt].add = (t[rt].add + k) % p;
         return;
     }
-    spread(rt);
+    pushdown(rt);
     updateadd(rt << 1, l, r, k);
     updateadd(rt << 1 | 1, l, r, k);
-    maintain(rt);
+    pushup(rt);
 }
 void updatemul(int rt, int l, int r, int k) {
     if (r < t[rt].l || t[rt].r < l) return;
@@ -45,15 +45,15 @@ void updatemul(int rt, int l, int r, int k) {
         t[rt].add = (i64)t[rt].add * k % p;
         return;
     }
-    spread(rt);
+    pushdown(rt);
     updatemul(rt << 1, l, r, k);
     updatemul(rt << 1 | 1, l, r, k);
-    maintain(rt);
+    pushup(rt);
 }
 int query(int rt, int l, int r) {
     if (r < t[rt].l || t[rt].r < l) return 0;
     if (l <= t[rt].l && t[rt].r <= r) return t[rt].val;
-    spread(rt);
+    pushdown(rt);
     return (query(rt << 1, l, r) + query(rt << 1 | 1, l, r)) % p;
 }
 int main() {

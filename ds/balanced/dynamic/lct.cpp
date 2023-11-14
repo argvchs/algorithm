@@ -4,38 +4,37 @@ const int N = 3e5 + 5;
 int n, m;
 struct node {
     int fa, ch[2], val, sum;
-    bool tag;
+    bool rev;
 } t[N];
-void maintain(int rt) { t[rt].sum = t[t[rt].ch[0]].sum ^ t[t[rt].ch[1]].sum ^ t[rt].val; }
-void spread(int rt) {
-    if (!t[rt].tag) return;
+void pushup(int rt) { t[rt].sum = t[t[rt].ch[0]].sum ^ t[t[rt].ch[1]].sum ^ t[rt].val; }
+void pushdown(int rt) {
+    if (!t[rt].rev) return;
     swap(t[rt].ch[0], t[rt].ch[1]);
-    t[t[rt].ch[0]].tag ^= 1, t[t[rt].ch[1]].tag ^= 1;
-    t[rt].tag = false;
+    t[t[rt].ch[0]].rev ^= 1, t[t[rt].ch[1]].rev ^= 1;
+    t[rt].rev = false;
 }
 bool get(int rt) { return rt == t[t[rt].fa].ch[1]; }
-void add(int lt, int rt, int x) { t[lt].fa = rt, t[rt].ch[x] = lt; }
 bool isroot(int rt) { return rt != t[t[rt].fa].ch[0] && rt != t[t[rt].fa].ch[1]; }
 void rotate(int rt) {
-    int fa = t[rt].fa, x = get(rt);
-    if (!isroot(fa)) add(rt, t[fa].fa, get(fa));
-    add(t[rt].ch[!x], fa, x), t[rt].fa = t[fa].fa, add(fa, rt, !x);
-    maintain(fa), maintain(rt);
+    int fa = t[rt].fa, w = get(rt);
+    if (!isroot(fa)) t[t[fa].fa].ch[get(fa)] = rt;
+    t[rt].fa = t[fa].fa, t[fa].fa = rt, t[t[rt].ch[!w]].fa = fa;
+    t[fa].ch[w] = t[rt].ch[!w], t[rt].ch[!w] = fa;
+    pushup(fa), pushup(rt);
 }
-void spreadall(int rt) {
-    if (!isroot(rt)) spreadall(t[rt].fa);
-    spread(rt);
+void pushall(int rt) {
+    if (!isroot(rt)) pushall(t[rt].fa);
+    pushdown(rt);
 }
 void splay(int rt) {
-    spreadall(rt);
+    pushall(rt);
     for (int fa; fa = t[rt].fa, !isroot(rt); rotate(rt))
         if (!isroot(fa)) rotate(get(rt) == get(fa) ? fa : rt);
 }
 void access(int rt) {
-    for (int las = 0; rt; las = rt, rt = t[rt].fa)
-        splay(rt), t[rt].ch[1] = las, maintain(rt);
+    for (int ch = 0; rt; ch = rt, rt = t[rt].fa) splay(rt), t[rt].ch[1] = ch, pushup(rt);
 }
-void makeroot(int rt) { access(rt), splay(rt), t[rt].tag ^= 1; }
+void makeroot(int rt) { access(rt), splay(rt), t[rt].rev ^= 1; }
 int findroot(int rt) {
     access(rt), splay(rt);
     while (t[rt].ch[0]) rt = t[rt].ch[0];
@@ -48,7 +47,7 @@ void link(int lt, int rt) {
 void cut(int lt, int rt) {
     makeroot(lt);
     if (findroot(rt) == lt && t[rt].fa == lt && !t[rt].ch[0])
-        t[rt].fa = t[lt].ch[1] = 0, maintain(lt);
+        t[rt].fa = t[lt].ch[1] = 0, pushup(lt);
 }
 int query(int lt, int rt) {
     makeroot(lt), access(rt), splay(rt);

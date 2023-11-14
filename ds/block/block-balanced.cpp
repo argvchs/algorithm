@@ -3,24 +3,24 @@
 #include <iostream>
 using namespace std;
 const int N = 1e5 + 5;
-int n, a[N], b[N], op[N], bel[N], val[N], sum[N], siz, tot;
+int n, a[N], b[N], op[N], bel[N], cnt[N], sum[N], siz, tot;
 void build() {
     siz = sqrt(tot);
     for (int i = 1; i <= tot; i++) bel[i] = (i - 1) / siz + 1;
 }
-void insert(int x) { ++val[x], ++sum[bel[x]]; }
-void remove(int x) { --val[x], --sum[bel[x]]; }
+void insert(int x) { ++cnt[x], ++sum[bel[x]]; }
+void remove(int x) { --cnt[x], --sum[bel[x]]; }
 int queryrnk(int x) {
     int ret = 0;
     for (int i = 1; i <= bel[x] - 1; i++) ret += sum[i];
-    for (int i = x - 1; bel[i] == bel[x]; i--) ret += val[i];
+    for (int i = x - 1; bel[i] == bel[x]; i--) ret += cnt[i];
     return ret + 1;
 }
 int querykth(int x) {
-    int ret1 = 1, ret2 = 1, cur = 0;
-    while (cur + sum[ret1] < x) cur += sum[ret1++], ret2 += siz;
-    while (cur + val[ret2] < x) cur += val[ret2++];
-    return ret2;
+    int i = 1, j = 1, k = 0;
+    while (k + sum[i] < x) k += sum[i++], j += siz;
+    while (k + cnt[j] < x) k += cnt[j++];
+    return j;
 }
 int querypre(int x) { return querykth(queryrnk(x) - 1); }
 int querynex(int x) { return querykth(queryrnk(x + 1)); }

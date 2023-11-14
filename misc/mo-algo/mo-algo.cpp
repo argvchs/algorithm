@@ -7,15 +7,15 @@ using i64 = long long;
 const int N = 5e4 + 5;
 int n, m, l = 1, r, a[N], bel[N], cnt[N], siz;
 i64 ans;
-struct node {
+struct query {
     int l, r, id;
     i64 ans1, ans2;
 } q[N];
-auto cmp1 = [](node a, node b) {
+bool cmp1(query a, query b) {
     if (bel[a.l] != bel[b.l]) return a.l < b.l;
     return a.r < b.r;
-};
-auto cmp2 = [](node a, node b) { return a.id < b.id; };
+}
+bool cmp2(query a, query b) { return a.id < b.id; }
 void build() {
     siz = n / sqrt(m);
     for (int i = 1; i <= n; i++) bel[i] = (i - 1) / siz + 1;

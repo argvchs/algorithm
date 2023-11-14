@@ -4,17 +4,17 @@
 using namespace std;
 const int N = 1e5 + 5;
 int n, m, l = 1, r, t, a[N], b[N], bel[N], cnt[N], sum[N], siz, cnt1, cnt2, cnt3;
-struct node {
+struct query {
     int op, x, y, k, t, id, ans;
 } q[N], p[N];
-auto cmp1 = [](node a, node b) {
+bool cmp1(query a, query b) {
     if (bel[a.x] != bel[b.x]) return a.x < b.x;
     if (bel[a.y] != bel[b.y]) return a.y < b.y;
     return a.t < b.t;
-};
-auto cmp2 = [](node a, node b) { return a.id < b.id; };
+}
+bool cmp2(query a, query b) { return a.id < b.id; }
 void build1() {
-    siz = pow(n, 2. / 3.);
+    siz = pow(n, 2.0 / 3.0);
     for (int i = 1; i <= n; i++) bel[i] = (i - 1) / siz + 1;
 }
 void build2() {
@@ -37,10 +37,10 @@ int queryrnk(int x) {
 int querykth(int x) {
     if (x < 1) return cnt3 + 1;
     if (x > r - l + 1) return cnt3 + 2;
-    int ret1 = 1, ret2 = 1, cur = 0;
-    while (cur + sum[ret1] < x) cur += sum[ret1++], ret2 += siz;
-    while (cur + cnt[ret2] < x) cur += cnt[ret2++];
-    return ret2;
+    int i = 1, j = 1, k = 0;
+    while (k + sum[i] < x) k += sum[i++], j += siz;
+    while (k + cnt[j] < x) k += cnt[j++];
+    return j;
 }
 int querypre(int x) { return querykth(queryrnk(x) - 1); }
 int querynex(int x) { return querykth(queryrnk(x + 1)); }

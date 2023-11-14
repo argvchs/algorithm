@@ -10,16 +10,16 @@ bool vis[N];
 struct edge {
     int to, nex, w;
 } e[M << 1];
-auto cmp = [](int u, int v) { return dis[u] > dis[v]; };
 vector<int> S;
+bool cmp(int u, int v) { return dis[u] > dis[v]; }
 void add(int u, int v, int w) { e[++cnt] = {v, head[u], w}, head[u] = cnt; }
 void spfa() {
     memset(dis, 0x3f, sizeof(dis));
     dis[s] = 0, vis[s] = true, S.push_back(s);
     while (!S.empty()) {
-        if (tot >= 1e4) sort(S.begin(), S.end(), cmp), tot = 0;
+        if (++tot > 1e4) sort(S.begin(), S.end(), cmp), tot = 0;
         int u = S.back();
-        vis[u] = false, S.pop_back(), ++tot;
+        vis[u] = false, S.pop_back();
         for (int i = head[u]; i; i = e[i].nex) {
             int v = e[i].to, w = e[i].w;
             if (dis[v] > dis[u] + w) {

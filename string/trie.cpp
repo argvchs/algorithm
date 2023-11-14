@@ -2,7 +2,7 @@
 #include <iostream>
 using namespace std;
 const int N = 3e6 + 5;
-int n, m, t, cnt[N], nex[N][128], tot;
+int n, m, t, cnt[N], nex[N][256], tot;
 string s;
 void insert(int rt, string s) {
     for (char c : s) {

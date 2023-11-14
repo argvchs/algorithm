@@ -42,7 +42,7 @@ int main() {
     for (int i = 1; i <= n; i++) cin >> a[i] >> b[i] >> c[i];
     for (int i = 1; i <= n; i++) x += a[i], y += b[i];
     ans = calc(x /= n, y /= n);
-    for (int i = 1; i <= 3; i++) solve();
+    solve(), solve(), solve();
     cout << fixed << setprecision(3) << x << ' ' << y;
     return 0;
 }

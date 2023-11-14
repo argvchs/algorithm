@@ -9,14 +9,14 @@ int n;
 i64 a, p = 1, aa, pp;
 t64 exgcd(i64 a, i64 b) {
     if (!b) return {1, 0, a};
-    auto [x, y, gcd] = exgcd(b, a % b);
-    return {y, x - a / b * y, gcd};
+    auto [x, y, g] = exgcd(b, a % b);
+    return {y, x - a / b * y, g};
 }
 p64 excrt(i64 a1, i64 p1, i64 a2, i64 p2) {
-    auto [x, y, gcd] = exgcd(p1, p2);
-    i64 lcm = (i128)p1 * p2 / gcd;
-    x = ((i128)x * (a2 - a1) / gcd + p2 / gcd) % (p2 / gcd);
-    return {(p1 * x + a1 + lcm) % lcm, lcm};
+    auto [x, y, g] = exgcd(p1, p2);
+    i64 l = (i128)p1 * p2 / g;
+    x = ((i128)x * (a2 - a1) / g + p2 / g) % (p2 / g);
+    return {(p1 * x + a1 + l) % l, l};
 }
 int main() {
     ios::sync_with_stdio(false);

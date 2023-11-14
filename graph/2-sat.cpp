@@ -18,13 +18,12 @@ void tarjan(int u) {
             low[u] = min(low[u], low[v]);
         } else if (vis[v]) low[u] = min(low[u], dfn[v]);
     }
-    if (dfn[u] == low[u]) {
-        int top = ++tot;
-        do {
-            top = S.top(), S.pop();
-            bel[top] = tot, vis[top] = false;
-        } while (top != u);
-    }
+    if (dfn[u] != low[u]) return;
+    int top = ++tot;
+    do {
+        top = S.top(), S.pop();
+        bel[top] = tot, vis[top] = false;
+    } while (top != u);
 }
 int main() {
     ios::sync_with_stdio(false);

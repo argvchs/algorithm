@@ -22,13 +22,12 @@ void tarjan(int u) {
             low[u] = min(low[u], low[v]);
         } else if (vis[v]) low[u] = min(low[u], dfn[v]);
     }
-    if (dfn[u] == low[u]) {
-        int top = ++tot;
-        do {
-            top = S.top(), S.pop();
-            b[bel[top] = tot] += a[top], vis[top] = false;
-        } while (top != u);
-    }
+    if (dfn[u] != low[u]) return;
+    int top = ++tot;
+    do {
+        top = S.top(), S.pop();
+        b[bel[top] = tot] += a[top], vis[top] = false;
+    } while (top != u);
 }
 void toposort() {
     for (int i = 1; i <= tot; i++)

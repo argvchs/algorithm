@@ -2,7 +2,7 @@
 #include <stack>
 using namespace std;
 const int N = 1e4 + 5, M = 2e4 + 5;
-int n, m, k, dfn[N], low[N], f[N << 1][25], val[N], sum[N << 1], dis1[N], dis2[N << 1],
+int n, m, q, dfn[N], low[N], f[N << 1][25], val[N], sum[N << 1], dis1[N], dis2[N << 1],
     dep[N << 1], head1[N], head2[N << 1], idx, cnt, tot, ans1, ans2;
 struct edge {
     int to, nex, w;
@@ -21,11 +21,12 @@ void tarjan(int u, int fa) {
             tarjan(v, u);
             low[u] = min(low[u], low[v]);
             if (low[v] < dfn[u]) continue;
-            int top, k;
-            sum[++tot] = dis1[S.top()] - dis1[u] + val[S.top()];
+            int top = S.top();
+            sum[++tot] = dis1[top] - dis1[u] + val[top];
             addedge2(u, tot, 0);
             do {
-                k = dis1[top = S.top()] - dis1[u], S.pop();
+                top = S.top(), S.pop();
+                int k = dis1[top] - dis1[u];
                 addedge2(top, tot, min(k, sum[tot] - k));
             } while (top != v);
         } else if (dfn[v] < dfn[fa]) low[u] = min(low[u], dfn[v]), val[u] = w;
@@ -54,14 +55,14 @@ int solve(int u, int v) {
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
-    cin >> n >> m >> k, tot = n;
+    cin >> n >> m >> q, tot = n;
     for (int i = 1, u, v, w; i <= m; i++) {
         cin >> u >> v >> w;
         addedge1(u, v, w);
     }
     tarjan(1, 0);
     dfs(1, 0);
-    for (int i = 1, u, v; i <= k; i++) {
+    for (int i = 1, u, v; i <= q; i++) {
         cin >> u >> v;
         cout << solve(u, v) << '\n';
     }

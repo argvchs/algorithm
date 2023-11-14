@@ -20,12 +20,11 @@ void tarjan(int u, int fa) {
             low[u] = min(low[u], low[v]);
         } else if (i != fa) low[u] = min(low[u], dfn[v]);
     }
-    if (dfn[u] == low[u]) {
-        int top;
-        ans.emplace_back();
-        do ans.back().push_back(top = S.top()), S.pop();
-        while (top != u);
-    }
+    if (dfn[u] != low[u]) return;
+    int top;
+    ans.emplace_back();
+    do ans.back().push_back(top = S.top()), S.pop();
+    while (top != u);
 }
 int main() {
     ios::sync_with_stdio(false);
