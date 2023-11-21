@@ -17,7 +17,7 @@ void spfa() {
     memset(dis, 0x3f, sizeof(dis));
     dis[s] = 0, vis[s] = true, S.push_back(s);
     while (!S.empty()) {
-        if (++tot > 1e4) sort(S.begin(), S.end(), cmp), tot = 0;
+        if (++tot == 1e4) sort(S.begin(), S.end(), cmp), tot = 0;
         int u = S.back();
         vis[u] = false, S.pop_back();
         for (int i = head[u]; i; i = e[i].nex) {
