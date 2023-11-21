@@ -20,7 +20,7 @@ int pairing(int rt) {
     return merge(merge(rt, r1), pairing(r2));
 }
 int removemin(int rt) { return pairing(t[rt].l); }
-int find(int u) { return u == fa[u] ? u : fa[u] = find(fa[u]); }
+int find(int x) { return x == fa[x] ? x : fa[x] = find(fa[x]); }
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);

@@ -49,6 +49,7 @@ void cut(int lt, int rt) {
     if (findroot(rt) == lt && t[rt].fa == lt && !t[rt].ch[0])
         t[rt].fa = t[lt].ch[1] = 0, pushup(lt);
 }
+void update(int rt, int x) { splay(rt), t[rt].val = x; }
 int query(int lt, int rt) {
     makeroot(lt), access(rt), splay(rt);
     return t[rt].sum;
@@ -63,7 +64,7 @@ int main() {
         if (!op) cout << query(x, y) << '\n';
         else if (op == 1) link(x, y);
         else if (op == 2) cut(x, y);
-        else splay(x), t[x].val = y;
+        else update(x, y);
     }
     return 0;
 }

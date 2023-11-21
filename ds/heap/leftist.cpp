@@ -16,7 +16,7 @@ int merge(int lt, int rt) {
     return lt;
 }
 int removemin(int rt) { return merge(t[rt].l, t[rt].r); }
-int find(int u) { return u == fa[u] ? u : fa[u] = find(fa[u]); }
+int find(int x) { return x == fa[x] ? x : fa[x] = find(fa[x]); }
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);

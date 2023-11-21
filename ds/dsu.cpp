@@ -2,7 +2,7 @@
 using namespace std;
 const int N = 1e4 + 5;
 int n, m, fa[N], siz[N];
-int find(int u) { return u == fa[u] ? u : fa[u] = find(fa[u]); }
+int find(int x) { return x == fa[x] ? x : fa[x] = find(fa[x]); }
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);

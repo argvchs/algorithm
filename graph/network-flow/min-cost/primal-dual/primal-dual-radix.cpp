@@ -31,13 +31,13 @@ void spfa() {
         }
     }
 }
-void insert(int u) {
-    int k = bit_width<u32>(dis[u] ^ dis[top]);
-    ++siz[k], pos[u] = buc[k].size(), buc[k].push_back(u);
+void insert(int x) {
+    int k = bit_width<u32>(dis[x] ^ dis[top]);
+    ++siz[k], pos[x] = buc[k].size(), buc[k].push_back(x);
 }
-void update(int u, int w) {
-    int k = bit_width<u32>(dis[u] ^ dis[top]);
-    --siz[k], dis[u] = w, insert(u);
+void update(int x, int y) {
+    int k = bit_width<u32>(dis[x] ^ dis[top]);
+    --siz[k], dis[x] = y, insert(x);
 }
 void removemin() {
     pos[top] = -1, --siz[0];

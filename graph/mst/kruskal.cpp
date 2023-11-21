@@ -7,7 +7,7 @@ struct edge {
     int fr, to, w;
 } e[M];
 bool cmp(edge a, edge b) { return a.w < b.w; }
-int find(int u) { return u == fa[u] ? u : fa[u] = find(fa[u]); }
+int find(int x) { return x == fa[x] ? x : fa[x] = find(fa[x]); }
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);

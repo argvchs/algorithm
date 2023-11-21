@@ -44,13 +44,13 @@ int querysum(int l, int r, int k, int p) {
         ret = (ret + (i64)quickpow(it->val % p, k, p) * (it->r - it->l + 1) % p) % p;
     return ret;
 }
-i64 querykth(int l, int r, int x) {
+i64 querykth(int l, int r, int k) {
     auto ed = split(r + 1), st = split(l);
     tmp.clear();
     for (auto it = st; it != ed; ++it) tmp.emplace_back(it->val, it->r - it->l + 1);
     sort(tmp.begin(), tmp.end());
     for (auto [val, cnt] : tmp)
-        if ((x -= cnt) <= 0) return val;
+        if ((k -= cnt) <= 0) return val;
     return numeric_limits<i64>::max();
 }
 int gen(int x) {

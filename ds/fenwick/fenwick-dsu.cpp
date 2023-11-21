@@ -5,7 +5,7 @@ using i64 = long long;
 const int N = 1e5 + 5;
 int n, m, fa[N];
 i64 a[N], t[N];
-int find(int u) { return u == fa[u] ? u : fa[u] = find(fa[u]); }
+int find(int x) { return x == fa[x] ? x : fa[x] = find(fa[x]); }
 void update(int x, i64 k) {
     for (int i = x; i <= n; i += i & -i) t[i] += k;
 }
