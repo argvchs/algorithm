@@ -4,7 +4,7 @@
 using namespace std;
 using p32 = pair<int, int>;
 const int N = 5e3 + 5, M = 5e4 + 5, INF = 0x3f3f3f3f;
-int n, m, s, t, h[N], dis[N], cur[N], head[N], cnt = 1, ansflow, anscost;
+int n, m, s, t, h[N], dis[N], cur[N], head[N], cnt = 1, flow, cost;
 bool vis[N];
 struct edge {
     int to, nex, w, c;
@@ -66,7 +66,7 @@ void dinic() {
     while (dijkstra()) {
         memcpy(cur, head, sizeof(cur));
         memset(vis, 0, sizeof(vis));
-        while ((ret = dfs(s, INF))) ansflow += ret, anscost += ret * (dis[t] + h[t]);
+        while ((ret = dfs(s, INF))) flow += ret, cost += ret * (dis[t] + h[t]);
         for (int i = 1; i <= n; i++) h[i] += dis[i];
     }
 }
@@ -79,6 +79,6 @@ int main() {
         addflow(u, v, w, c);
     }
     dinic();
-    cout << ansflow << ' ' << anscost;
+    cout << flow << ' ' << cost;
     return 0;
 }

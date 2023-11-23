@@ -3,7 +3,7 @@
 #include <queue>
 using namespace std;
 const int N = 5e3 + 5, M = 5e4 + 5, INF = 0x3f3f3f3f;
-int n, m, s, t, dis[N], cur[N], head[N], cnt = 1, ansflow, anscost;
+int n, m, s, t, dis[N], cur[N], head[N], cnt = 1, flow, cost;
 bool vis[N];
 struct edge {
     int to, nex, w, c;
@@ -48,7 +48,7 @@ void dinic() {
     int ret;
     while (spfa()) {
         memcpy(cur, head, sizeof(cur));
-        while ((ret = dfs(s, INF))) ansflow += ret, anscost += ret * dis[t];
+        while ((ret = dfs(s, INF))) flow += ret, cost += ret * dis[t];
     }
 }
 int main() {
@@ -60,6 +60,6 @@ int main() {
         addflow(u, v, w, c);
     }
     dinic();
-    cout << ansflow << ' ' << anscost;
+    cout << flow << ' ' << cost;
     return 0;
 }
