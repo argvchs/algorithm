@@ -49,31 +49,33 @@ void removemin() {
         while (pos[top = buc[0][beg]] == -1) ++beg;
         return;
     }
-    int now = 0, las = top;
+    int cur = 0, las = top;
     for (int i = 30; i >= 1; i--)
-        if (siz[i]) now = i;
-    siz[now] = beg = top = 0, tmp = move(buc[now]);
-    for (int i = 0; i <= now; i++) buc[i].clear();
+        if (siz[i]) cur = i;
+    siz[cur] = beg = top = 0, tmp = move(buc[cur]);
+    for (int i = 0; i <= cur; i++) buc[i].clear();
     for (int i = 0; i < (int)tmp.size(); i++) {
         int k = bit_width<u32>(dis[tmp[i]] ^ dis[las]);
-        if (k == now && pos[tmp[i]] == i && dis[tmp[i]] <= dis[top]) top = tmp[i];
+        if (k == cur && pos[tmp[i]] == i && dis[tmp[i]] < dis[top]) top = tmp[i];
     }
     for (int i = 0; i < (int)tmp.size(); i++) {
         int k = bit_width<u32>(dis[tmp[i]] ^ dis[las]);
-        if (k == now && pos[tmp[i]] == i) insert(tmp[i]);
+        if (k == cur && pos[tmp[i]] == i) insert(tmp[i]);
     }
 }
 void dijkstra() {
     memset(dis, 0x3f, sizeof(dis));
     dis[top = s] = beg = 0;
-    for (int i = 0; i <= 30; i++) buc[i].clear();
+    for (int i = 0; i <= 30; i++) siz[i] = 0, buc[i].clear();
     for (int i = 1; i <= n; i++) insert(i);
-    for (int i = 1; i <= n; i++, removemin())
+    for (int i = 1; i <= n; i++, removemin()) {
+        if (dis[top] == INF) break;
         for (int j = head[top]; j; j = e[j].nex) {
             int v = e[j].to, w = e[j].w;
             if (dis[v] > dis[top] + w + h[top] - h[v])
                 update(v, dis[top] + w + h[top] - h[v]);
         }
+    }
 }
 int main() {
     ios::sync_with_stdio(false);
