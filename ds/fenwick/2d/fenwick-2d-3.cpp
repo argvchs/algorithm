@@ -11,11 +11,11 @@ void update(int x, int y, int k) {
             t4[i][j] += k * x * y;
         }
 }
-void update(int x, int y, int z, int t, int k) {
+void update(int x, int y, int z, int w, int k) {
     update(x, y, k);
-    update(x, t + 1, -k);
+    update(x, w + 1, -k);
     update(z + 1, y, -k);
-    update(z + 1, t + 1, k);
+    update(z + 1, w + 1, k);
 }
 int query(int x, int y) {
     int ret = 0;
@@ -28,17 +28,17 @@ int query(int x, int y) {
         }
     return ret;
 }
-int query(int x, int y, int z, int t) {
-    return query(z, t) - query(x - 1, t) - query(z, y - 1) + query(x - 1, y - 1);
+int query(int x, int y, int z, int w) {
+    return query(z, w) - query(x - 1, w) - query(z, y - 1) + query(x - 1, y - 1);
 }
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
     cin >> n >> m >> q;
-    for (int i = 1, op, x, y, z, t, k; i <= q; i++) {
-        cin >> op >> x >> y >> z >> t;
-        if (op == 1) cin >> k, update(x, y, z, t, k);
-        else cout << query(x, y, z, t) << '\n';
+    for (int i = 1, op, x, y, z, w, k; i <= q; i++) {
+        cin >> op >> x >> y >> z >> w;
+        if (op == 1) cin >> k, update(x, y, z, w, k);
+        else cout << query(x, y, z, w) << '\n';
     }
     return 0;
 }

@@ -3,7 +3,7 @@
 #include <iostream>
 using namespace std;
 const int N = 1e6 + 5;
-int n, m, l = 1, r, t, a[N], bel[N], cnt[N], siz, cnt1, cnt2, ans;
+int n, m, l = 1, r, t, a[N], bel[N], cnt[N], siz, c1, c2, ans;
 struct query {
     int x, y, t, id, ans;
 } q[N], p[N];
@@ -32,12 +32,12 @@ int main() {
     for (int i = 1, x, y; i <= m; i++) {
         char op;
         cin >> op >> x >> y;
-        if (op == 'Q') q[++cnt1] = {x, y, cnt2, cnt1};
-        else p[++cnt2] = {x, y, cnt2, cnt1};
+        if (op == 'Q') q[++c1] = {x, y, c2, c1};
+        else p[++c2] = {x, y, c2, c1};
     }
     build();
-    sort(q + 1, q + cnt1 + 1, cmp1);
-    for (int i = 1; i <= cnt1; i++) {
+    sort(q + 1, q + c1 + 1, cmp1);
+    for (int i = 1; i <= c1; i++) {
         while (l > q[i].x) insert(--l);
         while (r < q[i].y) insert(++r);
         while (l < q[i].x) remove(l++);
@@ -46,7 +46,7 @@ int main() {
         while (t > q[i].t) update(t--);
         q[i].ans = ans;
     }
-    sort(q + 1, q + cnt1 + 1, cmp2);
-    for (int i = 1; i <= cnt1; i++) cout << q[i].ans << '\n';
+    sort(q + 1, q + c1 + 1, cmp2);
+    for (int i = 1; i <= c1; i++) cout << q[i].ans << '\n';
     return 0;
 }

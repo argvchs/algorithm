@@ -3,7 +3,7 @@
 #include <iostream>
 using namespace std;
 const int N = 1e5 + 5;
-int n, m, l = 1, r, t, a[N], b[N], bel[N], cnt[N], sum[N], siz, cnt1, cnt2, cnt3;
+int n, m, l = 1, r, t, a[N], b[N], bel[N], cnt[N], sum[N], siz, c1, c2, c3;
 struct query {
     int op, x, y, k, t, id, ans;
 } q[N], p[N];
@@ -18,8 +18,8 @@ void build1() {
     for (int i = 1; i <= n; i++) bel[i] = (i - 1) / siz + 1;
 }
 void build2() {
-    siz = sqrt(cnt3);
-    for (int i = 1; i <= cnt3; i++) bel[i] = (i - 1) / siz + 1;
+    siz = sqrt(c3);
+    for (int i = 1; i <= c3; i++) bel[i] = (i - 1) / siz + 1;
 }
 void insert(int x) { ++cnt[a[x]], ++sum[bel[a[x]]]; }
 void remove(int x) { --cnt[a[x]], --sum[bel[a[x]]]; }
@@ -35,8 +35,8 @@ int queryrnk(int x) {
     return ret + 1;
 }
 int querykth(int x) {
-    if (x < 1) return cnt3 + 1;
-    if (x > r - l + 1) return cnt3 + 2;
+    if (x < 1) return c3 + 1;
+    if (x > r - l + 1) return c3 + 2;
     int i = 1, j = 1, k = 0;
     while (k + sum[i] < x) k += sum[i++], j += siz;
     while (k + cnt[j] < x) k += cnt[j++];
@@ -48,26 +48,26 @@ int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
     cin >> n >> m;
-    for (int i = 1; i <= n; i++) cin >> a[i], b[++cnt3] = a[i];
+    for (int i = 1; i <= n; i++) cin >> a[i], b[++c3] = a[i];
     for (int i = 1, op, x, y, z; i <= m; i++) {
         cin >> op >> x >> y;
-        if (op == 3) p[++cnt2] = {op, x, 0, z = y, cnt2, cnt1};
-        else cin >> z, q[++cnt1] = {op, x, y, z, cnt2, cnt1};
-        if (op != 2) b[++cnt3] = z;
+        if (op == 3) p[++c2] = {op, x, 0, z = y, c2, c1};
+        else cin >> z, q[++c1] = {op, x, y, z, c2, c1};
+        if (op != 2) b[++c3] = z;
     }
-    sort(b + 1, b + cnt3 + 1);
-    cnt3 = unique(b + 1, b + cnt3 + 1) - b - 1;
-    for (int i = 1; i <= n; i++) a[i] = lower_bound(b + 1, b + cnt3 + 1, a[i]) - b;
-    for (int i = 1; i <= cnt1; i++)
-        if (q[i].op != 2) q[i].k = lower_bound(b + 1, b + cnt3 + 1, q[i].k) - b;
-    for (int i = 1; i <= cnt2; i++)
-        if (p[i].op != 2) p[i].k = lower_bound(b + 1, b + cnt3 + 1, p[i].k) - b;
-    b[cnt3 + 1] = numeric_limits<int>::min() + 1;
-    b[cnt3 + 2] = numeric_limits<int>::max();
+    sort(b + 1, b + c3 + 1);
+    c3 = unique(b + 1, b + c3 + 1) - b - 1;
+    for (int i = 1; i <= n; i++) a[i] = lower_bound(b + 1, b + c3 + 1, a[i]) - b;
+    for (int i = 1; i <= c1; i++)
+        if (q[i].op != 2) q[i].k = lower_bound(b + 1, b + c3 + 1, q[i].k) - b;
+    for (int i = 1; i <= c2; i++)
+        if (p[i].op != 2) p[i].k = lower_bound(b + 1, b + c3 + 1, p[i].k) - b;
+    b[c3 + 1] = numeric_limits<int>::min() + 1;
+    b[c3 + 2] = numeric_limits<int>::max();
     build1();
-    sort(q + 1, q + cnt1 + 1, cmp1);
+    sort(q + 1, q + c1 + 1, cmp1);
     build2();
-    for (int i = 1; i <= cnt1; i++) {
+    for (int i = 1; i <= c1; i++) {
         while (l > q[i].x) insert(--l);
         while (r < q[i].y) insert(++r);
         while (l < q[i].x) remove(l++);
@@ -79,7 +79,7 @@ int main() {
         else if (q[i].op == 4) q[i].ans = b[querypre(q[i].k)];
         else q[i].ans = b[querynex(q[i].k)];
     }
-    sort(q + 1, q + cnt1 + 1, cmp2);
-    for (int i = 1; i <= cnt1; i++) cout << q[i].ans << '\n';
+    sort(q + 1, q + c1 + 1, cmp2);
+    for (int i = 1; i <= c1; i++) cout << q[i].ans << '\n';
     return 0;
 }

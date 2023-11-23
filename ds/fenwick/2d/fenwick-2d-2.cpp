@@ -6,11 +6,11 @@ void update(int x, int y, int k) {
     for (int i = x; i <= n; i += i & -i)
         for (int j = y; j <= n; j += j & -j) t[i][j] += k;
 }
-void update(int x, int y, int z, int t, int k) {
+void update(int x, int y, int z, int w, int k) {
     update(x, y, k);
-    update(x, t + 1, -k);
+    update(x, w + 1, -k);
     update(z + 1, y, -k);
-    update(z + 1, t + 1, k);
+    update(z + 1, w + 1, k);
 }
 int query(int x, int y) {
     int ret = 0;
@@ -22,9 +22,9 @@ int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
     cin >> n >> m >> q;
-    for (int i = 1, op, x, y, z, t, k; i <= q; i++) {
+    for (int i = 1, op, x, y, z, w, k; i <= q; i++) {
         cin >> op >> x >> y;
-        if (op == 1) cin >> z >> t >> k, update(x, y, z, t, k);
+        if (op == 1) cin >> z >> w >> k, update(x, y, z, w, k);
         else cout << query(x, y) << '\n';
     }
     return 0;
