@@ -11,7 +11,7 @@ bool vis[N];
 struct edge {
     int to, nex, w;
 } e[M << 1];
-vector<int> buc[35], tmp;
+vector<int> buc[35];
 void add(int u, int v, int w) { e[++cnt] = {v, head[u], w}, head[u] = cnt; }
 void insert(int x) {
     int k = bit_width<u32>(dis[x] ^ dis[top]);

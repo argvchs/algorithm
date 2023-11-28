@@ -14,7 +14,7 @@ struct edge {
     int to, nex, w;
 } e[M << 1];
 queue<int> Q;
-vector<int> buc[35], tmp;
+vector<int> buc[35];
 void add(int u, int v, int w) { e[++cnt] = {v, head[u], w}, head[u] = cnt; }
 bool spfa() {
     memset(h, 0x3f, sizeof(h));
