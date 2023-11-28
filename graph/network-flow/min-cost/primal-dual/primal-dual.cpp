@@ -16,7 +16,7 @@ void addflow(int u, int v, int w, int c) { add(u, v, w, c), add(v, u, 0, -c); }
 void spfa() {
     memset(h, 0x3f, sizeof(h));
     h[s] = 0, vis[s] = true, Q.push(s);
-    while (!Q.empty()) {
+    while (Q.size()) {
         int u = Q.front();
         vis[u] = false, Q.pop();
         for (int i = head[u]; i; i = e[i].nex) {
@@ -32,7 +32,7 @@ bool dijkstra() {
     memset(dis, 0x3f, sizeof(dis));
     memset(vis, 0, sizeof(vis));
     PQ.emplace(dis[s] = 0, s);
-    while (!PQ.empty()) {
+    while (PQ.size()) {
         int u = PQ.top().second;
         PQ.pop();
         if (vis[u]) continue;
@@ -40,7 +40,7 @@ bool dijkstra() {
         for (int i = head[u]; i; i = e[i].nex) {
             int v = e[i].to, w = e[i].w, c = e[i].c;
             if (dis[v] > dis[u] + c + h[u] - h[v] && w)
-                dis[v] = dis[u] + c + h[u] - h[v], PQ.emplace(dis[v], v);
+                PQ.emplace(dis[v] = dis[u] + c + h[u] - h[v], v);
         }
     }
     return dis[t] != INF;

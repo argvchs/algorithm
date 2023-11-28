@@ -18,7 +18,7 @@ bool spfa() {
     memset(h, 0x3f, sizeof(h));
     h[n + 1] = 0, vis[n + 1] = true, Q.push(n + 1);
     for (int i = 1; i <= n; i++) add(n + 1, i, 0);
-    while (!Q.empty()) {
+    while (Q.size()) {
         int u = Q.front();
         vis[u] = false, Q.pop();
         for (int i = head[u]; i; i = e[i].nex) {
@@ -37,7 +37,7 @@ void dijkstra() {
     memset(dis, 0x3f, sizeof(dis));
     memset(vis, 0, sizeof(vis));
     PQ.emplace(dis[s] = 0, s);
-    while (!PQ.empty()) {
+    while (PQ.size()) {
         int u = PQ.top().second;
         PQ.pop();
         if (vis[u]) continue;
@@ -45,7 +45,7 @@ void dijkstra() {
         for (int i = head[u]; i; i = e[i].nex) {
             int v = e[i].to, w = e[i].w;
             if (dis[v] > dis[u] + w + h[u] - h[v])
-                dis[v] = dis[u] + w + h[u] - h[v], PQ.emplace(dis[v], v);
+                PQ.emplace(dis[v] = dis[u] + w + h[u] - h[v], v);
         }
     }
 }

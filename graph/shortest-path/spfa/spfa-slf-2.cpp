@@ -14,7 +14,7 @@ void add(int u, int v, int w) { e[++cnt] = {v, head[u], w}, head[u] = cnt; }
 void spfa() {
     memset(dis, 0x3f, sizeof(dis));
     dis[s] = 0, vis[s] = true, Q.push_back(s);
-    while (!Q.empty()) {
+    while (Q.size()) {
         int u = Q.front();
         vis[u] = false, Q.pop_front();
         for (int i = head[u]; i; i = e[i].nex) {
@@ -23,7 +23,7 @@ void spfa() {
                 dis[v] = dis[u] + w;
                 if (vis[v]) continue;
                 vis[v] = true;
-                if (!Q.empty() && dis[v] - dis[Q.front()] > 1e3) Q.push_back(v);
+                if (Q.size() && dis[v] - dis[Q.front()] > 1e3) Q.push_back(v);
                 else Q.push_front(v);
                 if (dis[Q.front()] > dis[Q.back()]) swap(Q.front(), Q.back());
             }

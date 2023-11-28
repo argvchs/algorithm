@@ -15,7 +15,7 @@ bool spfa() {
     memset(dis, 0x3f, sizeof(dis));
     memset(vis, 0, sizeof(vis));
     dis[s] = 0, vis[s] = true, Q.push(s);
-    while (!Q.empty()) {
+    while (Q.size()) {
         int u = Q.front();
         vis[u] = false, Q.pop();
         for (int i = head[u]; i; i = e[i].nex) {

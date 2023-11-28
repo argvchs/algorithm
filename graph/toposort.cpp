@@ -11,7 +11,7 @@ void add(int u, int v) { e[++cnt] = {v, head[u]}, head[u] = cnt; }
 void toposort() {
     for (int i = 1; i <= n; i++)
         if (!deg[i]) cout << i << ' ', Q.push(i);
-    while (!Q.empty()) {
+    while (Q.size()) {
         int u = Q.front();
         Q.pop();
         for (int i = head[u]; i; i = e[i].nex) {

@@ -16,7 +16,7 @@ void addflow(int u, int v, int w) { add(u, v, w), add(v, u, 0); }
 bool bfs() {
     memset(ht, 0x3f, sizeof(ht));
     ht[t] = 0, vis[t] = true, Q.push(t);
-    while (!Q.empty()) {
+    while (Q.size()) {
         int u = Q.front();
         Q.pop();
         for (int i = head[u]; i; i = e[i].nex) {
@@ -54,7 +54,7 @@ void hlpp() {
         if (ht[i] < n) ++gap[ht[i]];
     memcpy(cur, head, sizeof(cur));
     push(s);
-    while (!PQ.empty()) {
+    while (PQ.size()) {
         int u = PQ.top().second;
         PQ.pop();
         if (!push(u)) continue;

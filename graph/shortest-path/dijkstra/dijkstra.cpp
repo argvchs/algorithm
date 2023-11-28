@@ -15,14 +15,14 @@ void add(int u, int v, int w) { e[++cnt] = {v, head[u], w}, head[u] = cnt; }
 void dijkstra() {
     memset(dis, 0x3f, sizeof(dis));
     Q.emplace(dis[s] = 0, s);
-    while (!Q.empty()) {
+    while (Q.size()) {
         int u = Q.top().second;
         Q.pop();
         if (vis[u]) continue;
         vis[u] = true;
         for (int i = head[u]; i; i = e[i].nex) {
             int v = e[i].to, w = e[i].w;
-            if (dis[v] > dis[u] + w) dis[v] = dis[u] + w, Q.emplace(dis[v], v);
+            if (dis[v] > dis[u] + w) Q.emplace(dis[v] = dis[u] + w, v);
         }
     }
 }

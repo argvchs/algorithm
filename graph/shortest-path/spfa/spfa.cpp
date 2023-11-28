@@ -14,7 +14,7 @@ void add(int u, int v, int w) { e[++cnt] = {v, head[u], w}, head[u] = cnt; }
 void spfa() {
     memset(dis, 0x3f, sizeof(dis));
     dis[s] = 0, vis[s] = true, Q.push(s);
-    while (!Q.empty()) {
+    while (Q.size()) {
         int u = Q.front();
         vis[u] = false, Q.pop();
         for (int i = head[u]; i; i = e[i].nex) {

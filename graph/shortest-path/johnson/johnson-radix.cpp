@@ -7,7 +7,7 @@ using u32 = unsigned;
 using i64 = long long;
 using p32 = pair<int, int>;
 const int N = 3e3 + 5, M = 6e3 + 5, INF = 0x3f3f3f3f;
-int n, m, s, h[N], dis[N], tot[N], pos[N], siz[35], head[N], cnt, beg, top;
+int n, m, s, h[N], dis[N], tot[N], pos[N], head[N], cnt, top;
 i64 ans;
 bool vis[N];
 struct edge {
@@ -20,7 +20,7 @@ bool spfa() {
     memset(h, 0x3f, sizeof(h));
     h[n + 1] = 0, vis[n + 1] = true, Q.push(n + 1);
     for (int i = 1; i <= n; i++) add(n + 1, i, 0);
-    while (!Q.empty()) {
+    while (Q.size()) {
         int u = Q.front();
         vis[u] = false, Q.pop();
         for (int i = head[u]; i; i = e[i].nex) {
@@ -37,36 +37,29 @@ bool spfa() {
 }
 void insert(int x) {
     int k = bit_width<u32>(dis[x] ^ dis[top]);
-    ++siz[k], pos[x] = buc[k].size(), buc[k].push_back(x);
+    pos[x] = buc[k].size(), buc[k].push_back(x);
 }
-void update(int x, int y) {
+void remove(int x) {
     int k = bit_width<u32>(dis[x] ^ dis[top]);
-    --siz[k], dis[x] = y, insert(x);
+    buc[k][pos[x]] = buc[k].back();
+    pos[buc[k].back()] = pos[x], buc[k].pop_back();
 }
+void update(int x, int y) { remove(x), dis[x] = y, insert(x); }
 void removemin() {
-    pos[top] = -1, --siz[0];
-    if (siz[0]) {
-        while (pos[top = buc[0][beg]] == -1) ++beg;
-        return;
-    }
-    int cur = 0, las = top;
-    for (int i = 30; i >= 1; i--)
-        if (siz[i]) cur = i;
-    siz[cur] = beg = top = 0, tmp = move(buc[cur]);
-    for (int i = 0; i <= cur; i++) buc[i].clear();
-    for (int i = 0; i < (int)tmp.size(); i++) {
-        int k = bit_width<u32>(dis[tmp[i]] ^ dis[las]);
-        if (k == cur && pos[tmp[i]] == i && dis[tmp[i]] < dis[top]) top = tmp[i];
-    }
-    for (int i = 0; i < (int)tmp.size(); i++) {
-        int k = bit_width<u32>(dis[tmp[i]] ^ dis[las]);
-        if (k == cur && pos[tmp[i]] == i) insert(tmp[i]);
+    remove(top), top = 0;
+    if (buc[0].size()) return void(top = buc[0][0]);
+    for (int i = 1; i <= 30; i++) {
+        if (buc[i].empty()) continue;
+        for (int j : buc[i])
+            if (dis[j] < dis[top]) top = j;
+        for (int j : buc[i]) insert(j);
+        return buc[i].clear();
     }
 }
 void dijkstra() {
     memset(dis, 0x3f, sizeof(dis));
-    dis[top = s] = beg = 0;
-    for (int i = 0; i <= 30; i++) siz[i] = 0, buc[i].clear();
+    dis[top = s] = 0;
+    for (int i = 0; i <= 30; i++) buc[i].clear();
     for (int i = 1; i <= n; i++) insert(i);
     for (int i = 1; i <= n; i++, removemin()) {
         if (dis[top] == INF) break;

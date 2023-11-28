@@ -16,7 +16,7 @@ bool cmp(node a, node b) { return a.l < b.l; }
 set<node, decltype(&cmp)> S(cmp);
 vector<p64> tmp;
 auto split(int x) {
-    auto it = prev(S.upper_bound({x}));
+    auto it = --S.upper_bound({x});
     if (it->l == x) return it;
     int l = it->l, r = it->r;
     i64 val = it->val;

@@ -32,7 +32,7 @@ void tarjan(int u) {
 void toposort() {
     for (int i = 1; i <= tot; i++)
         if (!deg[i]) dis[i] = b[i], Q.push(i);
-    while (!Q.empty()) {
+    while (Q.size()) {
         int u = Q.front();
         Q.pop();
         for (int i = head2[u]; i; i = e[i].nex) {
