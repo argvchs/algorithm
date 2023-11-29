@@ -16,10 +16,10 @@ void pushdown(int rt) {
 bool get(int rt) { return rt == t[t[rt].fa].ch[1]; }
 bool isroot(int rt) { return rt != t[t[rt].fa].ch[0] && rt != t[t[rt].fa].ch[1]; }
 void rotate(int rt) {
-    int fa = t[rt].fa, w = get(rt);
+    int fa = t[rt].fa, k = get(rt);
     if (!isroot(fa)) t[t[fa].fa].ch[get(fa)] = rt;
-    t[rt].fa = t[fa].fa, t[fa].fa = rt, t[t[rt].ch[!w]].fa = fa;
-    t[fa].ch[w] = t[rt].ch[!w], t[rt].ch[!w] = fa;
+    t[rt].fa = t[fa].fa, t[fa].fa = rt, t[t[rt].ch[!k]].fa = fa;
+    t[fa].ch[k] = t[rt].ch[!k], t[rt].ch[!k] = fa;
     pushup(fa), pushup(rt);
 }
 void pushall(int rt) {
@@ -32,7 +32,8 @@ void splay(int rt) {
         if (!isroot(fa)) rotate(get(rt) == get(fa) ? fa : rt);
 }
 void access(int rt) {
-    for (int ch = 0; rt; ch = rt, rt = t[rt].fa) splay(rt), t[rt].ch[1] = ch, pushup(rt);
+    for (int las = 0; rt; las = rt, rt = t[rt].fa)
+        splay(rt), t[rt].ch[1] = las, pushup(rt);
 }
 void makeroot(int rt) { access(rt), splay(rt), t[rt].rev ^= 1; }
 int findroot(int rt) {

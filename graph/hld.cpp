@@ -4,8 +4,8 @@ using namespace std;
 using i64 = long long;
 using p32 = pair<int, int>;
 const int N = 1e5 + 5;
-int n, m, p, rt, a[N], b1[N], b2[N], ifn[N], ofn[N], fa[N], ch[N], dep[N], siz[N], top[N],
-    idx, cnt, head[N];
+int n, m, p, rt, a[N], b1[N], b2[N], dfn[N], fa[N], ch[N], dep[N], siz[N], top[N], idx,
+    cnt, head[N];
 struct edge {
     int to, nex;
 } e[N << 1];
@@ -22,15 +22,13 @@ void dfs1(int u, int fa) {
     }
 }
 void dfs2(int u, int fa, int top) {
-    ::top[u] = top, ifn[u] = ++idx;
-    if (ch[u]) {
-        dfs2(ch[u], u, top);
-        for (int i = head[u]; i; i = e[i].nex) {
-            int v = e[i].to;
-            if (v != fa && v != ch[u]) dfs2(v, u, v);
-        }
+    ::top[u] = top, dfn[u] = ++idx;
+    if (!ch[u]) return;
+    dfs2(ch[u], u, top);
+    for (int i = head[u]; i; i = e[i].nex) {
+        int v = e[i].to;
+        if (v != fa && v != ch[u]) dfs2(v, u, v);
     }
-    ofn[u] = idx;
 }
 void solve(int u, int v) {
     tmp.clear();
@@ -66,23 +64,23 @@ int main() {
     }
     dfs1(rt, 0);
     dfs2(rt, 0, rt);
-    for (int i = 1; i <= n; i++) update(ifn[i], ifn[i], a[i]);
+    for (int i = 1; i <= n; i++) update(dfn[i], dfn[i], a[i]);
     for (int i = 1, op, x, y, z; i <= m; i++) {
         cin >> op >> x;
         if (op == 1) {
             cin >> y >> z;
             solve(x, y);
-            for (auto [u, v] : tmp) update(ifn[u], ifn[v], z);
+            for (auto [u, v] : tmp) update(dfn[u], dfn[v], z);
         } else if (op == 2) {
             cin >> y;
             solve(x, y);
             int ans = 0;
-            for (auto [u, v] : tmp) ans = (ans + query(ifn[u], ifn[v])) % p;
+            for (auto [u, v] : tmp) ans = (ans + query(dfn[u], dfn[v])) % p;
             cout << ans << '\n';
         } else if (op == 3) {
             cin >> y;
-            update(ifn[x], ofn[x], y);
-        } else cout << query(ifn[x], ofn[x]) << '\n';
+            update(dfn[x], dfn[x] + siz[x] - 1, y);
+        } else cout << query(dfn[x], dfn[x] + siz[x] - 1) << '\n';
     }
     return 0;
 }

@@ -16,7 +16,7 @@ int main() {
         int r = i;
         for (int j = i; j <= n; j++)
             if (abs(a[j][i]) > abs(a[r][i])) r = j;
-        swap(a[r], a[i]);
+        if (i != r) swap(a[i], a[r]);
         if (abs(a[i][i]) < EPS) return cout << "No Solution", 0;
         for (int j = 1; j <= n; j++) {
             if (i == j) continue;
