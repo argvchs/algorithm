@@ -12,7 +12,6 @@ struct node {
     bool rev;
 } t[N];
 mt19937 rng(chrono::steady_clock::now().time_since_epoch().count());
-stack<int> S;
 void pushup(int rt) { t[rt].siz = t[t[rt].l].siz + t[t[rt].r].siz + 1; }
 void pushdown(int rt) {
     if (!t[rt].rev) return;
