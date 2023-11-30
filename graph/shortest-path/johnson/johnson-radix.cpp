@@ -44,7 +44,7 @@ void remove(int x) {
     buc[k][pos[x]] = buc[k].back();
     pos[buc[k].back()] = pos[x], buc[k].pop_back();
 }
-void update(int x, int y) { remove(x), dis[x] = y, insert(x); }
+void update(int x, int k) { remove(x), dis[x] = k, insert(x); }
 void removemin() {
     remove(top), top = 0;
     if (buc[0].size()) return void(top = buc[0][0]);

@@ -41,9 +41,9 @@ int dfs(int u, int flow) {
     return used;
 }
 void dinic() {
-    int ret;
     while (bfs()) {
         memcpy(cur, head, sizeof(cur));
+        int ret;
         while ((ret = dfs(s, INF))) ans += ret;
     }
 }

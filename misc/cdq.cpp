@@ -2,7 +2,7 @@
 #include <iostream>
 using namespace std;
 const int N = 2e5 + 5;
-int n, m, bit[N], ans[N], cnt;
+int n, m, t[N], ans[N], cnt;
 struct node {
     int a, b, c, cnt, ans;
 } a[N], b[N];
@@ -18,11 +18,11 @@ bool cmp2(node a, node b) {
 }
 bool cmp3(node a, node b) { return a.a == b.a && a.b == b.b && a.c == b.c; }
 void update(int x, int k) {
-    for (int i = x; i <= m; i += i & -i) bit[i] += k;
+    for (int i = x; i <= m; i += i & -i) t[i] += k;
 }
 int query(int x) {
     int ret = 0;
-    for (int i = x; i >= 1; i -= i & -i) ret += bit[i];
+    for (int i = x; i >= 1; i -= i & -i) ret += t[i];
     return ret;
 }
 void solve(int l, int r) {

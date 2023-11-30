@@ -39,9 +39,9 @@ int dfs(int u, int flow) {
     return used;
 }
 void dinic() {
-    int ret;
     while (bfs()) {
         memcpy(cur, head, sizeof(cur));
+        int ret;
         while ((ret = dfs(s, INF))) ans += ret;
     }
 }
@@ -79,7 +79,8 @@ int main() {
             cout << "-1\n\n";
             continue;
         }
-        sum = e[cnt].w, ans = e[cnt].w = e[cnt ^ 1].w = 0;
+        sum = e[cnt].w;
+        ans = e[cnt].w = e[cnt ^ 1].w = 0;
         s = s1, t = t1, dinic();
         cout << sum + ans << "\n\n";
     }

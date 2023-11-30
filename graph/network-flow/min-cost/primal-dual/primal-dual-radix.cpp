@@ -82,11 +82,11 @@ int dfs(int u, int flow) {
     return used;
 }
 void dinic() {
-    int ret;
     spfa();
     while (dijkstra()) {
         memcpy(cur, head, sizeof(cur));
         memset(vis, 0, sizeof(vis));
+        int ret;
         while ((ret = dfs(s, INF))) flow += ret, cost += ret * (dis[t] + h[t]);
         for (int i = 1; i <= n; i++) h[i] += dis[i];
     }
