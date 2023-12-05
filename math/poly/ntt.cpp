@@ -3,7 +3,7 @@ using namespace std;
 using i64 = long long;
 const int N = 3e6 + 5, P = 998244353;
 int n, m, a[N], b[N], r[N], lim = 1, cnt;
-int quickpow(int a, int b) {
+int qpow(int a, int b) {
     int ret = 1;
     for (int i = b; i; i >>= 1, a = (i64)a * a % P)
         if (i & 1) ret = (i64)ret * a % P;
@@ -13,7 +13,7 @@ void ntt(int a[], int t) {
     for (int i = 0; i < lim; i++)
         if (i < r[i]) swap(a[i], a[r[i]]);
     for (int i = 1; i < lim; i <<= 1) {
-        int wn = quickpow(t == 1 ? 3 : 332748118, (P - 1) / (i << 1));
+        int wn = qpow(t == 1 ? 3 : 332748118, (P - 1) / (i << 1));
         for (int j = 0; j < lim; j += i << 1)
             for (int k = 0, w = 1; k < i; k++, w = (i64)w * wn % P) {
                 int x = a[j + k], y = (i64)a[j + k + i] * w % P;
@@ -21,7 +21,7 @@ void ntt(int a[], int t) {
             }
     }
     if (t == 1) return;
-    int inv = quickpow(lim, P - 2);
+    int inv = qpow(lim, P - 2);
     for (int i = 0; i < lim; i++) a[i] = (i64)a[i] * inv % P;
 }
 int main() {

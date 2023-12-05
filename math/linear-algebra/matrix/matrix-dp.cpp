@@ -16,7 +16,7 @@ matrix operator*(matrix a, matrix b) {
                 ret.a[i][j] = (ret.a[i][j] + (i64)a.a[i][k] * b.a[k][j]) % P;
     return ret;
 }
-matrix quickpow(matrix a, int b) {
+matrix qpow(matrix a, int b) {
     matrix ret;
     memset(ret.a, 0, sizeof(ret.a));
     for (int i = 1; i <= 3; i++) ret.a[i][i] = 1;
@@ -32,7 +32,7 @@ int main() {
         cin >> n;
         a.a[1][2] = a.a[2][3] = a.a[3][1] = a.a[3][3] = 1;
         b.a[1][1] = b.a[2][1] = b.a[3][1] = 1;
-        cout << (quickpow(a, n - 1) * b).a[1][1] << '\n';
+        cout << (qpow(a, n - 1) * b).a[1][1] << '\n';
     }
     return 0;
 }

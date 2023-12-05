@@ -31,7 +31,7 @@ void update(int l, int r, int k) {
     auto ed = split(r + 1), st = split(l);
     for (auto it = st; it != ed; ++it) it->val += k;
 }
-int quickpow(int a, int b, int p) {
+int qpow(int a, int b, int p) {
     int ret = 1;
     for (int i = b; i; i >>= 1, a = (i64)a * a % p)
         if (i & 1) ret = (i64)ret * a % p;
@@ -41,7 +41,7 @@ int querysum(int l, int r, int k, int p) {
     auto ed = split(r + 1), st = split(l);
     int ret = 0;
     for (auto it = st; it != ed; ++it)
-        ret = (ret + (i64)quickpow(it->val % p, k, p) * (it->r - it->l + 1) % p) % p;
+        ret = (ret + (i64)qpow(it->val % p, k, p) * (it->r - it->l + 1) % p) % p;
     return ret;
 }
 i64 querykth(int l, int r, int k) {
