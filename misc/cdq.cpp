@@ -25,10 +25,10 @@ int query(int x) {
     for (int i = x; i >= 1; i -= i & -i) ret += t[i];
     return ret;
 }
-void solve(int l, int r) {
+void cdq(int l, int r) {
     if (l == r) return;
     int mid = (l + r) >> 1;
-    solve(l, mid), solve(mid + 1, r);
+    cdq(l, mid), cdq(mid + 1, r);
     sort(a + l, a + r + 1, cmp2);
     for (int i = l; i <= r; i++)
         if (a[i].a <= mid) update(a[i].c, a[i].cnt);
@@ -47,7 +47,7 @@ int main() {
     for (int i = 1, j = 1; i <= cnt; i++)
         while (j <= n && cmp3(a[i], b[j])) ++j, ++a[i].cnt;
     for (int i = 1; i <= cnt; i++) a[i].a = i;
-    solve(1, cnt);
+    cdq(1, cnt);
     for (int i = 1; i <= cnt; i++) ans[a[i].ans + a[i].cnt - 1] += a[i].cnt;
     for (int i = 1; i <= n; i++) cout << ans[i - 1] << '\n';
     return 0;

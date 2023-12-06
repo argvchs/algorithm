@@ -6,8 +6,8 @@ const int N = 2e3 + 5, P = 998244353;
 int n, m, a[N], b[N], ans;
 int qpow(int a, int b) {
     int ret = 1;
-    for (int i = b; i; i >>= 1, a = (i64)a * a % P)
-        if (i & 1) ret = (i64)ret * a % P;
+    for (; b; b >>= 1, a = (i64)a * a % P)
+        if (b & 1) ret = (i64)ret * a % P;
     return ret;
 }
 int main() {
@@ -16,13 +16,13 @@ int main() {
     cin >> n >> m;
     for (int i = 1; i <= n; i++) cin >> a[i] >> b[i];
     for (int i = 1; i <= n; i++) {
-        int s1 = 1, s2 = 1;
+        int x = 1, y = 1;
         for (int j = 1; j <= n; j++) {
             if (i == j) continue;
-            s1 = (i64)s1 * (m - a[j] + P) % P;
-            s2 = (i64)s2 * (a[i] - a[j] + P) % P;
+            x = (i64)x * (m - a[j] + P) % P;
+            y = (i64)y * (a[i] - a[j] + P) % P;
         }
-        ans = (ans + (i64)b[i] * s1 % P * qpow(s2, P - 2)) % P;
+        ans = (ans + (i64)b[i] * x % P * qpow(y, P - 2)) % P;
     }
     cout << ans;
     return 0;

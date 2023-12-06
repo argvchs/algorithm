@@ -14,7 +14,7 @@ struct edge {
     int to, nex, w;
 } e[M << 1];
 queue<int> Q;
-vector<int> buc[35];
+vector<int> buc[32];
 void add(int u, int v, int w) { e[++cnt] = {v, head[u], w}, head[u] = cnt; }
 bool spfa() {
     memset(h, 0x3f, sizeof(h));
@@ -48,7 +48,7 @@ void update(int x, int k) { remove(x), dis[x] = k, insert(x); }
 void removemin() {
     remove(top), top = 0;
     if (buc[0].size()) return void(top = buc[0][0]);
-    for (int i = 1; i <= 30; i++) {
+    for (int i = 1; i <= 31; i++) {
         if (buc[i].empty()) continue;
         for (int j : buc[i])
             if (dis[j] < dis[top]) top = j;
@@ -59,16 +59,14 @@ void removemin() {
 void dijkstra() {
     memset(dis, 0x3f, sizeof(dis));
     dis[top = s] = 0;
-    for (int i = 0; i <= 30; i++) buc[i].clear();
+    for (int i = 0; i <= 31; i++) buc[i].clear();
     for (int i = 1; i <= n; i++) insert(i);
-    for (int i = 1; i <= n; i++, removemin()) {
-        if (dis[top] == INF) break;
+    for (; top; removemin())
         for (int j = head[top]; j; j = e[j].nex) {
             int v = e[j].to, w = e[j].w;
             if (dis[v] > dis[top] + w + h[top] - h[v])
                 update(v, dis[top] + w + h[top] - h[v]);
         }
-    }
 }
 int main() {
     ios::sync_with_stdio(false);

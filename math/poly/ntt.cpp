@@ -5,8 +5,8 @@ const int N = 3e6 + 5, P = 998244353;
 int n, m, a[N], b[N], r[N], lim = 1, cnt;
 int qpow(int a, int b) {
     int ret = 1;
-    for (int i = b; i; i >>= 1, a = (i64)a * a % P)
-        if (i & 1) ret = (i64)ret * a % P;
+    for (; b; b >>= 1, a = (i64)a * a % P)
+        if (b & 1) ret = (i64)ret * a % P;
     return ret;
 }
 void ntt(int a[], int t) {

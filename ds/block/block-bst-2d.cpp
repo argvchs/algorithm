@@ -49,11 +49,11 @@ int main() {
     cin.tie(nullptr);
     cin >> n >> m;
     for (int i = 1; i <= n; i++) cin >> a[i], b[++c3] = a[i];
-    for (int i = 1, op, x, y, z; i <= m; i++) {
+    for (int i = 1, op, x, y, k; i <= m; i++) {
         cin >> op >> x >> y;
-        if (op == 3) p[++c2] = {op, x, 0, z = y, c2, c1};
-        else cin >> z, q[++c1] = {op, x, y, z, c2, c1};
-        if (op != 2) b[++c3] = z;
+        if (op == 3) p[++c2] = {op, x, 0, k = y, c2, c1};
+        else cin >> k, q[++c1] = {op, x, y, k, c2, c1};
+        if (op != 2) b[++c3] = k;
     }
     sort(b + 1, b + c3 + 1);
     c3 = unique(b + 1, b + c3 + 1) - b - 1;

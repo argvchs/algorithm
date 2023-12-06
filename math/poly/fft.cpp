@@ -4,7 +4,7 @@ using namespace std;
 using f64 = double;
 using c64 = complex<f64>;
 const int N = 3e6 + 5;
-const f64 PI = numbers::pi;
+const f64 PI = acos(-1);
 int n, m, r[N], lim = 1, cnt;
 c64 a[N], b[N];
 void fft(c64 a[], int t) {

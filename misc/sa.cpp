@@ -20,7 +20,7 @@ f80 calc(f80 x, f80 y) {
     if (ret < ans) ans = ret, ::x = x, ::y = y;
     return ret;
 }
-void solve() {
+void sa() {
     f80 x = ::x, y = ::y, t = 1e3;
     while (t > EPS) {
         f80 xx = x + (dist(rng) * 2 - 1) * t;
@@ -42,7 +42,7 @@ int main() {
     for (int i = 1; i <= n; i++) cin >> a[i] >> b[i] >> c[i];
     for (int i = 1; i <= n; i++) x += a[i], y += b[i];
     ans = calc(x /= n, y /= n);
-    solve(), solve(), solve();
+    sa(), sa(), sa();
     cout << fixed << setprecision(3) << x << ' ' << y;
     return 0;
 }

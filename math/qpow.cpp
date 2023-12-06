@@ -4,8 +4,8 @@ using i64 = long long;
 int a, b, p;
 int qpow(int a, int b, int p) {
     int ret = 1;
-    for (int i = b; i; i >>= 1, a = (i64)a * a % p)
-        if (i & 1) ret = (i64)ret * a % p;
+    for (; b; b >>= 1, a = (i64)a * a % p)
+        if (b & 1) ret = (i64)ret * a % p;
     return ret;
 }
 int main() {

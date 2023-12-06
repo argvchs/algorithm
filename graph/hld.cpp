@@ -30,7 +30,7 @@ void dfs2(int u, int fa, int top) {
         if (v != fa && v != ch[u]) dfs2(v, u, v);
     }
 }
-void solve(int u, int v) {
+void split(int u, int v) {
     tmp.clear();
     while (top[u] != top[v]) {
         if (dep[top[u]] < dep[top[v]]) swap(u, v);
@@ -65,15 +65,15 @@ int main() {
     dfs1(rt, 0);
     dfs2(rt, 0, rt);
     for (int i = 1; i <= n; i++) update(dfn[i], dfn[i], a[i]);
-    for (int i = 1, op, x, y, z; i <= m; i++) {
+    for (int i = 1, op, x, y, k; i <= m; i++) {
         cin >> op >> x;
         if (op == 1) {
-            cin >> y >> z;
-            solve(x, y);
-            for (auto [u, v] : tmp) update(dfn[u], dfn[v], z);
+            cin >> y >> k;
+            split(x, y);
+            for (auto [u, v] : tmp) update(dfn[u], dfn[v], k);
         } else if (op == 2) {
             cin >> y;
-            solve(x, y);
+            split(x, y);
             int ans = 0;
             for (auto [u, v] : tmp) ans = (ans + query(dfn[u], dfn[v])) % p;
             cout << ans << '\n';

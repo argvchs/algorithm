@@ -3,7 +3,7 @@
 using namespace std;
 const int N = 1e4 + 5, M = 2e4 + 5;
 int n, m, q, dfn[N], low[N], f[N << 1][25], val[N], sum[N << 1], dis1[N], dis2[N << 1],
-    dep[N << 1], head1[N], head2[N << 1], idx, cnt, tot, ans1, ans2;
+    dep[N << 1], head1[N], head2[N << 1], idx, cnt, tot;
 struct edge {
     int to, nex, w;
 } e[M << 2];
@@ -40,7 +40,7 @@ void dfs(int u, int fa) {
         if (v != fa) dis2[v] = dis2[u] + w, dfs(v, u);
     }
 }
-int solve(int u, int v) {
+int query(int u, int v) {
     int ret = dis2[u] + dis2[v];
     if (dep[u] < dep[v]) swap(u, v);
     for (int i = 20; i >= 0; i--)
@@ -64,7 +64,7 @@ int main() {
     dfs(1, 0);
     for (int i = 1, u, v; i <= q; i++) {
         cin >> u >> v;
-        cout << solve(u, v) << '\n';
+        cout << query(u, v) << '\n';
     }
     return 0;
 }

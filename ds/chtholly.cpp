@@ -7,7 +7,7 @@ using namespace std;
 using i64 = long long;
 using p64 = pair<i64, i64>;
 const int P = 1e9 + 7;
-int n, m, s, p;
+int n, m, s, v;
 struct node {
     int l, r;
     mutable i64 val;
@@ -33,8 +33,8 @@ void update(int l, int r, int k) {
 }
 int qpow(int a, int b, int p) {
     int ret = 1;
-    for (int i = b; i; i >>= 1, a = (i64)a * a % p)
-        if (i & 1) ret = (i64)ret * a % p;
+    for (; b; b >>= 1, a = (i64)a * a % p)
+        if (b & 1) ret = (i64)ret * a % p;
     return ret;
 }
 int querysum(int l, int r, int k, int p) {
@@ -61,15 +61,15 @@ int gen(int x) {
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
-    cin >> n >> m >> s >> p;
-    for (int i = 1; i <= n; i++) S.emplace(i, i, gen(p));
+    cin >> n >> m >> s >> v;
+    for (int i = 1; i <= n; i++) S.emplace(i, i, gen(v));
     for (int i = 1, op, l, r, x; i <= m; i++) {
         op = gen(4), l = gen(n), r = gen(n);
         if (l > r) swap(l, r);
-        if (op == 1) update(l, r, gen(p));
-        else if (op == 2) assign(l, r, gen(p));
+        if (op == 1) update(l, r, gen(v));
+        else if (op == 2) assign(l, r, gen(v));
         else if (op == 3) cout << querykth(l, r, gen(r - l + 1)) << '\n';
-        else x = gen(p), cout << querysum(l, r, x, gen(p)) << '\n';
+        else x = gen(v), cout << querysum(l, r, x, gen(v)) << '\n';
     }
     return 0;
 }

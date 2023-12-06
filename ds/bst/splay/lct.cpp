@@ -50,11 +50,7 @@ void cut(int lt, int rt) {
     if (findroot(rt) == lt && t[rt].fa == lt && !t[rt].ch[0])
         t[rt].fa = t[lt].ch[1] = 0, pushup(lt);
 }
-void update(int rt, int x) { splay(rt), t[rt].val = x; }
-int query(int lt, int rt) {
-    makeroot(lt), access(rt), splay(rt);
-    return t[rt].sum;
-}
+void split(int lt, int rt) { makeroot(lt), access(rt), splay(rt); }
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
@@ -62,10 +58,10 @@ int main() {
     for (int i = 1; i <= n; i++) cin >> t[i].val;
     for (int i = 1, op, x, y; i <= m; i++) {
         cin >> op >> x >> y;
-        if (!op) cout << query(x, y) << '\n';
+        if (!op) split(x, y), cout << t[y].sum << '\n';
         else if (op == 1) link(x, y);
         else if (op == 2) cut(x, y);
-        else update(x, y);
+        else splay(x), t[x].val = y;
     }
     return 0;
 }
