@@ -8,7 +8,7 @@ const int N = 1e5 + 5, M = 5e5 + 5, INF = 0x3f3f3f3f;
 int n, m, s, dis[N], head[N], cnt;
 bool vis[N];
 struct edge {
-    int to, nex, w;
+    int to, nxt, w;
 } e[M << 1];
 priority_queue<p32, vector<p32>, greater<>> Q;
 void add(int u, int v, int w) { e[++cnt] = {v, head[u], w}, head[u] = cnt; }
@@ -20,7 +20,7 @@ void dijkstra() {
         Q.pop();
         if (vis[u]) continue;
         vis[u] = true;
-        for (int i = head[u]; i; i = e[i].nex) {
+        for (int i = head[u]; i; i = e[i].nxt) {
             int v = e[i].to, w = e[i].w;
             if (dis[v] > dis[u] + w) Q.emplace(dis[v] = dis[u] + w, v);
         }

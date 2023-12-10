@@ -3,13 +3,13 @@ using namespace std;
 const int N = 5e5 + 5;
 int n, m, rt, fa[N], ch[N], dep[N], siz[N], top[N], head[N], cnt;
 struct edge {
-    int to, nex;
+    int to, nxt;
 } e[N << 1];
 void add(int u, int v) { e[++cnt] = {v, head[u]}, head[u] = cnt; }
 void addedge(int u, int v) { add(u, v), add(v, u); }
 void dfs1(int u, int fa) {
     ::fa[u] = fa, dep[u] = dep[fa] + 1, siz[u] = 1;
-    for (int i = head[u]; i; i = e[i].nex) {
+    for (int i = head[u]; i; i = e[i].nxt) {
         int v = e[i].to;
         if (v == fa) continue;
         dfs1(v, u), siz[u] += siz[v];
@@ -20,7 +20,7 @@ void dfs2(int u, int fa, int top) {
     ::top[u] = top;
     if (!ch[u]) return;
     dfs2(ch[u], u, top);
-    for (int i = head[u]; i; i = e[i].nex) {
+    for (int i = head[u]; i; i = e[i].nxt) {
         int v = e[i].to;
         if (v != fa && v != ch[u]) dfs2(v, u, v);
     }

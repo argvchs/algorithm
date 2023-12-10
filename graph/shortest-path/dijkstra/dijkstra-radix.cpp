@@ -9,7 +9,7 @@ const int N = 1e5 + 5, M = 5e5 + 5, INF = 0x3f3f3f3f;
 int n, m, s, dis[N], pos[N], head[N], cnt, top;
 bool vis[N];
 struct edge {
-    int to, nex, w;
+    int to, nxt, w;
 } e[M << 1];
 vector<int> buc[32];
 void add(int u, int v, int w) { e[++cnt] = {v, head[u], w}, head[u] = cnt; }
@@ -39,7 +39,7 @@ void dijkstra() {
     dis[top = s] = 0;
     for (int i = 1; i <= n; i++) insert(i);
     for (; top; removemin())
-        for (int j = head[top]; j; j = e[j].nex) {
+        for (int j = head[top]; j; j = e[j].nxt) {
             int v = e[j].to, w = e[j].w;
             if (dis[v] > dis[top] + w) update(v, dis[top] + w);
         }

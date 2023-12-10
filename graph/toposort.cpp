@@ -4,7 +4,7 @@ using namespace std;
 const int N = 105;
 int n, deg[N], head[N], cnt;
 struct edge {
-    int to, nex;
+    int to, nxt;
 } e[N << 1];
 queue<int> Q;
 void add(int u, int v) { e[++cnt] = {v, head[u]}, head[u] = cnt; }
@@ -14,7 +14,7 @@ void toposort() {
     while (Q.size()) {
         int u = Q.front();
         Q.pop();
-        for (int i = head[u]; i; i = e[i].nex) {
+        for (int i = head[u]; i; i = e[i].nxt) {
             int v = e[i].to;
             if (!--deg[v]) cout << v << ' ', Q.push(v);
         }

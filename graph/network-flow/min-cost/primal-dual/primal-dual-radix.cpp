@@ -9,7 +9,7 @@ const int N = 5e3 + 5, M = 5e4 + 5, INF = 0x3f3f3f3f;
 int n, m, s, t, h[N], dis[N], pos[N], cur[N], head[N], cnt = 1, top, flow, cost;
 bool vis[N];
 struct edge {
-    int to, nex, w, c;
+    int to, nxt, w, c;
 } e[M << 1];
 queue<int> Q;
 vector<int> buc[32];
@@ -21,7 +21,7 @@ void spfa() {
     while (Q.size()) {
         int u = Q.front();
         vis[u] = false, Q.pop();
-        for (int i = head[u]; i; i = e[i].nex) {
+        for (int i = head[u]; i; i = e[i].nxt) {
             int v = e[i].to, w = e[i].w, c = e[i].c;
             if (h[v] > h[u] + c && w) {
                 h[v] = h[u] + c;
@@ -57,7 +57,7 @@ bool dijkstra() {
     for (int i = 0; i <= 31; i++) buc[i].clear();
     for (int i = 1; i <= n; i++) insert(i);
     for (; top; removemin())
-        for (int j = head[top]; j; j = e[j].nex) {
+        for (int j = head[top]; j; j = e[j].nxt) {
             int v = e[j].to, w = e[j].w, c = e[j].c;
             if (dis[v] > dis[top] + c + h[top] - h[v] && w)
                 update(v, dis[top] + c + h[top] - h[v]);
@@ -68,7 +68,7 @@ int dfs(int u, int flow) {
     if (u == t) return flow;
     int used = 0;
     vis[u] = true;
-    for (int &i = cur[u]; i; i = e[i].nex) {
+    for (int &i = cur[u]; i; i = e[i].nxt) {
         int v = e[i].to, w = e[i].w, c = e[i].c;
         if (!vis[v] && dis[v] == dis[u] + c + h[u] - h[v] && w) {
             int ret = dfs(v, min(flow - used, w));

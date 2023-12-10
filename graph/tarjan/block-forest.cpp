@@ -5,7 +5,7 @@ const int N = 1e4 + 5, M = 2e4 + 5;
 int n, m, q, dfn[N], low[N], f[N << 1][25], val[N], sum[N << 1], dis1[N], dis2[N << 1],
     dep[N << 1], head1[N], head2[N << 1], idx, cnt, tot;
 struct edge {
-    int to, nex, w;
+    int to, nxt, w;
 } e[M << 2];
 stack<int> S;
 void add1(int u, int v, int w) { e[++cnt] = {v, head1[u], w}, head1[u] = cnt; }
@@ -14,7 +14,7 @@ void addedge1(int u, int v, int w) { add1(u, v, w), add1(v, u, w); }
 void addedge2(int u, int v, int w) { add2(u, v, w), add2(v, u, w); }
 void tarjan(int u, int fa) {
     dfn[u] = low[u] = ++idx, S.push(u);
-    for (int i = head1[u]; i; i = e[i].nex) {
+    for (int i = head1[u]; i; i = e[i].nxt) {
         int v = e[i].to, w = e[i].w;
         if (!dfn[v]) {
             dis1[v] = dis1[u] + w, val[v] = w;
@@ -35,7 +35,7 @@ void tarjan(int u, int fa) {
 void dfs(int u, int fa) {
     f[u][0] = fa, dep[u] = dep[fa] + 1;
     for (int i = 1; i <= 20; i++) f[u][i] = f[f[u][i - 1]][i - 1];
-    for (int i = head2[u]; i; i = e[i].nex) {
+    for (int i = head2[u]; i; i = e[i].nxt) {
         int v = e[i].to, w = e[i].w;
         if (v != fa) dis2[v] = dis2[u] + w, dfs(v, u);
     }

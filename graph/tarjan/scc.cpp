@@ -7,7 +7,7 @@ int n, m, a[N], b[N], dfn[N], low[N], bel[N], deg[N], dis[N], head1[N], head2[N]
     cnt, tot, ans;
 bool vis[N];
 struct edge {
-    int from, to, nex;
+    int from, to, nxt;
 } e[M << 1];
 stack<int> S;
 queue<int> Q;
@@ -15,7 +15,7 @@ void add1(int u, int v) { e[++cnt] = {u, v, head1[u]}, head1[u] = cnt; }
 void add2(int u, int v) { e[++cnt] = {u, v, head2[u]}, head2[u] = cnt; }
 void tarjan(int u) {
     dfn[u] = low[u] = ++idx, vis[u] = true, S.push(u);
-    for (int i = head1[u]; i; i = e[i].nex) {
+    for (int i = head1[u]; i; i = e[i].nxt) {
         int v = e[i].to;
         if (!dfn[v]) {
             tarjan(v);
@@ -35,7 +35,7 @@ void toposort() {
     while (Q.size()) {
         int u = Q.front();
         Q.pop();
-        for (int i = head2[u]; i; i = e[i].nex) {
+        for (int i = head2[u]; i; i = e[i].nxt) {
             int v = e[i].to;
             dis[v] = max(dis[v], dis[u] + b[v]);
             if (!--deg[v]) Q.push(v);

@@ -6,7 +6,7 @@ const int N = 2e3 + 5, M = 1e6 + 5, INF = 0x3f3f3f3f;
 int n, m, s, t, ss, tt, a[N], dep[N], cur[N], head[N], cnt, sum, ans;
 bool vis[N];
 struct edge {
-    int to, nex, w;
+    int to, nxt, w;
 } e[M << 1];
 queue<int> Q;
 void add(int u, int v, int w) { e[++cnt] = {v, head[u], w}, head[u] = cnt; }
@@ -18,7 +18,7 @@ bool bfs() {
     while (Q.size()) {
         int u = Q.front();
         Q.pop();
-        for (int i = head[u]; i; i = e[i].nex) {
+        for (int i = head[u]; i; i = e[i].nxt) {
             int v = e[i].to, w = e[i].w;
             if (!vis[v] && w) dep[v] = dep[u] + 1, vis[v] = true, Q.push(v);
         }
@@ -28,7 +28,7 @@ bool bfs() {
 int dfs(int u, int a) {
     if (u == t) return a;
     int used = 0;
-    for (int &i = cur[u]; i; i = e[i].nex) {
+    for (int &i = cur[u]; i; i = e[i].nxt) {
         int v = e[i].to, w = e[i].w;
         if (dep[v] == dep[u] + 1 && w) {
             int ret = dfs(v, min(a - used, w));

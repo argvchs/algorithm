@@ -11,7 +11,7 @@ int n, m, s, h[N], dis[N], tot[N], pos[N], head[N], cnt, top;
 i64 ans;
 bool vis[N];
 struct edge {
-    int to, nex, w;
+    int to, nxt, w;
 } e[M << 1];
 queue<int> Q;
 vector<int> buc[32];
@@ -23,7 +23,7 @@ bool spfa() {
     while (Q.size()) {
         int u = Q.front();
         vis[u] = false, Q.pop();
-        for (int i = head[u]; i; i = e[i].nex) {
+        for (int i = head[u]; i; i = e[i].nxt) {
             int v = e[i].to, w = e[i].w;
             if (h[v] > h[u] + w) {
                 h[v] = h[u] + w;
@@ -62,7 +62,7 @@ void dijkstra() {
     for (int i = 0; i <= 31; i++) buc[i].clear();
     for (int i = 1; i <= n; i++) insert(i);
     for (; top; removemin())
-        for (int j = head[top]; j; j = e[j].nex) {
+        for (int j = head[top]; j; j = e[j].nxt) {
             int v = e[j].to, w = e[j].w;
             if (dis[v] > dis[top] + w + h[top] - h[v])
                 update(v, dis[top] + w + h[top] - h[v]);

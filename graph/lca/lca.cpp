@@ -3,14 +3,14 @@ using namespace std;
 const int N = 5e5 + 5;
 int n, m, rt, f[N][25], dep[N], head[N], cnt;
 struct edge {
-    int to, nex;
+    int to, nxt;
 } e[N << 1];
 void add(int u, int v) { e[++cnt] = {v, head[u]}, head[u] = cnt; }
 void addedge(int u, int v) { add(u, v), add(v, u); }
 void dfs(int u, int fa) {
     f[u][0] = fa, dep[u] = dep[fa] + 1;
     for (int i = 1; i <= 20; i++) f[u][i] = f[f[u][i - 1]][i - 1];
-    for (int i = head[u]; i; i = e[i].nex) {
+    for (int i = head[u]; i; i = e[i].nxt) {
         int v = e[i].to;
         if (v != fa) dfs(v, u);
     }

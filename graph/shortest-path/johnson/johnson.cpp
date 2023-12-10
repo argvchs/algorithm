@@ -9,7 +9,7 @@ int n, m, s, h[N], dis[N], tot[N], head[N], cnt;
 i64 ans;
 bool vis[N];
 struct edge {
-    int to, nex, w;
+    int to, nxt, w;
 } e[M << 1];
 queue<int> Q;
 priority_queue<p32, vector<p32>, greater<>> PQ;
@@ -21,7 +21,7 @@ bool spfa() {
     while (Q.size()) {
         int u = Q.front();
         vis[u] = false, Q.pop();
-        for (int i = head[u]; i; i = e[i].nex) {
+        for (int i = head[u]; i; i = e[i].nxt) {
             int v = e[i].to, w = e[i].w;
             if (h[v] > h[u] + w) {
                 h[v] = h[u] + w;
@@ -42,7 +42,7 @@ void dijkstra() {
         PQ.pop();
         if (vis[u]) continue;
         vis[u] = true;
-        for (int i = head[u]; i; i = e[i].nex) {
+        for (int i = head[u]; i; i = e[i].nxt) {
             int v = e[i].to, w = e[i].w;
             if (dis[v] > dis[u] + w + h[u] - h[v])
                 PQ.emplace(dis[v] = dis[u] + w + h[u] - h[v], v);
