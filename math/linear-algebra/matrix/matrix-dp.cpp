@@ -3,7 +3,7 @@
 using namespace std;
 using i64 = long long;
 const int P = 1e9 + 7;
-int n, t;
+int T, n;
 struct matrix {
     int a[5][5];
 } a, b;
@@ -27,8 +27,8 @@ matrix qpow(matrix a, int b) {
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
-    cin >> t;
-    while (t--) {
+    cin >> T;
+    while (T--) {
         cin >> n;
         a.a[1][2] = a.a[2][3] = a.a[3][1] = a.a[3][3] = 1;
         b.a[1][1] = b.a[2][1] = b.a[3][1] = 1;

@@ -11,7 +11,7 @@ struct edge {
     int to, nex, w;
 } e[M << 1];
 vector<int> S;
-bool cmp(int u, int v) { return dis[u] > dis[v]; }
+bool cmp(int x, int y) { return dis[x] > dis[y]; }
 void add(int u, int v, int w) { e[++cnt] = {v, head[u], w}, head[u] = cnt; }
 void spfa() {
     memset(dis, 0x3f, sizeof(dis));

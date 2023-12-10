@@ -7,12 +7,12 @@ int n, m, l = 1, r, t, a[N], b[N], bel[N], cnt[N], sum[N], siz, c1, c2, c3;
 struct query {
     int op, x, y, k, t, id, ans;
 } q[N], p[N];
-bool cmp1(query a, query b) {
-    if (bel[a.x] != bel[b.x]) return a.x < b.x;
-    if (bel[a.y] != bel[b.y]) return a.y < b.y;
-    return a.t < b.t;
+bool cmp1(query x, query y) {
+    if (bel[x.x] != bel[y.x]) return x.x < y.x;
+    if (bel[x.y] != bel[y.y]) return x.y < y.y;
+    return x.t < y.t;
 }
-bool cmp2(query a, query b) { return a.id < b.id; }
+bool cmp2(query x, query y) { return x.id < y.id; }
 void build1() {
     siz = pow(n, 2.0 / 3.0);
     for (int i = 1; i <= n; i++) bel[i] = (i - 1) / siz + 1;
@@ -43,7 +43,7 @@ int querykth(int x) {
     return j;
 }
 int querypre(int x) { return querykth(queryrnk(x) - 1); }
-int querynex(int x) { return querykth(queryrnk(x + 1)); }
+int querysuc(int x) { return querykth(queryrnk(x + 1)); }
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
@@ -77,7 +77,7 @@ int main() {
         if (q[i].op == 1) q[i].ans = queryrnk(q[i].k);
         else if (q[i].op == 2) q[i].ans = b[querykth(q[i].k)];
         else if (q[i].op == 4) q[i].ans = b[querypre(q[i].k)];
-        else q[i].ans = b[querynex(q[i].k)];
+        else q[i].ans = b[querysuc(q[i].k)];
     }
     sort(q + 1, q + c1 + 1, cmp2);
     for (int i = 1; i <= c1; i++) cout << q[i].ans << '\n';

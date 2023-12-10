@@ -2,21 +2,21 @@
 #include <iostream>
 using namespace std;
 const int N = 2e5 + 5;
-int n, m, t[N], ans[N], cnt;
+int n, m, t[N], ans[N];
 struct node {
     int a, b, c, cnt, ans;
 } a[N], b[N];
-bool cmp1(node a, node b) {
-    if (a.a != b.a) return a.a < b.a;
-    if (a.b != b.b) return a.b < b.b;
-    return a.c < b.c;
+bool cmp1(node x, node y) {
+    if (x.a != y.a) return x.a < y.a;
+    if (x.b != y.b) return x.b < y.b;
+    return x.c < y.c;
 }
-bool cmp2(node a, node b) {
-    if (a.b != b.b) return a.b < b.b;
-    if (a.c != b.c) return a.c < b.c;
-    return a.a < b.a;
+bool cmp2(node x, node y) {
+    if (x.b != y.b) return x.b < y.b;
+    if (x.c != y.c) return x.c < y.c;
+    return x.a < y.a;
 }
-bool cmp3(node a, node b) { return a.a == b.a && a.b == b.b && a.c == b.c; }
+bool cmp3(node x, node y) { return x.a == y.a && x.b == y.b && x.c == y.c; }
 void update(int x, int k) {
     for (int i = x; i <= m; i += i & -i) t[i] += k;
 }
@@ -43,7 +43,7 @@ int main() {
     for (int i = 1; i <= n; i++) cin >> a[i].a >> a[i].b >> a[i].c;
     sort(a + 1, a + n + 1, cmp1);
     for (int i = 1; i <= n; i++) b[i] = a[i];
-    cnt = unique(a + 1, a + n + 1, cmp3) - a - 1;
+    int cnt = unique(a + 1, a + n + 1, cmp3) - a - 1;
     for (int i = 1, j = 1; i <= cnt; i++)
         while (j <= n && cmp3(a[i], b[j])) ++j, ++a[i].cnt;
     for (int i = 1; i <= cnt; i++) a[i].a = i;

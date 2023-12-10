@@ -6,7 +6,7 @@ int n, m, fa[N], siz[N], tot, ans;
 struct edge {
     int fr, to, w;
 } e[M];
-bool cmp(edge a, edge b) { return a.w < b.w; }
+bool cmp(edge x, edge y) { return x.w < y.w; }
 int find(int x) { return x == fa[x] ? x : fa[x] = find(fa[x]); }
 int main() {
     ios::sync_with_stdio(false);

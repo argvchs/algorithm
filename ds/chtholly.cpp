@@ -12,7 +12,7 @@ struct node {
     int l, r;
     mutable i64 val;
 };
-bool cmp(node a, node b) { return a.l < b.l; }
+bool cmp(node x, node y) { return x.l < y.l; }
 set<node, decltype(&cmp)> S(cmp);
 vector<p64> tmp;
 auto split(int x) {

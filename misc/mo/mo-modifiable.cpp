@@ -7,14 +7,14 @@ int n, m, l = 1, r, t, a[N], bel[N], cnt[N], siz, c1, c2, ans;
 struct query {
     int x, y, t, id, ans;
 } q[N], p[N];
-bool cmp1(query a, query b) {
-    if (bel[a.x] != bel[b.x]) return a.x < b.x;
-    if (bel[a.y] != bel[b.y]) return a.y < b.y;
-    return a.t < b.t;
+bool cmp1(query x, query y) {
+    if (bel[x.x] != bel[y.x]) return x.x < y.x;
+    if (bel[x.y] != bel[y.y]) return x.y < y.y;
+    return x.t < y.t;
 }
-bool cmp2(query a, query b) { return a.id < b.id; }
+bool cmp2(query x, query y) { return x.id < y.id; }
 void build() {
-    siz = pow(n, 2.0 / 3.0);
+    siz = pow(n, 0.667);
     for (int i = 1; i <= n; i++) bel[i] = (i - 1) / siz + 1;
 }
 void insert(int x) { ans += !cnt[a[x]]++; }

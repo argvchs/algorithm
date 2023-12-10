@@ -9,13 +9,13 @@ int n, m, l = 1, r, a[N], bel[N], cnt[N], siz;
 i64 ans;
 struct query {
     int l, r, id;
-    i64 ans1, ans2;
+    i64 ans;
 } q[N];
-bool cmp1(query a, query b) {
-    if (bel[a.l] != bel[b.l]) return a.l < b.l;
-    return a.r < b.r;
+bool cmp1(query x, query y) {
+    if (bel[x.l] != bel[y.l]) return x.l < y.l;
+    return x.r < y.r;
 }
-bool cmp2(query a, query b) { return a.id < b.id; }
+bool cmp2(query x, query y) { return x.id < y.id; }
 void build() {
     siz = n / sqrt(m);
     for (int i = 1; i <= n; i++) bel[i] = (i - 1) / siz + 1;
@@ -35,14 +35,15 @@ int main() {
         while (r < q[i].r) insert(++r);
         while (l < q[i].l) remove(l++);
         while (r > q[i].r) remove(r--);
-        q[i].ans1 = ans;
-        q[i].ans2 = (i64)(r - l + 1) * (r - l) >> 1;
-        if (q[i].ans1) {
-            i64 x = gcd(q[i].ans1, q[i].ans2);
-            q[i].ans1 /= x, q[i].ans2 /= x;
-        } else q[i].ans2 = 1;
+        q[i].ans = ans;
     }
     sort(q + 1, q + m + 1, cmp2);
-    for (int i = 1; i <= m; i++) cout << q[i].ans1 << '/' << q[i].ans2 << '\n';
+    for (int i = 1; i <= m; i++)
+        if (q[i].l == q[i].r) cout << "0/1\n";
+        else {
+            int k = q[i].r - q[i].l + 1;
+            i64 x = q[i].ans, y = (i64)k * (k - 1) >> 1, g = gcd(x, y);
+            cout << x / g << '/' << y / g << '\n';
+        }
     return 0;
 }

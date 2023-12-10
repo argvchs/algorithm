@@ -4,7 +4,7 @@
 using namespace std;
 using p32 = pair<int, int>;
 const int N = 2e6 + 5;
-int n, m, rt, cnt, las, ans;
+int n, m, rt, cnt, pre, ans;
 struct node {
     int l, r, val, siz;
     mt19937::result_type key;
@@ -69,20 +69,20 @@ int querykth(int x) {
     return ret;
 }
 int querypre(int x) { return querykth(queryrnk(x) - 1); }
-int querynex(int x) { return querykth(queryrnk(x + 1)); }
+int querysuc(int x) { return querykth(queryrnk(x + 1)); }
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
     cin >> n >> m;
     for (int i = 1, x; i <= n; i++) cin >> x, insert(x);
     for (int i = 1, op, x; i <= m; i++) {
-        cin >> op >> x, x ^= las;
+        cin >> op >> x, x ^= pre;
         if (op == 1) insert(x);
         else if (op == 2) remove(x);
-        else if (op == 3) ans ^= las = queryrnk(x);
-        else if (op == 4) ans ^= las = querykth(x);
-        else if (op == 5) ans ^= las = querypre(x);
-        else ans ^= las = querynex(x);
+        else if (op == 3) ans ^= pre = queryrnk(x);
+        else if (op == 4) ans ^= pre = querykth(x);
+        else if (op == 5) ans ^= pre = querypre(x);
+        else ans ^= pre = querysuc(x);
     }
     cout << ans;
     return 0;

@@ -2,7 +2,7 @@
 using namespace std;
 using i64 = long long;
 const int N = 1e5 + 5;
-int n, m, p, t, fac[N], inv[N];
+int T, n, m, p, fac[N], inv[N];
 int lucas(int n, int m, int p) {
     if (!m) return 1;
     if (n < m) return 0;
@@ -12,8 +12,8 @@ int lucas(int n, int m, int p) {
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
-    cin >> t;
-    while (t--) {
+    cin >> T;
+    while (T--) {
         cin >> n >> m >> p;
         fac[0] = fac[1] = inv[1] = 1;
         for (int i = 2; i <= p; i++) fac[i] = (i64)fac[i - 1] * i % p;
