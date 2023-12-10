@@ -52,10 +52,7 @@ int main() {
         if (!dfn[i]) tarjan(i);
     for (int i = 1; i <= m; i++) {
         int u = e[i].from, v = e[i].to;
-        if (bel[u] != bel[v]) {
-            ++deg[bel[v]];
-            add2(bel[u], bel[v]);
-        }
+        if (bel[u] != bel[v]) ++deg[bel[v]], add2(bel[u], bel[v]);
     }
     toposort();
     for (int i = 1; i <= tot; i++) ans = max(ans, dis[i]);
