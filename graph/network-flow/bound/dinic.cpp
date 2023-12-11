@@ -11,6 +11,7 @@ struct edge {
 queue<int> Q;
 void add(int u, int v, int w) { e[++cnt] = {v, head[u], w}, head[u] = cnt; }
 void addflow(int u, int v, int w) { add(u, v, w), add(v, u, 0); }
+void addflow(int u, int v, int l, int r) { a[u] -= l, a[v] += l, addflow(u, v, r - l); }
 bool bfs() {
     memset(dep, 0x3f, sizeof(dep));
     memset(vis, 0, sizeof(vis));
@@ -25,15 +26,15 @@ bool bfs() {
     }
     return dep[t] != INF;
 }
-int dfs(int u, int a) {
-    if (u == t) return a;
+int dfs(int u, int flow) {
+    if (u == t) return flow;
     int used = 0;
     for (int &i = cur[u]; i; i = e[i].nxt) {
         int v = e[i].to, w = e[i].w;
         if (dep[v] == dep[u] + 1 && w) {
-            int ret = dfs(v, min(a - used, w));
+            int ret = dfs(v, min(flow - used, w));
             used += ret, e[i].w -= ret, e[i ^ 1].w += ret;
-            if (used == a) break;
+            if (used == flow) break;
         }
     }
     return used;
@@ -52,23 +53,13 @@ int main() {
         memset(head, 0, sizeof(head));
         memset(a, 0, sizeof(a));
         cnt = 1, sum = ans = 0;
-        s = n + m + 1, ss = n + m + 3;
-        t = n + m + 2, tt = n + m + 4;
-        for (int i = 1, x; i <= m; i++) {
-            cin >> x;
-            a[t] += x, a[i + n] -= x;
-            addflow(i + n, t, INF - x);
-        }
+        s = n + m + 1, t = s + 1, ss = s + 2, tt = s + 3;
+        for (int i = 1, x; i <= m; i++) cin >> x, addflow(i + n, t, x, INF);
         for (int i = 1, x, y, z, l, r; i <= n; i++) {
-            cin >> x >> y;
-            addflow(s, i, y);
-            for (int j = 1; j <= x; j++) {
-                cin >> z >> l >> r;
-                a[z + n + 1] += l, a[i] -= l;
-                addflow(i, z + n + 1, r - l);
-            }
+            cin >> x >> y, addflow(s, i, y);
+            for (int j = 1; j <= x; j++) cin >> z >> l >> r, addflow(i, z + n + 1, l, r);
         }
-        for (int i = 1; i <= n + m + 2; i++)
+        for (int i = 1; i <= t; i++)
             if (a[i] > 0) addflow(ss, i, a[i]), sum += a[i];
             else addflow(i, tt, -a[i]);
         addflow(t, s, INF);
@@ -77,8 +68,7 @@ int main() {
             cout << "-1\n\n";
             continue;
         }
-        sum = e[cnt].w;
-        ans = e[cnt].w = e[cnt ^ 1].w = 0;
+        sum = e[cnt].w, ans = e[cnt].w = e[cnt ^ 1].w = 0;
         swap(s, ss), swap(t, tt), dinic();
         cout << sum + ans << "\n\n";
     }

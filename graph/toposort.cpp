@@ -1,11 +1,11 @@
 #include <iostream>
 #include <queue>
 using namespace std;
-const int N = 105;
+const int N = 105, M = N * N;
 int n, deg[N], head[N], cnt;
 struct edge {
     int to, nxt;
-} e[N << 1];
+} e[M];
 queue<int> Q;
 void add(int u, int v) { e[++cnt] = {v, head[u]}, head[u] = cnt; }
 void toposort() {
@@ -24,8 +24,8 @@ int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
     cin >> n;
-    for (int i = 1, u; i <= n; i++)
-        while (cin >> u && u) ++deg[u], add(i, u);
+    for (int i = 1, x; i <= n; i++)
+        while (cin >> x && x) ++deg[x], add(i, x);
     toposort();
     return 0;
 }

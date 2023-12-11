@@ -59,7 +59,7 @@ int main() {
     }
     if (!spfa()) return cout << "-1", 0;
     for (int i = 1; i <= n; i++) {
-        s = i, ans = 0, dijkstra();
+        s = i, dijkstra(), ans = 0;
         for (int j = 1; j <= n; j++)
             if (dis[j] == INF) ans += j * (i64)1e9;
             else ans += (i64)j * (dis[j] + h[j] - h[s]);

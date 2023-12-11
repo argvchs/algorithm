@@ -9,11 +9,11 @@ struct node {
 } t[N << 2];
 void pushup(int rt) { t[rt].sum = t[rt << 1].sum + t[rt << 1 | 1].sum; }
 void pushdown(int rt) {
-    if (!t[rt].add) return;
-    t[rt << 1].sum += (t[rt << 1].r - t[rt << 1].l + 1) * t[rt].add;
-    t[rt << 1].add += t[rt].add;
-    t[rt << 1 | 1].sum += (t[rt << 1 | 1].r - t[rt << 1 | 1].l + 1) * t[rt].add;
-    t[rt << 1 | 1].add += t[rt].add;
+    int l = rt << 1, r = rt << 1 | 1;
+    t[l].sum += (t[l].r - t[l].l + 1) * t[rt].add;
+    t[l].add += t[rt].add;
+    t[r].sum += (t[r].r - t[r].l + 1) * t[rt].add;
+    t[r].add += t[rt].add;
     t[rt].add = 0;
 }
 void bulid(int rt, int l, int r) {

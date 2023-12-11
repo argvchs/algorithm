@@ -1,7 +1,6 @@
 #include <iostream>
 using namespace std;
 using i64 = long long;
-using t32 = tuple<int, int, int>;
 const int N = 2e3 + 5, P = 998244353;
 int n, m, a[N], b[N], ans;
 int qpow(int a, int b) {

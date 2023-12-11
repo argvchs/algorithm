@@ -7,7 +7,7 @@ int n;
 i64 m;
 struct matrix {
     int a[N][N];
-} a, ans;
+} a;
 matrix operator*(matrix a, matrix b) {
     matrix ret;
     memset(ret.a, 0, sizeof(ret.a));
@@ -31,9 +31,9 @@ int main() {
     cin >> n >> m;
     for (int i = 1; i <= n; i++)
         for (int j = 1; j <= n; j++) cin >> a.a[i][j];
-    ans = qpow(a, m);
+    a = qpow(a, m);
     for (int i = 1; i <= n; i++) {
-        for (int j = 1; j <= n; j++) cout << ans.a[i][j] << ' ';
+        for (int j = 1; j <= n; j++) cout << a.a[i][j] << ' ';
         cout << '\n';
     }
     return 0;

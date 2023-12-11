@@ -26,8 +26,7 @@ int main() {
         i64 xmax = (c - ymin * b) / a;
         i64 ymax = (c - xmin * a) / b;
         if (xmax > 0) {
-            int cnt = (xmax - xmin) / b + 1;
-            cout << cnt << ' ';
+            cout << (xmax - xmin) / b + 1 << ' ';
             cout << xmin << ' ' << ymin << ' ';
             cout << xmax << ' ' << ymax << '\n';
         } else cout << xmin << ' ' << ymin << '\n';

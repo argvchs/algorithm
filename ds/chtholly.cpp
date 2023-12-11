@@ -1,6 +1,5 @@
 #include <algorithm>
 #include <iostream>
-#include <limits>
 #include <set>
 #include <vector>
 using namespace std;
@@ -49,9 +48,9 @@ i64 querykth(int l, int r, int k) {
     tmp.clear();
     for (auto it = st; it != ed; ++it) tmp.emplace_back(it->val, it->r - it->l + 1);
     sort(tmp.begin(), tmp.end());
-    for (auto [val, cnt] : tmp)
-        if ((k -= cnt) <= 0) return val;
-    return numeric_limits<i64>::max();
+    for (auto [x, y] : tmp)
+        if ((k -= y) <= 0) return x;
+    return -1;
 }
 int gen(int x) {
     int ret = s;

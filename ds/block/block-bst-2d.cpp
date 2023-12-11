@@ -55,15 +55,14 @@ int main() {
         else cin >> k, q[++c1] = {op, x, y, k, c2, c1};
         if (op != 2) b[++c3] = k;
     }
-    sort(b + 1, b + c3 + 1);
-    c3 = unique(b + 1, b + c3 + 1) - b - 1;
-    for (int i = 1; i <= n; i++) a[i] = lower_bound(b + 1, b + c3 + 1, a[i]) - b;
-    for (int i = 1; i <= c1; i++)
-        if (q[i].op != 2) q[i].k = lower_bound(b + 1, b + c3 + 1, q[i].k) - b;
-    for (int i = 1; i <= c2; i++)
-        if (p[i].op != 2) p[i].k = lower_bound(b + 1, b + c3 + 1, p[i].k) - b;
-    b[c3 + 1] = 0x80000001;
-    b[c3 + 2] = 0x7fffffff;
+    sort(b + 1, b + bcnt + 1);
+    bcnt = unique(b + 1, b + bcnt + 1) - b - 1;
+    for (int i = 1; i <= n; i++) a[i] = lower_bound(b + 1, b + bcnt + 1, a[i]) - b;
+    for (int i = 1; i <= qcnt; i++)
+        if (q[i].op != 2) q[i].k = lower_bound(b + 1, b + bcnt + 1, q[i].k) - b;
+    for (int i = 1; i <= ccnt; i++) c[i].k = lower_bound(b + 1, b + bcnt + 1, c[i].k) - b;
+    b[bcnt + 1] = 0x80000001;
+    b[bcnt + 2] = 0x7fffffff;
     build1();
     sort(q + 1, q + c1 + 1, cmp1);
     build2();

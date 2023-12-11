@@ -3,26 +3,29 @@
 #include <iostream>
 using namespace std;
 const int N = 1e6 + 5;
-int n, m, l = 1, r, t, a[N], bel[N], cnt[N], siz, c1, c2, ans;
+int n, m, l = 1, r, t, a[N], bel[N], cnt[N], ans[N], siz, qcnt, ccnt, now;
+char op;
 struct query {
-    int x, y, t, id, ans;
-} q[N], p[N];
-bool cmp1(query x, query y) {
-    if (bel[x.x] != bel[y.x]) return x.x < y.x;
-    if (bel[x.y] != bel[y.y]) return x.y < y.y;
+    int l, r, t, id;
+} q[N];
+struct change {
+    int x, k;
+} c[N];
+bool cmp(query x, query y) {
+    if (bel[x.l] != bel[y.l]) return x.l < y.l;
+    if (bel[x.r] != bel[y.r]) return x.r < y.r;
     return x.t < y.t;
 }
-bool cmp2(query x, query y) { return x.id < y.id; }
 void build() {
     siz = pow(n, 0.667);
     for (int i = 1; i <= n; i++) bel[i] = (i - 1) / siz + 1;
 }
-void insert(int x) { ans += !cnt[a[x]]++; }
-void remove(int x) { ans -= !--cnt[a[x]]; }
+void insert(int x) { now += !cnt[a[x]]++; }
+void remove(int x) { now -= !--cnt[a[x]]; }
 void update(int x) {
-    if (l <= p[x].x && p[x].x <= r) remove(p[x].x);
-    swap(a[p[x].x], p[x].y);
-    if (l <= p[x].x && p[x].x <= r) insert(p[x].x);
+    if (l <= c[x].x && c[x].x <= r) remove(c[x].x);
+    swap(a[c[x].x], c[x].k);
+    if (l <= c[x].x && c[x].x <= r) insert(c[x].x);
 }
 int main() {
     ios::sync_with_stdio(false);
@@ -30,23 +33,21 @@ int main() {
     cin >> n >> m;
     for (int i = 1; i <= n; i++) cin >> a[i];
     for (int i = 1, x, y; i <= m; i++) {
-        char op;
         cin >> op >> x >> y;
-        if (op == 'Q') q[++c1] = {x, y, c2, c1};
-        else p[++c2] = {x, y, c2, c1};
+        if (op == 'Q') q[++qcnt] = {x, y, ccnt, qcnt};
+        else c[++ccnt] = {x, y};
     }
     build();
-    sort(q + 1, q + c1 + 1, cmp1);
-    for (int i = 1; i <= c1; i++) {
-        while (l > q[i].x) insert(--l);
-        while (r < q[i].y) insert(++r);
-        while (l < q[i].x) remove(l++);
-        while (r > q[i].y) remove(r--);
+    sort(q + 1, q + qcnt + 1, cmp);
+    for (int i = 1; i <= qcnt; i++) {
+        while (l > q[i].l) insert(--l);
+        while (r < q[i].r) insert(++r);
+        while (l < q[i].l) remove(l++);
+        while (r > q[i].r) remove(r--);
         while (t < q[i].t) update(++t);
         while (t > q[i].t) update(t--);
-        q[i].ans = ans;
+        ans[q[i].id] = now;
     }
-    sort(q + 1, q + c1 + 1, cmp2);
-    for (int i = 1; i <= c1; i++) cout << q[i].ans << '\n';
+    for (int i = 1; i <= qcnt; i++) cout << ans[i] << '\n';
     return 0;
 }

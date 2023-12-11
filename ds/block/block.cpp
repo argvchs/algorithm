@@ -3,7 +3,7 @@
 using namespace std;
 using i64 = long long;
 const int N = 1e5 + 5, P = 571373;
-int n, m, p, a[N], bel[N], st[N], ed[N], sum[N], add[N], mul[N], siz, tot;
+int n, m, p, a[N], bel[N], st[N], ed[N], sum[N], add[N], mul[N], siz;
 void pushup(int x) {
     sum[x] = 0;
     for (int i = st[x]; i <= ed[x]; i++) sum[x] = (sum[x] + a[i]) % P;
@@ -13,10 +13,10 @@ void pushdown(int x) {
     add[x] = 0, mul[x] = 1;
 }
 void build() {
-    siz = sqrt(n), tot = (n - 1) / siz + 1;
+    siz = sqrt(n);
     for (int i = 1; i <= n; i++) bel[i] = (i - 1) / siz + 1;
-    for (int i = 1; i <= tot; i++) st[i] = (i - 1) * siz + 1, ed[i] = min(i * siz, n);
-    for (int i = 1; i <= tot; i++) mul[i] = 1, pushup(i);
+    for (int i = 1; i <= bel[n]; i++) st[i] = (i - 1) * siz + 1, ed[i] = min(i * siz, n);
+    for (int i = 1; i <= bel[n]; i++) mul[i] = 1, pushup(i);
 }
 void updatemul(int l, int r, int k) {
     pushdown(bel[l]), pushdown(bel[r]);
@@ -48,8 +48,8 @@ void updateadd(int l, int r, int k) {
     }
 }
 int query(int l, int r) {
-    int ret = 0;
     pushdown(bel[l]), pushdown(bel[r]);
+    int ret = 0;
     if (bel[l] == bel[r]) {
         for (int i = l; i <= r; i++) ret = (ret + a[i]) % P;
         return ret;
