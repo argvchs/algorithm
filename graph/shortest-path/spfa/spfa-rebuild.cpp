@@ -9,7 +9,7 @@ int n, m, s, dis[N], head[N], cnt, tot;
 bool vis[N];
 struct edge {
     int to, nxt, w;
-} e[M << 1];
+} e[M];
 vector<int> S;
 bool cmp(int x, int y) { return dis[x] > dis[y]; }
 void add(int u, int v, int w) { e[++cnt] = {v, head[u], w}, head[u] = cnt; }

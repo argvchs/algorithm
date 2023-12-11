@@ -9,7 +9,7 @@ int n, m, s, dis[N], head[N], cnt;
 bool vis[N];
 struct edge {
     int to, nxt, w;
-} e[M << 1];
+} e[M];
 priority_queue<p32, vector<p32>, greater<>> Q;
 void add(int u, int v, int w) { e[++cnt] = {v, head[u], w}, head[u] = cnt; }
 void dijkstra() {

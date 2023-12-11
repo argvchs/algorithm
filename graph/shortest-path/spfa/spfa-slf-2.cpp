@@ -8,7 +8,7 @@ int n, m, s, dis[N], head[N], cnt;
 bool vis[N];
 struct edge {
     int to, nxt, w;
-} e[M << 1];
+} e[M];
 deque<int> Q;
 void add(int u, int v, int w) { e[++cnt] = {v, head[u], w}, head[u] = cnt; }
 void spfa() {

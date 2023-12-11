@@ -6,13 +6,13 @@ using namespace std;
 using u32 = unsigned;
 using i64 = long long;
 using p32 = pair<int, int>;
-const int N = 3e3 + 5, M = 6e3 + 5, INF = 0x3f3f3f3f;
+const int N = 3e3 + 5, M = 9e3 + 5, INF = 0x3f3f3f3f;
 int n, m, s, h[N], dis[N], tot[N], pos[N], head[N], cnt, top;
 i64 ans;
 bool vis[N];
 struct edge {
     int to, nxt, w;
-} e[M << 1];
+} e[M];
 queue<int> Q;
 vector<int> buc[32];
 void add(int u, int v, int w) { e[++cnt] = {v, head[u], w}, head[u] = cnt; }

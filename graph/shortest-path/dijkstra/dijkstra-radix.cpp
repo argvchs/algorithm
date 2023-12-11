@@ -10,7 +10,7 @@ int n, m, s, dis[N], pos[N], head[N], cnt, top;
 bool vis[N];
 struct edge {
     int to, nxt, w;
-} e[M << 1];
+} e[M];
 vector<int> buc[32];
 void add(int u, int v, int w) { e[++cnt] = {v, head[u], w}, head[u] = cnt; }
 void insert(int x) {

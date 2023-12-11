@@ -10,7 +10,7 @@ i64 ans;
 bool vis[N];
 struct edge {
     int to, nxt, w;
-} e[M << 1];
+} e[M];
 queue<int> Q;
 priority_queue<p32, vector<p32>, greater<>> PQ;
 void add(int u, int v, int w) { e[++cnt] = {v, head[u], w}, head[u] = cnt; }
