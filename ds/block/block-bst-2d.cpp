@@ -62,8 +62,8 @@ int main() {
         if (q[i].op != 2) q[i].k = lower_bound(b + 1, b + c3 + 1, q[i].k) - b;
     for (int i = 1; i <= c2; i++)
         if (p[i].op != 2) p[i].k = lower_bound(b + 1, b + c3 + 1, p[i].k) - b;
-    b[c3 + 1] = numeric_limits<int>::min() + 1;
-    b[c3 + 2] = numeric_limits<int>::max();
+    b[c3 + 1] = 0x80000001;
+    b[c3 + 2] = 0x7fffffff;
     build1();
     sort(q + 1, q + c1 + 1, cmp1);
     build2();

@@ -1,6 +1,5 @@
 #include <cstring>
 #include <iostream>
-#include <limits>
 #include <queue>
 using namespace std;
 using p32 = pair<int, int>;
@@ -36,7 +35,7 @@ int main() {
     }
     dijkstra();
     for (int i = 1; i <= n; i++)
-        if (dis[i] == INF) cout << numeric_limits<int>::max() << ' ';
+        if (dis[i] == INF) cout << 0x7fffffff << ' ';
         else cout << dis[i] << ' ';
     return 0;
 }

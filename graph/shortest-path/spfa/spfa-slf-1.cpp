@@ -1,6 +1,5 @@
 #include <cstring>
 #include <iostream>
-#include <limits>
 #include <queue>
 using namespace std;
 const int N = 1e5 + 5, M = 5e5 + 5, INF = 0x3f3f3f3f;
@@ -38,7 +37,7 @@ int main() {
     }
     spfa();
     for (int i = 1; i <= n; i++)
-        if (dis[i] == INF) cout << numeric_limits<int>::max() << ' ';
+        if (dis[i] == INF) cout << 0x7fffffff << ' ';
         else cout << dis[i] << ' ';
     return 0;
 }

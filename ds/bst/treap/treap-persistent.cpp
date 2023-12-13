@@ -62,6 +62,8 @@ int queryrnk(int rt, int x) {
     return t[l].siz + 1;
 }
 int querykth(int rt, int x) {
+    if (x < 1) return 0x80000001;
+    if (x > t[rt].siz) return 0x7fffffff;
     auto [l, _] = splitrnk(rt, x - 1);
     auto [m, r] = splitrnk(_, 1);
     return t[m].val;

@@ -1,7 +1,6 @@
 #include <bit>
 #include <cstring>
 #include <iostream>
-#include <limits>
 #include <vector>
 using namespace std;
 using u32 = unsigned;
@@ -54,7 +53,7 @@ int main() {
     }
     dijkstra();
     for (int i = 1; i <= n; i++)
-        if (dis[i] == INF) cout << numeric_limits<int>::max() << ' ';
+        if (dis[i] == INF) cout << 0x7fffffff << ' ';
         else cout << dis[i] << ' ';
     return 0;
 }
