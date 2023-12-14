@@ -11,10 +11,10 @@ struct query {
 struct change {
     int x, k;
 } c[N];
-bool cmp(query x, query y) {
+bool operator<(query x, query y) {
     if (bel[x.l] != bel[y.l]) return x.l < y.l;
-    if (bel[x.r] != bel[y.r]) return x.r < y.r;
-    return x.t < y.t;
+    if (bel[x.r] != bel[y.r]) return bel[x.l] & 1 ? x.r < y.r : x.r > y.r;
+    return bel[x.r] & 1 ? x.t < y.t : x.t > y.t;
 }
 void build() {
     siz = pow(n, 0.667);
@@ -38,7 +38,7 @@ int main() {
         else c[++ccnt] = {x, y};
     }
     build();
-    sort(q + 1, q + qcnt + 1, cmp);
+    sort(q + 1, q + qcnt + 1);
     for (int i = 1; i <= qcnt; i++) {
         while (l > q[i].l) insert(--l);
         while (r < q[i].r) insert(++r);

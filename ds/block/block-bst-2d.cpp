@@ -5,12 +5,15 @@ using namespace std;
 const int N = 1e5 + 5;
 int n, m, l = 1, r, t, a[N], b[N], bel[N], val[N], sum[N], ans[N], siz, bcnt, qcnt, ccnt;
 struct query {
-    int op, x, y, k, t, id, ans;
-} q[N], p[N];
-bool cmp1(query x, query y) {
-    if (bel[x.x] != bel[y.x]) return x.x < y.x;
-    if (bel[x.y] != bel[y.y]) return x.y < y.y;
-    return x.t < y.t;
+    int op, l, r, k, t, id;
+} q[N];
+struct change {
+    int x, k;
+} c[N];
+bool operator<(query x, query y) {
+    if (bel[x.l] != bel[y.l]) return x.l < y.l;
+    if (bel[x.r] != bel[y.r]) return bel[x.l] & 1 ? x.r < y.r : x.r > y.r;
+    return bel[x.r] & 1 ? x.t < y.t : x.t > y.t;
 }
 void build1() {
     siz = pow(n, 0.667);
@@ -63,7 +66,7 @@ int main() {
     b[bcnt + 1] = 0x80000001;
     b[bcnt + 2] = 0x7fffffff;
     build1();
-    sort(q + 1, q + c1 + 1, cmp1);
+    sort(q + 1, q + qcnt + 1);
     build2();
     for (int i = 1; i <= qcnt; i++) {
         while (l > q[i].l) insert(--l);

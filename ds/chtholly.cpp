@@ -11,9 +11,9 @@ struct node {
     int l, r;
     mutable i64 val;
 };
-bool cmp(node x, node y) { return x.l < y.l; }
-set<node, decltype(&cmp)> S(cmp);
+set<node> S;
 vector<p64> tmp;
+bool operator<(node x, node y) { return x.l < y.l; }
 auto split(int x) {
     auto it = --S.upper_bound({x});
     if (it->l == x) return it;

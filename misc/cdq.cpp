@@ -11,7 +11,7 @@ bool operator<(node x, node y) {
     if (x.b != y.b) return x.b < y.b;
     return x.c < y.c;
 }
-bool operator==(node x, node y) { return x.a == y.a && x.b == y.b && x.c == y.c; }
+bool operator==(node x, node y) { return !(x < y || y < x); }
 void update(int x, int k) {
     for (int i = x; i <= m; i += i & -i) t[i] += k;
 }

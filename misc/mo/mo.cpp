@@ -10,9 +10,9 @@ i64 ans1[N], ans2[N], now;
 struct query {
     int l, r, id;
 } q[N];
-bool cmp(query x, query y) {
+bool operator<(query x, query y) {
     if (bel[x.l] != bel[y.l]) return x.l < y.l;
-    return x.r < y.r;
+    return bel[x.l] & 1 ? x.r < y.r : x.r > y.r;
 }
 void build() {
     siz = n / sqrt(m);
@@ -27,7 +27,7 @@ int main() {
     for (int i = 1; i <= n; i++) cin >> a[i];
     for (int i = 1; i <= m; i++) cin >> q[i].l >> q[i].r, q[i].id = i;
     build();
-    sort(q + 1, q + m + 1, cmp);
+    sort(q + 1, q + m + 1);
     for (int i = 1; i <= m; i++) {
         if (q[i].l == q[i].r) {
             ans1[q[i].id] = 0, ans2[q[i].id] = 1;
