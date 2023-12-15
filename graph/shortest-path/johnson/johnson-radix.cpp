@@ -7,7 +7,7 @@ using u32 = unsigned;
 using i64 = long long;
 using p32 = pair<int, int>;
 const int N = 3e3 + 5, M = 9e3 + 5, INF = 0x3f3f3f3f;
-int n, m, s, h[N], dis[N], tot[N], pos[N], head[N], cnt, top;
+int n, m, s, ss, h[N], dis[N], tot[N], pos[N], head[N], cnt, top;
 i64 ans;
 bool vis[N];
 struct edge {
@@ -18,8 +18,7 @@ vector<int> buc[32];
 void add(int u, int v, int w) { e[++cnt] = {v, head[u], w}, head[u] = cnt; }
 bool spfa() {
     memset(h, 0x3f, sizeof(h));
-    h[n + 1] = 0, vis[n + 1] = true, Q.push(n + 1);
-    for (int i = 1; i <= n; i++) add(n + 1, i, 0);
+    h[ss] = 0, vis[ss] = true, Q.push(ss);
     while (Q.size()) {
         int u = Q.front();
         vis[u] = false, Q.pop();
@@ -71,8 +70,9 @@ void dijkstra() {
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
-    cin >> n >> m;
+    cin >> n >> m, ss = n + 1;
     for (int i = 1, u, v, w; i <= m; i++) cin >> u >> v >> w, add(u, v, w);
+    for (int i = 1; i <= n; i++) add(ss, i, 0);
     if (!spfa()) return cout << "-1", 0;
     for (int i = 1; i <= n; i++) {
         s = i, dijkstra(), ans = 0;
