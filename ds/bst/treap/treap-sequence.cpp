@@ -1,9 +1,7 @@
 #include <chrono>
 #include <iostream>
 #include <random>
-#include <stack>
 using namespace std;
-using p32 = pair<int, int>;
 const int N = 1e5 + 5;
 int n, m, rt;
 struct node {
@@ -19,42 +17,29 @@ void pushdown(int rt) {
     t[t[rt].l].rev ^= 1, t[t[rt].r].rev ^= 1;
     t[rt].rev = false;
 }
-p32 split(int rt, int x) {
-    if (!rt) return {};
-    pushdown(rt);
-    if (t[t[rt].l].siz >= x) {
-        auto [l, r] = split(t[rt].l, x);
-        t[rt].l = r, pushup(rt);
-        return {l, rt};
-    } else {
-        auto [l, r] = split(t[rt].r, x - t[t[rt].l].siz - 1);
-        t[rt].r = l, pushup(rt);
-        return {rt, r};
-    }
+void split(int rt, int x, int &l, int &r) {
+    if (!rt) return void(l = r = 0);
+    if (t[t[rt].l].siz >= x) r = rt, split(t[rt].l, x, l, t[rt].l);
+    else l = rt, split(t[rt].r, x - t[t[rt].l].siz - 1, t[rt].r, r);
+    pushup(rt);
 }
 int merge(int lt, int rt) {
     if (!lt || !rt) return lt + rt;
     pushdown(lt), pushdown(rt);
-    if (t[lt].key < t[rt].key) {
-        t[lt].r = merge(t[lt].r, rt);
-        return pushup(lt), lt;
-    } else {
-        t[rt].l = merge(lt, t[rt].l);
-        return pushup(rt), rt;
-    }
+    if (t[lt].key < t[rt].key) t[lt].r = merge(t[lt].r, rt), rt = lt;
+    else t[rt].l = merge(lt, t[rt].l);
+    return pushup(rt), rt;
 }
-void reverse(int x, int y) {
-    auto [l, _] = split(rt, x - 1);
-    auto [m, r] = split(_, y - x + 1);
+void reverse(int &rt, int x, int y) {
+    int l, m, r;
+    split(rt, x - 1, l, m), split(m, y - x + 1, m, r);
     t[m].rev ^= 1;
     rt = merge(merge(l, m), r);
 }
 void output(int rt) {
     if (!rt) return;
     pushdown(rt);
-    output(t[rt].l);
-    cout << t[rt].val << ' ';
-    output(t[rt].r);
+    output(t[rt].l), cout << t[rt].val << ' ', output(t[rt].r);
 }
 int main() {
     ios::sync_with_stdio(false);
@@ -62,7 +47,7 @@ int main() {
     cin >> n >> m;
     for (int i = 1; i <= n; i++) t[i] = {0, 0, i, 1, rng()};
     for (int i = 1; i <= n; i++) rt = merge(rt, i);
-    for (int i = 1, l, r; i <= m; i++) cin >> l >> r, reverse(l, r);
+    for (int i = 1, l, r; i <= m; i++) cin >> l >> r, reverse(rt, l, r);
     output(rt);
     return 0;
 }
