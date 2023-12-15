@@ -1,13 +1,11 @@
 #include <iostream>
-#include <tuple>
 using namespace std;
 using i64 = long long;
-using t64 = tuple<i64, i64, i64>;
 int T, a, b, c;
-t64 exgcd(int a, int b) {
-    if (!b) return {1, 0, a};
-    auto [x, y, g] = exgcd(b, a % b);
-    return {y, x - a / b * y, g};
+i64 exgcd(i64 a, i64 b, i64 &x, i64 &y) {
+    if (!b) return x = 1, y = 0, a;
+    i64 ret = exgcd(b, a % b, y, x);
+    return y -= a / b * x, ret;
 }
 int main() {
     ios::sync_with_stdio(false);
@@ -15,7 +13,7 @@ int main() {
     cin >> T;
     while (T--) {
         cin >> a >> b >> c;
-        auto [x, y, g] = exgcd(a, b);
+        i64 x, y, g = exgcd(a, b, x, y);
         if (c % g) {
             cout << "-1\n";
             continue;

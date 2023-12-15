@@ -15,7 +15,7 @@ int merge(int lt, int rt) {
     t[lt].dis = t[t[lt].r].dis + 1;
     return lt;
 }
-int removemin(int rt) { return merge(t[rt].l, t[rt].r); }
+void removemin(int &rt) { rt = merge(t[rt].l, t[rt].r); }
 int find(int x) { return x == fa[x] ? x : fa[x] = find(fa[x]); }
 int main() {
     ios::sync_with_stdio(false);
@@ -32,7 +32,7 @@ int main() {
             fa[v] = u, rt[u] = merge(rt[u], rt[v]);
         } else if (!vis[u]) {
             vis[rt[u = find(u)]] = true;
-            cout << t[rt[u]].val << '\n', rt[u] = removemin(rt[u]);
+            cout << t[rt[u]].val << '\n', removemin(rt[u]);
         } else cout << "-1\n";
     }
     return 0;

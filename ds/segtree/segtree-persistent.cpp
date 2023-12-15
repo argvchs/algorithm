@@ -5,21 +5,20 @@ int n, m, a[N], rt[N], cnt;
 struct node {
     int l, r, val;
 } t[N * 25];
-int build(int rt, int l, int r) {
-    if (l == r) return t[rt].val = a[l], rt;
+void build(int &rt, int l, int r) {
+    rt = ++cnt;
+    if (l == r) return void(t[rt].val = a[l]);
     int mid = (l + r) >> 1;
-    t[rt].l = build(++cnt, l, mid);
-    t[rt].r = build(++cnt, mid + 1, r);
-    return rt;
+    build(t[rt].l, l, mid);
+    build(t[rt].r, mid + 1, r);
 }
-int update(int rt, int l, int r, int x, int k) {
-    if (x < l || r < x) return rt;
+void update(int &rt, int l, int r, int x, int k) {
+    if (x < l || r < x) return;
     t[++cnt] = t[rt], rt = cnt;
-    if (l == r) return t[rt].val = k, rt;
+    if (l == r) return void(t[rt].val = k);
     int mid = (l + r) >> 1;
-    t[rt].l = update(t[rt].l, l, mid, x, k);
-    t[rt].r = update(t[rt].r, mid + 1, r, x, k);
-    return rt;
+    update(t[rt].l, l, mid, x, k);
+    update(t[rt].r, mid + 1, r, x, k);
 }
 int query(int rt, int l, int r, int x) {
     if (x < l || r < x) return 0;
@@ -32,11 +31,11 @@ int main() {
     cin.tie(nullptr);
     cin >> n >> m;
     for (int i = 1; i <= n; i++) cin >> a[i];
-    rt[0] = build(++cnt, 1, n);
+    build(rt[0], 1, n);
     for (int i = 1, ver, op, x, k; i <= m; i++) {
-        cin >> ver >> op >> x;
-        if (op == 1) cin >> k, rt[i] = update(rt[ver], 1, n, x, k);
-        else cout << query(rt[i] = rt[ver], 1, n, x) << '\n';
+        cin >> ver >> op >> x, rt[i] = rt[ver];
+        if (op == 1) cin >> k, update(rt[i], 1, n, x, k);
+        else cout << query(rt[i], 1, n, x) << '\n';
     }
     return 0;
 }
