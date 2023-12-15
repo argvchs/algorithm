@@ -3,36 +3,33 @@
 #include <iostream>
 #include <random>
 using namespace std;
-using f80 = long double;
+using f64 = double;
 const int N = 1e3 + 5;
-const f80 EPS = 1e-4;
+const f64 EPS = 1e-3;
 int n, a[N], b[N], c[N];
-f80 x, y, ans;
+f64 xans, yans, ans;
 mt19937 rng(chrono::steady_clock::now().time_since_epoch().count());
-uniform_real_distribution<f80> dist;
-f80 calc(f80 x, f80 y) {
-    f80 ret = 0;
-    for (int i = 1; i <= n; i++) {
-        f80 xx = x - a[i];
-        f80 yy = y - b[i];
-        ret += c[i] * sqrt(xx * xx + yy * yy);
-    }
-    if (ret < ans) ans = ret, ::x = x, ::y = y;
+uniform_real_distribution urd;
+f64 calc(f64 x, f64 y) {
+    f64 ret = 0;
+    for (int i = 1; i <= n; i++)
+        ret += c[i] * sqrt((x - a[i]) * (x - a[i]) + (y - b[i]) * (y - b[i]));
+    if (ret < ans) ans = ret, xans = x, yans = y;
     return ret;
 }
 void sa() {
-    f80 x = ::x, y = ::y, t = 1e3;
+    f64 x = xans, y = yans, t = 1e3;
     while (t > EPS) {
-        f80 xx = x + (dist(rng) * 2 - 1) * t;
-        f80 yy = y + (dist(rng) * 2 - 1) * t;
-        f80 de = calc(xx, yy) - calc(x, y);
-        if (exp(-de / t) > dist(rng)) x = xx, y = yy;
+        f64 z = x + (urd(rng) * 2 - 1) * t;
+        f64 w = y + (urd(rng) * 2 - 1) * t;
+        f64 de = calc(z, w) - calc(x, y);
+        if (exp(-de / t) > urd(rng)) x = z, y = w;
         t *= 0.99;
     }
     for (int i = 1; i <= 1e3; i++) {
-        f80 xx = ::x + (dist(rng) * 2 - 1) * t;
-        f80 yy = ::y + (dist(rng) * 2 - 1) * t;
-        calc(xx, yy);
+        f64 z = xans + (urd(rng) * 2 - 1) * t;
+        f64 w = yans + (urd(rng) * 2 - 1) * t;
+        calc(z, w);
     }
 }
 int main() {
@@ -40,9 +37,9 @@ int main() {
     cin.tie(nullptr);
     cin >> n;
     for (int i = 1; i <= n; i++) cin >> a[i] >> b[i] >> c[i];
-    for (int i = 1; i <= n; i++) x += a[i], y += b[i];
-    ans = calc(x /= n, y /= n);
+    for (int i = 1; i <= n; i++) xans += a[i], yans += b[i];
+    ans = calc(xans /= n, yans /= n);
     sa(), sa(), sa();
-    cout << fixed << setprecision(3) << x << ' ' << y;
+    cout << fixed << setprecision(3) << xans << ' ' << yans;
     return 0;
 }
