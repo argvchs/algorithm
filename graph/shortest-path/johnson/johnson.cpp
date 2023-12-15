@@ -53,10 +53,7 @@ int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
     cin >> n >> m;
-    for (int i = 1, u, v, w; i <= m; i++) {
-        cin >> u >> v >> w;
-        add(u, v, w);
-    }
+    for (int i = 1, u, v, w; i <= m; i++) cin >> u >> v >> w, add(u, v, w);
     if (!spfa()) return cout << "-1", 0;
     for (int i = 1; i <= n; i++) {
         s = i, dijkstra(), ans = 0;

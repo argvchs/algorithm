@@ -6,7 +6,6 @@ string s, t;
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
-    cout.tie(nullptr);
     cin >> s >> t;
     for (char c : s) a[++n] = c - 'A';
     for (char c : t) b[++m] = c - 'A';

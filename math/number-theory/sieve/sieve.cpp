@@ -14,9 +14,6 @@ int main() {
             if (i % p[j] == 0) break;
         }
     }
-    for (int i = 1, x; i <= m; i++) {
-        cin >> x;
-        cout << p[x] << '\n';
-    }
+    for (int i = 1, x; i <= m; i++) cin >> x, cout << p[x] << '\n';
     return 0;
 }

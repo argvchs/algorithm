@@ -51,10 +51,7 @@ int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
     cin >> n >> m >> s >> t;
-    for (int i = 1, u, v, w; i <= m; i++) {
-        cin >> u >> v >> w;
-        addflow(u, v, w);
-    }
+    for (int i = 1, u, v, w; i <= m; i++) cin >> u >> v >> w, addflow(u, v, w);
     dinic();
     cout << ans;
     return 0;

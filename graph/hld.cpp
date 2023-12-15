@@ -34,8 +34,7 @@ void split(int u, int v) {
     tmp.clear();
     while (top[u] != top[v]) {
         if (dep[top[u]] < dep[top[v]]) swap(u, v);
-        tmp.emplace_back(top[u], u);
-        u = fa[top[u]];
+        tmp.emplace_back(top[u], u), u = fa[top[u]];
     }
     if (dep[u] < dep[v]) swap(u, v);
     tmp.emplace_back(v, u);
@@ -55,32 +54,24 @@ int query(int l, int r) { return (query(r) - query(l - 1) + p) % p; }
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
-    cout.tie(nullptr);
     cin >> n >> m >> rt >> p;
     for (int i = 1; i <= n; i++) cin >> a[i];
-    for (int i = 1, u, v; i <= n - 1; i++) {
-        cin >> u >> v;
-        addedge(u, v);
-    }
+    for (int i = 1, u, v; i <= n - 1; i++) cin >> u >> v, addedge(u, v);
     dfs1(rt, 0);
     dfs2(rt, 0, rt);
     for (int i = 1; i <= n; i++) update(dfn[i], dfn[i], a[i]);
     for (int i = 1, op, x, y, k; i <= m; i++) {
         cin >> op >> x;
         if (op == 1) {
-            cin >> y >> k;
-            split(x, y);
+            cin >> y >> k, split(x, y);
             for (auto [u, v] : tmp) update(dfn[u], dfn[v], k);
         } else if (op == 2) {
-            cin >> y;
-            split(x, y);
+            cin >> y, split(x, y);
             int ans = 0;
             for (auto [u, v] : tmp) ans = (ans + query(dfn[u], dfn[v])) % p;
             cout << ans << '\n';
-        } else if (op == 3) {
-            cin >> y;
-            update(dfn[x], dfn[x] + siz[x] - 1, y);
-        } else cout << query(dfn[x], dfn[x] + siz[x] - 1) << '\n';
+        } else if (op == 3) cin >> k, update(dfn[x], dfn[x] + siz[x] - 1, k);
+        else cout << query(dfn[x], dfn[x] + siz[x] - 1) << '\n';
     }
     return 0;
 }

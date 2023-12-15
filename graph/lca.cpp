@@ -28,10 +28,7 @@ int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
     cin >> n >> m >> rt;
-    for (int i = 1, u, v; i <= n - 1; i++) {
-        cin >> u >> v;
-        addedge(u, v);
-    }
+    for (int i = 1, u, v; i <= n - 1; i++) cin >> u >> v, addedge(u, v);
     dfs(rt, 0);
     for (int i = 1, u, v; i <= m; i++) {
         cin >> u >> v;

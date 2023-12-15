@@ -30,10 +30,7 @@ int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
     cin >> n >> m;
-    for (int i = 1, u, v; i <= m; i++) {
-        cin >> u >> v;
-        addedge(u, v);
-    }
+    for (int i = 1, u, v; i <= m; i++) cin >> u >> v, addedge(u, v);
     for (int i = 1; i <= n; i++)
         if (!dfn[i]) tarjan(i, 0);
     cout << ans.size() << '\n';
