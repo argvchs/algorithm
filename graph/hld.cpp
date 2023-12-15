@@ -4,8 +4,8 @@ using namespace std;
 using i64 = long long;
 using p32 = pair<int, int>;
 const int N = 1e5 + 5;
-int n, m, p, rt, a[N], t1[N], t2[N], dfn[N], fa[N], ch[N], dep[N], siz[N], top[N], idx,
-    cnt, head[N];
+int n, m, p, rt, a[N], t1[N], t2[N], fa[N], ch[N], dep[N], siz[N], dfn[N], top[N],
+    head[N], idx, cnt;
 struct edge {
     int to, nxt;
 } e[N << 1];
