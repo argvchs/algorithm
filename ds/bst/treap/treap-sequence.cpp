@@ -14,7 +14,7 @@ void pushup(int rt) { t[rt].siz = t[t[rt].l].siz + t[t[rt].r].siz + 1; }
 void pushdown(int rt) {
     if (!t[rt].rev) return;
     swap(t[rt].l, t[rt].r);
-    t[t[rt].l].rev ^= 1, t[t[rt].r].rev ^= 1;
+    t[t[rt].l].rev ^= true, t[t[rt].r].rev ^= true;
     t[rt].rev = false;
 }
 void split(int rt, int x, int &l, int &r) {
@@ -33,7 +33,7 @@ int merge(int lt, int rt) {
 void reverse(int &rt, int x, int y) {
     int l, m, r;
     split(rt, x - 1, l, m), split(m, y - x + 1, m, r);
-    t[m].rev ^= 1;
+    t[m].rev ^= true;
     rt = merge(merge(l, m), r);
 }
 void output(int rt) {

@@ -10,16 +10,16 @@ void pushup(int rt) { t[rt].sum = t[t[rt].ch[0]].sum ^ t[t[rt].ch[1]].sum ^ t[rt
 void pushdown(int rt) {
     if (!t[rt].rev) return;
     swap(t[rt].ch[0], t[rt].ch[1]);
-    t[t[rt].ch[0]].rev ^= 1, t[t[rt].ch[1]].rev ^= 1;
+    t[t[rt].ch[0]].rev ^= true, t[t[rt].ch[1]].rev ^= true;
     t[rt].rev = false;
 }
 bool get(int rt) { return rt == t[t[rt].fa].ch[1]; }
 bool isroot(int rt) { return rt != t[t[rt].fa].ch[0] && rt != t[t[rt].fa].ch[1]; }
 void rotate(int rt) {
-    int fa = t[rt].fa, k = get(rt);
+    int fa = t[rt].fa, x = get(rt);
     if (!isroot(fa)) t[t[fa].fa].ch[get(fa)] = rt;
-    t[rt].fa = t[fa].fa, t[fa].fa = rt, t[t[rt].ch[!k]].fa = fa;
-    t[fa].ch[k] = t[rt].ch[!k], t[rt].ch[!k] = fa;
+    t[rt].fa = t[fa].fa, t[fa].fa = rt, t[t[rt].ch[!x]].fa = fa;
+    t[fa].ch[x] = t[rt].ch[!x], t[rt].ch[!x] = fa;
     pushup(fa), pushup(rt);
 }
 void pushall(int rt) {
@@ -35,7 +35,7 @@ void access(int rt) {
     for (int pre = 0; rt; pre = rt, rt = t[rt].fa)
         splay(rt), t[rt].ch[1] = pre, pushup(rt);
 }
-void makeroot(int rt) { access(rt), splay(rt), t[rt].rev ^= 1; }
+void makeroot(int rt) { access(rt), splay(rt), t[rt].rev ^= true; }
 int findroot(int rt) {
     access(rt), splay(rt);
     while (t[rt].ch[0]) rt = t[rt].ch[0];

@@ -4,11 +4,11 @@ using i64 = long long;
 int n;
 i64 a, p[65], ret;
 void insert(i64 x) {
-    for (int i = 60; i >= 0; i--)
-        if (x & (1ll << i)) {
-            if (p[i]) x ^= p[i];
-            else return void(p[i] = x);
-        }
+    for (int i = 60; i >= 0; i--) {
+        if (!(x & (1ll << i))) continue;
+        if (!p[i]) return void(p[i] = x);
+        x ^= p[i];
+    }
 }
 i64 query() {
     i64 ret = 0;

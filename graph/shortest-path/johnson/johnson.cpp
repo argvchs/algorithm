@@ -34,7 +34,7 @@ bool spfa() {
 }
 void dijkstra() {
     memset(dis, 0x3f, sizeof(dis));
-    memset(vis, 0, sizeof(vis));
+    memset(vis, false, sizeof(vis));
     PQ.emplace(dis[s] = 0, s);
     while (PQ.size()) {
         int u = PQ.top().second;
