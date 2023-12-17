@@ -4,7 +4,7 @@ const int N = 1e6 + 5;
 int n, m, a[N], rt[N], cnt;
 struct node {
     int l, r, val;
-} t[N * 25];
+} t[N << 5];
 void build(int &rt, int l, int r) {
     rt = ++cnt;
     if (l == r) return void(t[rt].val = a[l]);
@@ -32,8 +32,8 @@ int main() {
     cin >> n >> m;
     for (int i = 1; i <= n; i++) cin >> a[i];
     build(rt[0], 1, n);
-    for (int i = 1, ver, op, x, k; i <= m; i++) {
-        cin >> ver >> op >> x, rt[i] = rt[ver];
+    for (int i = 1, v, op, x, k; i <= m; i++) {
+        cin >> v >> op >> x, rt[i] = rt[v];
         if (op == 1) cin >> k, update(rt[i], 1, n, x, k);
         else cout << query(rt[i], 1, n, x) << '\n';
     }

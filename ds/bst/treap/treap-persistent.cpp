@@ -7,7 +7,7 @@ int n, rt[N], cnt;
 struct node {
     int l, r, val, siz;
     mt19937::result_type key;
-} t[N * 50];
+} t[N << 5];
 mt19937 rng(chrono::steady_clock::now().time_since_epoch().count());
 int newnode(int x) { return t[++cnt] = {0, 0, x, 1, rng()}, cnt; }
 void pushup(int rt) { t[rt].siz = t[t[rt].l].siz + t[t[rt].r].siz + 1; }
@@ -50,8 +50,8 @@ int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
     cin >> n;
-    for (int i = 1, ver, op, x; i <= n; i++) {
-        cin >> ver >> op >> x, rt[i] = rt[ver];
+    for (int i = 1, v, op, x; i <= n; i++) {
+        cin >> v >> op >> x, rt[i] = rt[v];
         if (op == 1) insert(rt[i], x);
         else if (op == 2) remove(rt[i], x);
         else if (op == 3) cout << queryrnk(rt[i], x) << '\n';

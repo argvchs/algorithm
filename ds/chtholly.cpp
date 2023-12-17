@@ -17,8 +17,7 @@ bool operator<(node x, node y) { return x.l < y.l; }
 auto split(int x) {
     auto it = --S.upper_bound({x});
     if (it->l == x) return it;
-    int l = it->l, r = it->r;
-    i64 val = it->val;
+    auto [l, r, val] = *it;
     S.erase(it), S.emplace(l, x - 1, val);
     return S.emplace(x, r, val).first;
 }

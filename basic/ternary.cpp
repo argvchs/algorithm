@@ -1,4 +1,3 @@
-#include <cmath>
 #include <iostream>
 using namespace std;
 using f64 = double;
@@ -8,7 +7,7 @@ int n;
 f64 l, r, a[N];
 f64 calc(f64 x) {
     f64 ret = 0;
-    for (int i = 0; i <= n; i++) ret += a[i] * pow(x, i);
+    for (int i = n; i >= 0; i--) ret = ret * x + a[i];
     return ret;
 }
 int main() {

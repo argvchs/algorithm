@@ -13,16 +13,16 @@ int main() {
         for (int j = 1; j <= siz; j++) f[j][i % j] += a[i];
     for (int i = 1, x, y; i <= m; i++) {
         cin >> op >> x >> y;
-        if (op == 'A') {
+        if (op == 'A')
             if (x <= siz) cout << f[x][y] << '\n';
             else {
                 int ans = 0;
                 for (int j = y; j <= n; j += x) ans += a[j];
                 cout << ans << '\n';
             }
-        } else {
-            for (int j = 1; j <= siz; j++) f[j][x % j] += y - a[x];
+        else {
             a[x] = y;
+            for (int j = 1; j <= siz; j++) f[j][x % j] += y - a[x];
         }
     }
     return 0;
