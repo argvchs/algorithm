@@ -16,10 +16,11 @@ void dfs(int u, int fa) {
         if (v != fa) dfs(v, u), a[++idx] = u;
     }
 }
-int query(int l, int r) {
+int lca(int u, int v) {
+    int l = dfn[u], r = dfn[v];
+    if (l > r) swap(l, r);
     int k = bit_width<u32>(r - l + 1) - 1;
-    int x = f[l][k], y = f[r - (1 << k) + 1][k];
-    return dfn[x] < dfn[y] ? x : y;
+    return a[min(f[l][k], f[r - (1 << k) + 1][k])];
 }
 int main() {
     ios::sync_with_stdio(false);
@@ -27,16 +28,13 @@ int main() {
     cin >> n >> m >> rt;
     for (int i = 1, u, v; i <= n - 1; i++) cin >> u >> v, addedge(u, v);
     dfs(rt, 0);
-    for (int i = 1; i <= idx; i++) f[i][0] = a[i];
+    for (int i = 1; i <= n << 1; i++) f[i][0] = dfn[a[i]];
     for (int j = 1; j <= 20; j++)
-        for (int i = 1; i + (1 << j) - 1 <= idx; i++) {
-            int x = f[i][j - 1], y = f[i + (1 << (j - 1))][j - 1];
-            f[i][j] = dfn[x] < dfn[y] ? x : y;
-        }
+        for (int i = 1; i + (1 << j) - 1 <= n << 1; i++)
+            f[i][j] = min(f[i][j - 1], f[i + (1 << (j - 1))][j - 1]);
     for (int i = 1, u, v; i <= m; i++) {
         cin >> u >> v;
-        if (dfn[u] > dfn[v]) swap(u, v);
-        cout << query(dfn[u], dfn[v]) << '\n';
+        cout << lca(u, v) << '\n';
     }
     return 0;
 }
