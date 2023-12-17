@@ -4,7 +4,7 @@
 #include <vector>
 using namespace std;
 using i64 = long long;
-using p64 = pair<i64, i64>;
+using i64x2 = pair<i64, i64>;
 const int P = 1e9 + 7;
 int n, m, s, v;
 struct node {
@@ -12,7 +12,7 @@ struct node {
     mutable i64 val;
 };
 set<node> S;
-vector<p64> tmp;
+vector<i64x2> tmp;
 bool operator<(node x, node y) { return x.l < y.l; }
 auto split(int x) {
     auto it = --S.upper_bound({x});

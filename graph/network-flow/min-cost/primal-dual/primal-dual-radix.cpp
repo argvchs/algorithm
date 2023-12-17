@@ -4,7 +4,7 @@
 #include <queue>
 using namespace std;
 using u32 = unsigned;
-using p32 = pair<int, int>;
+using i32x2 = pair<int, int>;
 const int N = 5e3 + 5, M = 5e4 + 5, INF = 0x3f3f3f3f;
 int n, m, s, t, h[N], dis[N], pos[N], cur[N], head[N], cnt = 1, top, flow, cost;
 bool vis[N];

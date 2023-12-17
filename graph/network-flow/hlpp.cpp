@@ -2,7 +2,7 @@
 #include <iostream>
 #include <queue>
 using namespace std;
-using p32 = pair<int, int>;
+using i32x2 = pair<int, int>;
 const int N = 1205, M = 12e4 + 5, INF = 0x3f3f3f3f;
 int n, m, s, t, ht[N], ex[N], gap[N], cur[N], head[N], cnt = 1;
 bool vis[N];
@@ -10,7 +10,7 @@ struct edge {
     int to, nxt, w;
 } e[M << 1];
 queue<int> Q;
-priority_queue<p32> PQ;
+priority_queue<i32x2> PQ;
 void add(int u, int v, int w) { e[++cnt] = {v, head[u], w}, head[u] = cnt; }
 void addflow(int u, int v, int w) { add(u, v, w), add(v, u, 0); }
 bool bfs() {
