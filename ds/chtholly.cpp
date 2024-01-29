@@ -10,10 +10,10 @@ int n, m, s, v;
 struct node {
     int l, r;
     mutable i64 val;
+    bool operator<(node x) { return l < x.l; }
 };
 set<node> S;
 vector<i64x2> tmp;
-bool operator<(node x, node y) { return x.l < y.l; }
 auto split(int x) {
     auto it = --S.upper_bound({x});
     if (it->l == x) return it;

@@ -9,11 +9,8 @@ int n, m, l = 1, r, a[N], bel[N], cnt[N], siz;
 i64 ans1[N], ans2[N], now;
 struct query {
     int l, r, id;
+    bool operator<(query x) { return tie(bel[l], r) < tie(bel[x.l], x.r); }
 } q[N];
-bool operator<(query x, query y) {
-    if (bel[x.l] != bel[y.l]) return x.l < y.l;
-    return bel[x.l] & 1 ? x.r < y.r : x.r > y.r;
-}
 void build() {
     siz = n / sqrt(m);
     for (int i = 1; i <= n; i++) bel[i] = (i - 1) / siz + 1;

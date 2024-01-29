@@ -11,9 +11,7 @@ struct change {
     int x, k;
 } c[N];
 bool operator<(query x, query y) {
-    if (bel[x.l] != bel[y.l]) return x.l < y.l;
-    if (bel[x.r] != bel[y.r]) return bel[x.l] & 1 ? x.r < y.r : x.r > y.r;
-    return bel[x.r] & 1 ? x.t < y.t : x.t > y.t;
+    return tie(bel[x.l], bel[x.r], x.t) < tie(bel[y.l], bel[y.r], y.t);
 }
 void build1() {
     siz = pow(n, 0.667);

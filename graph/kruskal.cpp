@@ -5,8 +5,8 @@ const int N = 5e3 + 5, M = 2e5 + 5;
 int n, m, fa[N], siz[N], tot, ans;
 struct edge {
     int from, to, w;
+    bool operator<(edge x) { return w < x.w; }
 } e[M];
-bool operator<(edge x, edge y) { return x.w < y.w; }
 int find(int x) { return x == fa[x] ? x : fa[x] = find(fa[x]); }
 int main() {
     ios::sync_with_stdio(false);
