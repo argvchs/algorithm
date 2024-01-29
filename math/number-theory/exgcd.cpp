@@ -1,11 +1,12 @@
 #include <iostream>
 using namespace std;
 using i64 = long long;
+using i64x3 = tuple<i64, i64, i64>;
 int T, a, b, c;
-i64 exgcd(i64 a, i64 b, i64 &x, i64 &y) {
-    if (!b) return x = 1, y = 0, a;
-    i64 ret = exgcd(b, a % b, y, x);
-    return y -= a / b * x, ret;
+i64x3 exgcd(i64 a, i64 b) {
+    if (!b) return {1, 0, a};
+    auto [x, y, g] = exgcd(b, a % b);
+    return {y, x - a / b * y, g};
 }
 int main() {
     ios::sync_with_stdio(false);
@@ -13,7 +14,7 @@ int main() {
     cin >> T;
     while (T--) {
         cin >> a >> b >> c;
-        i64 x, y, g = exgcd(a, b, x, y);
+        auto [x, y, g] = exgcd(a, b);
         if (c % g) {
             cout << "-1\n";
             continue;
