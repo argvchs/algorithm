@@ -1,6 +1,7 @@
 #include <algorithm>
 #include <cmath>
 #include <iostream>
+#include <tuple>
 using namespace std;
 const int N = 1e6 + 5;
 int n, m, l = 1, r, t, a[N], bel[N], cnt[N], ans[N], siz, qcnt, ccnt, now;

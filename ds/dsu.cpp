@@ -1,4 +1,5 @@
 #include <iostream>
+#include <utility>
 using namespace std;
 const int N = 1e4 + 5;
 int n, m, fa[N], siz[N];

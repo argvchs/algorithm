@@ -1,6 +1,10 @@
+#include <algorithm>
 #include <cstring>
+#include <functional>
 #include <iostream>
 #include <queue>
+#include <utility>
+#include <vector>
 using namespace std;
 using i32x2 = pair<int, int>;
 const int N = 5e3 + 5, M = 5e4 + 5, INF = 0x3f3f3f3f;

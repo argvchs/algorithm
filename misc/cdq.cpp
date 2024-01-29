@@ -1,5 +1,6 @@
 #include <algorithm>
 #include <iostream>
+#include <tuple>
 using namespace std;
 const int N = 2e5 + 5;
 int n, m, t[N], ans[N];

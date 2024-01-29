@@ -1,3 +1,4 @@
+#include <cctype>
 #include <iostream>
 using namespace std;
 using i64 = long long;

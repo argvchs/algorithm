@@ -1,7 +1,10 @@
+#include <algorithm>
 #include <bit>
 #include <cstring>
 #include <iostream>
 #include <queue>
+#include <utility>
+#include <vector>
 using namespace std;
 using u32 = unsigned;
 using i32x2 = pair<int, int>;

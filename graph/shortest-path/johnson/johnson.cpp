@@ -1,6 +1,9 @@
 #include <cstring>
+#include <functional>
 #include <iostream>
 #include <queue>
+#include <utility>
+#include <vector>
 using namespace std;
 using i64 = long long;
 using i32x2 = pair<int, int>;

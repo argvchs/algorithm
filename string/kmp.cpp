@@ -1,4 +1,5 @@
 #include <iostream>
+#include <string>
 using namespace std;
 const int N = 1e6 + 5;
 int n, m, a[N], b[N], fail[N];

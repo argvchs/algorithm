@@ -2,6 +2,7 @@
 #include <cmath>
 #include <iostream>
 #include <numeric>
+#include <tuple>
 using namespace std;
 using i64 = long long;
 const int N = 5e4 + 5;

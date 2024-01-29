@@ -1,5 +1,6 @@
 #include <cstring>
 #include <iostream>
+#include <string>
 using namespace std;
 const int N = 1e6 + 5;
 int n, m = 127, a[N], b[N], c[N], sa[N];

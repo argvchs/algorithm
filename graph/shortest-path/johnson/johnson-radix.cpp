@@ -2,6 +2,7 @@
 #include <cstring>
 #include <iostream>
 #include <queue>
+#include <vector>
 using namespace std;
 using u32 = unsigned;
 using i64 = long long;

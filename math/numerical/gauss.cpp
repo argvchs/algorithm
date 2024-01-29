@@ -1,5 +1,7 @@
+#include <cmath>
 #include <iomanip>
 #include <iostream>
+#include <utility>
 using namespace std;
 using f64 = double;
 const int N = 105;
