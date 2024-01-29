@@ -13,18 +13,17 @@ void build(int &rt, int l, int r) {
     build(t[rt].r, mid + 1, r);
 }
 void update(int &rt, int l, int r, int x, int k) {
-    if (x < l || r < x) return;
     t[++cnt] = t[rt], rt = cnt;
     if (l == r) return void(t[rt].val = k);
     int mid = (l + r) >> 1;
-    update(t[rt].l, l, mid, x, k);
-    update(t[rt].r, mid + 1, r, x, k);
+    if (x <= mid) update(t[rt].l, l, mid, x, k);
+    else update(t[rt].r, mid + 1, r, x, k);
 }
 int query(int rt, int l, int r, int x) {
-    if (x < l || r < x) return 0;
     if (l == r) return t[rt].val;
     int mid = (l + r) >> 1;
-    return query(t[rt].l, l, mid, x) + query(t[rt].r, mid + 1, r, x);
+    if (x <= mid) return query(t[rt].l, l, mid, x);
+    return query(t[rt].r, mid + 1, r, x);
 }
 int main() {
     ios::sync_with_stdio(false);

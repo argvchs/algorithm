@@ -4,57 +4,50 @@ using i64 = long long;
 const int N = 1e5 + 5, P = 571373;
 int n, m, p, a[N];
 struct node {
-    int l, r, val, add, mul;
+    int val, add, mul = 1;
 } t[N << 2];
 void pushup(int rt) { t[rt].val = (t[rt << 1].val + t[rt << 1 | 1].val) % P; }
-void pushdown(int rt) {
-    int l = rt << 1, r = rt << 1 | 1;
-    t[l].val = ((i64)t[l].val * t[rt].mul + (i64)(t[l].r - t[l].l + 1) * t[rt].add) % P;
-    t[l].add = ((i64)t[l].add * t[rt].mul % P + t[rt].add) % P;
-    t[l].mul = (i64)t[l].mul * t[rt].mul % P;
-    t[r].val = ((i64)t[r].val * t[rt].mul + (i64)(t[r].r - t[r].l + 1) * t[rt].add) % P;
-    t[r].add = ((i64)t[r].add * t[rt].mul % P + t[rt].add) % P;
-    t[r].mul = (i64)t[r].mul * t[rt].mul % P;
+void push(int rt, int l, int r, int x, int y) {
+    t[rt].val = ((i64)t[rt].val * x + y * (i64)(r - l + 1)) % P;
+    t[rt].add = ((i64)t[rt].add * x + y) % P;
+    t[rt].mul = (i64)t[rt].mul * x % P;
+}
+void pushdown(int rt, int l, int r) {
+    int mid = (l + r) >> 1;
+    push(rt << 1, l, mid, t[rt].mul, t[rt].add);
+    push(rt << 1 | 1, mid + 1, r, t[rt].mul, t[rt].add);
     t[rt].add = 0, t[rt].mul = 1;
 }
 void build(int rt, int l, int r) {
-    t[rt].l = l, t[rt].r = r, t[rt].mul = 1;
     if (l == r) return void(t[rt].val = a[l] % P);
     int mid = (l + r) >> 1;
     build(rt << 1, l, mid);
     build(rt << 1 | 1, mid + 1, r);
     pushup(rt);
 }
-void updateadd(int rt, int l, int r, int k) {
-    if (r < t[rt].l || t[rt].r < l) return;
-    if (l <= t[rt].l && t[rt].r <= r) {
-        t[rt].val = (t[rt].val + (i64)(t[rt].r - t[rt].l + 1) * k) % P;
-        t[rt].add = (t[rt].add + k) % P;
-        return;
-    }
-    pushdown(rt);
-    updateadd(rt << 1, l, r, k);
-    updateadd(rt << 1 | 1, l, r, k);
+void updateadd(int rt, int l, int r, int x, int y, int k) {
+    if (x <= l && r <= y) return push(rt, l, r, 1, k);
+    pushdown(rt, l, r);
+    int mid = (l + r) >> 1;
+    if (x <= mid) updateadd(rt << 1, l, mid, x, y, k);
+    if (y >= mid + 1) updateadd(rt << 1 | 1, mid + 1, r, x, y, k);
     pushup(rt);
 }
-void updatemul(int rt, int l, int r, int k) {
-    if (r < t[rt].l || t[rt].r < l) return;
-    if (l <= t[rt].l && t[rt].r <= r) {
-        t[rt].val = (i64)t[rt].val * k % P;
-        t[rt].mul = (i64)t[rt].mul * k % P;
-        t[rt].add = (i64)t[rt].add * k % P;
-        return;
-    }
-    pushdown(rt);
-    updatemul(rt << 1, l, r, k);
-    updatemul(rt << 1 | 1, l, r, k);
+void updatemul(int rt, int l, int r, int x, int y, int k) {
+    if (x <= l && r <= y) return push(rt, l, r, k, 0);
+    pushdown(rt, l, r);
+    int mid = (l + r) >> 1;
+    if (x <= mid) updatemul(rt << 1, l, mid, x, y, k);
+    if (y >= mid + 1) updatemul(rt << 1 | 1, mid + 1, r, x, y, k);
     pushup(rt);
 }
-int query(int rt, int l, int r) {
-    if (r < t[rt].l || t[rt].r < l) return 0;
-    if (l <= t[rt].l && t[rt].r <= r) return t[rt].val;
-    pushdown(rt);
-    return (query(rt << 1, l, r) + query(rt << 1 | 1, l, r)) % P;
+int query(int rt, int l, int r, int x, int y) {
+    if (x <= l && r <= y) return t[rt].val;
+    pushdown(rt, l, r);
+    int mid = (l + r) >> 1, ret = 0;
+    if (x <= mid) ret = (ret + query(rt << 1, l, mid, x, y)) % P;
+    if (y >= mid + 1) ret = (ret + query(rt << 1 | 1, mid + 1, r, x, y)) % P;
+    return ret;
 }
 int main() {
     ios::sync_with_stdio(false);
@@ -64,9 +57,9 @@ int main() {
     build(1, 1, n);
     for (int i = 1, op, l, r, k; i <= m; i++) {
         cin >> op >> l >> r;
-        if (op == 1) cin >> k, updatemul(1, l, r, k);
-        else if (op == 2) cin >> k, updateadd(1, l, r, k);
-        else cout << query(1, l, r) << '\n';
+        if (op == 1) cin >> k, updatemul(1, 1, n, l, r, k);
+        else if (op == 2) cin >> k, updateadd(1, 1, n, l, r, k);
+        else cout << query(1, 1, n, l, r) << '\n';
     }
     return 0;
 }
