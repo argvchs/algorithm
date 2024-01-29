@@ -36,6 +36,6 @@ int main() {
     fft(f, 1), fft(g, 1);
     for (int i = 0; i < lim; i++) f[i] *= g[i];
     fft(f, -1);
-    for (int i = 0; i <= n + m; i++) cout << (int)(f[i].real() + 0.5) << ' ';
+    for (int i = 0; i <= n + m; i++) cout << (int)round(f[i].real()) << ' ';
     return 0;
 }

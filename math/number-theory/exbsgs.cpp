@@ -6,18 +6,25 @@ using namespace std;
 using i64 = long long;
 int a, b, p;
 unordered_map<int, int> M;
+int qpow(int a, int b, int p) {
+    int ret = 1;
+    for (; b; b >>= 1, a = (i64)a * a % p)
+        if (b & 1) ret = (i64)ret * a % p;
+    return ret;
+}
 int exbsgs(int a, int b, int p) {
     if (b == 1 || p == 1) return 0;
-    int m = sqrt(p) + 1, x = 1, y = 0, c = 1, g;
+    int x = 1, y = 0, g;
     while ((g = gcd(a, p)) != 1) {
         if (b % g) return -1;
-        b /= g, p /= g, x = (i64)x * (a / g) % p, ++y;
+        b /= g, p /= g, x = (i64)x * a / g % p, ++y;
         if (b == x) return y;
     }
     M.clear();
-    for (int i = 0; i != m; i++, c = (i64)c * a % p) M[(i64)c * b % p] = i;
-    for (int i = 0; i <= m; i++, x = (i64)x * c % p)
-        if (M.count(x) && i * m >= M[x]) return i * m - M[x] + y;
+    int n = ceil(sqrt(p)), m = qpow(a, n, p);
+    for (int i = 0; i != n; i++, b = (i64)b * a % p) M[b] = i;
+    for (int i = 0; i <= n; i++, x = (i64)x * m % p)
+        if (M.count(x) && i * n >= M[x]) return i * n - M[x] + y;
     return -1;
 }
 int main() {
