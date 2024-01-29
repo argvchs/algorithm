@@ -10,7 +10,7 @@ int qpow(int a, int b, int p) {
     return ret;
 }
 int main() {
-    ios::sync_with_stdio(false);
+    ios_base::sync_with_stdio(false);
     cin.tie(nullptr);
     cin >> n >> p >> m, s[0] = 1;
     for (int i = 1; i <= n; i++) cin >> a[i];
@@ -19,5 +19,4 @@ int main() {
     for (int i = n; i >= 2; i--) t[i - 1] = (i64)t[i] * a[i] % p;
     for (int i = n; i >= 1; i--) ans = (ans + (i64)s[i - 1] * t[i] % p) * m % p;
     cout << ans;
-    return 0;
 }

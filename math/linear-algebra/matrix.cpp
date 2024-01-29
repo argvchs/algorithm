@@ -26,7 +26,7 @@ matrix qpow(matrix a, i64 b) {
     return ret;
 }
 int main() {
-    ios::sync_with_stdio(false);
+    ios_base::sync_with_stdio(false);
     cin.tie(nullptr);
     cin >> n >> m;
     for (int i = 1; i <= n; i++)
@@ -36,5 +36,4 @@ int main() {
         for (int j = 1; j <= n; j++) cout << a.a[i][j] << ' ';
         cout << '\n';
     }
-    return 0;
 }

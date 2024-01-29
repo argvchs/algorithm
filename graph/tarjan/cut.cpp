@@ -25,7 +25,7 @@ void tarjan(int u, int fa) {
     if (cnt >= 2) vis[u] = true, ++tot;
 }
 int main() {
-    ios::sync_with_stdio(false);
+    ios_base::sync_with_stdio(false);
     cin.tie(nullptr);
     cin >> n >> m;
     for (int i = 1, u, v; i <= m; i++) cin >> u >> v, addedge(u, v);
@@ -34,5 +34,4 @@ int main() {
     cout << tot << '\n';
     for (int i = 1; i <= n; i++)
         if (vis[i]) cout << i << ' ';
-    return 0;
 }

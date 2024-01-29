@@ -22,7 +22,7 @@ void fft(c64 f[], int t) {
     for (int i = 0; i < lim; i++) f[i] /= lim;
 }
 int main() {
-    ios::sync_with_stdio(false);
+    ios_base::sync_with_stdio(false);
     cin.tie(nullptr);
     cin >> n >> m;
     for (int i = 0; i <= n; i++) cin >> f[i];
@@ -37,5 +37,4 @@ int main() {
     for (int i = 0; i < lim; i++) f[i] *= g[i];
     fft(f, -1);
     for (int i = 0; i <= n + m; i++) cout << (int)round(f[i].real()) << ' ';
-    return 0;
 }

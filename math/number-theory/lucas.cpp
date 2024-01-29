@@ -10,7 +10,7 @@ int lucas(int n, int m, int p) {
     return (i64)lucas(n / p, m / p, p) * lucas(n % p, m % p, p) % p;
 }
 int main() {
-    ios::sync_with_stdio(false);
+    ios_base::sync_with_stdio(false);
     cin.tie(nullptr);
     cin >> T;
     while (T--) {
@@ -20,5 +20,4 @@ int main() {
         for (int i = 2; i <= p; i++) inv[i] = (i64)(p - p / i) * inv[p % i] % p;
         cout << lucas(n + m, n, p) << '\n';
     }
-    return 0;
 }

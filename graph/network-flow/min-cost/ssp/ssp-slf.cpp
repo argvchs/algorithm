@@ -53,7 +53,7 @@ void dinic() {
     }
 }
 int main() {
-    ios::sync_with_stdio(false);
+    ios_base::sync_with_stdio(false);
     cin.tie(nullptr);
     cin >> n >> m >> s >> t;
     for (int i = 1, u, v, w, c; i <= m; i++) {
@@ -62,5 +62,4 @@ int main() {
     }
     dinic();
     cout << flow << ' ' << cost;
-    return 0;
 }

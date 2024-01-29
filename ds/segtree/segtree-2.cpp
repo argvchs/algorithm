@@ -50,7 +50,7 @@ int query(int rt, int l, int r, int x, int y) {
     return ret;
 }
 int main() {
-    ios::sync_with_stdio(false);
+    ios_base::sync_with_stdio(false);
     cin.tie(nullptr);
     cin >> n >> m >> p;
     for (int i = 1; i <= n; i++) cin >> a[i];
@@ -61,5 +61,4 @@ int main() {
         else if (op == 2) cin >> k, updateadd(1, 1, n, l, r, k);
         else cout << query(1, 1, n, l, r) << '\n';
     }
-    return 0;
 }

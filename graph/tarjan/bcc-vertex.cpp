@@ -28,7 +28,7 @@ void tarjan(int u, int fa) {
     if (!fa && !head[u]) ans.emplace_back().push_back(u);
 }
 int main() {
-    ios::sync_with_stdio(false);
+    ios_base::sync_with_stdio(false);
     cin.tie(nullptr);
     cin >> n >> m;
     for (int i = 1, u, v; i <= m; i++) {
@@ -43,5 +43,4 @@ int main() {
         for (int j : i) cout << j << ' ';
         cout << '\n';
     }
-    return 0;
 }

@@ -18,7 +18,7 @@ void build() {
 void insert(int x) { now += cnt[a[x]]++; }
 void remove(int x) { now -= --cnt[a[x]]; }
 int main() {
-    ios::sync_with_stdio(false);
+    ios_base::sync_with_stdio(false);
     cin.tie(nullptr);
     cin >> n >> m;
     for (int i = 1; i <= n; i++) cin >> a[i];
@@ -39,5 +39,4 @@ int main() {
         ans1[q[i].id] = x / g, ans2[q[i].id] = y / g;
     }
     for (int i = 1; i <= m; i++) cout << ans1[i] << '/' << ans2[i] << '\n';
-    return 0;
 }

@@ -9,7 +9,7 @@ i64x3 exgcd(i64 a, i64 b) {
     return {y, x - a / b * y, g};
 }
 int main() {
-    ios::sync_with_stdio(false);
+    ios_base::sync_with_stdio(false);
     cin.tie(nullptr);
     cin >> T;
     while (T--) {
@@ -30,5 +30,4 @@ int main() {
             cout << xmax << ' ' << ymax << '\n';
         } else cout << xmin << ' ' << ymin << '\n';
     }
-    return 0;
 }

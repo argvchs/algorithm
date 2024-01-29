@@ -7,7 +7,7 @@ const f64 EPS = 1e-7;
 int n;
 f64 a[N][N];
 int main() {
-    ios::sync_with_stdio(false);
+    ios_base::sync_with_stdio(false);
     cin.tie(nullptr);
     cin >> n;
     for (int i = 1; i <= n; i++)
@@ -26,5 +26,4 @@ int main() {
     }
     cout << fixed << setprecision(2);
     for (int i = 1; i <= n; i++) cout << a[i][n + 1] / a[i][i] << '\n';
-    return 0;
 }

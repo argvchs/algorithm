@@ -22,7 +22,7 @@ int querykth(int x) {
 int querypre(int x) { return querykth(queryrnk(x) - 1); }
 int querynxt(int x) { return querykth(queryrnk(x + 1)); }
 int main() {
-    ios::sync_with_stdio(false);
+    ios_base::sync_with_stdio(false);
     cin.tie(nullptr);
     cin >> n;
     for (int i = 1; i <= n; i++) {
@@ -40,5 +40,4 @@ int main() {
         else if (op[i] == 4) cout << b[querykth(a[i])] << '\n';
         else if (op[i] == 5) cout << b[querypre(a[i])] << '\n';
         else cout << b[querynxt(a[i])] << '\n';
-    return 0;
 }

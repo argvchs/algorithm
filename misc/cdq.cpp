@@ -33,7 +33,7 @@ void cdq(int l, int r) {
         if (a[i].a <= mid) update(a[i].c, -a[i].cnt);
 }
 int main() {
-    ios::sync_with_stdio(false);
+    ios_base::sync_with_stdio(false);
     cin.tie(nullptr);
     cin >> n >> m;
     for (int i = 1; i <= n; i++) cin >> a[i].a >> a[i].b >> a[i].c;
@@ -46,5 +46,4 @@ int main() {
     cdq(1, cnt);
     for (int i = 1; i <= cnt; i++) ans[a[i].ans + a[i].cnt - 1] += a[i].cnt;
     for (int i = 0; i <= n - 1; i++) cout << ans[i] << '\n';
-    return 0;
 }

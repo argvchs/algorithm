@@ -33,7 +33,7 @@ int lca(int u, int v) {
     return dep[u] < dep[v] ? u : v;
 }
 int main() {
-    ios::sync_with_stdio(false);
+    ios_base::sync_with_stdio(false);
     cin.tie(nullptr);
     cin >> n >> m >> rt;
     for (int i = 1, u, v; i <= n - 1; i++) cin >> u >> v, addedge(u, v);
@@ -43,5 +43,4 @@ int main() {
         cin >> u >> v;
         cout << lca(u, v) << '\n';
     }
-    return 0;
 }

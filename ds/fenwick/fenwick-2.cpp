@@ -12,7 +12,7 @@ int query(int x) {
     return ret;
 }
 int main() {
-    ios::sync_with_stdio(false);
+    ios_base::sync_with_stdio(false);
     cin.tie(nullptr);
     cin >> n >> m;
     for (int i = 1, x; i <= n; i++) {
@@ -24,5 +24,4 @@ int main() {
         if (op == 1) cin >> y >> k, update(x, y, k);
         else cout << query(x) << '\n';
     }
-    return 0;
 }

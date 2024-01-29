@@ -52,7 +52,7 @@ void cut(int lt, int rt) {
 }
 void split(int lt, int rt) { makeroot(lt), access(rt), splay(rt); }
 int main() {
-    ios::sync_with_stdio(false);
+    ios_base::sync_with_stdio(false);
     cin.tie(nullptr);
     cin >> n >> m;
     for (int i = 1; i <= n; i++) cin >> t[i].val;
@@ -63,5 +63,4 @@ int main() {
         else if (op == 2) cut(x, y);
         else splay(x), t[x].val = y;
     }
-    return 0;
 }

@@ -9,7 +9,7 @@ int query(int l, int r) {
     return max(f[l][k], f[r - (1 << k) + 1][k]);
 }
 int main() {
-    ios::sync_with_stdio(false);
+    ios_base::sync_with_stdio(false);
     cin.tie(nullptr);
     cin >> n >> m;
     for (int i = 1; i <= n; i++) cin >> f[i][0];
@@ -20,5 +20,4 @@ int main() {
         cin >> l >> r;
         cout << query(l, r) << '\n';
     }
-    return 0;
 }

@@ -30,7 +30,7 @@ void spfa() {
     }
 }
 int main() {
-    ios::sync_with_stdio(false);
+    ios_base::sync_with_stdio(false);
     cin.tie(nullptr);
     cin >> n >> m >> s;
     for (int i = 1, u, v, w; i <= m; i++) cin >> u >> v >> w, add(u, v, w);
@@ -38,5 +38,4 @@ int main() {
     for (int i = 1; i <= n; i++)
         if (dis[i] == INF) cout << 0x7fffffff << ' ';
         else cout << dis[i] << ' ';
-    return 0;
 }

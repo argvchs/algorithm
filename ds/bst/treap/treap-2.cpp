@@ -46,7 +46,7 @@ int querykth(int rt, int x) {
 int querypre(int rt, int x) { return querykth(rt, queryrnk(rt, x) - 1); }
 int querynxt(int rt, int x) { return querykth(rt, queryrnk(rt, x + 1)); }
 int main() {
-    ios::sync_with_stdio(false);
+    ios_base::sync_with_stdio(false);
     cin.tie(nullptr);
     cin >> n >> m;
     for (int i = 1, x; i <= n; i++) cin >> x, insert(rt, x);
@@ -60,5 +60,4 @@ int main() {
         else ans ^= pre = querynxt(rt, x);
     }
     cout << ans;
-    return 0;
 }

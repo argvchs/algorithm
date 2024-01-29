@@ -21,11 +21,10 @@ void toposort() {
     }
 }
 int main() {
-    ios::sync_with_stdio(false);
+    ios_base::sync_with_stdio(false);
     cin.tie(nullptr);
     cin >> n;
     for (int i = 1, x; i <= n; i++)
         while (cin >> x && x) ++deg[x], add(i, x);
     toposort();
-    return 0;
 }

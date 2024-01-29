@@ -52,7 +52,7 @@ int query(int x) {
 }
 int query(int l, int r) { return (query(r) - query(l - 1) + p) % p; }
 int main() {
-    ios::sync_with_stdio(false);
+    ios_base::sync_with_stdio(false);
     cin.tie(nullptr);
     cin >> n >> m >> rt >> p;
     for (int i = 1; i <= n; i++) cin >> a[i];
@@ -73,5 +73,4 @@ int main() {
         } else if (op == 3) cin >> k, update(dfn[x], dfn[x] + siz[x] - 1, k);
         else cout << query(dfn[x], dfn[x] + siz[x] - 1) << '\n';
     }
-    return 0;
 }

@@ -46,7 +46,7 @@ void dinic() {
     }
 }
 int main() {
-    ios::sync_with_stdio(false);
+    ios_base::sync_with_stdio(false);
     cin.tie(nullptr);
     cin >> n >> m >> s >> t, ss = n + 1, tt = n + 2;
     for (int i = 1, u, v, l, r; i <= m; i++) {
@@ -62,5 +62,4 @@ int main() {
     sum = e[cnt].w, ans = e[cnt].w = e[cnt ^ 1].w = 0;
     swap(s, ss), swap(t, tt), dinic();
     cout << sum + ans;
-    return 0;
 }

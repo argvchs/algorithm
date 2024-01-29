@@ -42,7 +42,7 @@ void toposort() {
     }
 }
 int main() {
-    ios::sync_with_stdio(false);
+    ios_base::sync_with_stdio(false);
     cin.tie(nullptr);
     cin >> n >> m;
     for (int i = 1; i <= n; i++) cin >> a[i];
@@ -57,5 +57,4 @@ int main() {
     toposort();
     for (int i = 1; i <= tot; i++) ans = max(ans, dis[i]);
     cout << ans;
-    return 0;
 }

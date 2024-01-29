@@ -11,7 +11,7 @@ f64 calc(f64 x) {
     return ret;
 }
 int main() {
-    ios::sync_with_stdio(false);
+    ios_base::sync_with_stdio(false);
     cin.tie(nullptr);
     cin >> n >> l >> r;
     for (int i = n; i >= 0; i--) cin >> a[i];
@@ -21,5 +21,4 @@ int main() {
         else r = mid;
     }
     cout << l;
-    return 0;
 }

@@ -28,12 +28,11 @@ int exbsgs(int a, int b, int p) {
     return -1;
 }
 int main() {
-    ios::sync_with_stdio(false);
+    ios_base::sync_with_stdio(false);
     cin.tie(nullptr);
     while (cin >> a >> p >> b && a && b && p) {
         int ans = exbsgs(a % p, b % p, p);
         if (ans == -1) cout << "No Solution\n";
         else cout << ans << '\n';
     }
-    return 0;
 }

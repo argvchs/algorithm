@@ -4,7 +4,7 @@ const int N = 1e6 + 5;
 int n, m, a[N], b[N], fail[N];
 string s, t;
 int main() {
-    ios::sync_with_stdio(false);
+    ios_base::sync_with_stdio(false);
     cin.tie(nullptr);
     cin >> s >> t;
     for (char c : s) a[++n] = c - 'A';
@@ -20,5 +20,4 @@ int main() {
         if (j == m) cout << i - j + 1 << '\n', j = fail[j];
     }
     for (int i = 1; i <= m; i++) cout << fail[i] << ' ';
-    return 0;
 }

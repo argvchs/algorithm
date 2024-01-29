@@ -4,7 +4,7 @@ const int N = 1e8 + 5;
 int n, m, p[N], cnt;
 bool vis[N];
 int main() {
-    ios::sync_with_stdio(false);
+    ios_base::sync_with_stdio(false);
     cin.tie(nullptr);
     cin >> n >> m;
     for (int i = 2; i <= n; i++) {
@@ -15,5 +15,4 @@ int main() {
         }
     }
     for (int i = 1, x; i <= m; i++) cin >> x, cout << p[x] << '\n';
-    return 0;
 }

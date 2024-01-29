@@ -26,7 +26,7 @@ int query(int rt, int l, int r, int x) {
     return query(t[rt].r, mid + 1, r, x);
 }
 int main() {
-    ios::sync_with_stdio(false);
+    ios_base::sync_with_stdio(false);
     cin.tie(nullptr);
     cin >> n >> m;
     for (int i = 1; i <= n; i++) cin >> a[i];
@@ -36,5 +36,4 @@ int main() {
         if (op == 1) cin >> k, update(rt[i], 1, n, x, k);
         else cout << query(rt[i], 1, n, x) << '\n';
     }
-    return 0;
 }

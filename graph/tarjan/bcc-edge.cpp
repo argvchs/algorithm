@@ -27,7 +27,7 @@ void tarjan(int u, int fa) {
     while (top != u);
 }
 int main() {
-    ios::sync_with_stdio(false);
+    ios_base::sync_with_stdio(false);
     cin.tie(nullptr);
     cin >> n >> m;
     for (int i = 1, u, v; i <= m; i++) cin >> u >> v, addedge(u, v);
@@ -39,5 +39,4 @@ int main() {
         for (int j : i) cout << j << ' ';
         cout << '\n';
     }
-    return 0;
 }

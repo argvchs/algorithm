@@ -45,7 +45,7 @@ int querykth(int x) {
 int querypre(int x) { return querykth(queryrnk(x) - 1); }
 int querynxt(int x) { return querykth(queryrnk(x + 1)); }
 int main() {
-    ios::sync_with_stdio(false);
+    ios_base::sync_with_stdio(false);
     cin.tie(nullptr);
     cin >> n >> m;
     for (int i = 1; i <= n; i++) cin >> a[i], b[++bcnt] = a[i];
@@ -79,5 +79,4 @@ int main() {
         else ans[q[i].id] = b[querynxt(q[i].k)];
     }
     for (int i = 1; i <= qcnt; i++) cout << ans[i] << '\n';
-    return 0;
 }

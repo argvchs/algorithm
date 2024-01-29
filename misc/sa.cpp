@@ -33,7 +33,7 @@ void sa() {
     }
 }
 int main() {
-    ios::sync_with_stdio(false);
+    ios_base::sync_with_stdio(false);
     cin.tie(nullptr);
     cin >> n;
     for (int i = 1; i <= n; i++) cin >> a[i] >> b[i] >> c[i];
@@ -41,5 +41,4 @@ int main() {
     ans = calc(xans /= n, yans /= n);
     sa(), sa(), sa();
     cout << fixed << setprecision(3) << xans << ' ' << yans;
-    return 0;
 }

@@ -18,7 +18,7 @@ int merge(int lt, int rt) {
 void removemin(int &rt) { rt = merge(t[rt].l, t[rt].r); }
 int find(int x) { return x == fa[x] ? x : fa[x] = find(fa[x]); }
 int main() {
-    ios::sync_with_stdio(false);
+    ios_base::sync_with_stdio(false);
     cin.tie(nullptr);
     cin >> n >> m;
     for (int i = 1; i <= n; i++) cin >> t[i].val;
@@ -35,5 +35,4 @@ int main() {
             cout << t[rt[u]].val << '\n', removemin(rt[u]);
         } else cout << "-1\n";
     }
-    return 0;
 }

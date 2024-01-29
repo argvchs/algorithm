@@ -21,7 +21,7 @@ int query(int rt, string s) {
     return t[rt].cnt;
 }
 int main() {
-    ios::sync_with_stdio(false);
+    ios_base::sync_with_stdio(false);
     cin.tie(nullptr);
     cin >> T;
     while (T--) {
@@ -30,5 +30,4 @@ int main() {
         for (int i = 1; i <= n; i++) cin >> s, insert(0, s);
         for (int i = 1; i <= m; i++) cin >> s, cout << query(0, s) << '\n';
     }
-    return 0;
 }

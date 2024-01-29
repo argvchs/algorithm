@@ -16,7 +16,7 @@ i64 query(int x) {
 }
 i64 query(int l, int r) { return query(r) - query(l - 1); }
 int main() {
-    ios::sync_with_stdio(false);
+    ios_base::sync_with_stdio(false);
     cin.tie(nullptr);
     cin >> n;
     for (int i = 1; i <= n; i++) cin >> a[i], update(i, a[i]);
@@ -33,5 +33,4 @@ int main() {
             }
         else cout << query(l, r) << '\n';
     }
-    return 0;
 }

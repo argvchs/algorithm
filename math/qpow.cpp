@@ -9,9 +9,8 @@ int qpow(int a, int b, int p) {
     return ret;
 }
 int main() {
-    ios::sync_with_stdio(false);
+    ios_base::sync_with_stdio(false);
     cin.tie(nullptr);
     cin >> a >> b >> p;
     cout << a << "^" << b << " mod " << p << "=" << qpow(a, b, p);
-    return 0;
 }

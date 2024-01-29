@@ -4,7 +4,7 @@ using namespace std;
 const int N = 105;
 int n, m, f[N][N];
 int main() {
-    ios::sync_with_stdio(false);
+    ios_base::sync_with_stdio(false);
     cin.tie(nullptr);
     memset(f, 0x3f, sizeof(f));
     cin >> n >> m;
@@ -20,5 +20,4 @@ int main() {
         for (int j = 1; j <= n; j++) cout << f[i][j] << ' ';
         cout << '\n';
     }
-    return 0;
 }

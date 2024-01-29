@@ -16,7 +16,7 @@ int phi(int n) {
     return ret;
 }
 int main() {
-    ios::sync_with_stdio(false);
+    ios_base::sync_with_stdio(false);
     cin.tie(nullptr);
     cin >> a >> p, q = phi(p);
     char c = cin.get();
@@ -26,5 +26,4 @@ int main() {
         if (b >= q) b = b % q + q;
     }
     cout << qpow(a, b, p);
-    return 0;
 }

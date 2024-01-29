@@ -57,7 +57,7 @@ int gen(int x) {
     return (ret % x) + 1;
 }
 int main() {
-    ios::sync_with_stdio(false);
+    ios_base::sync_with_stdio(false);
     cin.tie(nullptr);
     cin >> n >> m >> s >> v;
     for (int i = 1; i <= n; i++) S.emplace(i, i, gen(v));
@@ -69,5 +69,4 @@ int main() {
         else if (op == 3) cout << querykth(l, r, gen(r - l + 1)) << '\n';
         else x = gen(v), cout << querysum(l, r, x, gen(v)) << '\n';
     }
-    return 0;
 }

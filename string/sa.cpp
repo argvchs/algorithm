@@ -5,7 +5,7 @@ const int N = 1e6 + 5;
 int n, m = 127, a[N], b[N], c[N], sa[N];
 string s;
 int main() {
-    ios::sync_with_stdio(false);
+    ios_base::sync_with_stdio(false);
     cin.tie(nullptr);
     cin >> s;
     for (char c : s) a[++n] = c;
@@ -28,5 +28,4 @@ int main() {
         if (m == n) break;
     }
     for (int i = 1; i <= n; i++) cout << sa[i] << ' ';
-    return 0;
 }

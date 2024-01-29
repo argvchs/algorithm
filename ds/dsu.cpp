@@ -4,7 +4,7 @@ const int N = 1e4 + 5;
 int n, m, fa[N], siz[N];
 int find(int x) { return x == fa[x] ? x : fa[x] = find(fa[x]); }
 int main() {
-    ios::sync_with_stdio(false);
+    ios_base::sync_with_stdio(false);
     cin.tie(nullptr);
     cin >> n >> m;
     for (int i = 1; i <= n; i++) fa[i] = i, siz[i] = 1;
@@ -16,5 +16,4 @@ int main() {
             fa[v] = u, siz[u] += siz[v];
         } else cout << (find(u) == find(v) ? "Y\n" : "N\n");
     }
-    return 0;
 }

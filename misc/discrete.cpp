@@ -4,7 +4,7 @@ using namespace std;
 const int N = 1e5 + 5;
 int T, n, a[N], b[N], cnt;
 int main() {
-    ios::sync_with_stdio(false);
+    ios_base::sync_with_stdio(false);
     cin.tie(nullptr);
     cin >> T;
     while (T--) {
@@ -16,5 +16,4 @@ int main() {
         for (int i = 1; i <= n; i++) cout << a[i] << ' ';
         cout << '\n';
     }
-    return 0;
 }

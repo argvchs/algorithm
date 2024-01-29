@@ -49,7 +49,7 @@ void dijkstra() {
     }
 }
 int main() {
-    ios::sync_with_stdio(false);
+    ios_base::sync_with_stdio(false);
     cin.tie(nullptr);
     cin >> n >> m, ss = n + 1;
     for (int i = 1, u, v, w; i <= m; i++) cin >> u >> v >> w, add(u, v, w);
@@ -62,5 +62,4 @@ int main() {
             else ans += (i64)j * (dis[j] + h[j] - h[s]);
         cout << ans << '\n';
     }
-    return 0;
 }

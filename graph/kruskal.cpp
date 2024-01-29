@@ -9,7 +9,7 @@ struct edge {
 } e[M];
 int find(int x) { return x == fa[x] ? x : fa[x] = find(fa[x]); }
 int main() {
-    ios::sync_with_stdio(false);
+    ios_base::sync_with_stdio(false);
     cin.tie(nullptr);
     cin >> n >> m;
     for (int i = 1; i <= m; i++) cin >> e[i].from >> e[i].to >> e[i].w;
@@ -23,5 +23,4 @@ int main() {
     }
     if (tot == n - 1) cout << ans;
     else cout << "orz";
-    return 0;
 }

@@ -42,12 +42,11 @@ void output(int rt) {
     output(t[rt].l), cout << t[rt].val << ' ', output(t[rt].r);
 }
 int main() {
-    ios::sync_with_stdio(false);
+    ios_base::sync_with_stdio(false);
     cin.tie(nullptr);
     cin >> n >> m;
     for (int i = 1; i <= n; i++) t[i] = {0, 0, i, 1, rng()};
     for (int i = 1; i <= n; i++) rt = merge(rt, i);
     for (int i = 1, l, r; i <= m; i++) cin >> l >> r, reverse(rt, l, r);
     output(rt);
-    return 0;
 }

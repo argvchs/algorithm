@@ -26,7 +26,7 @@ void update(int x) {
     if (l <= c[x].x && c[x].x <= r) insert(c[x].x);
 }
 int main() {
-    ios::sync_with_stdio(false);
+    ios_base::sync_with_stdio(false);
     cin.tie(nullptr);
     cin >> n >> m;
     for (int i = 1; i <= n; i++) cin >> a[i];
@@ -47,5 +47,4 @@ int main() {
         ans[q[i].id] = now;
     }
     for (int i = 1; i <= qcnt; i++) cout << ans[i] << '\n';
-    return 0;
 }

@@ -18,7 +18,7 @@ i64x2 excrt(i64 a, i64 b, i64 p, i64 q) {
     return {(p * x + a + l) % l, l};
 }
 int main() {
-    ios::sync_with_stdio(false);
+    ios_base::sync_with_stdio(false);
     cin.tie(nullptr);
     cin >> n;
     for (int i = 1; i <= n; i++) {
@@ -26,5 +26,4 @@ int main() {
         tie(a, p) = excrt(a, b, p, q);
     }
     cout << a;
-    return 0;
 }

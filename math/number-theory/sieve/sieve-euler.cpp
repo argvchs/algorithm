@@ -5,7 +5,7 @@ const int N = 4e4 + 5;
 int n, p[N], phi[N], cnt, ans;
 bool vis[N];
 int main() {
-    ios::sync_with_stdio(false);
+    ios_base::sync_with_stdio(false);
     cin.tie(nullptr);
     cin >> n;
     if (n == 1) return cout << '0', 0;
@@ -20,5 +20,4 @@ int main() {
     }
     for (int i = 1; i <= n - 1; i++) ans += phi[i];
     cout << (ans << 1 | 1);
-    return 0;
 }

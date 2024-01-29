@@ -19,7 +19,7 @@ int query(int x, int y) {
     return ret;
 }
 int main() {
-    ios::sync_with_stdio(false);
+    ios_base::sync_with_stdio(false);
     cin.tie(nullptr);
     cin >> n >> m >> q;
     for (int i = 1, op, x, y, z, w, k; i <= q; i++) {
@@ -27,5 +27,4 @@ int main() {
         if (op == 1) cin >> z >> w >> k, update(x, y, z, w, k);
         else cout << query(x, y) << '\n';
     }
-    return 0;
 }
