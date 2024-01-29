@@ -13,10 +13,10 @@ int main() {
     for (int i = 1; i <= m; i++) c[i] += c[i - 1];
     for (int i = n; i >= 1; i--) sa[c[a[i]]--] = i;
     for (int k = 1; k <= n; k <<= 1) {
+        memset(c, 0, sizeof(c));
         for (int i = 1; i <= k; i++) b[i] = i + n - k;
         for (int i = 1, j = k; i <= n; i++)
             if (sa[i] > k) b[++j] = sa[i] - k;
-        memset(c, 0, sizeof(c));
         for (int i = 1; i <= n; i++) ++c[a[i]];
         for (int i = 1; i <= m; i++) c[i] += c[i - 1];
         for (int i = n; i >= 1; i--) sa[c[a[b[i]]]--] = b[i];
