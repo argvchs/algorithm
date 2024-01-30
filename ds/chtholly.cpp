@@ -52,11 +52,7 @@ i64 querykth(int l, int r, int k) {
         if ((k -= y) <= 0) return x;
     return -1;
 }
-int gen(int x) {
-    int ret = s;
-    s = ((i64)s * 7 + 13) % P;
-    return (ret % x) + 1;
-}
+int gen(int x) { return exchange(s, ((i64)s * 7 + 13) % P) % x + 1; }
 int main() {
     ios_base::sync_with_stdio(false);
     cin.tie(nullptr);

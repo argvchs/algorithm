@@ -21,9 +21,9 @@ int main() {
     cin.tie(nullptr);
     cin >> a >> p, q = phi(p);
     char c = cin.get();
-    while (isspace(c)) c = cin.get();
+    while (isspace(c)) cin.get(c);
     while (isdigit(c)) {
-        b = b * 10 + c - '0', c = cin.get();
+        b = b * 10 + c - '0', cin.get(c);
         if (b >= q) b = b % q + q;
     }
     cout << qpow(a, b, p);
