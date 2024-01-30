@@ -4,10 +4,6 @@
 using namespace std;
 const int N = 1e5 + 5;
 int n, a[N], b[N], op[N], bel[N], val[N], sum[N], siz, cnt;
-void build() {
-    siz = sqrt(cnt);
-    for (int i = 1; i <= cnt; i++) bel[i] = (i - 1) / siz + 1;
-}
 void insert(int x) { ++val[x], ++sum[bel[x]]; }
 void remove(int x) { --val[x], --sum[bel[x]]; }
 int queryrnk(int x) {
@@ -36,7 +32,8 @@ int main() {
     cnt = unique(b + 1, b + cnt + 1) - b - 1;
     for (int i = 1; i <= n; i++)
         if (op[i] != 4) a[i] = lower_bound(b + 1, b + cnt + 1, a[i]) - b;
-    build();
+    siz = sqrt(cnt);
+    for (int i = 1; i <= cnt; i++) bel[i] = (i - 1) / siz + 1;
     for (int i = 1; i <= n; i++)
         if (op[i] == 1) insert(a[i]);
         else if (op[i] == 2) remove(a[i]);

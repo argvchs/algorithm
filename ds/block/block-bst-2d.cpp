@@ -14,14 +14,6 @@ struct change {
 bool operator<(query x, query y) {
     return tie(bel[x.l], bel[x.r], x.t) < tie(bel[y.l], bel[y.r], y.t);
 }
-void build1() {
-    siz = pow(n, 0.667);
-    for (int i = 1; i <= n; i++) bel[i] = (i - 1) / siz + 1;
-}
-void build2() {
-    siz = sqrt(bcnt);
-    for (int i = 1; i <= bcnt; i++) bel[i] = (i - 1) / siz + 1;
-}
 void insert(int x) { ++val[a[x]], ++sum[bel[a[x]]]; }
 void remove(int x) { --val[a[x]], --sum[bel[a[x]]]; }
 void update(int x) {
@@ -64,9 +56,11 @@ int main() {
     for (int i = 1; i <= ccnt; i++) c[i].k = lower_bound(b + 1, b + bcnt + 1, c[i].k) - b;
     b[bcnt + 1] = 0x80000001;
     b[bcnt + 2] = 0x7fffffff;
-    build1();
+    siz = pow(n, 0.667);
+    for (int i = 1; i <= n; i++) bel[i] = i / siz;
     sort(q + 1, q + qcnt + 1);
-    build2();
+    siz = sqrt(bcnt);
+    for (int i = 1; i <= bcnt; i++) bel[i] = (i - 1) / siz + 1;
     for (int i = 1; i <= qcnt; i++) {
         while (l > q[i].l) insert(--l);
         while (r < q[i].r) insert(++r);

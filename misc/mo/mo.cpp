@@ -12,19 +12,14 @@ struct query {
     int l, r, id;
     bool operator<(query x) { return tie(bel[l], r) < tie(bel[x.l], x.r); }
 } q[N];
-void build() {
-    siz = n / sqrt(m);
-    for (int i = 1; i <= n; i++) bel[i] = (i - 1) / siz + 1;
-}
 void insert(int x) { now += cnt[a[x]]++; }
 void remove(int x) { now -= --cnt[a[x]]; }
 int main() {
     ios_base::sync_with_stdio(false);
     cin.tie(nullptr);
-    cin >> n >> m;
-    for (int i = 1; i <= n; i++) cin >> a[i];
+    cin >> n >> m, siz = n / sqrt(m);
+    for (int i = 1; i <= n; i++) cin >> a[i], bel[i] = i / siz;
     for (int i = 1; i <= m; i++) cin >> q[i].l >> q[i].r, q[i].id = i;
-    build();
     sort(q + 1, q + m + 1);
     for (int i = 1; i <= m; i++) {
         if (q[i].l == q[i].r) {

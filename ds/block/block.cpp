@@ -4,20 +4,16 @@
 using namespace std;
 using i64 = long long;
 const int N = 1e5 + 5, P = 571373;
-int n, m, p, a[N], bel[N], st[N], ed[N], sum[N], add[N], mul[N], siz;
+int n, m, p, a[N], bel[N], sum[N], add[N], mul[N], siz;
 void pushup(int x) {
     sum[x] = 0;
-    for (int i = st[x]; i <= ed[x]; i++) sum[x] = (sum[x] + a[i]) % P;
+    for (int i = (x - 1) * siz + 1; i <= min(x * siz, n); i++)
+        sum[x] = (sum[x] + a[i]) % P;
 }
 void pushdown(int x) {
-    for (int i = st[x]; i <= ed[x]; i++) a[i] = ((i64)a[i] * mul[x] + add[x]) % P;
+    for (int i = (x - 1) * siz + 1; i <= min(x * siz, n); i++)
+        a[i] = ((i64)a[i] * mul[x] + add[x]) % P;
     add[x] = 0, mul[x] = 1;
-}
-void build() {
-    siz = sqrt(n);
-    for (int i = 1; i <= n; i++) bel[i] = (i - 1) / siz + 1;
-    for (int i = 1; i <= bel[n]; i++) st[i] = (i - 1) * siz + 1, ed[i] = min(i * siz, n);
-    for (int i = 1; i <= bel[n]; i++) mul[i] = 1, pushup(i);
 }
 void updatemul(int l, int r, int k) {
     pushdown(bel[l]), pushdown(bel[r]);
@@ -64,9 +60,9 @@ int query(int l, int r) {
 int main() {
     ios_base::sync_with_stdio(false);
     cin.tie(nullptr);
-    cin >> n >> m >> p;
-    for (int i = 1; i <= n; i++) cin >> a[i];
-    build();
+    cin >> n >> m >> p, siz = sqrt(n);
+    for (int i = 1; i <= n; i++) cin >> a[i], bel[i] = (i - 1) / siz + 1;
+    for (int i = 1; i <= bel[n]; i++) mul[i] = 1, pushup(i);
     for (int i = 1, op, l, r, k; i <= m; i++) {
         cin >> op >> l >> r;
         if (op == 1) cin >> k, updatemul(l, r, k);

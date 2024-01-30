@@ -5,7 +5,6 @@
 using namespace std;
 const int N = 1e6 + 5;
 int n, m, l = 1, r, t, a[N], bel[N], cnt[N], ans[N], siz, qcnt, ccnt, now;
-char op;
 struct query {
     int l, r, t, id;
 } q[N];
@@ -14,10 +13,6 @@ struct change {
 } c[N];
 bool operator<(query x, query y) {
     return tie(bel[x.l], bel[x.r], x.t) < tie(bel[y.l], bel[y.r], y.t);
-}
-void build() {
-    siz = pow(n, 0.667);
-    for (int i = 1; i <= n; i++) bel[i] = (i - 1) / siz + 1;
 }
 void insert(int x) { now += !cnt[a[x]]++; }
 void remove(int x) { now -= !--cnt[a[x]]; }
@@ -29,14 +24,14 @@ void update(int x) {
 int main() {
     ios_base::sync_with_stdio(false);
     cin.tie(nullptr);
-    cin >> n >> m;
-    for (int i = 1; i <= n; i++) cin >> a[i];
+    cin >> n >> m, siz = pow(n, 0.667);
+    for (int i = 1; i <= n; i++) cin >> a[i], bel[i] = i / siz;
     for (int i = 1, x, y; i <= m; i++) {
+        char op;
         cin >> op >> x >> y;
         if (op == 'Q') q[++qcnt] = {x, y, ccnt, qcnt};
         else c[++ccnt] = {x, y};
     }
-    build();
     sort(q + 1, q + qcnt + 1);
     for (int i = 1; i <= qcnt; i++) {
         while (l > q[i].l) insert(--l);
