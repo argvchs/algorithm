@@ -1,4 +1,5 @@
 #include <iostream>
+#include <utility>
 using namespace std;
 const int N = 5e5 + 5;
 int n, m, rt, f[N][25], dep[N], head[N], cnt;
@@ -30,8 +31,5 @@ int main() {
     cin >> n >> m >> rt;
     for (int i = 1, u, v; i <= n - 1; i++) cin >> u >> v, addedge(u, v);
     dfs(rt, 0);
-    for (int i = 1, u, v; i <= m; i++) {
-        cin >> u >> v;
-        cout << lca(u, v) << '\n';
-    }
+    for (int i = 1, u, v; i <= m; i++) cin >> u >> v, cout << lca(u, v) << '\n';
 }

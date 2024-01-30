@@ -40,8 +40,5 @@ int main() {
     for (int i = 1, u, v; i <= n - 1; i++) cin >> u >> v, addedge(u, v);
     dfs1(rt, 0);
     dfs2(rt, 0, rt);
-    for (int i = 1, u, v; i <= m; i++) {
-        cin >> u >> v;
-        cout << lca(u, v) << '\n';
-    }
+    for (int i = 1, u, v; i <= m; i++) cin >> u >> v, cout << lca(u, v) << '\n';
 }

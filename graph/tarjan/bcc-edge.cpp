@@ -35,7 +35,7 @@ int main() {
     for (int i = 1; i <= n; i++)
         if (!dfn[i]) tarjan(i, 0);
     cout << ans.size() << '\n';
-    for (auto &i : ans) {
+    for (const auto &i : ans) {
         cout << i.size() << ' ';
         for (int j : i) cout << j << ' ';
         cout << '\n';

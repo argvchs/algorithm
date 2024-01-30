@@ -4,11 +4,11 @@ using i64 = long long;
 const int N = 1e5 + 5, P = 571373;
 int n, m, p, a[N];
 struct node {
-    int val, add, mul = 1;
+    int sum, add, mul = 1;
 } t[N << 2];
-void pushup(int rt) { t[rt].val = (t[rt << 1].val + t[rt << 1 | 1].val) % P; }
+void pushup(int rt) { t[rt].sum = (t[rt << 1].sum + t[rt << 1 | 1].sum) % P; }
 void push(int rt, int l, int r, int x, int y) {
-    t[rt].val = ((i64)t[rt].val * x + y * (i64)(r - l + 1)) % P;
+    t[rt].sum = ((i64)t[rt].sum * x + y * (i64)(r - l + 1)) % P;
     t[rt].add = ((i64)t[rt].add * x + y) % P;
     t[rt].mul = (i64)t[rt].mul * x % P;
 }
@@ -19,7 +19,7 @@ void pushdown(int rt, int l, int r) {
     t[rt].add = 0, t[rt].mul = 1;
 }
 void build(int rt, int l, int r) {
-    if (l == r) return void(t[rt].val = a[l] % P);
+    if (l == r) return void(t[rt].sum = a[l] % P);
     int mid = (l + r) >> 1;
     build(rt << 1, l, mid);
     build(rt << 1 | 1, mid + 1, r);
@@ -42,7 +42,7 @@ void updatemul(int rt, int l, int r, int x, int y, int k) {
     pushup(rt);
 }
 int query(int rt, int l, int r, int x, int y) {
-    if (x <= l && r <= y) return t[rt].val;
+    if (x <= l && r <= y) return t[rt].sum;
     pushdown(rt, l, r);
     int mid = (l + r) >> 1, ret = 0;
     if (x <= mid) ret = (ret + query(rt << 1, l, mid, x, y)) % P;
