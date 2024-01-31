@@ -58,8 +58,7 @@ int main() {
     cin >> n >> m >> rt >> p;
     for (int i = 1; i <= n; i++) cin >> a[i];
     for (int i = 1, u, v; i <= n - 1; i++) cin >> u >> v, addedge(u, v);
-    dfs1(rt, 0);
-    dfs2(rt, 0, rt);
+    dfs1(rt, 0), dfs2(rt, 0, rt);
     for (int i = 1; i <= n; i++) update(dfn[i], dfn[i], a[i]);
     for (int i = 1, op, x, y, k; i <= m; i++) {
         cin >> op >> x;
