@@ -16,7 +16,7 @@ struct node {
 set<node> S;
 vector<i64x2> tmp;
 auto split(int x) {
-    auto it = --S.upper_bound({x});
+    auto it = --S.upper_bound({x, 0, 0});
     if (it->l == x) return it;
     auto [l, r, val] = *it;
     S.erase(it), S.emplace(l, x - 1, val);

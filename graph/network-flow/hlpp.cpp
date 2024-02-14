@@ -2,6 +2,7 @@
 #include <cstring>
 #include <iostream>
 #include <queue>
+#include <utility>
 using namespace std;
 using i32x2 = pair<int, int>;
 const int N = 1205, M = 12e4 + 5, INF = 0x3f3f3f3f;
