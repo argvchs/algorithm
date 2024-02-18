@@ -14,8 +14,8 @@ void pushup(int rt) { t[rt].siz = t[t[rt].l].siz + t[t[rt].r].siz + 1; }
 void split(int rt, int x, int &l, int &r) {
     if (!rt) return void(l = r = 0);
     t[++cnt] = t[rt], rt = cnt;
-    if (t[rt].val >= x) split(t[rt].l, x, l, t[rt].l), r = rt;
-    else split(t[rt].r, x, t[rt].r, r), l = rt;
+    if (t[rt].val >= x) split(t[r = rt].l, x, l, t[rt].l);
+    else split(t[l = rt].r, x, t[rt].r, r);
     pushup(rt);
 }
 int merge(int lt, int rt) {

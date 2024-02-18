@@ -8,11 +8,9 @@ struct node {
     bool rev;
 } t[N];
 void pushup(int rt) { t[rt].sum = t[t[rt].ch[0]].sum ^ t[t[rt].ch[1]].sum ^ t[rt].val; }
+void push(int rt) { swap(t[rt].ch[0], t[rt].ch[1]), t[rt].rev ^= true; }
 void pushdown(int rt) {
-    if (!t[rt].rev) return;
-    swap(t[rt].ch[0], t[rt].ch[1]);
-    t[t[rt].ch[0]].rev ^= true, t[t[rt].ch[1]].rev ^= true;
-    t[rt].rev = false;
+    if (t[rt].rev) push(t[rt].ch[0]), push(t[rt].ch[1]), t[rt].rev = false;
 }
 bool get(int rt) { return rt == t[t[rt].fa].ch[1]; }
 bool isroot(int rt) { return rt != t[t[rt].fa].ch[0] && rt != t[t[rt].fa].ch[1]; }
@@ -36,7 +34,7 @@ void access(int rt) {
     for (int pre = 0; rt; pre = rt, rt = t[rt].fa)
         splay(rt), t[rt].ch[1] = pre, pushup(rt);
 }
-void makeroot(int rt) { access(rt), splay(rt), t[rt].rev ^= true; }
+void makeroot(int rt) { access(rt), splay(rt), push(rt); }
 int findroot(int rt) {
     access(rt), splay(rt);
     while (t[rt].ch[0]) rt = t[rt].ch[0];
