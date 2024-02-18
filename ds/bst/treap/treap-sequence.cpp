@@ -8,14 +8,14 @@ int n, m, rt, cnt;
 struct node {
     int l, r, val, siz;
     mt19937::result_type key;
-    bool rev;
+    bool tag;
 } t[N];
 mt19937 rng(chrono::steady_clock::now().time_since_epoch().count());
 int newnode(int x) { return t[++cnt] = {0, 0, x, 1, rng(), false}, cnt; }
 void pushup(int rt) { t[rt].siz = t[t[rt].l].siz + t[t[rt].r].siz + 1; }
-void push(int rt) { swap(t[rt].l, t[rt].r), t[rt].rev ^= true; }
+void push(int rt) { swap(t[rt].l, t[rt].r), t[rt].tag ^= true; }
 void pushdown(int rt) {
-    if (t[rt].rev) push(t[rt].l), push(t[rt].r), t[rt].rev = false;
+    if (t[rt].tag) push(t[rt].l), push(t[rt].r), t[rt].tag = false;
 }
 void split(int rt, int x, int &l, int &r) {
     if (!rt) return void(l = r = 0);

@@ -5,12 +5,12 @@ const int N = 3e5 + 5;
 int n, m;
 struct node {
     int fa, ch[2], val, sum;
-    bool rev;
+    bool tag;
 } t[N];
 void pushup(int rt) { t[rt].sum = t[t[rt].ch[0]].sum ^ t[t[rt].ch[1]].sum ^ t[rt].val; }
-void push(int rt) { swap(t[rt].ch[0], t[rt].ch[1]), t[rt].rev ^= true; }
+void push(int rt) { swap(t[rt].ch[0], t[rt].ch[1]), t[rt].tag ^= true; }
 void pushdown(int rt) {
-    if (t[rt].rev) push(t[rt].ch[0]), push(t[rt].ch[1]), t[rt].rev = false;
+    if (t[rt].tag) push(t[rt].ch[0]), push(t[rt].ch[1]), t[rt].tag = false;
 }
 bool get(int rt) { return rt == t[t[rt].fa].ch[1]; }
 bool isroot(int rt) { return rt != t[t[rt].fa].ch[0] && rt != t[t[rt].fa].ch[1]; }
