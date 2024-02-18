@@ -19,9 +19,9 @@ void split(int rt, int x, int &l, int &r) {
 }
 int merge(int lt, int rt) {
     if (!lt || !rt) return lt + rt;
-    if (t[lt].key < t[rt].key) t[lt].r = merge(t[lt].r, rt), rt = lt;
-    else t[rt].l = merge(lt, t[rt].l);
-    return pushup(rt), rt;
+    if (t[lt].key < t[rt].key) t[lt].r = merge(t[lt].r, rt);
+    else t[rt].l = merge(lt, t[rt].l), lt = rt;
+    return pushup(lt), lt;
 }
 void insert(int &rt, int x) {
     int l, r;
