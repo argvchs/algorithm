@@ -12,10 +12,8 @@ void add(int u, int v) { e[++cnt] = {v, head[u]}, head[u] = cnt; }
 void addedge(int u, int v) { add(u, v), add(v, u); }
 void dfs(int u, int fa) {
     a[dfn[u] = ++idx] = u, f[idx][0] = dfn[fa];
-    for (int i = head[u]; i; i = e[i].nxt) {
-        int v = e[i].to;
-        if (v != fa) dfs(v, u);
-    }
+    for (int i = head[u]; i; i = e[i].nxt)
+        if (e[i].to != fa) dfs(e[i].to, u);
 }
 int lca(int u, int v) {
     if (u == v) return u;
