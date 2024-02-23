@@ -38,8 +38,8 @@ void dijkstra() {
     dis[top = s] = 0;
     for (int i = 1; i <= n; i++) insert(i);
     for (; top; removemin())
-        for (int j = head[top]; j; j = e[j].nxt) {
-            int v = e[j].to, w = e[j].w;
+        for (int i = head[top]; i; i = e[i].nxt) {
+            int v = e[i].to, w = e[i].w;
             if (dis[v] > dis[top] + w) update(v, dis[top] + w);
         }
 }

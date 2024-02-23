@@ -3,11 +3,9 @@
 #include <cstring>
 #include <iostream>
 #include <queue>
-#include <utility>
 #include <vector>
 using namespace std;
 using u32 = unsigned;
-using i32x2 = pair<int, int>;
 const int N = 5e3 + 5, M = 5e4 + 5, INF = 0x3f3f3f3f;
 int n, m, s, t, h[N], dis[N], pos[N], cur[N], head[N], cnt = 1, top, flow, cost;
 bool vis[N];
@@ -60,8 +58,8 @@ bool dijkstra() {
     for (int i = 0; i <= 31; i++) buc[i].clear();
     for (int i = 1; i <= n; i++) insert(i);
     for (; top; removemin())
-        for (int j = head[top]; j; j = e[j].nxt) {
-            int v = e[j].to, w = e[j].w, c = e[j].c;
+        for (int i = head[top]; i; i = e[i].nxt) {
+            int v = e[i].to, w = e[i].w, c = e[i].c;
             if (dis[v] > dis[top] + c + h[top] - h[v] && w)
                 update(v, dis[top] + c + h[top] - h[v]);
         }
