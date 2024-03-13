@@ -30,7 +30,7 @@ void insert(int &rt, int x) {
 }
 void remove(int &rt, int x) {
     int l, m, r;
-    split(rt, x, l, m), split(m, x + 1, m, r);
+    split(rt, x, l, r), split(r, x + 1, m, r);
     rt = merge(merge(l, merge(t[m].l, t[m].r)), r);
 }
 int queryrnk(int rt, int x) {

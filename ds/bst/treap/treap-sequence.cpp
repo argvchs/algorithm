@@ -32,7 +32,7 @@ int merge(int lt, int rt) {
 }
 void reverse(int &rt, int x, int y) {
     int l, m, r;
-    split(rt, x - 1, l, m), split(m, y - x + 1, m, r);
+    split(rt, x - 1, l, r), split(r, y - x + 1, m, r);
     push(m), rt = merge(merge(l, m), r);
 }
 void output(int rt) {
