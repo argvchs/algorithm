@@ -7,11 +7,11 @@ const int N = 1e5 + 5;
 int n, m, rt, cnt;
 struct node {
     int l, r, val, siz;
-    mt19937::result_type key;
     bool tag;
+    mt19937::result_type key;
 } t[N];
 mt19937 rng(chrono::steady_clock::now().time_since_epoch().count());
-int newnode(int x) { return t[++cnt] = {0, 0, x, 1, rng(), false}, cnt; }
+int newnode(int x) { return t[++cnt] = {0, 0, x, 1, false, rng()}, cnt; }
 void pushup(int rt) { t[rt].siz = t[t[rt].l].siz + t[t[rt].r].siz + 1; }
 void push(int rt) { swap(t[rt].l, t[rt].r), t[rt].tag ^= true; }
 void pushdown(int rt) {
