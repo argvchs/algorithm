@@ -4,14 +4,13 @@
 #include <utility>
 using namespace std;
 const int N = 1e5 + 5;
-int n, m, rt, cnt;
+int n, m, rt;
 struct node {
     int l, r, val, siz;
     bool tag;
     mt19937::result_type key;
 } t[N];
 mt19937 rng(chrono::steady_clock::now().time_since_epoch().count());
-int newnode(int x) { return t[++cnt] = {0, 0, x, 1, false, rng()}, cnt; }
 void pushup(int rt) { t[rt].siz = t[t[rt].l].siz + t[t[rt].r].siz + 1; }
 void push(int rt) { swap(t[rt].l, t[rt].r), t[rt].tag ^= true; }
 void pushdown(int rt) {
@@ -45,7 +44,10 @@ int main() {
     ios_base::sync_with_stdio(false);
     cin.tie(nullptr);
     cin >> n >> m;
-    for (int i = 1; i <= n; i++) rt = merge(rt, newnode(i));
+    for (int i = 1; i <= n; i++) {
+        t[i] = {0, 0, i, 1, false, rng()};
+        rt = merge(rt, i);
+    }
     for (int i = 1, l, r; i <= m; i++) cin >> l >> r, reverse(rt, l, r);
     output(rt);
 }
