@@ -3,7 +3,7 @@
 #include <vector>
 using namespace std;
 const int N = 1e4 + 5, V = 1e7 + 5;
-int n, m, rt, a[N], siz[N], son[N], dis[N], head[N], cnt, tot;
+int n, m, rt, a[N], w[N], siz[N], dis[N], head[N], cnt, tot;
 bool vis1[N], vis2[V], ans[N];
 vector<int> tmp1, tmp2;
 struct edge {
@@ -12,14 +12,14 @@ struct edge {
 void add(int u, int v, int w) { e[++cnt] = {v, head[u], w}, head[u] = cnt; }
 void addedge(int u, int v, int w) { add(u, v, w), add(v, u, w); }
 void dfs1(int u, int fa) {
-    siz[u] = 1, son[u] = 0;
+    siz[u] = 1, w[u] = 0;
     for (int i = head[u]; i; i = e[i].nxt) {
         int v = e[i].to;
         if (v == fa || vis1[v]) continue;
-        dfs1(v, u), siz[u] += siz[v], son[u] = max(son[u], siz[v]);
+        dfs1(v, u), siz[u] += siz[v], w[u] = max(w[u], siz[v]);
     }
-    son[u] = max(son[u], tot - siz[u]);
-    if (son[u] < son[rt]) rt = u;
+    w[u] = max(w[u], tot - siz[u]);
+    if (w[u] < w[rt]) rt = u;
 }
 void dfs2(int u, int fa) {
     tmp1.push_back(dis[u]);
@@ -54,7 +54,7 @@ int main() {
     cin >> n >> m;
     for (int i = 1, u, v, w; i <= n - 1; i++) cin >> u >> v >> w, addedge(u, v, w);
     for (int i = 1; i <= m; i++) cin >> a[i];
-    rt = 0, tot = son[0] = n, dfs1(1, 0), solve(rt);
+    rt = 0, tot = w[0] = n, dfs1(1, 0), solve(rt);
     for (int i = 1; i <= m; i++)
         if (ans[i]) cout << "AYE\n";
         else cout << "NAY\n";

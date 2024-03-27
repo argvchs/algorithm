@@ -4,7 +4,7 @@
 using namespace std;
 using u32 = unsigned;
 const int N = 5e5 + 5;
-int n, m, rt, a[N], f[N][25], dep[N], dfn[N], head[N], idx, cnt;
+int n, m, rt, a[N], f[N][25], dfn[N], head[N], idx, cnt;
 struct edge {
     int to, nxt;
 } e[N << 1];
