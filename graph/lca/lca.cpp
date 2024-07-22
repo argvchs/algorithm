@@ -11,7 +11,7 @@ void addedge(int u, int v) { add(u, v), add(v, u); }
 void dfs(int u, int fa) {
     f[u][0] = fa, dep[u] = dep[fa] + 1;
     for (int i = 1; i <= 20; i++) f[u][i] = f[f[u][i - 1]][i - 1];
-    for (int i = head[u]; i; i = e[i].nxt) 
+    for (int i = head[u]; i; i = e[i].nxt)
         if (e[i].to != fa) dfs(e[i].to, u);
 }
 int lca(int u, int v) {

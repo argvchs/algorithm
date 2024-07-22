@@ -63,8 +63,7 @@ void dijkstra() {
     for (; top; removemin())
         for (int i = head[top]; i; i = e[i].nxt) {
             int v = e[i].to, w = e[i].w;
-            if (dis[v] > dis[top] + w + h[top] - h[v])
-                update(v, dis[top] + w + h[top] - h[v]);
+            if (dis[v] > dis[top] + w + h[top] - h[v]) update(v, dis[top] + w + h[top] - h[v]);
         }
 }
 int main() {

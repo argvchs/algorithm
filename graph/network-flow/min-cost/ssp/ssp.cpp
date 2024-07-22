@@ -47,8 +47,7 @@ int dfs(int u, int flow) {
 void dinic() {
     while (spfa()) {
         memcpy(cur, head, sizeof(cur));
-        int ret;
-        while ((ret = dfs(s, INF))) flow += ret, cost += ret * dis[t];
+        while (int ret = dfs(s, INF)) flow += ret, cost += ret * dis[t];
     }
 }
 int main() {

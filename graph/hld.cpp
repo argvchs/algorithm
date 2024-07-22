@@ -5,8 +5,8 @@ using namespace std;
 using i64 = long long;
 using i32x2 = pair<int, int>;
 const int N = 1e5 + 5;
-int n, m, p, rt, a[N], t1[N], t2[N], fa[N], ch[N], dep[N], siz[N], dfn[N], top[N],
-    head[N], idx, cnt;
+int n, m, p, rt, a[N], t1[N], t2[N], fa[N], ch[N], dep[N], siz[N], dfn[N], top[N], head[N], idx,
+    cnt;
 struct edge {
     int to, nxt;
 } e[N << 1];
@@ -41,14 +41,12 @@ void split(int u, int v) {
     tmp.emplace_back(v, u);
 }
 void update(int x, int k) {
-    for (int i = x; i <= n; i += i & -i)
-        t1[i] = (t1[i] + k) % p, t2[i] = (t2[i] + (i64)k * x) % p;
+    for (int i = x; i <= n; i += i & -i) t1[i] = (t1[i] + k) % p, t2[i] = (t2[i] + (i64)k * x) % p;
 }
 void update(int l, int r, int k) { update(l, k), update(r + 1, p - k % p); }
 int query(int x) {
     int ret = 0;
-    for (int i = x; i >= 1; i -= i & -i)
-        ret = (ret + (i64)(x + 1) * t1[i] - t2[i] + p) % p;
+    for (int i = x; i >= 1; i -= i & -i) ret = (ret + (i64)(x + 1) * t1[i] - t2[i] + p) % p;
     return ret;
 }
 int query(int l, int r) { return (query(r) - query(l - 1) + p) % p; }

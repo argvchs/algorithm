@@ -9,7 +9,7 @@ struct node {
 } t[N];
 int merge(int lt, int rt) {
     if (!lt || !rt) return lt + rt;
-    if (t[lt].val > t[rt].val)  swap(lt, rt);
+    if (t[lt].val > t[rt].val) swap(lt, rt);
     t[lt].l = merge(t[lt].l, rt);
     if (t[t[lt].l].dis > t[t[lt].r].dis) swap(t[lt].l, t[lt].r);
     t[lt].dis = t[t[lt].r].dis + 1;

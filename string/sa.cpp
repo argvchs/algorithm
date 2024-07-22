@@ -23,8 +23,7 @@ int main() {
         for (int i = n; i >= 1; i--) sa[c[a[b[i]]]--] = b[i];
         memcpy(b, a, sizeof(b)), m = 0;
         for (int i = 1; i <= n; i++)
-            if (b[sa[i]] == b[sa[i - 1]] && b[sa[i] + k] == b[sa[i - 1] + k])
-                a[sa[i]] = m;
+            if (b[sa[i]] == b[sa[i - 1]] && b[sa[i] + k] == b[sa[i - 1] + k]) a[sa[i]] = m;
             else a[sa[i]] = ++m;
         if (m == n) break;
     }

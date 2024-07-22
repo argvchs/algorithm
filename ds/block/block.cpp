@@ -7,8 +7,7 @@ const int N = 1e5 + 5, P = 571373;
 int n, m, p, a[N], bel[N], sum[N], add[N], mul[N], siz;
 void pushup(int x) {
     sum[x] = 0;
-    for (int i = (x - 1) * siz + 1; i <= min(x * siz, n); i++)
-        sum[x] = (sum[x] + a[i]) % P;
+    for (int i = (x - 1) * siz + 1; i <= min(x * siz, n); i++) sum[x] = (sum[x] + a[i]) % P;
 }
 void pushdown(int x) {
     for (int i = (x - 1) * siz + 1; i <= min(x * siz, n); i++)

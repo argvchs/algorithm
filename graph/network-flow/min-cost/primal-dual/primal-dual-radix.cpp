@@ -60,8 +60,7 @@ bool dijkstra() {
     for (; top; removemin())
         for (int i = head[top]; i; i = e[i].nxt) {
             int v = e[i].to, w = e[i].w, c = e[i].c;
-            if (dis[v] > dis[top] + c + h[top] - h[v] && w)
-                update(v, dis[top] + c + h[top] - h[v]);
+            if (dis[v] > dis[top] + c + h[top] - h[v] && w) update(v, dis[top] + c + h[top] - h[v]);
         }
     return dis[t] != INF;
 }
@@ -85,8 +84,7 @@ void dinic() {
     while (dijkstra()) {
         memcpy(cur, head, sizeof(cur));
         memset(vis, false, sizeof(vis));
-        int ret;
-        while ((ret = dfs(s, INF))) flow += ret, cost += ret * (dis[t] + h[t]);
+        while (int ret = dfs(s, INF)) flow += ret, cost += ret * (dis[t] + h[t]);
         for (int i = 1; i <= n; i++) h[i] += dis[i];
     }
 }
@@ -94,10 +92,7 @@ int main() {
     ios_base::sync_with_stdio(false);
     cin.tie(nullptr);
     cin >> n >> m >> s >> t;
-    for (int i = 1, u, v, w, c; i <= m; i++) {
-        cin >> u >> v >> w >> c;
-        addflow(u, v, w, c);
-    }
+    for (int i = 1, u, v, w, c; i <= m; i++) cin >> u >> v >> w >> c, addflow(u, v, w, c);
     dinic();
     cout << flow << ' ' << cost;
 }
