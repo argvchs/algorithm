@@ -5,14 +5,13 @@
 #include <utility>
 #include <vector>
 using namespace std;
-using i32x2 = pair<int, int>;
 const int N = 1e5 + 5, M = 5e5 + 5, INF = 0x3f3f3f3f;
 int n, m, s, dis[N], head[N], cnt;
 bool vis[N];
 struct edge {
     int to, nxt, w;
 } e[M];
-priority_queue<i32x2, vector<i32x2>, greater<>> Q;
+priority_queue<pair<int, int>, vector<pair<int, int>>, greater<>> Q;
 void add(int u, int v, int w) { e[++cnt] = {v, head[u], w}, head[u] = cnt; }
 void dijkstra() {
     memset(dis, 0x3f, sizeof(dis));

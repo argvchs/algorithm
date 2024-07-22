@@ -5,7 +5,6 @@
 #include <vector>
 using namespace std;
 using i64 = long long;
-using i64x2 = pair<i64, i64>;
 const int P = 1e9 + 7;
 int n, m, s, v;
 struct node {
@@ -14,7 +13,7 @@ struct node {
     bool operator<(node x) { return l < x.l; }
 };
 set<node> S;
-vector<i64x2> tmp;
+vector<pair<i64, i64>> tmp;
 auto split(int x) {
     auto it = --S.upper_bound({x, 0, 0});
     if (it->l == x) return it;

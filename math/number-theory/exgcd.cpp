@@ -2,9 +2,8 @@
 #include <tuple>
 using namespace std;
 using i64 = long long;
-using i64x3 = tuple<i64, i64, i64>;
 int T, a, b, c;
-i64x3 exgcd(i64 a, i64 b) {
+tuple<i64, i64, i64> exgcd(i64 a, i64 b) {
     if (!b) return {1, 0, a};
     auto [x, y, g] = exgcd(b, a % b);
     return {y, x - a / b * y, g};
