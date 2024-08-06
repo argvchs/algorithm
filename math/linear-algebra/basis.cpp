@@ -2,7 +2,7 @@
 using namespace std;
 using i64 = long long;
 int n;
-i64 a, p[65], ret;
+i64 a, p[65];
 void insert(i64 x) {
     for (int i = 60; i >= 0; i--) {
         if (!(x & (1ll << i))) continue;
