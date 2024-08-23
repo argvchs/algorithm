@@ -6,7 +6,6 @@ using namespace std;
 using u32 = unsigned;
 const int N = 1e5 + 5, M = 5e5 + 5, INF = 0x3f3f3f3f;
 int n, m, s, dis[N], pos[N], head[N], cnt, top;
-bool vis[N];
 struct edge {
     int to, nxt, w;
 } e[M];
