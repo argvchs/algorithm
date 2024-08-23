@@ -24,7 +24,7 @@ void update(int x, int k) { remove(x), dis[x] = k, insert(x); }
 void removemin() {
     remove(top), top = 0;
     if (buc[0].size()) return void(top = buc[0][0]);
-    for (int i = 1; i <= 31; i++) {
+    for (int i = 1; i < 32; i++) {
         if (buc[i].empty()) continue;
         for (int j : buc[i])
             if (dis[j] < dis[top]) top = j;
