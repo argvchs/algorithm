@@ -9,6 +9,7 @@ struct node {
     mt19937::result_type key;
 } t[N << 5];
 mt19937 rng(chrono::steady_clock::now().time_since_epoch().count());
+int newnode(int x) { return t[++cnt] = {0, 0, x, 1, rng()}, cnt; }
 void pushup(int rt) { t[rt].siz = t[t[rt].l].siz + t[t[rt].r].siz + 1; }
 void split(int rt, int x, int &l, int &r) {
     if (!rt) return void(l = r = 0);
@@ -26,8 +27,7 @@ int merge(int lt, int rt) {
 void insert(int &rt, int x) {
     int l, r;
     split(rt, x, l, r);
-    t[++cnt] = {0, 0, x, 1, rng()};
-    rt = merge(merge(l, cnt), r);
+    rt = merge(merge(l, newnode(x)), r);
 }
 void remove(int &rt, int x) {
     int l, m, r;

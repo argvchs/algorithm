@@ -5,12 +5,12 @@ const int N = 3e5 + 5;
 int n, m;
 struct node {
     int fa, ch[2], val, sum;
-    bool tag;
+    bool rev;
 } t[N];
 void pushup(int rt) { t[rt].sum = t[t[rt].ch[0]].sum ^ t[t[rt].ch[1]].sum ^ t[rt].val; }
-void push(int rt) { swap(t[rt].ch[0], t[rt].ch[1]), t[rt].tag ^= true; }
+void push(int rt) { swap(t[rt].ch[0], t[rt].ch[1]), t[rt].rev ^= true; }
 void pushdown(int rt) {
-    if (t[rt].tag) push(t[rt].ch[0]), push(t[rt].ch[1]), t[rt].tag = false;
+    if (t[rt].rev) push(t[rt].ch[0]), push(t[rt].ch[1]), t[rt].rev = false;
 }
 bool get(int rt) { return rt == t[t[rt].fa].ch[1]; }
 bool isroot(int rt) { return rt != t[t[rt].fa].ch[0] && rt != t[t[rt].fa].ch[1]; }
@@ -31,7 +31,7 @@ void splay(int rt) {
         if (!isroot(fa)) rotate(get(rt) == get(fa) ? fa : rt);
 }
 void access(int rt) {
-    for (int pre = 0; rt; pre = rt, rt = t[rt].fa) splay(rt), t[rt].ch[1] = pre, pushup(rt);
+    for (int tmp = 0; rt; tmp = rt, rt = t[rt].fa) splay(rt), t[rt].ch[1] = tmp, pushup(rt);
 }
 void makeroot(int rt) { access(rt), splay(rt), push(rt); }
 int findroot(int rt) {
