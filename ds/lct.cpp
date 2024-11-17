@@ -31,7 +31,7 @@ void splay(int rt) {
         if (!isroot(fa)) rotate(get(rt) == get(fa) ? fa : rt);
 }
 void access(int rt) {
-    for (int tmp = 0; rt; tmp = rt, rt = t[rt].fa) splay(rt), t[rt].ch[1] = tmp, pushup(rt);
+    for (int ch = 0; rt; ch = rt, rt = t[rt].fa) splay(rt), t[rt].ch[1] = ch, pushup(rt);
 }
 void makeroot(int rt) { access(rt), splay(rt), push(rt); }
 int findroot(int rt) {
