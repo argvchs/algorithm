@@ -1,19 +1,20 @@
 #include <algorithm>
 #include <cmath>
 #include <iostream>
-#include <tuple>
 using namespace std;
 const int N = 1e5 + 5;
 int n, m, l = 1, r, t, a[N], b[N], bel[N], val[N], sum[N], ans[N], siz, bcnt, qcnt, ccnt;
 struct query {
     int op, l, r, k, t, id;
+    bool operator<(const query &x) const {
+        if (bel[l] != bel[x.l]) return l < x.l;
+        if (bel[r] != bel[x.r]) return bel[l] & 1 ? r < x.r : r > x.r;
+        return bel[r] & 1 ? t < x.t : t > x.t;
+    }
 } q[N];
 struct change {
     int x, k;
 } c[N];
-bool operator<(query x, query y) {
-    return tie(bel[x.l], bel[x.r], x.t) < tie(bel[y.l], bel[y.r], y.t);
-}
 void insert(int x) { ++val[a[x]], ++sum[bel[a[x]]]; }
 void remove(int x) { --val[a[x]], --sum[bel[a[x]]]; }
 void update(int x) {

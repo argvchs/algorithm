@@ -2,7 +2,6 @@
 #include <cmath>
 #include <iostream>
 #include <numeric>
-#include <tuple>
 using namespace std;
 using i64 = long long;
 const int N = 5e4 + 5;
@@ -10,7 +9,10 @@ int n, m, l = 1, r, a[N], bel[N], cnt[N], siz;
 i64 ans1[N], ans2[N], now;
 struct query {
     int l, r, id;
-    bool operator<(query x) { return tie(bel[l], r) < tie(bel[x.l], x.r); }
+    bool operator<(const query &x) const {
+        if (bel[l] != bel[x.l]) return l < x.l;
+        return bel[l] & 1 ? r < x.r : r > x.r;
+    }
 } q[N];
 void insert(int x) { now += cnt[a[x]]++; }
 void remove(int x) { now -= --cnt[a[x]]; }

@@ -7,9 +7,9 @@ int n, m, t[N], ans[N];
 struct node {
     int a, b, c, cnt, ans;
 } a[N], b[N];
-bool cmp1(node x, node y) { return tie(x.a, x.b, x.c) < tie(y.a, y.b, y.c); }
-bool cmp2(node x, node y) { return tie(x.b, x.c, x.a) < tie(y.b, y.c, y.a); }
-bool operator==(node x, node y) { return !cmp1(x, y) && !cmp1(y, x); }
+bool cmp1(const node &x, const node &y) { return tie(x.a, x.b, x.c) < tie(y.a, y.b, y.c); }
+bool cmp2(const node &x, const node &y) { return tie(x.b, x.c, x.a) < tie(y.b, y.c, y.a); }
+bool cmp3(const node &x, const node &y) { return !cmp1(x, y) && !cmp1(y, x); }
 void update(int x, int k) {
     for (int i = x; i <= m; i += i & -i) t[i] += k;
 }
@@ -36,9 +36,9 @@ int main() {
     for (int i = 1; i <= n; i++) cin >> a[i].a >> a[i].b >> a[i].c;
     sort(a + 1, a + n + 1, cmp1);
     for (int i = 1; i <= n; i++) b[i] = a[i];
-    int cnt = unique(a + 1, a + n + 1) - a - 1;
+    int cnt = unique(a + 1, a + n + 1, cmp3) - a - 1;
     for (int i = 1, j = 1; i <= cnt; i++)
-        while (j <= n && a[i] == b[j]) ++j, ++a[i].cnt;
+        while (j <= n && cmp3(a[i], b[j])) ++j, ++a[i].cnt;
     for (int i = 1; i <= cnt; i++) a[i].a = i;
     cdq(1, cnt);
     for (int i = 1; i <= cnt; i++) ans[a[i].ans + a[i].cnt - 1] += a[i].cnt;

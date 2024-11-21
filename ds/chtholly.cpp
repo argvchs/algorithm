@@ -10,7 +10,7 @@ int n, m, s, v;
 struct node {
     int l, r;
     mutable i64 val;
-    bool operator<(node x) { return l < x.l; }
+    bool operator<(const node &x) const { return l < x.l; }
 };
 set<node> S;
 vector<pair<i64, i64>> tmp;
