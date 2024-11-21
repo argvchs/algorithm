@@ -3,7 +3,7 @@
 #include <iostream>
 using namespace std;
 const int N = 1e5 + 5;
-int n, m, l = 1, r, t, a[N], b[N], bel[N], val[N], sum[N], ans[N], siz, bcnt, qcnt, ccnt;
+int n, m, l = 1, r, t, a[N], b[N], bel[N], val[N], sum[N], ans[N], siz, bcnt, qcnt, ucnt;
 struct query {
     int op, l, r, k, t, id;
     bool operator<(const query &x) const {
@@ -12,15 +12,15 @@ struct query {
         return bel[r] & 1 ? t < x.t : t > x.t;
     }
 } q[N];
-struct change {
+struct update {
     int x, k;
-} c[N];
+} u[N];
 void insert(int x) { ++val[a[x]], ++sum[bel[a[x]]]; }
 void remove(int x) { --val[a[x]], --sum[bel[a[x]]]; }
 void update(int x) {
-    if (l <= c[x].x && c[x].x <= r) remove(c[x].x);
-    swap(a[c[x].x], c[x].k);
-    if (l <= c[x].x && c[x].x <= r) insert(c[x].x);
+    if (l <= u[x].x && u[x].x <= r) remove(u[x].x);
+    swap(a[u[x].x], u[x].k);
+    if (l <= u[x].x && u[x].x <= r) insert(u[x].x);
 }
 int queryrnk(int x) {
     int ret = 0;
@@ -45,8 +45,8 @@ int main() {
     for (int i = 1; i <= n; i++) cin >> a[i], b[++bcnt] = a[i];
     for (int i = 1, op, x, y, k; i <= m; i++) {
         cin >> op >> x >> y;
-        if (op == 3) c[++ccnt] = {x, k = y};
-        else cin >> k, q[++qcnt] = {op, x, y, k, ccnt, qcnt};
+        if (op == 3) u[++ucnt] = {x, k = y};
+        else cin >> k, q[++qcnt] = {op, x, y, k, ucnt, qcnt};
         if (op != 2) b[++bcnt] = k;
     }
     sort(b + 1, b + bcnt + 1);
@@ -54,7 +54,7 @@ int main() {
     for (int i = 1; i <= n; i++) a[i] = lower_bound(b + 1, b + bcnt + 1, a[i]) - b;
     for (int i = 1; i <= qcnt; i++)
         if (q[i].op != 2) q[i].k = lower_bound(b + 1, b + bcnt + 1, q[i].k) - b;
-    for (int i = 1; i <= ccnt; i++) c[i].k = lower_bound(b + 1, b + bcnt + 1, c[i].k) - b;
+    for (int i = 1; i <= ucnt; i++) u[i].k = lower_bound(b + 1, b + bcnt + 1, u[i].k) - b;
     b[bcnt + 1] = 0x80000001;
     b[bcnt + 2] = 0x7fffffff;
     siz = pow(n, 0.667);

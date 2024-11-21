@@ -3,7 +3,7 @@
 #include <iostream>
 using namespace std;
 const int N = 1e6 + 5;
-int n, m, l = 1, r, t, a[N], bel[N], cnt[N], ans[N], siz, qcnt, ccnt, now;
+int n, m, l = 1, r, t, a[N], bel[N], cnt[N], ans[N], siz, qcnt, ucnt, now;
 struct query {
     int l, r, t, id;
     bool operator<(const query &x) const {
@@ -12,15 +12,15 @@ struct query {
         return bel[r] & 1 ? t < x.t : t > x.t;
     }
 } q[N];
-struct change {
+struct update {
     int x, k;
-} c[N];
+} u[N];
 void insert(int x) { now += !cnt[a[x]]++; }
 void remove(int x) { now -= !--cnt[a[x]]; }
 void update(int x) {
-    if (l <= c[x].x && c[x].x <= r) remove(c[x].x);
-    swap(a[c[x].x], c[x].k);
-    if (l <= c[x].x && c[x].x <= r) insert(c[x].x);
+    if (l <= u[x].x && u[x].x <= r) remove(u[x].x);
+    swap(a[u[x].x], u[x].k);
+    if (l <= u[x].x && u[x].x <= r) insert(u[x].x);
 }
 int main() {
     ios_base::sync_with_stdio(false);
@@ -30,8 +30,8 @@ int main() {
     for (int i = 1, x, y; i <= m; i++) {
         char op;
         cin >> op >> x >> y;
-        if (op == 'Q') q[++qcnt] = {x, y, ccnt, qcnt};
-        else c[++ccnt] = {x, y};
+        if (op == 'Q') q[++qcnt] = {x, y, ucnt, qcnt};
+        else u[++ucnt] = {x, y};
     }
     sort(q + 1, q + qcnt + 1);
     for (int i = 1; i <= qcnt; i++) {
