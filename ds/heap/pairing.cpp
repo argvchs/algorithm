@@ -8,7 +8,7 @@ struct node {
     int l, r, val;
 } t[N];
 int merge(int lt, int rt) {
-    if (!lt || !rt) return lt + rt;
+    if (!lt || !rt) return lt | rt;
     if (lt > rt) swap(lt, rt);
     if (t[lt].val > t[rt].val) swap(lt, rt);
     t[rt].r = t[lt].l, t[lt].l = rt;

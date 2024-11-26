@@ -18,7 +18,7 @@ void split(int rt, int x, int &l, int &r) {
     pushup(rt);
 }
 int merge(int lt, int rt) {
-    if (!lt || !rt) return lt + rt;
+    if (!lt || !rt) return lt | rt;
     if (t[lt].key < t[rt].key) t[lt].r = merge(t[lt].r, rt);
     else t[rt].l = merge(lt, t[rt].l), lt = rt;
     return pushup(lt), lt;
