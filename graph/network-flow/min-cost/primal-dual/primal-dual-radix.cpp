@@ -37,8 +37,8 @@ void insert(int x) {
 }
 void remove(int x) {
     int k = bit_width<u32>(dis[x] ^ dis[top]);
-    buc[k][pos[x]] = buc[k].back();
-    pos[buc[k].back()] = pos[x], buc[k].pop_back();
+    pos[buc[k].back()] = pos[x];
+    buc[k][pos[x]] = buc[k].back(), buc[k].pop_back();
 }
 void update(int x, int k) { remove(x), dis[x] = k, insert(x); }
 void removemin() {

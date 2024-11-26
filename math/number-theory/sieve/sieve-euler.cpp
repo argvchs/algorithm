@@ -15,7 +15,7 @@ int main() {
         for (int j = 1; j <= cnt && i * p[j] <= n; j++) {
             vis[i * p[j]] = true;
             phi[i * p[j]] = phi[i] * (p[j] - !!(i % p[j]));
-            if (i % p[j] == 0) break;
+            if (!(i % p[j])) break;
         }
     }
     for (int i = 1; i <= n - 1; i++) ans += phi[i];
