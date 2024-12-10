@@ -4,7 +4,7 @@
 #include <queue>
 #include <utility>
 using namespace std;
-const int N = 1205, M = 1.2e5 + 5, INF = 0x3f3f3f3f;
+const int N = 1.2e3 + 5, M = 1.2e5 + 5, INF = 0x3f3f3f3f;
 int n, m, s, t, ht[N], ex[N], gap[N], cur[N], head[N], cnt = 1;
 bool vis[N];
 struct edge {
