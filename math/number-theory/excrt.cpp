@@ -21,9 +21,6 @@ int main() {
     ios_base::sync_with_stdio(false);
     cin.tie(nullptr);
     cin >> n;
-    for (int i = 1; i <= n; i++) {
-        cin >> q >> b;
-        tie(a, p) = excrt(a, b, p, q);
-    }
+    for (int i = 1; i <= n; i++) cin >> q >> b, tie(a, p) = excrt(a, b, p, q);
     cout << a;
 }

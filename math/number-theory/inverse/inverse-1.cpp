@@ -6,8 +6,7 @@ int n, p, inv[N];
 int main() {
     ios_base::sync_with_stdio(false);
     cin.tie(nullptr);
-    cin >> n >> p;
-    inv[1] = 1;
+    cin >> n >> p, inv[1] = 1;
     for (int i = 2; i <= n; i++) inv[i] = (i64)(p - p / i) * inv[p % i] % p;
     for (int i = 1; i <= n; i++) cout << inv[i] << '\n';
 }
