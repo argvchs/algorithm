@@ -21,7 +21,7 @@ int main() {
             x = (i64)x * (m - a[j] + P) % P;
             y = (i64)y * (a[i] - a[j] + P) % P;
         }
-        ans = (ans + (i64)b[i] * x % P * qpow(y, P - 2)) % P;
+        (ans += (i64)b[i] * x % P * qpow(y, P - 2) % P) %= P;
     }
     cout << ans;
 }

@@ -45,8 +45,8 @@ int query(int rt, int l, int r, int x, int y) {
     if (x <= l && r <= y) return t[rt].sum;
     pushdown(rt, l, r);
     int mid = (l + r) >> 1, ret = 0;
-    if (x <= mid) ret = (ret + query(rt << 1, l, mid, x, y)) % P;
-    if (y >= mid + 1) ret = (ret + query(rt << 1 | 1, mid + 1, r, x, y)) % P;
+    if (x <= mid) (ret += query(rt << 1, l, mid, x, y)) %= P;
+    if (y >= mid + 1) (ret += query(rt << 1 | 1, mid + 1, r, x, y)) %= P;
     return ret;
 }
 int main() {

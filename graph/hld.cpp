@@ -40,12 +40,12 @@ void split(int u, int v) {
     tmp.emplace_back(v, u);
 }
 void update(int x, int k) {
-    for (int i = x; i <= n; i += i & -i) t1[i] = (t1[i] + k) % p, t2[i] = (t2[i] + (i64)k * x) % p;
+    for (int i = x; i <= n; i += i & -i) (t1[i] += k) %= p, (t2[i] += (i64)k * x % p) %= p;
 }
 void update(int l, int r, int k) { update(l, k), update(r + 1, p - k % p); }
 int query(int x) {
     int ret = 0;
-    for (int i = x; i >= 1; i -= i & -i) ret = (ret + (i64)(x + 1) * t1[i] - t2[i] + p) % p;
+    for (int i = x; i >= 1; i -= i & -i) (ret += (i64)(x + 1) * t1[i] % p - t2[i] + p) %= p;
     return ret;
 }
 int query(int l, int r) { return (query(r) - query(l - 1) + p) % p; }
@@ -65,7 +65,7 @@ int main() {
         } else if (op == 2) {
             cin >> y, split(x, y);
             int ans = 0;
-            for (auto [u, v] : tmp) ans = (ans + query(dfn[u], dfn[v])) % p;
+            for (auto [u, v] : tmp) (ans += query(dfn[u], dfn[v])) %= p;
             cout << ans << '\n';
         } else if (op == 3) cin >> k, update(dfn[x], dfn[x] + siz[x] - 1, k);
         else cout << query(dfn[x], dfn[x] + siz[x] - 1) << '\n';

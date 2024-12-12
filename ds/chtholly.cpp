@@ -39,7 +39,7 @@ int querysum(int l, int r, int k, int p) {
     auto ed = split(r + 1), st = split(l);
     int ret = 0;
     for (auto it = st; it != ed; ++it)
-        ret = (ret + (i64)qpow(it->val % p, k, p) * (it->r - it->l + 1) % p) % p;
+        (ret += (i64)qpow(it->val % p, k, p) * (it->r - it->l + 1) % p) %= p;
     return ret;
 }
 i64 querykth(int l, int r, int k) {

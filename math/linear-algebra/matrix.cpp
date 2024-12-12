@@ -11,8 +11,7 @@ struct matrix {
         matrix ret;
         for (int i = 1; i <= n; i++)
             for (int j = 1; j <= n; j++)
-                for (int k = 1; k <= n; k++)
-                    ret.a[i][j] = (ret.a[i][j] + (i64)a[i][k] * b.a[k][j]) % P;
+                for (int k = 1; k <= n; k++) (ret.a[i][j] += (i64)a[i][k] * b.a[k][j] % P) %= P;
         return ret;
     }
 } a;
