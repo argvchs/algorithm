@@ -7,9 +7,8 @@ bool vis[N];
 int main() {
     ios_base::sync_with_stdio(false);
     cin.tie(nullptr);
-    cin >> n;
+    cin >> n, phi[1] = 1;
     if (n == 1) return cout << '0', 0;
-    phi[1] = 1;
     for (int i = 2; i <= n; i++) {
         if (!vis[i]) p[++cnt] = i, phi[i] = i - 1;
         for (int j = 1; j <= cnt && i * p[j] <= n; j++) {

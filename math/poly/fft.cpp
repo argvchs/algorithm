@@ -9,7 +9,7 @@ const int N = 3e6 + 5;
 const f64 PI = acos(-1);
 int n, m, lim = 1;
 c64 a[N], b[N], w[N];
-void dit(c64 a[], int n) {
+void dit(c64 *a, int n) {
     for (int i = 1; i < n; i <<= 1)
         for (int j = 0; j < n; j += i << 1)
             for (int k = 0; k < i; k++) {
@@ -19,7 +19,7 @@ void dit(c64 a[], int n) {
     reverse(a + 1, a + n);
     for (int i = 0; i < n; i++) a[i] /= n;
 }
-void dif(c64 a[], int n) {
+void dif(c64 *a, int n) {
     for (int i = n >> 1; i; i >>= 1)
         for (int j = 0; j < n; j += i << 1)
             for (int k = 0; k < i; k++) {

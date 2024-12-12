@@ -49,7 +49,7 @@ i64 querykth(int l, int r, int k) {
     sort(tmp.begin(), tmp.end());
     for (auto [x, y] : tmp)
         if ((k -= y) <= 0) return x;
-    return -1;
+    __builtin_unreachable();
 }
 int gen(int x) { return exchange(s, ((i64)s * 7 + 13) % P) % x + 1; }
 int main() {

@@ -55,7 +55,7 @@ int main() {
     }
     for (int i = 1; i <= n; i++)
         if (a[i] > 0) addflow(ss, i, a[i]), sum += a[i];
-        else addflow(i, tt, -a[i]);
+        else if (a[i] < 0) addflow(i, tt, -a[i]);
     addflow(t, s, INF);
     swap(s, ss), swap(t, tt), dinic();
     if (ans != sum) return cout << "please go home to sleep", 0;

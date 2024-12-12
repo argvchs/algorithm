@@ -18,8 +18,8 @@ int main() {
         int r = i;
         for (int j = i; j <= n; j++)
             if (abs(a[j][i]) > abs(a[r][i])) r = j;
-        if (i != r) swap(a[i], a[r]);
-        if (abs(a[i][i]) < EPS) return cout << "No Solution", 0;
+        if (abs(a[r][i]) < EPS) return cout << "No Solution", 0;
+        swap(a[i], a[r]);
         for (int j = 1; j <= n; j++) {
             if (i == j) continue;
             f64 x = a[j][i] / a[i][i];
