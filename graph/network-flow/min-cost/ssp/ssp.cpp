@@ -55,7 +55,6 @@ int main() {
     cin.tie(nullptr);
     cin >> n >> m >> s >> t;
     for (int i = 1, u, v, w, c; i <= m; i++) cin >> u >> v >> w >> c, addflow(u, v, w, c);
-
     dinic();
     cout << flow << ' ' << cost;
 }
