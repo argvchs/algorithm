@@ -49,6 +49,6 @@ int main() {
     for (int i = 1, u, v, w; i <= m; i++) cin >> u >> v >> w, add(u, v, w);
     dijkstra();
     for (int i = 1; i <= n; i++)
-        if (dis[i] == INF) cout << 0x7fffffff << ' ';
+        if (dis[i] == INF) cout << "2147483647 ";
         else cout << dis[i] << ' ';
 }
