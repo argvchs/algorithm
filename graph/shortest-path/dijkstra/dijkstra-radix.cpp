@@ -9,7 +9,7 @@ int n, m, s, dis[N], pos[N], head[N], cnt, top;
 struct edge {
     int to, nxt, w;
 } e[M];
-vector<int> buc[32];
+vector<int> buc[31];
 void add(int u, int v, int w) { e[++cnt] = {v, head[u], w}, head[u] = cnt; }
 void insert(int x) {
     int k = bit_width<u32>(dis[x] ^ dis[top]);
@@ -24,7 +24,7 @@ void update(int x, int k) { remove(x), dis[x] = k, insert(x); }
 void removemin() {
     remove(top), top = 0;
     if (buc[0].size()) return void(top = buc[0][0]);
-    for (int i = 1; i < 32; i++) {
+    for (int i = 1; i < 31; i++) {
         if (buc[i].empty()) continue;
         for (int j : buc[i])
             if (dis[j] < dis[top]) top = j;
