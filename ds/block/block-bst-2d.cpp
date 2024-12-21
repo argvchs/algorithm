@@ -29,12 +29,12 @@ int queryrnk(int x) {
     return ret + 1;
 }
 int querykth(int x) {
-    if (x < 1) return bcnt + 1;
-    if (x > r - l + 1) return bcnt + 2;
+    if (x < 1) return 0x80000001;
+    if (x > r - l + 1) return 0x7fffffff;
     int i = 1, j = 1, k = 0;
     while (k + sum[i] < x) k += sum[i++], j += siz;
     while (k + val[j] < x) k += val[j++];
-    return j;
+    return b[j];
 }
 int querypre(int x) { return querykth(queryrnk(x) - 1); }
 int querynxt(int x) { return querykth(queryrnk(x + 1)); }
@@ -55,8 +55,6 @@ int main() {
     for (int i = 1; i <= qcnt; i++)
         if (q[i].op != 2) q[i].k = lower_bound(b + 1, b + bcnt + 1, q[i].k) - b;
     for (int i = 1; i <= ucnt; i++) u[i].k = lower_bound(b + 1, b + bcnt + 1, u[i].k) - b;
-    b[bcnt + 1] = 0x80000001;
-    b[bcnt + 2] = 0x7fffffff;
     siz = pow(n, 0.667);
     for (int i = 1; i <= n; i++) bel[i] = i / siz;
     sort(q + 1, q + qcnt + 1);
@@ -70,9 +68,9 @@ int main() {
         while (t < q[i].t) update(++t);
         while (t > q[i].t) update(t--);
         if (q[i].op == 1) ans[q[i].id] = queryrnk(q[i].k);
-        else if (q[i].op == 2) ans[q[i].id] = b[querykth(q[i].k)];
-        else if (q[i].op == 4) ans[q[i].id] = b[querypre(q[i].k)];
-        else ans[q[i].id] = b[querynxt(q[i].k)];
+        else if (q[i].op == 2) ans[q[i].id] = querykth(q[i].k);
+        else if (q[i].op == 4) ans[q[i].id] = querypre(q[i].k);
+        else ans[q[i].id] = querynxt(q[i].k);
     }
     for (int i = 1; i <= qcnt; i++) cout << ans[i] << '\n';
 }
