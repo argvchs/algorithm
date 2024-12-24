@@ -55,7 +55,5 @@ int main() {
     for (int i = 1, u, v, w; i <= n - 1; i++) cin >> u >> v >> w, addedge(u, v, w);
     for (int i = 1; i <= m; i++) cin >> a[i];
     rt = 0, tot = w[0] = n, dfs1(1, 0), solve(rt);
-    for (int i = 1; i <= m; i++)
-        if (ans[i]) cout << "AYE\n";
-        else cout << "NAY\n";
+    for (int i = 1; i <= m; i++) cout << (ans[i] ? "AYE\n" : "NAY\n");
 }

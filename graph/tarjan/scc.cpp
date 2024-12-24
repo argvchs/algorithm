@@ -10,8 +10,8 @@ bool vis[N];
 struct edge {
     int from, to, nxt;
 } e[M];
-stack<int> S;
 queue<int> Q;
+stack<int> S;
 void add(int u, int v) { e[++cnt] = {u, v, head[u]}, head[u] = cnt; }
 void tarjan(int u) {
     dfn[u] = low[u] = ++idx, vis[u] = true, S.push(u);
