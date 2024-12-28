@@ -55,7 +55,7 @@ int main() {
     for (int i = 1; i <= qcnt; i++)
         if (q[i].op != 2) q[i].k = lower_bound(b + 1, b + bcnt + 1, q[i].k) - b;
     for (int i = 1; i <= ucnt; i++) u[i].k = lower_bound(b + 1, b + bcnt + 1, u[i].k) - b;
-    siz = pow(n, 0.667);
+    siz = pow(n, 2.0 / 3);
     for (int i = 1; i <= n; i++) bel[i] = i / siz;
     sort(q + 1, q + qcnt + 1);
     siz = sqrt(bcnt);
