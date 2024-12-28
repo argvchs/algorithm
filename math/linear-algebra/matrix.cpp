@@ -4,7 +4,7 @@ using namespace std;
 using i64 = long long;
 const int N = 105, P = 1e9 + 7;
 int n;
-i64 m;
+i64 k;
 struct matrix {
     int a[N][N]{};
     matrix operator*(const matrix &b) const {
@@ -25,10 +25,10 @@ matrix qpow(matrix a, i64 b) {
 int main() {
     ios_base::sync_with_stdio(false);
     cin.tie(nullptr);
-    cin >> n >> m;
+    cin >> n >> k;
     for (int i = 1; i <= n; i++)
         for (int j = 1; j <= n; j++) cin >> a.a[i][j];
-    a = qpow(a, m);
+    a = qpow(a, k);
     for (int i = 1; i <= n; i++) {
         for (int j = 1; j <= n; j++) cout << a.a[i][j] << ' ';
         cout << '\n';
