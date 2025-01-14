@@ -3,7 +3,7 @@
 #include <string>
 using namespace std;
 const int N = 3e6 + 5;
-int T, n, m, cnt;
+int T, n, q, cnt;
 string s;
 struct node {
     int ch[128], cnt;
@@ -27,8 +27,8 @@ int main() {
     cin >> T;
     while (T--) {
         memset(t, 0, sizeof(node) * cnt);
-        cin >> n >> m, cnt = 0;
+        cin >> n >> q, cnt = 0;
         for (int i = 1; i <= n; i++) cin >> s, insert(0, s);
-        for (int i = 1; i <= m; i++) cin >> s, cout << query(0, s) << '\n';
+        for (int i = 1; i <= q; i++) cin >> s, cout << query(0, s) << '\n';
     }
 }
