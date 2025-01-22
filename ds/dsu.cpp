@@ -1,7 +1,7 @@
 #include <iostream>
 #include <utility>
 using namespace std;
-const int N = 1e4 + 5;
+const int N = 2e5 + 5;
 int n, m, fa[N], siz[N];
 int find(int x) { return x == fa[x] ? x : fa[x] = find(fa[x]); }
 int main() {
