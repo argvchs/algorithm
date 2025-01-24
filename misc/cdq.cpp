@@ -3,7 +3,7 @@
 #include <tuple>
 using namespace std;
 const int N = 2e5 + 5;
-int n, m, t[N], ans[N];
+int n, m, t[N], ans[N], cnt;
 struct node {
     int a, b, c, cnt, ans;
 } a[N], b[N];
@@ -36,7 +36,7 @@ int main() {
     for (int i = 1; i <= n; i++) cin >> a[i].a >> a[i].b >> a[i].c;
     sort(a + 1, a + n + 1, cmp1);
     for (int i = 1; i <= n; i++) b[i] = a[i];
-    int cnt = unique(a + 1, a + n + 1, cmp3) - a - 1;
+    cnt = unique(a + 1, a + n + 1, cmp3) - a - 1;
     for (int i = 1, j = 1; i <= cnt; i++)
         while (j <= n && cmp3(a[i], b[j])) ++j, ++a[i].cnt;
     for (int i = 1; i <= cnt; i++) a[i].a = i;
