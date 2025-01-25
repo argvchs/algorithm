@@ -8,7 +8,7 @@ struct node {
 } t[N << 2];
 void pushup(int rt) { t[rt].sum = (t[rt << 1].sum + t[rt << 1 | 1].sum) % P; }
 void push(int rt, int l, int r, int x, int y) {
-    t[rt].sum = ((i64)t[rt].sum * x + y * (i64)(r - l + 1)) % P;
+    t[rt].sum = ((i64)t[rt].sum * x + (i64)(r - l + 1) * y) % P;
     t[rt].add = ((i64)t[rt].add * x + y) % P;
     t[rt].mul = (i64)t[rt].mul * x % P;
 }

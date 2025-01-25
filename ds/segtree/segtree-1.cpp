@@ -7,14 +7,15 @@ int n, m, a[N];
 struct node {
     i64 sum, add;
 } t[N << 2];
+void pushup(int rt) { t[rt].sum = t[rt << 1].sum + t[rt << 1 | 1].sum; }
 void bulid(int rt, int l, int r) {
     if (l == r) return void(t[rt].sum = a[l]);
     int mid = (l + r) >> 1;
     bulid(rt << 1, l, mid);
     bulid(rt << 1 | 1, mid + 1, r);
-    t[rt].sum = t[rt << 1].sum + t[rt << 1 | 1].sum;
+    pushup(rt);
 }
-void update(int rt, int l, int r, int x, int y, int k) {
+void update(int rt, int l, int r, int x, int y, i64 k) {
     t[rt].sum += (min(r, y) - max(l, x) + 1) * k;
     if (x <= l && r <= y) return void(t[rt].add += k);
     int mid = (l + r) >> 1;
