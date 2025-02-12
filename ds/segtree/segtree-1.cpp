@@ -3,7 +3,8 @@
 using namespace std;
 using i64 = long long;
 const int N = 1e5 + 5;
-int n, m, a[N];
+int n, m;
+i64 a[N];
 struct node {
     i64 sum, add;
 } t[N << 2];
@@ -36,7 +37,8 @@ int main() {
     cin >> n >> m;
     for (int i = 1; i <= n; i++) cin >> a[i];
     bulid(1, 1, n);
-    for (int i = 1, op, l, r, k; i <= m; i++) {
+    for (int i = 1, op, l, r; i <= m; i++) {
+        i64 k;
         cin >> op >> l >> r;
         if (op == 1) cin >> k, update(1, 1, n, l, r, k);
         else cout << query(1, 1, n, l, r) << '\n';
