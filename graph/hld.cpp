@@ -4,7 +4,7 @@
 using namespace std;
 using i64 = long long;
 const int N = 1e5 + 5;
-int n, m, p, rt, a[N], t1[N], t2[N], fa[N], ch[N], dep[N], siz[N], dfn[N], top[N], head[N], idx,
+int n, m, p, rt, a[N], t1[N], t2[N], fa[N], ch[N], siz[N], dep[N], dfn[N], top[N], head[N], idx,
     cnt;
 struct edge {
     int to, nxt;
@@ -34,10 +34,10 @@ void split(int u, int v) {
     tmp.clear();
     while (top[u] != top[v]) {
         if (dep[top[u]] < dep[top[v]]) swap(u, v);
-        tmp.emplace_back(top[u], u), u = fa[top[u]];
+        tmp.emplace_back(dfn[top[u]], dfn[u]), u = fa[top[u]];
     }
-    if (dep[u] < dep[v]) swap(u, v);
-    tmp.emplace_back(v, u);
+    if (dep[u] > dep[v]) swap(u, v);
+    tmp.emplace_back(dfn[u], dfn[v]);
 }
 void update(int x, int k) {
     for (int i = x; i <= n; i += i & -i) (t1[i] += k) %= p, (t2[i] += (i64)k * x % p) %= p;
@@ -61,11 +61,11 @@ int main() {
         cin >> op >> x;
         if (op == 1) {
             cin >> y >> k, split(x, y);
-            for (auto [u, v] : tmp) update(dfn[u], dfn[v], k);
+            for (auto [l, r] : tmp) update(l, r, k);
         } else if (op == 2) {
             cin >> y, split(x, y);
             int ans = 0;
-            for (auto [u, v] : tmp) (ans += query(dfn[u], dfn[v])) %= p;
+            for (auto [l, r] : tmp) (ans += query(l, r)) %= p;
             cout << ans << '\n';
         } else if (op == 3) cin >> k, update(dfn[x], dfn[x] + siz[x] - 1, k);
         else cout << query(dfn[x], dfn[x] + siz[x] - 1) << '\n';

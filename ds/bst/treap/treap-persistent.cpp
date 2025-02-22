@@ -14,7 +14,7 @@ void pushup(int rt) { t[rt].siz = t[t[rt].l].siz + t[t[rt].r].siz + 1; }
 void split(int rt, int x, int &l, int &r) {
     if (!rt) return void(l = r = 0);
     t[++cnt] = t[rt], rt = cnt;
-    if (t[rt].val >= x) split(t[r = rt].l, x, l, t[rt].l);
+    if (t[rt].val > x) split(t[r = rt].l, x, l, t[rt].l);
     else split(t[l = rt].r, x, t[rt].r, r);
     pushup(rt);
 }
@@ -25,12 +25,12 @@ int merge(int lt, int rt) {
 }
 void insert(int &rt, int x) {
     int l, r;
-    split(rt, x, l, r);
+    split(rt, x - 1, l, r);
     rt = merge(merge(l, newnode(x)), r);
 }
 void remove(int &rt, int x) {
     int l, m, r;
-    split(rt, x, l, r), split(r, x + 1, m, r);
+    split(rt, x - 1, l, r), split(r, x, m, r);
     rt = merge(merge(l, merge(t[m].l, t[m].r)), r);
 }
 int queryrnk(int rt, int x) {

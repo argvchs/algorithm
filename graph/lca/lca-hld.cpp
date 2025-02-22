@@ -2,7 +2,7 @@
 #include <utility>
 using namespace std;
 const int N = 5e5 + 5;
-int n, m, rt, fa[N], ch[N], dep[N], siz[N], top[N], head[N], cnt;
+int n, m, rt, fa[N], ch[N], siz[N], dep[N], top[N], head[N], cnt;
 struct edge {
     int to, nxt;
 } e[N << 1];
