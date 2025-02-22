@@ -24,7 +24,7 @@ int exbsgs(int a, int b, int p) {
     int n = ceil(sqrt(p)) + 1, m = qpow(a, n, p);
     for (int i = 0; i < n; i++, b = (i64)b * a % p) M[b] = i;
     for (int i = 0; i < n; i++, x = (i64)x * m % p)
-        if (M.count(x) && i * n >= M[x]) return i * n - M[x] + y;
+        if (M.contains(x) && i * n >= M[x]) return i * n - M[x] + y;
     return -1;
 }
 int main() {
