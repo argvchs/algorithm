@@ -9,11 +9,11 @@ struct node {
     i64 sum, add;
 } t[N << 2];
 void pushup(int rt) { t[rt].sum = t[rt << 1].sum + t[rt << 1 | 1].sum; }
-void bulid(int rt, int l, int r) {
+void build(int rt, int l, int r) {
     if (l == r) return void(t[rt].sum = a[l]);
     int mid = (l + r) >> 1;
-    bulid(rt << 1, l, mid);
-    bulid(rt << 1 | 1, mid + 1, r);
+    build(rt << 1, l, mid);
+    build(rt << 1 | 1, mid + 1, r);
     pushup(rt);
 }
 void update(int rt, int l, int r, int x, int y, i64 k) {
@@ -36,7 +36,7 @@ int main() {
     cin.tie(nullptr);
     cin >> n >> m;
     for (int i = 1; i <= n; i++) cin >> a[i];
-    bulid(1, 1, n);
+    build(1, 1, n);
     for (int i = 1, op, l, r; i <= m; i++) {
         i64 k;
         cin >> op >> l >> r;
