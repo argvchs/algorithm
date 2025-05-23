@@ -1,8 +1,7 @@
 #include <algorithm>
-#include <bit>
+#include <immintrin.h>
 #include <iostream>
 using namespace std;
-using u32 = unsigned;
 const int N = 5e5 + 5;
 int n, m, rt, a[N], f[25][N], dfn[N], head[N], idx, cnt;
 struct edge {
@@ -18,7 +17,7 @@ void dfs(int u, int fa) {
 int lca(int u, int v) {
     if (u == v) return u;
     if ((u = dfn[u]) > (v = dfn[v])) swap(u, v);
-    int k = bit_width<u32>(v - u) - 1;
+    int k = 31 - _lzcnt_u32(v - u);
     return a[min(f[k][u + 1], f[k][v - (1 << k) + 1])];
 }
 int main() {

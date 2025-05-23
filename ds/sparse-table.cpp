@@ -1,12 +1,11 @@
 #include <algorithm>
-#include <bit>
+#include <immintrin.h>
 #include <iostream>
 using namespace std;
-using u32 = unsigned;
 const int N = 1e5 + 5;
 int n, m, f[25][N];
 int query(int l, int r) {
-    int k = bit_width<u32>(r - l + 1) - 1;
+    int k = 31 - _lzcnt_u32(r - l + 1);
     return max(f[k][l], f[k][r - (1 << k) + 1]);
 }
 int main() {

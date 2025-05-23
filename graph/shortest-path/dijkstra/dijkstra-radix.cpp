@@ -1,22 +1,21 @@
-#include <bit>
 #include <cstring>
+#include <immintrin.h>
 #include <iostream>
 #include <vector>
 using namespace std;
-using u32 = unsigned;
 const int N = 1e5 + 5, M = 5e5 + 5, INF = 0x3f3f3f3f;
 int n, m, s, dis[N], pos[N], head[N], cnt, top;
 struct edge {
     int to, nxt, w;
 } e[M];
-vector<int> buc[31];
+vector<int> buc[32];
 void add(int u, int v, int w) { e[++cnt] = {v, head[u], w}, head[u] = cnt; }
 void insert(int x) {
-    int k = bit_width<u32>(dis[x] ^ dis[top]);
+    int k = 32 - _lzcnt_u32(dis[x] ^ dis[top]);
     pos[x] = buc[k].size(), buc[k].push_back(x);
 }
 void remove(int x) {
-    int k = bit_width<u32>(dis[x] ^ dis[top]);
+    int k = 32 - _lzcnt_u32(dis[x] ^ dis[top]);
     pos[buc[k].back()] = pos[x];
     buc[k][pos[x]] = buc[k].back(), buc[k].pop_back();
 }
@@ -24,7 +23,7 @@ void update(int x, int k) { remove(x), dis[x] = k, insert(x); }
 void removemin() {
     remove(top), top = 0;
     if (buc[0].size()) return void(top = buc[0][0]);
-    for (int i = 1; i < 31; i++) {
+    for (int i = 1; i < 32; i++) {
         if (buc[i].empty()) continue;
         for (int j : buc[i])
             if (dis[j] < dis[top]) top = j;
