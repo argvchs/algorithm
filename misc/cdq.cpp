@@ -7,9 +7,13 @@ int n, m, t[N], ans[N], cnt;
 struct node {
     int a, b, c, cnt, ans;
 } a[N], b[N];
-bool cmp1(const node &x, const node &y) { return tie(x.a, x.b, x.c) < tie(y.a, y.b, y.c); }
-bool cmp2(const node &x, const node &y) { return tie(x.b, x.c, x.a) < tie(y.b, y.c, y.a); }
-bool cmp3(const node &x, const node &y) { return !cmp1(x, y) && !cmp1(y, x); }
+const auto cmp1 = [](const node &x, const node &y) {
+    return tie(x.a, x.b, x.c) < tie(y.a, y.b, y.c);
+};
+const auto cmp2 = [](const node &x, const node &y) {
+    return tie(x.b, x.c, x.a) < tie(y.b, y.c, y.a);
+};
+const auto cmp3 = [](const node &x, const node &y) { return !cmp1(x, y) && !cmp1(y, x); };
 void update(int x, int k) {
     for (int i = x; i <= m; i += i & -i) t[i] += k;
 }
@@ -22,7 +26,7 @@ void cdq(int l, int r) {
     if (l == r) return;
     int mid = (l + r) >> 1;
     cdq(l, mid), cdq(mid + 1, r);
-    sort(a + l, a + r + 1, cmp2);
+    inplace_merge(a + l, a + mid + 1, a + r + 1, cmp2);
     for (int i = l; i <= r; i++)
         if (a[i].a <= mid) update(a[i].c, a[i].cnt);
         else a[i].ans += query(a[i].c);
