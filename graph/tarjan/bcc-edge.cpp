@@ -16,10 +16,8 @@ void tarjan(int u, int fa) {
     dfn[u] = low[u] = ++idx, S.push(u);
     for (int i = head[u]; i; i = e[i].nxt) {
         int v = e[i].to;
-        if (!dfn[v]) {
-            tarjan(v, i ^ 1);
-            low[u] = min(low[u], low[v]);
-        } else if (i != fa) low[u] = min(low[u], dfn[v]);
+        if (!dfn[v]) tarjan(v, i ^ 1), low[u] = min(low[u], low[v]);
+        else if (i != fa) low[u] = min(low[u], dfn[v]);
     }
     if (dfn[u] != low[u]) return;
     int top;

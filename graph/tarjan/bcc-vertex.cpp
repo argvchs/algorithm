@@ -14,11 +14,11 @@ void add(int u, int v) { e[++cnt] = {v, head[u]}, head[u] = cnt; }
 void addedge(int u, int v) { add(u, v), add(v, u); }
 void tarjan(int u, int fa) {
     dfn[u] = low[u] = ++idx, S.push(u);
+    int cnt = !!fa;
     for (int i = head[u]; i; i = e[i].nxt) {
         int v = e[i].to;
         if (!dfn[v]) {
-            tarjan(v, u);
-            low[u] = min(low[u], low[v]);
+            ++cnt, tarjan(v, u), low[u] = min(low[u], low[v]);
             if (low[v] < dfn[u]) continue;
             int top;
             ans.emplace_back().push_back(u);
@@ -26,16 +26,13 @@ void tarjan(int u, int fa) {
             while (top != v);
         } else low[u] = min(low[u], dfn[v]);
     }
-    if (!fa && !head[u]) ans.emplace_back().push_back(u);
+    if (!cnt) ans.emplace_back().push_back(u);
 }
 int main() {
     ios_base::sync_with_stdio(false);
     cin.tie(nullptr);
     cin >> n >> m;
-    for (int i = 1, u, v; i <= m; i++) {
-        cin >> u >> v;
-        if (u != v) addedge(u, v);
-    }
+    for (int i = 1, u, v; i <= m; i++) cin >> u >> v, addedge(u, v);
     for (int i = 1; i <= n; i++)
         if (!dfn[i]) tarjan(i, 0);
     cout << ans.size() << '\n';
