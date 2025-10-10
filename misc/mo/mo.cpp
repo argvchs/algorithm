@@ -20,7 +20,7 @@ int main() {
     ios_base::sync_with_stdio(false);
     cin.tie(nullptr);
     cin >> n >> m, siz = n / sqrt(m);
-    for (int i = 1; i <= n; i++) cin >> a[i], bel[i] = i / siz;
+    for (int i = 1; i <= n; i++) cin >> a[i], bel[i] = (i - 1) / siz + 1;
     for (int i = 1; i <= m; i++) cin >> q[i].l >> q[i].r, q[i].id = i;
     sort(q + 1, q + m + 1);
     for (int i = 1; i <= m; i++) {

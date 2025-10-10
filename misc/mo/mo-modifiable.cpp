@@ -26,7 +26,7 @@ int main() {
     ios_base::sync_with_stdio(false);
     cin.tie(nullptr);
     cin >> n >> m, siz = pow(n, 2.0 / 3);
-    for (int i = 1; i <= n; i++) cin >> a[i], bel[i] = i / siz;
+    for (int i = 1; i <= n; i++) cin >> a[i], bel[i] = (i - 1) / siz + 1;
     for (int i = 1, x, y; i <= m; i++) {
         char op;
         cin >> op >> x >> y;
