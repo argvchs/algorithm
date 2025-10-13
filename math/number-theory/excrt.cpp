@@ -11,7 +11,7 @@ tuple<i64, i64, i64> exgcd(i64 a, i64 b) {
     auto [x, y, g] = exgcd(b, a % b);
     return {y, x - a / b * y, g};
 }
-pair<i64, i64> excrt(i64 a, i64 b, i64 p, i64 q) {
+pair<i64, i64> excrt(i64 a, i64 p, i64 b, i64 q) {
     auto [x, y, g] = exgcd(p, q);
     i64 l = (i128)p * q / g;
     x = ((i128)x * (b - a) / g + q / g) % (q / g);
@@ -21,6 +21,6 @@ int main() {
     ios_base::sync_with_stdio(false);
     cin.tie(nullptr);
     cin >> n;
-    for (int i = 1; i <= n; i++) cin >> q >> b, tie(a, p) = excrt(a, b, p, q);
+    for (int i = 1; i <= n; i++) cin >> q >> b, tie(a, p) = excrt(a, p, b, q);
     cout << a;
 }
